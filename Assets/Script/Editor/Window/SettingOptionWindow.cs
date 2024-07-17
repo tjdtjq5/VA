@@ -26,9 +26,6 @@ public class SettingOptionWindow : EditorWindow
     bool _linkedOptionFile;
     bool _linkedSecretFile;
 
-    string _tempLinkedOptionPath;
-    string _tempLinkedSecretPath;
-
     string _inputKey;
     string _inputValue;
 
@@ -41,9 +38,6 @@ public class SettingOptionWindow : EditorWindow
 
         _linkedOptionFile = optionFile.Exist();
         _linkedSecretFile = secretOptionFile.Exist();
-
-        _tempLinkedOptionPath = "";
-        _tempLinkedSecretPath = "";
 
         _optionModifyFlag.Clear();
         _secretModifyFlag.Clear();

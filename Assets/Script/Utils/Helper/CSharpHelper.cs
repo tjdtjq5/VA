@@ -3,7 +3,6 @@ using System;
 using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using static UnityEditor.Progress;
 
 public static class CSharpHelper
 {
@@ -130,7 +129,7 @@ public static class CSharpHelper
         }
         catch (NullReferenceException e)
         {
-            UnityHelper.LogError_H($"지정할 수 없는 타입 (커스텀 클래스)");
+            UnityHelper.LogError_H($"지정할 수 없는 타입 (커스텀 클래스)\n{e.Message}");
             return TypeCollect.None;
         }
         catch
