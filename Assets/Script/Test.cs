@@ -1,3 +1,4 @@
+using EasyButtons;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,19 +7,37 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    [ContextMenu("T")]  
-    public void T()
+    [UnityEngine.SerializeField] UIScrollView UIScrollView;
+
+    private void Start()
     {
-        Managers.UI.ShopPopupUI<UI_Login>("UI_Login");
+        T();
     }
 
-    [ContextMenu("Create")]
+    public void T()
+    {
+        UIScrollView.Setting("TestCard", 3);
+
+        List<ICardData> cardDataList = new List<ICardData>();
+        for (int i = 0; i < 100; i++)
+        {
+            TestCardData cardData = new TestCardData()
+            {
+                Id = i,
+            };
+            cardDataList.Add(cardData);
+        }
+
+        UIScrollView.View(cardDataList);
+    }
+
+    [Button]
     public void Create()
     {
         Managers.UI.ShopPopupUI<UI_Login>("UI_Login");
     }
 
-    [ContextMenu("Delete")]
+    [Button]
     public void Delete()
     {
         Managers.UI.ClosePopupUI();

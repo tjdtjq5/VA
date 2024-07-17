@@ -62,4 +62,12 @@ public class UIBase : MonoBehaviour
                 break;
         }
     }
+
+    public RectTransform RectTransform
+    {
+        get
+        {
+            return UnityHelper.GetOrAddComponent<RectTransform>(this.gameObject);
+        }
+    }
 }
