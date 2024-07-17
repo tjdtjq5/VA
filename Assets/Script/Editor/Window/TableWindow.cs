@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -83,7 +79,7 @@ public class TableWindow : EditorWindow
         _upperToolbarIndex = GUILayout.Toolbar(_upperToolbarIndex, _upperToolbarModelList, GUILayout.Height(_upperToolbarHeight));
 
     }
-    async void ViewModeSetting()
+    void ViewModeSetting()
     {
         // Left : Select View List
 
