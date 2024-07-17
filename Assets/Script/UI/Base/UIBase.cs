@@ -1,13 +1,17 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class UIBase : MonoBehaviour
 {
-    Dictionary<Type, UnityEngine.Object[]> objectDics = new Dictionary<Type, UnityEngine.Object[]>();  
+    Dictionary<Type, UnityEngine.Object[]> objectDics = new Dictionary<Type, UnityEngine.Object[]>();
+
+    private void Start()
+    {
+        Initialize();
+    }
+    public virtual void Initialize() { }
 
     protected void Bind<T>(Type type) where T : UnityEngine.Object
     {
@@ -20,9 +24,9 @@ public class UIBase : MonoBehaviour
         for (int i = 0; i < names.Length; i++)
         {
             if (typeof(T) == typeof(GameObject))
-                objs[i] = Utils.FindChild<T>(gameObject, names[i], true);
+                objs[i] = UnityHelper.FindChild<T>(gameObject, names[i], true);
             else
-                objs[i] = Utils.FindChild<T>(gameObject, names[i], true);
+                objs[i] = UnityHelper.FindChild<T>(gameObject, names[i], true);
         }
     }
     protected T Get<T>(Enum _enumValue) where T : UnityEngine.Object
@@ -36,7 +40,7 @@ public class UIBase : MonoBehaviour
     }
     protected void AddUIEvent(GameObject _go, Action<PointerEventData> _action, UIEvent eventType = UIEvent.Click)
     {
-        UIEventHandler evt = Utils.GetOrAddComponent<UIEventHandler>(_go);
+        UIEventHandler evt = UnityHelper.GetOrAddComponent<UIEventHandler>(_go);
 
         switch (eventType)
         {
@@ -47,6 +51,14 @@ public class UIBase : MonoBehaviour
             case UIEvent.Drag:
                 evt.eventHandlerOnDrag -= _action;
                 evt.eventHandlerOnDrag += _action;
+                break;
+            case UIEvent.PointDown:
+                evt.eventHandlerPointDown -= _action;
+                evt.eventHandlerPointDown += _action;
+                break;
+            case UIEvent.PointUp:
+                evt.eventHandlerPointUp -= _action;
+                evt.eventHandlerPointUp += _action;
                 break;
         }
     }

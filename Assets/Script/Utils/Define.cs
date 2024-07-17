@@ -9,6 +9,8 @@ public enum UIEvent
 {
     Click,
     Drag,
+    PointDown,
+    PointUp,
 }
 public enum TypeCollect
 {

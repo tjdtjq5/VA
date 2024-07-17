@@ -299,7 +299,8 @@ public class TableWindow : EditorWindow
         string defineCopyPath = secretFileTxt.Read<string>("DefineCopyPath");
         FileHelper.ProcessStart(defineCopyPath);
 
-        if (EditorMessageUtils.DialogMessage("CreateTableDB", "Do It\n1. Add-Migration [Message]\n2. Update-Database\n3. Build"))
+        bool isDialogMsg = EditorMessageUtils.DialogMessage("CreateTableDB", "Do It\n1. Add-Migration [Message]\n2. Update-Database\n3. Build");
+        if (isDialogMsg)
         {
             string serverPath = secretFileTxt.Read<string>("ServerSlnPath");
             FileHelper.ProcessStart(serverPath);

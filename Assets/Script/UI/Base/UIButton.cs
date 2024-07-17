@@ -28,6 +28,4 @@ public class UIButton : UIBase
 
         Get<Button>(Buttons.PointButton);
     }
-
-
 }

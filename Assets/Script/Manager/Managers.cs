@@ -8,7 +8,14 @@ public class Managers : MonoBehaviour
     public static Managers Instance { get { Init(); return s_instance; } } // 유일한 매니저를 갖고온다
 
     WebManager _web = new WebManager();
+    InputManager _input = new InputManager();
+    ResourcesManager _resources = new ResourcesManager();
+    UIManager _ui = new UIManager();
+
     public static WebManager Web { get { return Instance._web; } }
+    public static InputManager Input { get { return Instance._input; } }
+    public static ResourcesManager Resources { get { return Instance._resources; } }
+    public static UIManager UI { get { return Instance._ui; } }
 
     void Start()
     {
@@ -27,6 +34,12 @@ public class Managers : MonoBehaviour
 
             DontDestroyOnLoad(go);
             s_instance = go.GetComponent<Managers>();
+
         }
+    }
+
+    private void Update()
+    {
+        _input.OnUpdate();
     }
 }

@@ -1,7 +1,6 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
-using UnityEngine;
 
 public class SOPacketFormat
 {
@@ -32,7 +31,7 @@ public class SOPacketFormat
         string file = GetFile(className);
         FileHelper.FileDelete(file);
     }
-    public static void AddValue(string className, bool isPublic , TypeCollect type, string valueName)
+    public static void AddValue(string className, bool isPublic , Type type, string valueName)
     {
         if (!Exist(className))
         {
@@ -72,120 +71,9 @@ public class SOPacketFormat
                     {
                         modifyCheck = true;
                         string format = isPublic ? publicVariableFormat : privateVariableFormat;
-                        string typeStr = Utils.GetTypeByString(type);
+                        string typeStr = CSharpHelper.GetTypeString(type);
                         string modifyText = "\t" + CSharpHelper.Format_H(format, typeStr, valueName) + "}";
                         text += modifyText + '\n';
-                    }
-                }
-            }
-
-            if (!modifyCheck)
-                text += line + '\n';
-
-            modifyCheck = false;
-        }
-
-        FileHelper.Write(file, text, true);
-    }
-    public static void AddListValue(string className, bool isPublic, TypeCollect listType, string valueName)
-    {
-        if (!Exist(className))
-        {
-            UnityHelper.LogError_H($"SOPacketFormat AddListValue Not Exist Error\nclassName : {className}");
-            return;
-        }
-
-        string file = GetFile(className);
-
-        string text = "";
-
-        bool readCheck = false;
-        int leftBracketCount = 0;
-        int rightBracketCount = 0;
-        bool modifyCheck = false;
-
-        foreach (string line in File.ReadAllLines(file))
-        {
-            if (line.Contains('{'))
-            {
-                readCheck = true;
-            }
-
-            if (readCheck)
-            {
-                if (line.Contains('{'))
-                    leftBracketCount++;
-
-                if (line.Contains('}'))
-                    rightBracketCount++;
-
-                if (leftBracketCount != 0 && leftBracketCount == rightBracketCount)
-                {
-                    readCheck = false;
-
-                    if (line.Contains('}'))
-                    {
-                        modifyCheck = true;
-                        string format = isPublic ? publicVariableFormat : privateVariableFormat;
-                        string typeStr = Utils.GetTypeByString(TypeCollect.List, listType);
-                        List<string> list = new List<string>(); 
-                        string modifyText = "\t" + CSharpHelper.Format_H(format, typeStr, valueName + $" = new {typeStr}()") + "}";
-                        text += modifyText + "\n";
-                    }   
-                }
-            }
-
-            if (!modifyCheck)
-                text += line + '\n';
-
-            modifyCheck = false;
-        }
-
-        FileHelper.Write(file, text, true);
-    }
-    public static void AddDictionayValue(string className,bool isPublic, TypeCollect keyType, TypeCollect valueType, string valueName)
-    {
-        if (!Exist(className))
-        {
-            UnityHelper.LogError_H($"SOPacketFormat AddDictionayValue Not Exist Error\nclassName : {className}");
-            return;
-        }
-
-        string file = GetFile(className);
-
-        string text = "";
-
-        bool readCheck = false;
-        int leftBracketCount = 0;
-        int rightBracketCount = 0;
-        bool modifyCheck = false;
-
-        foreach (string line in File.ReadAllLines(file))
-        {
-            if (line.Contains('{'))
-            {
-                readCheck = true;
-            }
-
-            if (readCheck)
-            {
-                if (line.Contains('{'))
-                    leftBracketCount++;
-
-                if (line.Contains('}'))
-                    rightBracketCount++;
-
-                if (leftBracketCount != 0 && leftBracketCount == rightBracketCount)
-                {
-                    readCheck = false;
-
-                    if (line.Contains('}'))
-                    {
-                        modifyCheck = true;
-                        string format = isPublic ? publicVariableFormat : privateVariableFormat;
-                        string typeStr = Utils.GetTypeByString(TypeCollect.Dictionary, keyType, valueType);
-                        string modifyText = "\t" + CSharpHelper.Format_H(format, typeStr, valueName + $" = new {typeStr}()") + "}";
-                        text += modifyText + "\n";
                     }
                 }
             }

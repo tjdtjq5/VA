@@ -9,21 +9,19 @@ public class Test : MonoBehaviour
     [ContextMenu("T")]  
     public void T()
     {
-        Debug.Log(FileHelper.SelectFilePath("C:\\workspace"));
+        Managers.UI.ShopPopupUI<UI_Login>("UI_Login");
     }
 
     [ContextMenu("Create")]
     public void Create()
     {
-        ServerProgramPacket.AddSingleton("absc");
-        ServerProgramPacket.AddScoped("abscc");
+        Managers.UI.ShopPopupUI<UI_Login>("UI_Login");
     }
 
     [ContextMenu("Delete")]
     public void Delete()
     {
-        ServerProgramPacket.RemoveSingleton("absc");
-        ServerProgramPacket.RemoveScoped("abscc");
+        Managers.UI.ClosePopupUI();
     }
 }
 [System.Serializable]
