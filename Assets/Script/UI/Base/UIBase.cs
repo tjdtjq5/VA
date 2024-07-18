@@ -7,7 +7,7 @@ public class UIBase : MonoBehaviour
 {
     Dictionary<Type, UnityEngine.Object[]> objectDics = new Dictionary<Type, UnityEngine.Object[]>();
 
-    private void Start()
+    private void Awake()
     {
         Initialize();
     }

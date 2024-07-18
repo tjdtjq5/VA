@@ -12,6 +12,17 @@ public enum UIEvent
     PointDown,
     PointUp,
 }
+public enum UIScrollViewLayoutStartCorner
+{
+    Left,
+    Middle,
+    Right,
+}
+public enum UIScrollViewLayoutStartAxis
+{
+    Vertical,
+    Horizontal,
+}
 public enum TypeCollect
 {
     None,

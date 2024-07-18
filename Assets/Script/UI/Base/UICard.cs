@@ -1,7 +1,4 @@
-public class UICard : UIBase
+public abstract class UICard : UIBase
 {
-    public void Setting(ICardData data)
-    {
-
-    }
+    public abstract void Setting(ICardData data);
 }

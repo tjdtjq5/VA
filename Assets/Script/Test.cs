@@ -1,25 +1,29 @@
 using EasyButtons;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 
 public class Test : MonoBehaviour
 {
     [UnityEngine.SerializeField] UIScrollView UIScrollView;
 
-    private void Start()
-    {
-        T();
-    }
+    [SerializeField]
+    UIScrollViewLayoutStartAxis axis;
+    [SerializeField]
+    int dataCount;
+    [SerializeField]
+    int selectIndex;
+    [SerializeField]
+    int rowColumn;
+    [SerializeField]
+    UIScrollViewLayoutStartCorner corner;
+    [SerializeField]
+    Vector2 spacing;
 
+    [Button]
     public void T()
     {
-        UIScrollView.Setting("TestCard", 3);
-
         List<ICardData> cardDataList = new List<ICardData>();
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < dataCount; i++)
         {
             TestCardData cardData = new TestCardData()
             {
@@ -28,7 +32,10 @@ public class Test : MonoBehaviour
             cardDataList.Add(cardData);
         }
 
-        UIScrollView.View(cardDataList);
+        UIScrollView.View(axis, "TestCard", cardDataList, selectIndex, rowColumn, corner, spacing.x, spacing.y);
+
+        UIScrollView.ScrollBarHorizontalActive(false);
+        UIScrollView.ScrollBarVerticalActive(false);
     }
 
     [Button]

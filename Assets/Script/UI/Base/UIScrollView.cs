@@ -1,32 +1,104 @@
 using UnityEngine.UI;
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 [RequireComponent(typeof(ScrollRect))]
 public class UIScrollView : UIBase
 {
     UICard _cardPrepab;
+    UIScrollViewLayoutStartAxis _axis;
     float _cardWidth;
     float _cardHeight;
-    int _columnCount = 1;
+    int _columnOrRowCount = 1;
     Vector2 _cardPivot = new Vector2(0, 1);
+    float _startCornerValue = 0;
+
+    // key : pos, value : idx
+    Dictionary<Vector2, int> idxDics = new Dictionary<Vector2, int>();
 
     ScrollRect _scrollRect;
     List<ICardData> _dataList = new List<ICardData>();
-    List<UICard> _cardList = new List<UICard>();
+    [SerializeField] List<UICard> _cardList = new List<UICard>();
 
-    float _offsetHeight;
+    Scrollbar _scrollbarHorizontal;
+    RectTransform _scrollbarHorizontalRectTr;
+    Image _scrollbarHorizontalImage;
+    Vector2 _scrollbarHorizontalOriginDeltaSize;
+    Vector2 _scrollbarHorizontalHandleRectDeltaSize;
+    Image _scrollbarHorizontalHandleRectImage;
+    RectTransform _scrollbarHorizontalSlidingAreaRectTr;
+    Vector2 _scrollbarHorizontalSlidingAreaDeltaSize;
+
+    Scrollbar _scrollbarVertical;
+    RectTransform _scrollbarVerticalRectTr;
+    Image _scrollbarVerticalImage;
+    Vector2 _scrollbarVerticalOriginDeltaSize;
+    Vector2 _scrollbarVerticalHandleRectDeltaSize;
+    Image _scrollbarVerticalHandleRectImage;
+    RectTransform _scrollbarVerticalSlidingAreaRectTr;
+    Vector2 _scrollbarVerticalSlidingAreaDeltaSize;
+
+    float _offset;
     int _selectIndex;
-    bool _isView = false;
-    bool _isCreate = false;
+
+    void SetIdx(Vector2 pos, int idx)
+    {
+        if (idxDics.ContainsKey(pos))
+        {
+            idxDics[pos] = idx;
+        }
+        else
+        {
+            idxDics.Add(pos, idx);
+        }
+    }
+    int GetIdx(Vector2 pos)
+    {
+        if (idxDics.TryGetValue(pos, out int idx))
+        {
+            return idx;
+        }
+        else
+        {
+            return -1;
+        }
+    }
 
     public override void Initialize()
     {
         base.Initialize();
 
         _scrollRect = UnityHelper.GetOrAddComponent<ScrollRect>(this.gameObject);
+
+        _scrollRect.content.anchorMax = new Vector2(0.5f, 1);
+        _scrollRect.content.anchorMin = new Vector2(0.5f, 1);
+
+        _scrollbarHorizontal = _scrollRect.horizontalScrollbar;
+        if (_scrollbarHorizontal != null)
+        {
+            _scrollbarHorizontalRectTr = _scrollRect.horizontalScrollbar.GetComponent<RectTransform>();
+            _scrollbarHorizontalImage = _scrollRect.horizontalScrollbar.GetComponent<Image>();
+            _scrollbarHorizontalOriginDeltaSize = _scrollbarHorizontalRectTr.sizeDelta;
+            _scrollbarHorizontalHandleRectDeltaSize = _scrollbarHorizontal.handleRect.sizeDelta;
+            _scrollbarHorizontalHandleRectImage = _scrollbarHorizontal.handleRect.GetComponent<Image>();
+            _scrollbarHorizontalSlidingAreaRectTr = _scrollbarHorizontal.transform.GetChild(0).GetComponent<RectTransform>();
+            _scrollbarHorizontalSlidingAreaDeltaSize = _scrollbarHorizontalSlidingAreaRectTr.sizeDelta;
+        }
+
+        _scrollbarVertical = _scrollRect.verticalScrollbar;
+        if (_scrollbarVertical != null)
+        {
+            _scrollbarVerticalRectTr = _scrollRect.verticalScrollbar.GetComponent<RectTransform>();
+            _scrollbarVerticalImage = _scrollRect.verticalScrollbar.GetComponent<Image>();
+            _scrollbarVerticalOriginDeltaSize = _scrollbarVerticalRectTr.sizeDelta;
+            _scrollbarVerticalHandleRectDeltaSize = _scrollbarVertical.handleRect.sizeDelta;
+            _scrollbarVerticalHandleRectImage = _scrollbarVertical.handleRect.GetComponent<Image>();
+            _scrollbarVerticalSlidingAreaRectTr = _scrollbarVertical.transform.GetChild(0).GetComponent<RectTransform>();
+            _scrollbarVerticalSlidingAreaDeltaSize = _scrollbarVerticalSlidingAreaRectTr.sizeDelta;
+        }
     }
-    public virtual void Setting(string cardName, int columnCount = 1)
+    void CardSetting(string cardName, int columnOrRowCount = 1, float spacingX = 0, float spacingY = 0)
     {
         if (_cardPrepab == null)
         {
@@ -46,14 +118,15 @@ public class UIScrollView : UIBase
             return;
         }
 
-        _cardWidth = _cardPrepab.RectTransform.sizeDelta.x;
-        _cardHeight = _cardPrepab.RectTransform.sizeDelta.y;
+        _cardWidth = _cardPrepab.RectTransform.sizeDelta.x + spacingX;
+        _cardHeight = _cardPrepab.RectTransform.sizeDelta.y + spacingY;
 
-        _columnCount = columnCount;
-        _isView = false;
+        _columnOrRowCount = columnOrRowCount;
     }
-    public virtual void View(List<ICardData> dataList, int selectIndex = 0)
+    public void View(UIScrollViewLayoutStartAxis axis, string cardName, List<ICardData> dataList, int selectIndex = 0, int columnCount = 1, UIScrollViewLayoutStartCorner corner = UIScrollViewLayoutStartCorner.Middle, float spacingX = 0, float spacingY = 0)
     {
+        CardSetting(cardName, columnCount, spacingX, spacingY);
+
         if (_cardPrepab == null)
         {
             UnityHelper.LogError_H($"UIScrollView View Card Prepab Null Error");
@@ -62,80 +135,109 @@ public class UIScrollView : UIBase
 
         _dataList = dataList;
 
+        _axis = axis;
+
         _selectIndex = selectIndex;
-        _isView = true;
+
+        SetStartCornerValue(corner, _scrollRect.content, _cardPrepab.RectTransform.sizeDelta.x, columnCount);
+        SetAllIdx(_dataList, columnCount);
 
         SetContentsSize();
         Create();
     }
-    public virtual void Create()
+    public void Create()
     {
-        if (!_isView)
+        for (int i = 0; i < _cardList.Count; i++)
         {
-            return;
+            Managers.Resources.Destroy(_cardList[i].gameObject);
         }
-
         _cardList.Clear();
 
-        int cardCount = ((int)(RectTransform.rect.height / _cardHeight) + (_dataList.Count / _columnCount)) * _columnCount;
+        int cardCount = (_axis == UIScrollViewLayoutStartAxis.Vertical) ? ((int)(RectTransform.rect.height / _cardHeight) + 2) * _columnOrRowCount : ((int)(RectTransform.rect.width / _cardWidth) + 2) * _columnOrRowCount;
+        cardCount = Math.Min(_dataList.Count, cardCount);
 
-        if (!_isCreate)
+        for (int i = 0; i < cardCount; i++)
         {
-            for (int i = 0; i < cardCount; i++)
-            {
-                GameObject cardGo = Managers.Resources.Instantiate($"UI/Card/{_cardPrepab.name}", _scrollRect.content);
-                UICard card = UnityHelper.GetOrAddComponent<UICard>(cardGo);
+            GameObject cardGo = Managers.Resources.Instantiate($"UI/Card/{_cardPrepab.name}", _scrollRect.content);
+            UICard card = UnityHelper.GetOrAddComponent<UICard>(cardGo);
 
-                card.RectTransform.pivot = _cardPivot;
+            card.RectTransform.pivot = _cardPivot;
 
-                _cardList.Add(card);
+            _cardList.Add(card);
 
-                int hfloor = i / _columnCount;
-                int wfloor = i % _columnCount;
-                cardGo.transform.localPosition = new Vector3(wfloor * _cardWidth, hfloor * -_cardHeight);
+            int hfloor = (_axis == UIScrollViewLayoutStartAxis.Vertical) ? i / _columnOrRowCount : i % _columnOrRowCount;
+            int wfloor = (_axis == UIScrollViewLayoutStartAxis.Vertical) ? i % _columnOrRowCount : i / _columnOrRowCount;
+            Vector2 pos = new Vector2(wfloor * _cardWidth + _startCornerValue, hfloor * -_cardHeight);
+            card.transform.localPosition = new Vector3(pos.x, pos.y);
 
-                SetData(card, i);
-            }
-            _isCreate = true;
-        }
-        else
-        {
-            for (int i = 0; i < _scrollRect.content.childCount; i++)
-            {
-                UICard card = _scrollRect.content.GetChild(i).GetComponent<UICard>();
-                _cardList.Add(card);
-
-                int hfloor = i / _columnCount;
-                int wfloor = i % _columnCount;
-                card.transform.localPosition = new Vector3(wfloor * _cardWidth, hfloor * -_cardHeight);
-
-                SetData(card, i);
-            }
+            SetData(card, i);
         }
 
-        _offsetHeight = (_cardList.Count / _columnCount + 1) * _cardHeight;
+        _offset = (_axis == UIScrollViewLayoutStartAxis.Vertical) ? (_cardList.Count / _columnOrRowCount) * _cardHeight : (_cardList.Count / _columnOrRowCount) * _cardWidth;
+    }
+    void SetAllIdx(List<ICardData> dataList, int columnCount = 1)
+    {
+        for (int i = 0; i < dataList.Count; i++)
+        {
+            int hfloor = (_axis == UIScrollViewLayoutStartAxis.Vertical) ? i / _columnOrRowCount : i % _columnOrRowCount;
+            int wfloor = (_axis == UIScrollViewLayoutStartAxis.Vertical) ? i % _columnOrRowCount : i / _columnOrRowCount;
+            Vector2 pos = new Vector2(wfloor * _cardWidth + _startCornerValue, hfloor * -_cardHeight);
+            SetIdx(pos, i);
+        }
     }
     void SetContentsSize()
     {
-        bool isRemain = _dataList.Count % _columnCount != 0;
-        int hfloor = _dataList.Count / _columnCount + (isRemain ? 1 : 0);
-        _scrollRect.content.sizeDelta = new Vector2(_columnCount * _cardWidth, (hfloor * _cardHeight) + 50);
-    }
-    bool RocateItem(UICard _card, float _contentsY, float _scrollHeight)
-    {
-        float itemPos = _card.transform.localPosition.y + _contentsY;
+        bool isRemain = _dataList.Count % _columnOrRowCount != 0;
 
-        if (itemPos > _cardHeight * 2)
+        switch (_axis)
         {
-            _card.transform.localPosition -= new Vector3(0, _offsetHeight, 0);
-            return true;
+            case UIScrollViewLayoutStartAxis.Vertical:
+                int hfloor = _dataList.Count / _columnOrRowCount + (isRemain ? 1 : 0);
+                _scrollRect.content.sizeDelta = new Vector2(_cardWidth * _columnOrRowCount, (hfloor * _cardHeight));
+                break;
+            case UIScrollViewLayoutStartAxis.Horizontal:
+                int wfloor = _dataList.Count / _columnOrRowCount + (isRemain ? 1 : 0);
+                _scrollRect.content.sizeDelta = new Vector2((wfloor * _cardWidth), _cardHeight * _columnOrRowCount);
+                break;
         }
-        else if (itemPos < -_scrollHeight - (_cardHeight * 2))
+
+    }
+    bool RocateItem(UICard _card, float _contentsXY, float _scrollWH)
+    {
+        if (_card == null)
+            return false;
+
+        float itemPos = (_axis == UIScrollViewLayoutStartAxis.Vertical) ? _card.transform.localPosition.y + _contentsXY : _card.transform.localPosition.x + _contentsXY;
+
+        switch (_axis)
         {
-            _card.transform.localPosition += new Vector3(0, _offsetHeight, 0);
-            return true;
+            case UIScrollViewLayoutStartAxis.Vertical:
+                if (itemPos > _cardHeight)
+                {
+                    _card.transform.localPosition -= new Vector3(0, _offset, 0);
+                    return true;
+                }
+                else if (itemPos < -_scrollWH - (_cardHeight))
+                {
+                    _card.transform.localPosition += new Vector3(0, _offset, 0);
+                    return true;
+                }
+                return false;
+            case UIScrollViewLayoutStartAxis.Horizontal:
+                if (itemPos > (_scrollWH / 2) + (_cardWidth)) // (itemPos > _scrollWidth + (itemWidth * 2)) 
+                {
+                    _card.transform.localPosition -= new Vector3(_offset, 0, 0);
+                    return true;
+                }
+                else if (itemPos < -(_scrollWH / 2) - (_cardWidth * 2)) // -(itemWidth * 2))
+                {
+                    _card.transform.localPosition += new Vector3(_offset, 0, 0);
+                    return true;
+                }
+                return false;
+            default:
+                return false;
         }
-        return false;
     }
     void SetData(UICard _scrollItem, int _dataIndex)
     {
@@ -150,22 +252,76 @@ public class UIScrollView : UIBase
     }
     private void Update()
     {
-        float contentsY = _scrollRect.content.anchoredPosition.y;
+        float contentsXY = (_axis == UIScrollViewLayoutStartAxis.Vertical) ? _scrollRect.content.anchoredPosition.y : _scrollRect.content.anchoredPosition.x;
 
         RectTransform scrollRectTr = _scrollRect.GetComponent<RectTransform>();
-        float scrollHeight = scrollRectTr.rect.height;
+        float scrollWHeight = (_axis == UIScrollViewLayoutStartAxis.Vertical) ? scrollRectTr.rect.height : scrollRectTr.rect.width;
 
         foreach (var card in _cardList)
         {
-            bool isChanged = RocateItem(card, contentsY, scrollHeight);
+            bool isChanged = RocateItem(card, contentsXY, scrollWHeight);
 
             if (isChanged)
             {
-                int hfloor = (int)(-card.transform.localPosition.y / _cardHeight);
-                int wfloor = (int)(card.transform.localPosition.x / _cardWidth);
-                int idx = hfloor * _columnCount + wfloor;
-                SetData(card, idx);
+                SetData(card, GetIdx(card.transform.localPosition));
             }
+        }
+    }
+
+
+    public void ScrollBarHorizontalActive(bool _flag)
+    {
+        if (_scrollbarHorizontal == null)
+        {
+            return;
+        }
+        
+        _scrollbarHorizontal.interactable = _flag;
+        _scrollbarHorizontalImage.enabled = _flag;
+        _scrollbarHorizontalRectTr.sizeDelta = _flag ? _scrollbarHorizontalOriginDeltaSize : Vector2.zero;
+        _scrollbarHorizontal.handleRect.sizeDelta = _flag ? _scrollbarHorizontalHandleRectDeltaSize : Vector2.zero;
+        _scrollbarHorizontalHandleRectImage.enabled = _flag;
+        _scrollbarHorizontalSlidingAreaRectTr.sizeDelta = _flag ? _scrollbarHorizontalSlidingAreaDeltaSize : Vector2.zero;
+    }
+    public void ScrollBarVerticalActive(bool _flag)
+    {
+        if (_scrollbarVertical == null)
+        {
+            return;
+        }
+
+        _scrollbarVertical.interactable = _flag;
+        _scrollbarVerticalImage.enabled = _flag;
+        _scrollbarVerticalRectTr.sizeDelta = _flag ? _scrollbarVerticalOriginDeltaSize : Vector2.zero;
+        _scrollbarVertical.handleRect.sizeDelta = _flag ? _scrollbarVerticalHandleRectDeltaSize : Vector2.zero;
+        _scrollbarVerticalHandleRectImage.enabled = _flag;
+        _scrollbarVerticalSlidingAreaRectTr.sizeDelta = _flag ? _scrollbarVerticalSlidingAreaDeltaSize : Vector2.zero;
+    }
+
+    void SetStartCornerValue(UIScrollViewLayoutStartCorner corner, RectTransform contentRectTr, float cardWidth, int columnCount)
+    {
+        Vector2 oPivot = _scrollRect.content.pivot;
+        float halfCardWidth = cardWidth / 2;
+        float contentWidth = contentRectTr.localScale.x;
+
+        switch (corner)
+        {
+            case UIScrollViewLayoutStartCorner.Left:
+                _scrollRect.content.pivot = new Vector2(0, oPivot.y);
+                _startCornerValue = -contentWidth / 2;
+                break;
+            case UIScrollViewLayoutStartCorner.Middle:
+                _scrollRect.content.pivot = new Vector2(0.5f, oPivot.y);
+                _startCornerValue = -columnCount * halfCardWidth;
+                break;
+            case UIScrollViewLayoutStartCorner.Right:
+                float lastCardPosX = cardWidth * columnCount;
+                _scrollRect.content.pivot = new Vector2(1, oPivot.y);
+                _startCornerValue = (contentWidth / 2) - lastCardPosX;
+                break;
+            default:
+                _startCornerValue = 0;
+                break;
         }
     }
 }
