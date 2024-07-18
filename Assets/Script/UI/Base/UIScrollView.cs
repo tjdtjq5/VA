@@ -2,6 +2,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
 
 [RequireComponent(typeof(ScrollRect))]
 public class UIScrollView : UIBase
@@ -40,7 +41,6 @@ public class UIScrollView : UIBase
     Vector2 _scrollbarVerticalSlidingAreaDeltaSize;
 
     float _offset;
-    int _selectIndex;
 
     void SetIdx(Vector2 pos, int idx)
     {
@@ -137,12 +137,10 @@ public class UIScrollView : UIBase
 
         _axis = axis;
 
-        _selectIndex = selectIndex;
-
         SetStartCornerValue(corner, _scrollRect.content, _cardPrepab.RectTransform.sizeDelta.x, columnCount);
         SetAllIdx(_dataList, columnCount);
 
-        SetContentsSize();
+        SetContentsSize(selectIndex);
         Create();
     }
     public void Create()
@@ -185,7 +183,7 @@ public class UIScrollView : UIBase
             SetIdx(pos, i);
         }
     }
-    void SetContentsSize()
+    void SetContentsSize(int selectIndex)
     {
         bool isRemain = _dataList.Count % _columnOrRowCount != 0;
 
@@ -193,11 +191,66 @@ public class UIScrollView : UIBase
         {
             case UIScrollViewLayoutStartAxis.Vertical:
                 int hfloor = _dataList.Count / _columnOrRowCount + (isRemain ? 1 : 0);
-                _scrollRect.content.sizeDelta = new Vector2(_cardWidth * _columnOrRowCount, (hfloor * _cardHeight));
+                float h = (hfloor * _cardHeight);
+                _scrollRect.content.sizeDelta = new Vector2(_cardWidth * _columnOrRowCount, h);
+
+                float contentY = _scrollRect.content.sizeDelta.y;
+                float posY = ((float)selectIndex / _columnOrRowCount) * _cardHeight + (_cardHeight / 2);
+
+                float valueY = 0;
+                float scrollviewSizeY = _scrollRect.GetComponent<RectTransform>().rect.height;
+                float scrollviewSizeYHarf = scrollviewSizeY / 2;
+                float contentSizeYMinusHarf = contentY - scrollviewSizeYHarf;
+
+                if (posY < scrollviewSizeYHarf)
+                {
+                    valueY = 1;
+                }
+                else if (posY > contentSizeYMinusHarf)
+                {
+                    valueY = 0;
+                }
+                else
+                {
+                    contentY = contentY - scrollviewSizeY;
+                    posY = posY - scrollviewSizeYHarf;
+
+                    valueY = 1 - posY / contentY;
+                }
+
+                _scrollRect.verticalScrollbar.value = valueY;
+
                 break;
             case UIScrollViewLayoutStartAxis.Horizontal:
                 int wfloor = _dataList.Count / _columnOrRowCount + (isRemain ? 1 : 0);
-                _scrollRect.content.sizeDelta = new Vector2((wfloor * _cardWidth), _cardHeight * _columnOrRowCount);
+                float w = wfloor * _cardWidth;
+                _scrollRect.content.sizeDelta = new Vector2(w, _cardHeight * _columnOrRowCount);
+
+                float contentX = _scrollRect.content.sizeDelta.x;
+                float posX = ((float)selectIndex / _columnOrRowCount) * _cardWidth + (_cardWidth / 2);
+
+                float valueX = 0;
+                float scrollviewSizeX = _scrollRect.GetComponent<RectTransform>().rect.width;
+                float scrollviewSizeXHarf = scrollviewSizeX / 2;
+                float contentSizeXMinusHarf = contentX - scrollviewSizeXHarf;
+
+                if (posX < scrollviewSizeXHarf)
+                {
+                    valueX = 0;
+                }
+                else if (posX > contentSizeXMinusHarf)
+                {
+                    valueX = 1;
+                }
+                else
+                {
+                    contentX = contentX - scrollviewSizeX;
+                    posX = posX - scrollviewSizeXHarf;
+
+                    valueX = posX / contentX;
+                }
+
+                _scrollRect.horizontalScrollbar.value = valueX;
                 break;
         }
 
