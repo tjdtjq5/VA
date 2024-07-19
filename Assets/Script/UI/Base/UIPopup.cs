@@ -1,4 +1,4 @@
-public class UIPopup : UIBase
+public class UIPopup : UIFrame
 {
     public override void Initialize()
     {

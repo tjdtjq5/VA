@@ -1,6 +1,9 @@
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class UnityHelper
@@ -60,6 +63,89 @@ public static class UnityHelper
         }
 
         return null;
+    }
+    public static T FindChild<T>(GameObject _go, bool _recursive = false) where T : UnityEngine.Object
+    {
+        if (_go == null)
+        {
+            return null;
+        }
+
+        if (!_recursive)
+        {
+            for (int i = 0; i < _go.transform.childCount; i++)
+            {
+                Transform childTr = _go.transform.GetChild(i);
+
+                T component = childTr.GetComponent<T>();
+                if (component != null)
+                    return component;
+            }
+        }
+        else
+        {
+            foreach (T component in _go.GetComponentsInChildren<T>())
+            {
+                return component;
+            }
+        }
+
+        return null;
+    }
+    public static List<T> FlindChilds<T>(GameObject _go, bool _recursive = false) where T : UnityEngine.Object
+    {
+        if (_go == null)
+        {
+            return null;
+        }
+
+        List<T> list = new List<T>();
+
+        if (!_recursive)
+        {
+            for (int i = 0; i < _go.transform.childCount; i++)
+            {
+                Transform childTr = _go.transform.GetChild(i);
+
+                T component = childTr.GetComponent<T>();
+
+                if (component != null)
+                    list.Add(component);
+            }
+        }
+        else
+        {
+            foreach (T component in _go.GetComponentsInChildren<T>())
+            {
+                list.Add(component);
+            }
+        }
+
+        return list;
+    }
+    public static List<Transform> IgnoreFindChilds<T>(Transform _go) where T : UnityEngine.Object
+    {
+        if (_go == null)
+        {
+            return null;
+        }
+
+        List<Transform> list = new List<Transform>();
+
+        for (int i = 0; i < _go.transform.childCount; i++)
+        {
+            Transform childTr = _go.transform.GetChild(i);
+
+            bool isIgnore = childTr.GetComponent<T>();
+
+            if (!isIgnore)
+            {
+                list.Add(childTr);
+                list.AddRange(IgnoreFindChilds<T>(childTr));
+            }
+        }
+
+        return list;
     }
     public static T GetOrAddComponent<T>(GameObject _go) where T : UnityEngine.Component
     {

@@ -128,7 +128,7 @@ public class SettingOptionWindow : EditorWindow
 
                                 if (GUILayout.Button("P", GUILayout.Width(35)))
                                 {
-                                    string filePath = FileHelper.SelectFilePath("C:\\workspace\\unity\\villagerA");
+                                    string filePath = FileHelper.SelectFilePath(FileHelper.GetCurrentDirectory());
                                     if (!string.IsNullOrEmpty(filePath))
                                     {
                                         _inputValue = filePath;
@@ -227,7 +227,7 @@ public class SettingOptionWindow : EditorWindow
                                 }
                                 if (GUILayout.Button("P", GUILayout.Width(35)))
                                 {
-                                    string filePath = FileHelper.SelectFilePath("C:\\workspace\\unity\\villagerA");
+                                    string filePath = FileHelper.SelectFilePath(FileHelper.GetCurrentDirectory());
                                     if (!string.IsNullOrEmpty(filePath))
                                     {
                                         _inputValue = filePath;

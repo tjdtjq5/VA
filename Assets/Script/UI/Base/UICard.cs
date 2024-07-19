@@ -1,4 +1,4 @@
-public abstract class UICard : UIBase
+public abstract class UICard : UIFrame
 {
     public abstract void Setting(ICardData data);
 }

@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using UnityEditor;
 using UnityEngine;
-using Application = UnityEngine.Application;
+
 public class FileHelper
 {
     static string assetFolderName = "Assets";
@@ -24,7 +25,7 @@ public class FileHelper
             path += $"/{folders[i]}";
         }
 
-        string file = $"{Application.dataPath.Replace(assetFolderName, path)}/{fileName}";
+        string file = $"{UnityEngine.Application.dataPath.Replace(assetFolderName, path)}/{fileName}";
 
         return file;
     }
@@ -82,6 +83,29 @@ public class FileHelper
         {
             return fileName.FullName;
         }
+    }
+    public static string GetCurrentDirectory()
+    {
+        return Directory.GetCurrentDirectory();
+    }
+    public static string GetScriptPath(Type type)
+    {
+#if UNITY_EDITOR
+        var g = AssetDatabase.FindAssets($"t:Script {type}");
+
+        foreach (var asset in g)
+        {
+            string path = AssetDatabase.GUIDToAssetPath(asset);
+            string[] ps = path.Split('/');
+            string result = ps[ps.Length - 1].Replace(".cs", "");
+
+            if (type.Name.Equals(result))
+            {
+                return path;
+            }
+        }
+#endif
+        return $"";
     }
 
     public static void ProcessStart(string file)

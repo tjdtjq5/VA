@@ -2,7 +2,6 @@ using UnityEngine.UI;
 using UnityEngine;
 using System.Collections.Generic;
 using System;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
 
 [RequireComponent(typeof(ScrollRect))]
 public class UIScrollView : UIBase
@@ -20,7 +19,7 @@ public class UIScrollView : UIBase
 
     ScrollRect _scrollRect;
     List<ICardData> _dataList = new List<ICardData>();
-    [SerializeField] List<UICard> _cardList = new List<UICard>();
+    List<UICard> _cardList = new List<UICard>();
 
     Scrollbar _scrollbarHorizontal;
     RectTransform _scrollbarHorizontalRectTr;
@@ -268,23 +267,27 @@ public class UIScrollView : UIBase
                 if (itemPos > _cardHeight)
                 {
                     _card.transform.localPosition -= new Vector3(0, _offset, 0);
+                    RocateItem(_card, _contentsXY, _scrollWH);
                     return true;
                 }
                 else if (itemPos < -_scrollWH - (_cardHeight))
                 {
                     _card.transform.localPosition += new Vector3(0, _offset, 0);
+                    RocateItem(_card, _contentsXY, _scrollWH);
                     return true;
                 }
                 return false;
             case UIScrollViewLayoutStartAxis.Horizontal:
-                if (itemPos > (_scrollWH / 2) + (_cardWidth)) // (itemPos > _scrollWidth + (itemWidth * 2)) 
+                if (itemPos > (_scrollWH / 2) + (_cardWidth))
                 {
                     _card.transform.localPosition -= new Vector3(_offset, 0, 0);
+                    RocateItem(_card, _contentsXY, _scrollWH);
                     return true;
                 }
-                else if (itemPos < -(_scrollWH / 2) - (_cardWidth * 2)) // -(itemWidth * 2))
+                else if (itemPos < -(_scrollWH / 2) - (_cardWidth * 2))
                 {
                     _card.transform.localPosition += new Vector3(_offset, 0, 0);
+                    RocateItem(_card, _contentsXY, _scrollWH);
                     return true;
                 }
                 return false;
@@ -310,13 +313,14 @@ public class UIScrollView : UIBase
         RectTransform scrollRectTr = _scrollRect.GetComponent<RectTransform>();
         float scrollWHeight = (_axis == UIScrollViewLayoutStartAxis.Vertical) ? scrollRectTr.rect.height : scrollRectTr.rect.width;
 
-        foreach (var card in _cardList)
+        for (int i = 0; i < _cardList.Count; i++)
         {
-            bool isChanged = RocateItem(card, contentsXY, scrollWHeight);
+            bool isChanged = RocateItem(_cardList[i], contentsXY, scrollWHeight);
 
             if (isChanged)
             {
-                SetData(card, GetIdx(card.transform.localPosition));
+                int idx = GetIdx(_cardList[i].transform.localPosition);
+                SetData(_cardList[i], idx);
             }
         }
     }

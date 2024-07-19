@@ -1,53 +1,31 @@
 using EasyButtons;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Test : MonoBehaviour
 {
-    [UnityEngine.SerializeField] UIScrollView UIScrollView;
-
-    [SerializeField]
-    UIScrollViewLayoutStartAxis axis;
-    [SerializeField]
-    int dataCount;
-    [SerializeField]
-    int selectIndex;
-    [SerializeField]
-    int rowColumn;
-    [SerializeField]
-    UIScrollViewLayoutStartCorner corner;
-    [SerializeField]
-    Vector2 spacing;
-
     [Button]
     public void T()
     {
-        List<ICardData> cardDataList = new List<ICardData>();
-        for (int i = 0; i < dataCount; i++)
-        {
-            TestCardData cardData = new TestCardData()
-            {
-                Id = i,
-            };
-            cardDataList.Add(cardData);
-        }
-
-        UIScrollView.View(axis, "TestCard", cardDataList, selectIndex, rowColumn, corner, spacing.x, spacing.y);
-
-        UIScrollView.ScrollBarHorizontalActive(false);
-        UIScrollView.ScrollBarVerticalActive(false);
+        
     }
 
     [Button]
     public void Create()
     {
-        Managers.UI.ShopPopupUI<UI_Login>("UI_Login");
+        Dictionary<Type, string> bindDics = new Dictionary<Type, string>();
+        bindDics.Add(typeof(string), "str");
+        bindDics.Add(typeof(Image), "img");
+        bindDics.Add(typeof(Text), "text");
+
+        UIFrameInitFormat.Set(this.GetType(), bindDics);
     }
 
     [Button]
     public void Delete()
     {
-        Managers.UI.ClosePopupUI();
     }
 }
 [System.Serializable]
