@@ -5,12 +5,32 @@ public enum ServerUrlType
     DevUrl,
     ReleaseUrl
 }
+public enum SceneType
+{
+    Unknown,
+    Title,
+    InGame,
+    Dungeon,
+    Life,
+    Guild,
+}
 public enum UIEvent
 {
     Click,
     Drag,
     PointDown,
     PointUp,
+}
+public enum MouseEvent
+{
+    Press,
+    Click,
+}
+public enum Sound
+{
+    Bgm,
+    InGmae,
+    UI,
 }
 public enum UIScrollViewLayoutStartCorner
 {

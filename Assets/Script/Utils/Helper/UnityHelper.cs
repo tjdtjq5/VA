@@ -153,5 +153,6 @@ public static class UnityHelper
         if (component == null) component = _go.AddComponent<T>();
         return component;
     }
+ 
     #endregion
 }

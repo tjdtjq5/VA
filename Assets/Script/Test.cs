@@ -9,7 +9,7 @@ public class Test : MonoBehaviour
     [Button]
     public void T()
     {
-        
+        Managers.UI.ShopPopupUI<UIPopup>("UI_Test");
     }
 
     [Button]

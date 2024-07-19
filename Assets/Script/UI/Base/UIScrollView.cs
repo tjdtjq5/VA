@@ -155,7 +155,7 @@ public class UIScrollView : UIBase
 
         for (int i = 0; i < cardCount; i++)
         {
-            GameObject cardGo = Managers.Resources.Instantiate($"UI/Card/{_cardPrepab.name}", _scrollRect.content);
+            GameObject cardGo = Managers.Resources.Instantiate($"Prepab/UI/Card/{_cardPrepab.name}", _scrollRect.content);
             UICard card = UnityHelper.GetOrAddComponent<UICard>(cardGo);
 
             card.RectTransform.pivot = _cardPivot;

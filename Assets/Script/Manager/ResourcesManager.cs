@@ -1,11 +1,23 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ResourcesManager
 {
+    Dictionary<string, UnityEngine.Object> _loadDics = new Dictionary<string, UnityEngine.Object>();
     public T Load<T>(string path) where T : UnityEngine.Object
     {
-        return Resources.Load<T>(path);
+        if (_loadDics.TryGetValue(path, out UnityEngine.Object dicsLoad))
+        {
+            return (T)dicsLoad;
+        }
+        else
+        {
+            T resourcesLoad = Resources.Load<T>(path);
+            _loadDics.Add(path, resourcesLoad);
+
+            return resourcesLoad;
+        }
     }
 
     public GameObject Instantiate(string path, Transform parent = null)
@@ -18,7 +30,10 @@ public class ResourcesManager
             return null;
         }
 
-        return UnityEngine.Object.Instantiate(prefab, parent);
+        GameObject go = UnityEngine.Object.Instantiate(prefab, parent);
+        go.name = go.name.Replace("(Clone)", "");
+
+        return go;
     }
     public void Destroy(GameObject go) 
     {
@@ -26,5 +41,9 @@ public class ResourcesManager
             return;
 
         UnityEngine.Object.Destroy(go);
+    }
+    public void Clear()
+    {
+        _loadDics.Clear();
     }
 }

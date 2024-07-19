@@ -40,7 +40,7 @@ public class UIBase : MonoBehaviour
 
         return objs[_enumValue.GetHashCode()] as T;
     }
-    protected void AddUIEvent(GameObject _go, Action<PointerEventData> _action, UIEvent eventType = UIEvent.Click)
+    protected void BindEvent(GameObject _go, Action<PointerEventData> _action, UIEvent eventType = UIEvent.Click)
     {
         UIEventHandler evt = UnityHelper.GetOrAddComponent<UIEventHandler>(_go);
 

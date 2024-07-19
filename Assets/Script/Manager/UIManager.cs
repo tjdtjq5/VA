@@ -52,7 +52,7 @@ public class UIManager
             name = typeof(T).Name;
         }
 
-        GameObject go = Managers.Resources.Instantiate($"UI/Popup/{name}");
+        GameObject go = Managers.Resources.Instantiate($"Prepab/UI/Popup/{name}");
         T popup = UnityHelper.GetOrAddComponent<T>(go);
         _popupStack.Push(popup);
 
@@ -92,5 +92,10 @@ public class UIManager
         {
             ClosePopupUI();
         }
+    }
+    public void Clear()
+    {
+        CloseAllPopupUI();
+        rootGo = null;
     }
 }
