@@ -5,11 +5,10 @@ public class TestCard : UICard
 {
     TestCardData _data;
 
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        Bind<Text>(typeof(Texts));
+	protected override void Initialize()
+	{
+		base.Initialize();
+		Bind<UIText>(typeof(UITextE));
     }
 
     enum Texts
@@ -20,6 +19,10 @@ public class TestCard : UICard
     public override void Setting(ICardData data)
     {
         _data = (TestCardData)data;
-        Get<Text>(Texts.NumbrerText).text = _data.Id.ToString();
+        Get<UIText>(Texts.NumbrerText).text = _data.Id.ToString();
+    }
+	public enum UITextE
+    {
+		NumbrerText,
     }
 }

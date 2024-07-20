@@ -92,6 +92,50 @@ public static class UnityHelper
 
         return null;
     }
+    public static T FindChildPath<T>(GameObject _go, string path)
+    {
+        string parentsName = _go.name.Replace("(Clone)", "");
+        List<string> objNames = path.Split('/').ToList();
+        for (int i = 0; i < objNames.Count; i++)
+        {
+            if (objNames[i].Equals(parentsName))
+            {
+                objNames.RemoveAt(i);
+                break;
+            }
+        }
+
+        path = "";
+        for (int i = 0; i < objNames.Count; i++)
+        {
+            path += $"{objNames[i]}/";
+        }
+        path = path.Substring(0, path.Length - 1);
+
+        if (objNames.Count >= 1)
+        {
+            string childName = objNames[0];
+            GameObject child = FindChild(_go, childName);
+
+            if (child == null)
+            {
+                LogError_H($"Not Found Object\npath : {path}\nparents : {parentsName}");
+                return default(T);
+            }
+
+            if (objNames.Count == 1)
+            {
+                return child.GetComponent<T>();
+            }
+            else
+            {
+                return FindChildPath<T>(child, path);
+            }
+        }
+
+        LogError_H($"Not Found Object\npath : {path}\nparents : {parentsName}");
+        return default(T);
+    }
     public static List<T> FlindChilds<T>(GameObject _go, bool _recursive = false) where T : UnityEngine.Object
     {
         if (_go == null)

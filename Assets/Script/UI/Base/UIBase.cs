@@ -1,39 +1,58 @@
-using EasyButtons;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class UIBase : MonoBehaviour
 {
-    Dictionary<Type, UnityEngine.Object[]> objectDics = new Dictionary<Type, UnityEngine.Object[]>();
+    Dictionary<Type, UIBase[]> objectDics = new Dictionary<Type, UIBase[]>();
 
     private void Awake()
     {
         Initialize();
     }
-    public virtual void Initialize() { }
+    protected virtual void Initialize() { }
 
-    protected void Bind<T>(Type type) where T : UnityEngine.Object
+    protected void Bind<T>(Type type) where T : UIBase
     {
         string[] names = type.GetEnumNames();
 
-        UnityEngine.Object[] objs = new UnityEngine.Object[names.Length];
+        UIBase[] objs = new UIBase[names.Length];
 
         objectDics.Add(typeof(T), objs);
 
         for (int i = 0; i < names.Length; i++)
         {
+            string path = names[i].Replace('_','/');
+
+            switch (path)
+            {
+                case nameof(UIImage):
+                    objs[i] = gameObject.GetComponent<UIImage>();
+                    continue;
+                case nameof(UIText):
+                    objs[i] = gameObject.GetComponent<UIText>();
+                    continue;
+                case nameof(UISlider):
+                    objs[i] = gameObject.GetComponent<UISlider>();
+                    continue;
+                case nameof(UIToggle):
+                    objs[i] = gameObject.GetComponent<UIToggle>();
+                    continue;
+                case nameof(UIScrollbar):
+                    objs[i] = gameObject.GetComponent<UIScrollbar>();
+                    continue;
+            }
+
             if (typeof(T) == typeof(GameObject))
-                objs[i] = UnityHelper.FindChild<T>(gameObject, names[i], true);
+                objs[i] = UnityHelper.FindChildPath<T>(gameObject, path);
             else
-                objs[i] = UnityHelper.FindChild<T>(gameObject, names[i], true);
+                objs[i] = UnityHelper.FindChildPath<T>(gameObject, path);
         }
     }
-    protected T Get<T>(Enum _enumValue) where T : UnityEngine.Object
+    protected T Get<T>(Enum _enumValue) where T : UIBase
     {
-        UnityEngine.Object[] objs = null;
+        UIBase[] objs = null;
 
         if (objectDics.TryGetValue(typeof(T), out objs) == false)
             return null;
@@ -72,4 +91,5 @@ public class UIBase : MonoBehaviour
             return UnityHelper.GetOrAddComponent<RectTransform>(this.gameObject);
         }
     }
+
 }

@@ -3,29 +3,49 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Test : MonoBehaviour
 {
+    [SerializeField] UIScrollView uIScrollView;
+
+    [SerializeField]
+    UIScrollViewLayoutStartAxis startAxis;
+    [SerializeField]
+    int dataCount;
+    [SerializeField]
+    int selectIndex;
+    [SerializeField]
+    int rowColmn;
+    [SerializeField]
+    UIScrollViewLayoutStartCorner startCorner;
+    [SerializeField]
+    Vector2 spacing;
+
     [Button]
     public void T()
     {
-        Managers.UI.ShopPopupUI<UIPopup>("UI_Test");
+        List<ICardData> data = new List<ICardData>();
+        for (int i = 0; i < dataCount; i++) 
+        {
+            data.Add(new TestCardData() { Id = i });
+        }
+        
+
+        uIScrollView.View(startAxis, "TestCard", data, selectIndex, rowColmn, startCorner, spacing.x, spacing.y);
     }
 
+    Stack<GameObject> testCharacterList = new Stack<GameObject>();    
     [Button]
     public void Create()
     {
-        Dictionary<Type, string> bindDics = new Dictionary<Type, string>();
-        bindDics.Add(typeof(string), "str");
-        bindDics.Add(typeof(Image), "img");
-        bindDics.Add(typeof(Text), "text");
-
-        UIFrameInitFormat.Set(this.GetType(), bindDics);
+        testCharacterList.Push(Managers.Resources.Instantiate("Prepab/Character/TestCharacter"));
     }
 
     [Button]
     public void Delete()
     {
+        Managers.Resources.Destroy(testCharacterList.Pop());
     }
 }
 [System.Serializable]

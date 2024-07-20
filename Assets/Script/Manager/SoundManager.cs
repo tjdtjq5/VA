@@ -5,6 +5,7 @@ using UnityEngine;
 public class SoundManager
 {
     AudioSource[] _audioSoucrces = new AudioSource[System.Enum.GetValues(typeof(Sound)).Length];
+    Dictionary<string, AudioClip> _clipDics = new Dictionary<string, AudioClip>();
 
     public void Initialize()
     {
@@ -56,14 +57,23 @@ public class SoundManager
     AudioClip GetAudioClip(string clipName)
     {
         clipName = $"AudioClip/{clipName}";
-        AudioClip resourcesClip = Managers.Resources.Load<AudioClip>(clipName);
 
-        if (resourcesClip == null)
+        if (_clipDics.TryGetValue(clipName, out AudioClip dicsClip))
         {
-            UnityHelper.LogError_H($"SoundManager GetAudioClip Clip Null Error\nclipName : {clipName}");
+            return dicsClip;
         }
+        else
+        {
+            AudioClip resourcesClip = Managers.Resources.Load<AudioClip>(clipName);
+            _clipDics.Add(clipName, resourcesClip);
 
-        return resourcesClip;
+            if (resourcesClip == null)
+            {
+                UnityHelper.LogError_H($"SoundManager GetAudioClip Clip Null Error\nclipName : {clipName}");
+            }
+
+            return resourcesClip;
+        }
     }
     public void Clear()
     {
@@ -72,5 +82,7 @@ public class SoundManager
             source.clip = null;
             source.Stop();
         }
+
+        _clipDics.Clear();
     }
 }

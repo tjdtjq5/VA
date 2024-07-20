@@ -172,7 +172,7 @@ public class UIFrameInitFormat
 @"public class {0} :";
 
     static string initializeCheckFormat =
-@"public override void Initialize()";
+@"protected override void Initialize()";
 
     static string baseFormat =
 @"base.Initialize();";

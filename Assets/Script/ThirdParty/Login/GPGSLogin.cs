@@ -1,7 +1,8 @@
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
+using UnityEngine;
 
-public class GPGSLogin : ILoginService
+public class GPGSLogin : MonoBehaviour, ILoginService
 {
     public void Initialize()
     {

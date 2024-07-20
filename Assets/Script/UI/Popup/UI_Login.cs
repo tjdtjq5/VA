@@ -1,13 +1,25 @@
 public class UI_Login : UIPopup
 {
-	public override void Initialize()
+	protected override void Initialize()
 	{
 		base.Initialize();
-		Bind<UnityEngine.UI.Image>(typeof(UIImageE));
+		Bind<UIImage>(typeof(UIImageE));
+		Bind<UIButton>(typeof(UIButtonE));
 	}
 
 	public enum UIImageE
     {
-		BackGround,
+		BG,
+		BtnList_Guest,
+		BtnList_GPGS,
+		BtnList_GameCenter,
+		BtnList_Facebook,
+    }
+	public enum UIButtonE
+    {
+		BtnList_Guest,
+		BtnList_GPGS,
+		BtnList_GameCenter,
+		BtnList_Facebook,
     }
 }

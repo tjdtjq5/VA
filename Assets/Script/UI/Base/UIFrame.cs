@@ -1,15 +1,30 @@
 using EasyButtons;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIFrame : UIBase
 {
-    List<Type> _ignoreTypeList = new List<Type>() { typeof(UIPopup), typeof(UICard) };
+    Dictionary<Type, string> bindDics = new Dictionary<Type, string>();
+    Dictionary<string, List<string>> enumDics = new Dictionary<string, List<string>>();
 
     [Button]
+    public virtual void BindEnumCreate()
+    {
+        ChildCheckAndAddUIBaseComponent();
+        SetBindDics();
+
+        if (enumDics.Count <= 0 || bindDics.Count <= 0)
+            return;
+
+        foreach (var enumData in enumDics)
+        {
+            InnerEmumFormat.Set(this.GetType(), enumData.Key, enumData.Value.ToArray());
+        }
+
+        UIFrameInitFormat.Set(this.GetType(), bindDics);
+    }
     public void ChildCheckAndAddUIBaseComponent()
     {
         List<RectTransform> childs = UnityHelper.FlindChilds<RectTransform>(this.gameObject, true);
@@ -43,129 +58,118 @@ public class UIFrame : UIBase
             }
         }
     }
-    [Button]
-    public void BindEnumCreate()
+    public void SetBindDics()
     {
-        if (IsIgnoreType)
-        {
-            UnityHelper.LogError_H($"Ignore Type");
-            return;
-        }
+        enumDics.Clear();
+        AddChildPath(null, this.transform);
+        // AddRootPath();
+    }
+    void AddChildPath(string parentsName, Transform parents)
+    {
+        List<RectTransform> childs = UnityHelper.FlindChilds<RectTransform>(parents.gameObject);
 
-        Dictionary<string, List<string>> enumDics = new Dictionary<string, List<string>>();
-        Dictionary<Type, string> bindDics = new Dictionary<Type, string>();
-
-        List<Transform> childs = UnityHelper.IgnoreFindChilds<UIFrame>(this.transform);
-        for (int i = 0; i < childs.Count; i++)
+        foreach (RectTransform child in childs)
         {
-            Transform child = childs[i];
-            string value = child.name.Trim().Replace(" ", "");
+            string current = $"{parentsName}/{child.name}";
+            if (string.IsNullOrEmpty(parentsName))
+                current = $"{child.name}";
+            else
+                current = $"{parentsName}/{child.name}";
 
             if (child.GetComponent<UIImage>())
             {
-                string key = nameof(UIImage) + "E";
-                if (!bindDics.ContainsKey(typeof(Image)))
-                    bindDics.Add(typeof(Image), key);
-
-                if (enumDics.ContainsKey(key))
-                {
-                    enumDics[key].Add(value);
-                }
-                else
-                {
-                    enumDics.Add(key, new List<string>() { value });
-                }
+                string key = $"{nameof(UIImage) + "E"}";
+                BindDicsAdd(typeof(UIImage), key);
+                EnumDicsAdd(key, current);
             }
             if (child.GetComponent<UIText>())
             {
-                string key = nameof(UIText) + "E";
-                if (!bindDics.ContainsKey(typeof(Text)))
-                    bindDics.Add(typeof(Text), key);
-
-                if (enumDics.ContainsKey(key))
-                {
-                    enumDics[key].Add(value);
-                }
-                else
-                {
-                    enumDics.Add(key, new List<string>() { value });
-                }
-            }
-            if (child.GetComponent<UIButton>())
-            {
-                string key = nameof(UIButton) + "E";
-                if (!bindDics.ContainsKey(typeof(Button)))
-                    bindDics.Add(typeof(Button), key);
-
-                if (enumDics.ContainsKey(key))
-                {
-                    enumDics[key].Add(value);
-                }
-                else
-                {
-                    enumDics.Add(key, new List<string>() { value });
-                }
+                string key = $"{nameof(UIText) + "E"}";
+                BindDicsAdd(typeof(UIText), key);
+                EnumDicsAdd(key, current);
             }
             if (child.GetComponent<UISlider>())
             {
-                string key = nameof(UISlider) + "E";
-                if (!bindDics.ContainsKey(typeof(Slider)))
-                    bindDics.Add(typeof(Slider), key);
-
-                if (enumDics.ContainsKey(key))
-                {
-                    enumDics[key].Add(value);
-                }
-                else
-                {
-                    enumDics.Add(key, new List<string>() { value });
-                }
+                string key = $"{nameof(UISlider) + "E"}";
+                BindDicsAdd(typeof(UISlider), key);
+                EnumDicsAdd(key, current);
             }
             if (child.GetComponent<UIToggle>())
             {
-                string key = nameof(UIToggle) + "E";
-                if (!bindDics.ContainsKey(typeof(Toggle)))
-                    bindDics.Add(typeof(Toggle), key);
-
-                if (enumDics.ContainsKey(key))
-                {
-                    enumDics[key].Add(value);
-                }
-                else
-                {
-                    enumDics.Add(key, new List<string>() { value });
-                }
+                string key = $"{nameof(UIToggle) + "E"}";
+                BindDicsAdd(typeof(UIToggle), key);
+                EnumDicsAdd(key, current);
             }
             if (child.GetComponent<UIScrollbar>())
             {
-                string key = nameof(UIScrollbar) + "E";
-                if (!bindDics.ContainsKey(typeof(Scrollbar)))
-                    bindDics.Add(typeof(Scrollbar), key);
-
-                if (enumDics.ContainsKey(key))
-                {
-                    enumDics[key].Add(value);
-                }
-                else
-                {
-                    enumDics.Add(key, new List<string>() { value });
-                }
+                string key = $"{nameof(UIScrollbar) + "E"}";
+                BindDicsAdd(typeof(UIScrollbar), key);
+                EnumDicsAdd(key, current);
             }
-        }
+            if (child.GetComponent<UIButton>())
+            {
+                string key = $"{nameof(UIButton) + "E"}";
+                BindDicsAdd(typeof(UIButton), key);
+                EnumDicsAdd(key, current);
+            }
 
-        foreach (var enumData in enumDics)
-        {
-            InnerEmumFormat.Set(this.GetType(), enumData.Key, enumData.Value.ToArray());
-        }
+            if (child.GetComponent<UIFrame>())
+            {
+                continue;
+            }
 
-        UIFrameInitFormat.Set(this.GetType(), bindDics);
+            AddChildPath(current, child);
+        }
     }
-
-    bool IsIgnoreType
+    void AddRootPath()
     {
-        get
+        if (this.GetComponent<UIImage>())
         {
-            return _ignoreTypeList.Contains(this.GetType());
+            string key = $"{nameof(UIImage) + "E"}";
+            BindDicsAdd(typeof(UIImage), key);
+            EnumDicsAdd(key, nameof(UIImage));
         }
+        if (this.GetComponent<UIText>())
+        {
+            string key = $"{nameof(UIText) + "E"}";
+            BindDicsAdd(typeof(UIText), key);
+            EnumDicsAdd(key, nameof(UIText));
+        }
+        if (this.GetComponent<UISlider>())
+        {
+            string key = $"{nameof(UISlider) + "E"}";
+            BindDicsAdd(typeof(UISlider), key);
+            EnumDicsAdd(key, nameof(UISlider));
+        }
+        if (this.GetComponent<UIToggle>())
+        {
+            string key = $"{nameof(UIToggle) + "E"}";
+            BindDicsAdd(typeof(UIToggle), key);
+            EnumDicsAdd(key, nameof(UIToggle));
+        }
+        if (this.GetComponent<UIScrollbar>())
+        {
+            string key = $"{nameof(UIScrollbar) + "E"}";
+            BindDicsAdd(typeof(UIScrollbar), key);
+            EnumDicsAdd(key, nameof(UIScrollbar));
+        }
+    }
+    void EnumDicsAdd(string key, string value)
+    {
+        value = value.Trim().Replace('/', '_');
+
+        if (enumDics.ContainsKey(key))
+        {
+            enumDics[key].Add(value);
+        }
+        else
+        {
+            enumDics.Add(key, new List<string>() { value });
+        }
+    }
+    void BindDicsAdd(Type key, string value)
+    {
+        if (!bindDics.ContainsKey(key))
+            bindDics.Add(key, value);
     }
 }

@@ -9,6 +9,8 @@ public class TitleManager : SceneBase
         base.Initialize();
 
         SceneType = SceneType.Title;
+
+        Managers.Resources.Instantiate("Prefab/UI/Popup/UILogin");
     }
     public override void Clear()
     {

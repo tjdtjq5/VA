@@ -64,7 +64,7 @@ public class UIScrollView : UIBase
         }
     }
 
-    public override void Initialize()
+    protected override void Initialize()
     {
         base.Initialize();
 
@@ -101,13 +101,13 @@ public class UIScrollView : UIBase
     {
         if (_cardPrepab == null)
         {
-            _cardPrepab = Managers.Resources.Load<UICard>($"UI/Card/{cardName}");
+            _cardPrepab = Managers.Resources.Load<UICard>($"Prepab/UI/Card/{cardName}");
         }
         else
         {
             if (!_cardPrepab.name.Equals(cardName))
             {
-                _cardPrepab = Managers.Resources.Load<UICard>($"UI/Card/{cardName}");
+                _cardPrepab = Managers.Resources.Load<UICard>($"Prepab/UI/Card/{cardName}");
             }
         }
 
