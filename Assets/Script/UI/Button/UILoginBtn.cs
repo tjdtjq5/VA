@@ -14,7 +14,7 @@ public class UILoginBtn : UIButton
 
     private void Start()
     {
-		Set();
+		 Set();
     }
 
     public void Set()
@@ -50,19 +50,19 @@ public class UILoginBtn : UIButton
         switch (_providerType)
         {
             case ProviderType.Guest:
-                Get<UIText>(UITextE.Text).text = "게스트 로그인";
+                GetText(UITextE.Text).text = "게스트 로그인";
                 break;
             case ProviderType.GooglePlayGames:
-                Get<UIText>(UITextE.Text).text = "구글 플레이 로그인";
+                GetText(UITextE.Text).text = "구글 플레이 로그인";
                 break;
             case ProviderType.GameCenter:
-                Get<UIText>(UITextE.Text).text = "게임 센터 로그인";
+                GetText(UITextE.Text).text = "게임 센터 로그인";
                 break;
             case ProviderType.Facebook:
-                Get<UIText>(UITextE.Text).text = "페이스북 로그인";
+                GetText(UITextE.Text).text = "페이스북 로그인";
                 break;
             default:
-                Get<UIText>(UITextE.Text).text = "";
+                GetText(UITextE.Text).text = "";
                 break;
         }
     }

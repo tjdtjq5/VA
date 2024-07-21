@@ -112,6 +112,12 @@ public class UIFrame : UIBase
                 BindDicsAdd(typeof(UIButton), key);
                 EnumDicsAdd(key, current);
             }
+            if (child.GetComponent<UIScrollView>())
+            {
+                string key = $"{nameof(UIScrollView) + "E"}";
+                BindDicsAdd(typeof(UIScrollView), key);
+                EnumDicsAdd(key, current);
+            }
 
             if (child.GetComponent<UIFrame>())
             {
@@ -152,6 +158,12 @@ public class UIFrame : UIBase
             string key = $"{nameof(UIScrollbar) + "E"}";
             BindDicsAdd(typeof(UIScrollbar), key);
             EnumDicsAdd(key, nameof(UIScrollbar));
+        }
+        if (this.GetComponent<UIScrollView>())
+        {
+            string key = $"{nameof(UIScrollView) + "E"}";
+            BindDicsAdd(typeof(UIScrollView), key);
+            EnumDicsAdd(key, nameof(UIScrollView));
         }
     }
     void EnumDicsAdd(string key, string value)

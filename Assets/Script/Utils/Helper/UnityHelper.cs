@@ -11,7 +11,7 @@ public static class UnityHelper
     #region Log
     public static void Log_H(object message)
     {
-        Debug.Log(message);
+        Debug.Log($"<color=#006AFF>{message}</color>");
     }
     public static void LogError_H(object message)
     {

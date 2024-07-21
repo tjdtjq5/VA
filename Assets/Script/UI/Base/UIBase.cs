@@ -59,6 +59,36 @@ public class UIBase : MonoBehaviour
 
         return objs[_enumValue.GetHashCode()] as T;
     }
+    protected UIText GetText(Enum _enumValue)
+    {
+        return Get<UIText>(_enumValue);
+    }
+    protected UIImage GetImage(Enum _enumValue)
+    {
+        return Get<UIImage>(_enumValue);
+    }
+    protected UISlider GetSlider(Enum _enumValue)
+    {
+        return Get<UISlider>(_enumValue);
+    }
+    protected UIToggle GetToggle(Enum _enumValue)
+    {
+        return Get<UIToggle>(_enumValue);
+    }
+    protected UIScrollbar GetScrollbar(Enum _enumValue)
+    {
+        return Get<UIScrollbar>(_enumValue);
+    }
+    protected UIScrollView GetScrollView(Enum _enumValue)
+    {
+        return Get<UIScrollView>(_enumValue);
+    }
+    protected UIButton GetButton(Enum _enumValue)
+    {
+        return Get<UIButton>(_enumValue);
+    }
+
+
     protected void BindEvent(GameObject _go, Action<PointerEventData> _action, UIEvent eventType = UIEvent.Click)
     {
         UIEventHandler evt = UnityHelper.GetOrAddComponent<UIEventHandler>(_go);
