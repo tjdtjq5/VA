@@ -1,10 +1,11 @@
-﻿public class AccountLoginRequest
+﻿[System.Serializable]
+public class AccountLoginRequest
 {
-    public ProviderType ProviderType;
-    public string Token;
+    public ProviderType ProviderType {  get; set; }
+    public string Token { get; set; }
 }
 public class AccountLoginResponce
 {
-    public bool LoginOk;
-    public string JwtAccessToken;
+    public bool LoginOk { get; set; }
+    public string JwtAccessToken { get; set; }
 }

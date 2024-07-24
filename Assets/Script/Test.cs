@@ -1,6 +1,5 @@
 using EasyButtons;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -10,20 +9,29 @@ public class Test : MonoBehaviour
     [Button]
     public void Gpgs()
     {
-        Managers.Web.SendGetRequest<string>("", (res) => { UnityHelper.Log_H(res); });
+        AccountLoginRequest req = new AccountLoginRequest()
+        {
+            ProviderType = ProviderType.GooglePlayGames,
+            Token = "To",
+        };
+
+        Managers.Web.SendPostRequest<AccountLoginRequest>("account/login", req, (res) =>
+        {
+            UnityHelper.LogSerialize(res);
+        });
     }
 
-    Stack<GameObject> testCharacterList = new Stack<GameObject>();    
     [Button]
-    public void Create()
+    public async void Gpgs2()
     {
-        testCharacterList.Push(Managers.Resources.Instantiate("Prepab/Character/TestCharacter"));
-    }
+        AccountLoginRequest req = new AccountLoginRequest()
+        {
+            ProviderType = ProviderType.GooglePlayGames,
+            Token = "To",
+        };
 
-    [Button]
-    public void Delete()
-    {
-        Managers.Resources.Destroy(testCharacterList.Pop());
+        AccountLoginRequest a = await WebTaskCall.Post<AccountLoginRequest>(true,"account/login", req);
+        UnityHelper.LogSerialize(a);
     }
 }
 [System.Serializable]

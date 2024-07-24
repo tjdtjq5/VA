@@ -1,6 +1,5 @@
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class GPGSLogin : MonoBehaviour, ILoginService
@@ -34,7 +33,7 @@ public class GPGSLogin : MonoBehaviour, ILoginService
 
                     UnityHelper.Log_H($"Server GO Token : {token}");
 
-                    Managers.Web.SendPostRequest<AccountLoginRequest>("account/login", req, (res) => 
+                    Managers.Web.SendPostRequest<AccountLoginResponce>("account/login", req, (res) => 
                     {
                         UnityHelper.LogSerialize(res);
                     });

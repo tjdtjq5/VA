@@ -2,6 +2,7 @@ public enum ServerUrlType
 {
     DebugUrl,
     LocalhostUrl,
+    DebugNgrok,
     DevUrl,
     ReleaseUrl
 }
