@@ -7,32 +7,10 @@ using UnityEngine.UIElements;
 
 public class Test : MonoBehaviour
 {
-    [SerializeField] UIScrollView uIScrollView;
-
-    [SerializeField]
-    UIScrollViewLayoutStartAxis startAxis;
-    [SerializeField]
-    int dataCount;
-    [SerializeField]
-    int selectIndex;
-    [SerializeField]
-    int rowColmn;
-    [SerializeField]
-    UIScrollViewLayoutStartCorner startCorner;
-    [SerializeField]
-    Vector2 spacing;
-
     [Button]
-    public void T()
+    public void Gpgs()
     {
-        List<ICardData> data = new List<ICardData>();
-        for (int i = 0; i < dataCount; i++) 
-        {
-            data.Add(new TestCardData() { Id = i });
-        }
-        
-
-        uIScrollView.View(startAxis, "TestCard", data, selectIndex, rowColmn, startCorner, spacing.x, spacing.y);
+        Managers.Web.SendGetRequest<string>("", (res) => { UnityHelper.Log_H(res); });
     }
 
     Stack<GameObject> testCharacterList = new Stack<GameObject>();    

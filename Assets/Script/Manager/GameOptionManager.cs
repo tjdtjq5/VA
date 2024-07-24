@@ -5,7 +5,7 @@ public class GameOptionManager
     static OptionFile optionFile = new OptionFile();
     static Dictionary<ServerUrlType, string> serverUrlDics = new Dictionary<ServerUrlType, string>();
 
-	public static ServerUrlType ServerUrlType { get; } = ServerUrlType.LocalhostUrl;
+	public static ServerUrlType ServerUrlType { get; } = ServerUrlType.DevUrl;
 	public static string GetServerUrl
 	{
 		get

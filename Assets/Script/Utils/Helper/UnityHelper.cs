@@ -19,7 +19,7 @@ public static class UnityHelper
     }
     public static void LogSerialize(object message)
     {
-        Debug.Log(CSharpHelper.SerializeObject(message));
+        Debug.Log($"<color=#006AFF>{CSharpHelper.SerializeObject(message)}</color>");
     }
     #endregion
 

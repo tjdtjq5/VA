@@ -4,6 +4,8 @@
     GooglePlayGames,
     GameCenter,
     Facebook,
+    Google,
+    Apple,
 }
 public enum HttpResponceMessageType
 {
@@ -19,6 +21,7 @@ public enum HttpResponceMessageType
     // 공통 관련 에러 
     NotFoundConfiguration = 1400, // Configuration 정보가 잘못됨
     NotFoundHeader = 1401, // Header 정보가 잘못됨
+    IpFilter = 1402,
 
     // 로그인 관련 에러 : 1500 ~ 1599  
     InvalidJwtToken = 1500, // 잘못된 유형의 Jwt Token
