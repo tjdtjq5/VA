@@ -321,19 +321,7 @@ public class TableWindow : EditorWindow
     void OnClickDebugServerStart()
     {
         // 서버 실행 
-        switch (GameOptionManager.ServerUrlType)
-        {
-            case ServerUrlType.DebugUrl:
-                string serverSlnPath = secretFileTxt.Read<string>("ServerSlnPath");
-                FileHelper.ProcessStart(serverSlnPath);
-                break;
-            case ServerUrlType.LocalhostUrl:
-                string serverDebugExePath = secretFileTxt.Read<string>("LocalhostStartPath");
-                FileHelper.ProcessStart(serverDebugExePath);
-                break;
-            default:
-                break;
-        }
+        ServerEditor.StartServer();
     }
     void ConnetModeSetting()
     {

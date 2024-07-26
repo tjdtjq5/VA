@@ -11,6 +11,7 @@ public class UILoginBtn : UIButton
 
     [SerializeField] ProviderType _providerType;
 	[SerializeField] GPGSLogin _gpgsLogin;
+	[SerializeField] GameCenterLogin _gameCenterLogin;
 
     private void Start()
     {
@@ -82,7 +83,10 @@ public class UILoginBtn : UIButton
     }
 	void GameCenterLogin()
 	{
-        UnityHelper.Log_H($"GameCenterLogin Succss!");
+        _gameCenterLogin.Login(() => 
+        {
+            UnityHelper.Log_H($"GameCenterLogin Succss!");
+        });
     }
 
 	public enum UIImageE

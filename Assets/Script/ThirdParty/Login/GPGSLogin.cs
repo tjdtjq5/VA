@@ -1,5 +1,6 @@
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class GPGSLogin : MonoBehaviour, ILoginService
@@ -21,27 +22,21 @@ public class GPGSLogin : MonoBehaviour, ILoginService
                 string name = PlayGamesPlatform.Instance.GetUserDisplayName();
                 string id = PlayGamesPlatform.Instance.GetUserId();
 
-                PlayGamesPlatform.Instance.RequestServerSideAccess(true, (_token) => 
+                AccountLoginRequest req = new AccountLoginRequest()
                 {
-                    string token = _token;
+                    ProviderType = ProviderType.GooglePlayGames,
+                    NetworkId = id,
+                };
 
-                    AccountLoginRequest req = new AccountLoginRequest()
-                    {
-                        ProviderType = ProviderType.GooglePlayGames,
-                        Token = token,
-                    };
+                UnityHelper.Log_H($"Server GO Token : {id}");
 
-                    UnityHelper.Log_H($"Server GO Token : {token}");
-
-                    Managers.Web.SendPostRequest<AccountLoginResponce>("account/login", req, (res) => 
-                    {
-                        UnityHelper.LogSerialize(res);
-                    });
-
+                Managers.Web.SendPostRequest<AccountLoginResponce>("account/login", req, (res) =>
+                {
+                    UnityHelper.LogSerialize(res);
                 });
 
 
-               UnityHelper.Log_H($"[id] : {id}   [name] : {name}");
+                UnityHelper.Log_H($"[id] : {id}   [name] : {name}");
 
                 if (callback != null)
                     callback.Invoke();
