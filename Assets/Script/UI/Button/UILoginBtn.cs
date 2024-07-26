@@ -51,16 +51,16 @@ public class UILoginBtn : UIButton
         switch (_providerType)
         {
             case ProviderType.Guest:
-                GetText(UITextE.Text).text = "게스트 로그인";
+                GetText(UITextE.Text).text = "Guest";
                 break;
             case ProviderType.GooglePlayGames:
-                GetText(UITextE.Text).text = "구글 플레이 로그인";
+                GetText(UITextE.Text).text = "GooglePlayGames";
                 break;
             case ProviderType.GameCenter:
-                GetText(UITextE.Text).text = "게임 센터 로그인";
+                GetText(UITextE.Text).text = "GameCenter";
                 break;
             case ProviderType.Facebook:
-                GetText(UITextE.Text).text = "페이스북 로그인";
+                GetText(UITextE.Text).text = "Facebook";
                 break;
             default:
                 GetText(UITextE.Text).text = "";

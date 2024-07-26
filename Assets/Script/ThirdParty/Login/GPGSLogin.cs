@@ -1,6 +1,7 @@
+#if UNITY_ANDROID
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
-using Unity.VisualScripting.Antlr3.Runtime;
+#endif
 using UnityEngine;
 
 public class GPGSLogin : MonoBehaviour, ILoginService
@@ -8,12 +9,15 @@ public class GPGSLogin : MonoBehaviour, ILoginService
     public void Initialize()
     {
         UnityHelper.Log_H("GPGSLogin    Initialize");
+#if UNITY_ANDROID
         PlayGamesPlatform.DebugLogEnabled = false;
         PlayGamesPlatform.Activate();
+#endif
     }
 
     public void Login(System.Action callback)
     {
+#if UNITY_ANDROID
         UnityHelper.Log_H("GPGSLogin    Login");
         PlayGamesPlatform.Instance.Authenticate((result) => 
         {
@@ -46,5 +50,6 @@ public class GPGSLogin : MonoBehaviour, ILoginService
                 UnityHelper.LogError_H($"GPGS Sign Failed!");
             }
         });
+#endif
     }
 }

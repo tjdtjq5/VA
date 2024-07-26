@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+#if UNITY_EDITOR
 using System.Windows.Forms;
+#endif
 using UnityEditor;
 using UnityEngine;
 
@@ -58,8 +60,9 @@ public class FileHelper
     {
         File.Delete(file);
     }
-    public static string SelectFilePath(string fileSrc = "C:\\workspace")
+    public static string SelectFilePath(string fileSrc)
     {
+#if UNITY_EDITOR
         FileInfo fileName = null;
         OpenFileDialog fileDialog = new OpenFileDialog()
         {
@@ -83,6 +86,8 @@ public class FileHelper
         {
             return fileName.FullName;
         }
+#endif
+        return "";
     }
     public static string GetCurrentDirectory()
     {
