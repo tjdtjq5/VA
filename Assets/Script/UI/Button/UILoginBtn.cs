@@ -9,17 +9,15 @@ public class UILoginBtn : UIButton
 		Bind<UIText>(typeof(UITextE));
 	}
 
-    [SerializeField] ProviderType _providerType;
+    ProviderType _providerType;
 	[SerializeField] GPGSLogin _gpgsLogin;
 	[SerializeField] GameCenterLogin _gameCenterLogin;
+	[SerializeField] GoogleLogin _googleLogin;
 
-    private void Start()
-    {
-		 Set();
-    }
-
-    public void Set()
+    public void Set(ProviderType providerType)
 	{
+        _providerType = providerType;
+
         ClickEventSet();
         IconSet();
         TextSet();
@@ -39,6 +37,9 @@ public class UILoginBtn : UIButton
                 break;
             case ProviderType.Facebook:
                 AddClickEvent((e) => FacebookLogin());
+                break;
+            case ProviderType.Google:
+                AddClickEvent((e) => GoogleLogin());
                 break;
         }
     }
@@ -61,6 +62,12 @@ public class UILoginBtn : UIButton
                 break;
             case ProviderType.Facebook:
                 GetText(UITextE.Text).text = "Facebook";
+                break;
+            case ProviderType.Google:
+                GetText(UITextE.Text).text = "Google";
+                break;
+            case ProviderType.Apple:
+                GetText(UITextE.Text).text = "Apple";
                 break;
             default:
                 GetText(UITextE.Text).text = "";
@@ -87,6 +94,14 @@ public class UILoginBtn : UIButton
         {
             UnityHelper.Log_H($"GameCenterLogin Succss!");
         });
+    }
+    void GoogleLogin()
+    {
+        _googleLogin.Initialize();
+        _googleLogin.Login(() => { UnityHelper.Log_H($"Success! GoogleLogin"); });
+    }
+    void AppleLogin()
+    {
     }
 
 	public enum UIImageE

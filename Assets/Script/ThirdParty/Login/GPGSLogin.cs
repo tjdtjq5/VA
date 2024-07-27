@@ -29,7 +29,7 @@ public class GPGSLogin : MonoBehaviour, ILoginService
                 AccountLoginRequest req = new AccountLoginRequest()
                 {
                     ProviderType = ProviderType.GooglePlayGames,
-                    NetworkId = id,
+                    NetworkIdOrCode = id,
                 };
 
                 UnityHelper.Log_H($"Server GO Token : {id}");

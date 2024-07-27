@@ -19,7 +19,6 @@ public class ServerEditor
                 break;
             case ServerUrlType.DebugNgrok:
                 FileHelper.ProcessStart(secretFileTxt.Read<string>("NgrokPath"));
-                FileHelper.ProcessStart(secretFileTxt.Read<string>("ServerSlnPath"));
                 break;
             default:
                 break;

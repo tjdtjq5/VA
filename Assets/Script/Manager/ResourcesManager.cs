@@ -21,7 +21,6 @@ public class ResourcesManager
         T resourcesLoad = Resources.Load<T>(path);
         return resourcesLoad;
     }
-
     public GameObject Instantiate(string path, Transform parent = null)
     {
         GameObject original = Load<GameObject>(path);

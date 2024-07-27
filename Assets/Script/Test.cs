@@ -12,7 +12,7 @@ public class Test : MonoBehaviour
         AccountLoginRequest req = new AccountLoginRequest()
         {
             ProviderType = ProviderType.GooglePlayGames,
-            NetworkId = "To",
+            NetworkIdOrCode = "To",
         };
 
         Managers.Web.SendPostRequest<AccountLoginRequest>("account/login", req, (res) =>
@@ -27,7 +27,7 @@ public class Test : MonoBehaviour
         AccountLoginRequest req = new AccountLoginRequest()
         {
             ProviderType = ProviderType.GooglePlayGames,
-            NetworkId = "To",
+            NetworkIdOrCode = "To",
         };
 
         AccountLoginRequest a = await WebTaskCall.Post<AccountLoginRequest>(true,"account/login", req);

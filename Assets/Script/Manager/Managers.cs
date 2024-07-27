@@ -14,6 +14,7 @@ public class Managers : MonoBehaviour
     ResourcesManager _resources = new ResourcesManager();
     PoolManager _pool = new PoolManager();
     UIManager _ui = new UIManager();
+    ProcessDeepLinkManager _deepLink = new ProcessDeepLinkManager();
 
     public static WebManager Web { get { return Instance._web; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
@@ -22,6 +23,7 @@ public class Managers : MonoBehaviour
     public static ResourcesManager Resources { get { return Instance._resources; } }
     public static PoolManager Pool { get { return Instance._pool; } }
     public static UIManager UI { get { return Instance._ui; } }
+    public static ProcessDeepLinkManager DeepLink { get { return Instance._deepLink; } }
 
     void Start()
     {

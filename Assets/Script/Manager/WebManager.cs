@@ -1,7 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -74,7 +77,23 @@ public class WebManager
                 break;
         }
     }
- 
+    public async Task<T> PostFormUrlEncoded<T>(string url, IEnumerable<KeyValuePair<string, string>> postData)
+    {
+        using (var httpClient = new HttpClient())
+        {
+            using (var content = new FormUrlEncodedContent(postData))
+            {
+                content.Headers.Clear();
+                content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+
+                HttpResponseMessage response = await httpClient.PostAsync(url, content);
+                string json = await response.Content.ReadAsStringAsync();
+                T result = CSharpHelper.DeserializeObject<T>(json);
+                return result;
+            }
+        }
+    }
+
     void WebResult<T>(UnityWebRequest req, string sendUrl ,Action<T> res)
     {
         if (req.result != UnityWebRequest.Result.Success)

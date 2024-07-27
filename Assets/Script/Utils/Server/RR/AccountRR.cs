@@ -2,7 +2,7 @@
 public class AccountLoginRequest
 {
     public ProviderType ProviderType {  get; set; }
-    public string NetworkId { get; set; }
+    public string NetworkIdOrCode { get; set; }
 }
 [System.Serializable]
 public class AccountLoginResponce
