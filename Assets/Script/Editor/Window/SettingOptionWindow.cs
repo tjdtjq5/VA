@@ -289,6 +289,7 @@ public class SettingOptionWindow : EditorWindow
                 if (GUILayout.Button($"{cType.ToString()}"))
                 {
                     GameOptionManager.ChangeServerUrl(cType);
+                    ProjectSettingsEditor.IosUrlSchma(new string[] { "https" });
                 }
             }
         }

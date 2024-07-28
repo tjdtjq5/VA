@@ -15,7 +15,7 @@ class XCodePostBuilder
         {
             // PlayerSettings
             {
-                PlayerSettings.iOS.iOSUrlSchemes = new string[] { "https" };
+                ProjectSettingsEditor.IosUrlSchma(new string[] { "https" });
             }
 
             // xcode
