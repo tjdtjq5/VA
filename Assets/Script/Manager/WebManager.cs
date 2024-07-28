@@ -32,7 +32,7 @@ public class WebManager
     }
     IEnumerator CoSendWebRequest<T>(bool isMyServer, WebRequestMethod method, string url, object obj, Action<T> res)
     {
-        string sendUrl = isMyServer ? $"{GameOptionManager.GetServerUrl}/{url}" : url;
+        string sendUrl = isMyServer ? $"{GameOptionManager.GetCurrentServerUrl}/{url}" : url;
         UnityHelper.Log_H(sendUrl);
 
         switch (method)

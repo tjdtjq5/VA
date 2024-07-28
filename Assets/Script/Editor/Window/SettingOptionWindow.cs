@@ -22,6 +22,9 @@ public class SettingOptionWindow : EditorWindow
         window.Show();
     }
 
+    Vector2 _scrollPos;
+    float _scrollMinusHeight;
+
     bool _isExpandedOption;
     bool _isExpandedSecret;
 
@@ -37,6 +40,8 @@ public class SettingOptionWindow : EditorWindow
     private void OnEnable()
     {
         _windowSize = new Vector2(600, 700);
+
+        _scrollMinusHeight = 250;
 
         _linkedOptionFile = optionFile.Exist();
         _linkedSecretFile = secretOptionFile.Exist();
@@ -84,7 +89,7 @@ public class SettingOptionWindow : EditorWindow
         }
         else
         {
-            EditorGUILayout.BeginVertical();
+            _scrollPos = EditorGUILayout.BeginScrollView(_scrollPos, GUILayout.Height(CustomEditorUtility.GetScreenHeight - _scrollMinusHeight));
             {
                 EditorGUILayout.LabelField("Success Linked Option Path!");
 
@@ -168,7 +173,7 @@ public class SettingOptionWindow : EditorWindow
                     optionFile.Add(key, $"Value");
                 }
             }
-            EditorGUILayout.EndVertical();
+            EditorGUILayout.EndScrollView();
         }
     }
     void SecretSetting()
@@ -184,7 +189,7 @@ public class SettingOptionWindow : EditorWindow
         }
         else
         {
-            EditorGUILayout.BeginVertical();
+            _scrollPos = EditorGUILayout.BeginScrollView(_scrollPos, GUILayout.Height(CustomEditorUtility.GetScreenHeight - _scrollMinusHeight));
             {
                 EditorGUILayout.LabelField("Success Linked Secret Path!");
 
@@ -219,7 +224,7 @@ public class SettingOptionWindow : EditorWindow
                             {
                                 EditorGUILayout.LabelField(key, EditorStyles.helpBox, GUILayout.Width(150));
                                 EditorGUILayout.LabelField(valueStr, GUILayout.Width(CustomEditorUtility.GetScreenWidth - 400));
-                          
+
                                 if (GUILayout.Button("M", GUILayout.Width(35)))
                                 {
                                     _inputKey = key;
@@ -266,7 +271,7 @@ public class SettingOptionWindow : EditorWindow
                     secretOptionFile.Add(key, $"Value");
                 }
             }
-            EditorGUILayout.EndVertical();
+            EditorGUILayout.EndScrollView();
         }
     }
     void ServerURLSetting()
@@ -289,7 +294,6 @@ public class SettingOptionWindow : EditorWindow
                 if (GUILayout.Button($"{cType.ToString()}"))
                 {
                     GameOptionManager.ChangeServerUrl(cType);
-                    ProjectSettingsEditor.IosUrlSchma(new string[] { "https" });
                 }
             }
         }

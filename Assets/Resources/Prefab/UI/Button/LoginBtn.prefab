@@ -198,6 +198,8 @@ GameObject:
   - component: {fileID: 4341585100412878749}
   - component: {fileID: -909713915807604720}
   - component: {fileID: 826844577929776927}
+  - component: {fileID: -1105773361364217055}
+  - component: {fileID: 5691791379952443396}
   m_Layer: 5
   m_Name: LoginBtn
   m_TagString: Untagged
@@ -289,10 +291,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f73ab03b39967e645b02c0fd3acf3e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _providerType: 0
   _gpgsLogin: {fileID: 4341585100412878749}
   _gameCenterLogin: {fileID: -909713915807604720}
   _googleLogin: {fileID: 826844577929776927}
+  _appleLogin: {fileID: -1105773361364217055}
+  _guestLogin: {fileID: 5691791379952443396}
 --- !u!114 &4341585100412878749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,5 +330,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a312348ef14af534e89649efce4054f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-1105773361364217055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6951641090964091636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3919c1100be88c43826fcaefa7dc2fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5691791379952443396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6951641090964091636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c520c9ffab082943971c23be2f4cda1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

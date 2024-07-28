@@ -13,6 +13,8 @@ public class UILoginBtn : UIButton
 	[SerializeField] GPGSLogin _gpgsLogin;
 	[SerializeField] GameCenterLogin _gameCenterLogin;
 	[SerializeField] GoogleLogin _googleLogin;
+	[SerializeField] AppleLogin _appleLogin;
+	[SerializeField] GuestLogin _guestLogin;
 
     public void Set(ProviderType providerType)
 	{
@@ -35,14 +37,14 @@ public class UILoginBtn : UIButton
             case ProviderType.GameCenter:
                 AddClickEvent((e) => GameCenterLogin());
                 break;
-            case ProviderType.Facebook:
-                AddClickEvent((e) => FacebookLogin());
-                break;
             case ProviderType.Google:
                 AddClickEvent((e) => GoogleLogin());
                 break;
+            case ProviderType.Apple:
+                AddClickEvent((e) => AppleLogin());
+                break;
         }
-    }
+    } 
     void IconSet()
     {
 
@@ -77,16 +79,12 @@ public class UILoginBtn : UIButton
 
     void GuestLogin()
     {
-        UnityHelper.Log_H($"GuestLogin Succss!");
+        _guestLogin.Login(() => { UnityHelper.Log_H($"Success! GuestLogin"); });
     }
     void GPGSLogin()
 	{
         _gpgsLogin.Initialize();
         _gpgsLogin.Login(() => { UnityHelper.Log_H($"GPGSLogin Succss!"); });
-    }
-	void FacebookLogin()
-	{
-        UnityHelper.Log_H($"FacebookLogin Succss!");
     }
 	void GameCenterLogin()
 	{
@@ -102,6 +100,8 @@ public class UILoginBtn : UIButton
     }
     void AppleLogin()
     {
+        _appleLogin.Initialize();
+        _appleLogin.Login(() => { UnityHelper.Log_H($"Success! AppleLogin"); });
     }
 
 	public enum UIImageE

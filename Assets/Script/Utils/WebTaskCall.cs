@@ -35,7 +35,7 @@ public class WebTaskCall
     }
     public static async Task<T> Get<T>(bool isMyServer, string url)
     {
-        string sendUrl = isMyServer ? $"{GameOptionManager.GetServerUrl}/{url}" : url;
+        string sendUrl = isMyServer ? $"{GameOptionManager.GetCurrentServerUrl}/{url}" : url;
         return await Get<T>(sendUrl);
     }
 
@@ -83,7 +83,7 @@ public class WebTaskCall
     }
     public static async Task<T> Post<T>(bool isMyServer, string url, object obj)
     {
-        string sendUrl = isMyServer ? $"{GameOptionManager.GetServerUrl}/{url}" : url;
+        string sendUrl = isMyServer ? $"{GameOptionManager.GetCurrentServerUrl}/{url}" : url;
         return await Post<T>(sendUrl, obj);
     }
 }

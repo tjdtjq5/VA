@@ -9,7 +9,12 @@ public class Test : MonoBehaviour
     [Button]
     public void Gpgs()
     {
+        SimpleFormat.Replace(typeof(Test), O, "아브라칸탄바");
     }
+
+    string O =
+@"        AccountLoginRequest a = await WebTaskCall.Post<AccountLoginRequest>(true,""account/login"", req);
+        UnityHelper.LogSerialize(a);";
 
     [Button]
     public async void Gpgs2()
