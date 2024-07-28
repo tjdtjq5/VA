@@ -1,3 +1,5 @@
+
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -71,7 +73,7 @@ public class SettingOptionWindow : EditorWindow
 
     void OptionSetting()
     {
-        // Path ø¨∞·¿Ã æ»µ 
+        // Path ?????? ????
         if (!_linkedOptionFile)
         {
             EditorGUILayout.BeginHorizontal();
@@ -171,7 +173,7 @@ public class SettingOptionWindow : EditorWindow
     }
     void SecretSetting()
     {
-        // Path ø¨∞·¿Ã æ»µ 
+        // Path ?????? ????
         if (!_linkedSecretFile)
         {
             EditorGUILayout.BeginHorizontal();
@@ -286,7 +288,7 @@ public class SettingOptionWindow : EditorWindow
 
                 if (GUILayout.Button($"{cType.ToString()}"))
                 {
-                    GameOptionManagerPacket.ServerUrlChange(cType);
+                    GameOptionManager.ChangeServerUrl(cType);
                 }
             }
         }

@@ -22,4 +22,11 @@ public class GameOptionManager
             }
 		}
 	}
+
+	public static void ChangeServerUrl(ServerUrlType changeUrlType)
+    {
+		GameOptionManagerPacket.ServerUrlChange(changeUrlType);
+
+		//ProjectSettingsEditor
+	}
 }

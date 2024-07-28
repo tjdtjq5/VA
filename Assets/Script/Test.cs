@@ -9,16 +9,6 @@ public class Test : MonoBehaviour
     [Button]
     public void Gpgs()
     {
-        AccountLoginRequest req = new AccountLoginRequest()
-        {
-            ProviderType = ProviderType.GooglePlayGames,
-            NetworkIdOrCode = "To",
-        };
-
-        Managers.Web.SendPostRequest<AccountLoginRequest>("account/login", req, (res) =>
-        {
-            UnityHelper.LogSerialize(res);
-        });
     }
 
     [Button]

@@ -13,6 +13,11 @@ class XCodePostBuilder
     {
         if (target == BuildTarget.iOS)
         {
+            // PlayerSettings
+            {
+                PlayerSettings.iOS.iOSUrlSchemes = new string[] { "https" };
+            }
+
             // xcode
             {
                 string projectPath = GetBuildPath() + "/Unity-iPhone.xcodeproj/project.pbxproj";
