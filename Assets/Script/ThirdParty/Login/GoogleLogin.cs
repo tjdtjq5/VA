@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GoogleLogin : MonoBehaviour, ILoginService
@@ -9,11 +10,17 @@ public class GoogleLogin : MonoBehaviour, ILoginService
     string _response_type = "code";
     string _scope = "https://www.googleapis.com/auth/userinfo.email";
 
+    bool isInit = false;
     public void Initialize()
     {
+        if (isInit)
+        {
+            return;
+        }
+        isInit = true;
+
         Managers.DeepLink.AddAction(GoogleLoginResponse);
     }
-
     public async void Login(Action callback)
     {
         string redirect_uri = $"{GameOptionManager.GetServerUrl}{_redirect_uri_page}";
