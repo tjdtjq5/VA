@@ -26,8 +26,27 @@ public class GameOptionManager
             return url;
         }
     }
+    public static string GetHost(ServerUrlType serverUrlType)
+    {
+        string url = GetServerUrl(serverUrlType);
+        string result = url.Replace("http://", "").Replace("https://", "");
+        if (result.Contains(':'))
+        {
+            int index = result.IndexOf(":");
+            result = result.Substring(0, index);
+        }
 
-	public static void ChangeServerUrl(ServerUrlType changeUrlType)
+        return result;
+    }
+    public static string GetScheme(ServerUrlType serverUrlType)
+    {
+        string url = GetServerUrl(serverUrlType);
+        string[] datas = url.Split("://");
+        return datas[0];
+    }
+
+
+    public static void ChangeServerUrl(ServerUrlType changeUrlType)
     {
         ServerUrlType beforeUrl = ServerUrlType;
 
