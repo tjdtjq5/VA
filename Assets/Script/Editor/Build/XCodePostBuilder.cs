@@ -1,4 +1,6 @@
 #if UNITY_IOS
+using System.Collections.Generic;
+using AppleAuth.Editor;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
@@ -25,10 +27,27 @@ class XCodePostBuilder
                 PBXProject pbxProject = new PBXProject();
                 pbxProject.ReadFromFile(projectPath);
 
-                string pbxTarget = pbxProject.GetUnityFrameworkTargetGuid();
-                pbxProject.SetBuildProperty(pbxTarget, "ENABLE_BITCODE", "NO");
+                string unityTarget = pbxProject.GetUnityFrameworkTargetGuid();
+                string mainTarget = pbxProject.GetUnityMainTargetGuid();
 
+                pbxProject.SetBuildProperty(unityTarget, "ENABLE_BITCODE", "NO");
+
+                // StoreKit -> Write -> AddInAppPurchase
+                pbxProject.AddFrameworkToProject(unityTarget, "StoreKit.framework", false);
+                pbxProject.AddFrameworkToProject(mainTarget, "StoreKit.framework", false);
                 pbxProject.WriteToFile(projectPath);
+
+                // apple login Entitlements 
+                var manager = new ProjectCapabilityManager(projectPath, "Entitlements.entitlements", null, pbxProject.GetUnityMainTargetGuid());
+
+                // Compatibility 
+                manager.AddSignInWithAppleWithCompatibility(pbxProject.GetUnityFrameworkTargetGuid());
+                manager.AddGameCenter();
+                manager.AddInAppPurchase();
+                manager.AddAssociatedDomains(new string[] { $"applinks:{GameOptionManager.GetCurrentServerUrl}" });
+
+                manager.WriteToFile();
+
             }
 
             // info.plist
@@ -37,10 +56,19 @@ class XCodePostBuilder
 
                 PlistDocument plistDoc = new PlistDocument();
                 plistDoc.ReadFromFile(infoPlistPath);
+
                 if (plistDoc.root != null)
                 {
                     //수출 규정 관련 문서 누락
                     plistDoc.root.SetBoolean("ITSAppUsesNonExemptEncryption", false);
+
+                    // URL Scheme
+                    var array = plistDoc.root.CreateArray("CFBundleURLTypes");
+                    var urlDict = array.AddDict();
+                    urlDict.SetString("CFBundleURLName", PlayerSettings.iPhoneBundleIdentifier);
+                    var urlInnerArray = urlDict.CreateArray("CFBundleURLSchemes");
+                    urlInnerArray.AddString("http");
+
                     plistDoc.WriteToFile(infoPlistPath);
                 }
                 else
