@@ -50,8 +50,6 @@ public class GameOptionManager
     {
         ServerUrlType beforeUrl = ServerUrlType;
 
-        AndroidManifestFormat.DeepLinkSetting(beforeUrl, changeUrlType);
-        GoogleServiceFormat.RedirectUrlSetting(beforeUrl, changeUrlType);
         GameOptionManagerPacket.ServerUrlChange(changeUrlType);
 	}
 }
