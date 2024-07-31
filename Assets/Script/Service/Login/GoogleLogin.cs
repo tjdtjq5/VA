@@ -20,9 +20,9 @@ public class GoogleLogin : MonoBehaviour, ILoginService
         }
         isInit = true;
 
-        Managers.DeepLink.AddAction(GoogleLoginResponse);
+        Managers.DeepLink.AddAction(DeepLinkResponse);
     }
-    public async void Login(Action callback)
+    public void Login(Action callback)
     {
         _callback = callback;
 
@@ -31,10 +31,10 @@ public class GoogleLogin : MonoBehaviour, ILoginService
 
         Application.OpenURL(url);
     }
-    public void GoogleLoginResponse(string url)
+    private void DeepLinkResponse(ImaginationOverflow.UniversalDeepLinking.LinkActivation s)
     {
-        string result = url.Split("?")[1];
-        string code = result.Split("&")[0].Replace("code=", "");
+        string url = s.Uri;
+        string code = s.QueryString["code"];
 
         AccountLoginRequest req = new AccountLoginRequest()
         {
