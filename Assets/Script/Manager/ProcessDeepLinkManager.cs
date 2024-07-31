@@ -1,16 +1,11 @@
+using ImaginationOverflow.UniversalDeepLinking;
 using System;
 using UnityEngine;
 
 public class ProcessDeepLinkManager
 {
-    public void AddAction(System.Action<string> addEvent)
+    public void AddAction(LinkActivationHandler s)
     {
-        Application.deepLinkActivated -= addEvent;
-        Application.deepLinkActivated += addEvent;
-
-        if (!String.IsNullOrEmpty(Application.absoluteURL))
-        {
-            addEvent(Application.absoluteURL);
-        }
+        ImaginationOverflow.UniversalDeepLinking.DeepLinkManager.Instance.LinkActivated += s;
     }
 }

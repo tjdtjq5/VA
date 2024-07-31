@@ -21,7 +21,7 @@ public class GoogleLogin : MonoBehaviour, ILoginService
         }
         isInit = true;
 
-        Managers.DeepLink.AddAction(GoogleLoginResponse);
+        Managers.DeepLink.AddAction(DeepLinkResponse);
     }
     public async void Login(Action callback)
     {
@@ -34,8 +34,16 @@ public class GoogleLogin : MonoBehaviour, ILoginService
     }
     public void GoogleLoginResponse(string url)
     {
-        string result = url.Split("?")[1];
-        string code = result.Split("&")[0].Replace("code=", "");
+     
+    }
+
+
+    private void DeepLinkResponse(ImaginationOverflow.UniversalDeepLinking.LinkActivation s)
+    {
+        string url = s.Uri;
+        string code = s.QueryString["code"];
+
+        UnityHelper.Log_H($"url : {url}\ncode : {code}");
 
         AccountLoginRequest req = new AccountLoginRequest()
         {
@@ -52,5 +60,10 @@ public class GoogleLogin : MonoBehaviour, ILoginService
                 _callback.Invoke();
             }
         });
+    }
+
+    void OnDestroy()
+    {
+        ImaginationOverflow.UniversalDeepLinking.DeepLinkManager.Instance.LinkActivated -= DeepLinkResponse;
     }
 }
