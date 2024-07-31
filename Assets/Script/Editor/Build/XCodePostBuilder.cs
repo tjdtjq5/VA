@@ -15,9 +15,9 @@ class XCodePostBuilder
         if (target == BuildTarget.iOS)
         {
             // PlayerSettings
-            {
-                PlayerSettings.iOS.iOSUrlSchemes = new string[] { "slitz95" };
-            }
+            //  {
+            // PlayerSettings.iOS.iOSUrlSchemes = new string[] { "slitz95" };
+            //}
 
             // xcode
             {
@@ -43,7 +43,7 @@ class XCodePostBuilder
                 manager.AddSignInWithAppleWithCompatibility(pbxProject.GetUnityFrameworkTargetGuid());
                 manager.AddGameCenter();
                 manager.AddInAppPurchase();
-                manager.AddAssociatedDomains(new string[] { $"applinks:slits95.com", $"applinks:www.slits95.com" });
+                // manager.AddAssociatedDomains(new string[] { $"applinks:slits95.com", $"applinks:www.slits95.com" });
 
                 manager.WriteToFile();
 
@@ -62,11 +62,11 @@ class XCodePostBuilder
                     plistDoc.root.SetBoolean("ITSAppUsesNonExemptEncryption", false);
 
                     // URL Scheme
-                    var array = plistDoc.root.CreateArray("CFBundleURLTypes");
-                    var urlDict = array.AddDict();
-                    urlDict.SetString("CFBundleURLName", PlayerSettings.iPhoneBundleIdentifier);
-                    var urlInnerArray = urlDict.CreateArray("CFBundleURLSchemes");
-                    urlInnerArray.AddString("https");
+                    //var array = plistDoc.root.CreateArray("CFBundleURLTypes");
+                    //var urlDict = array.AddDict();
+                    //urlDict.SetString("CFBundleURLName", PlayerSettings.iPhoneBundleIdentifier);
+                    //var urlInnerArray = urlDict.CreateArray("CFBundleURLSchemes");
+                    //urlInnerArray.AddString("https");
 
                     plistDoc.WriteToFile(infoPlistPath);
                 }
