@@ -34,6 +34,10 @@ public class GoogleLogin : MonoBehaviour, ILoginService
     private void DeepLinkResponse(ImaginationOverflow.UniversalDeepLinking.LinkActivation s)
     {
         string url = s.Uri;
+
+        if (!url.Contains(_redirect_uri))
+            return;
+
         string code = s.QueryString["code"];
 
         AccountLoginRequest req = new AccountLoginRequest()
