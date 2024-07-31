@@ -34,6 +34,7 @@ public class GoogleLogin : MonoBehaviour, ILoginService
     }
     public void GoogleLoginResponse(string url)
     {
+        UnityHelper.Log_H($"Deep Link Url : {url}");
         string result = url.Split("?")[1];
         string code = result.Split("&")[0].Replace("code=", "");
 
