@@ -1,5 +1,4 @@
 #if UNITY_IOS
-using System.Collections.Generic;
 using AppleAuth.Editor;
 using UnityEditor;
 using UnityEditor.Callbacks;
@@ -17,7 +16,7 @@ class XCodePostBuilder
         {
             // PlayerSettings
             {
-                PlayerSettings.iOS.iOSUrlSchemes = new string[] { "http" };
+                PlayerSettings.iOS.iOSUrlSchemes = new string[] { "slitz95" };
             }
 
             // xcode
@@ -44,7 +43,7 @@ class XCodePostBuilder
                 manager.AddSignInWithAppleWithCompatibility(pbxProject.GetUnityFrameworkTargetGuid());
                 manager.AddGameCenter();
                 manager.AddInAppPurchase();
-                manager.AddAssociatedDomains(new string[] { $"applinks:{GameOptionManager.GetCurrentServerUrl}" });
+                manager.AddAssociatedDomains(new string[] { $"applinks:slits95.com", $"applinks:www.slits95.com" });
 
                 manager.WriteToFile();
 
@@ -67,7 +66,7 @@ class XCodePostBuilder
                     var urlDict = array.AddDict();
                     urlDict.SetString("CFBundleURLName", PlayerSettings.iPhoneBundleIdentifier);
                     var urlInnerArray = urlDict.CreateArray("CFBundleURLSchemes");
-                    urlInnerArray.AddString("http");
+                    urlInnerArray.AddString("https");
 
                     plistDoc.WriteToFile(infoPlistPath);
                 }
