@@ -14,12 +14,6 @@ class XCodePostBuilder
     {
         if (target == BuildTarget.iOS)
         {
-
-            // PlayerSettings
-            //{
-            //    PlayerSettings.iOS.iOSUrlSchemes = new string[] { "slitz95", "https", "http" };
-            //}
-
             // xcode
             {
                 string projectPath = GetBuildPath() + "/Unity-iPhone.xcodeproj/project.pbxproj";
@@ -44,7 +38,6 @@ class XCodePostBuilder
                 manager.AddSignInWithAppleWithCompatibility(pbxProject.GetUnityFrameworkTargetGuid());
                 manager.AddGameCenter();
                 manager.AddInAppPurchase();
-                manager.AddAssociatedDomains(new string[] { $"applinks:slits95.com", $"applinks:www.slits95.com" });
 
                 manager.WriteToFile();
 
@@ -63,25 +56,13 @@ class XCodePostBuilder
                     plistDoc.root.SetBoolean("ITSAppUsesNonExemptEncryption", false);
 
                     // URL Scheme
-                    var array = plistDoc.root.CreateArray("CFBundleURLTypes");
+                    // var array = plistDoc.root.CreateArray("CFBundleURLTypes");
+                    // var urlDict = array.AddDict();
+                    // urlDict.SetString("CFBundleURLName", PlayerSettings.iPhoneBundleIdentifier);
+                    // urlDict.SetString("CFBundleTypeRole", "Viewer");
+                    // varurlInnerArray = urlDict.CreateArray("CFBundleURLSchemes");
+                    // urlInnerArray.AddString("https");
 
-                    var urlDict = array.AddDict();
-                    urlDict.SetString("CFBundleURLName", null);
-                    urlDict.SetString("CFBundleTypeRole", "Viewer");
-                    var urlInnerArray = urlDict.CreateArray("CFBundleURLSchemes");
-                    urlInnerArray.AddString("slitz95");
-
-                    urlDict = array.AddDict();
-                    urlDict.SetString("CFBundleURLName", PlayerSettings.iPhoneBundleIdentifier);
-                    urlDict.SetString("CFBundleTypeRole", "Viewer");
-                    urlInnerArray = urlDict.CreateArray("CFBundleURLSchemes");
-                    urlInnerArray.AddString("https");
-
-                    urlDict = array.AddDict();
-                    urlDict.SetString("CFBundleURLName", PlayerSettings.iPhoneBundleIdentifier);
-                    urlDict.SetString("CFBundleTypeRole", "Viewer");
-                    urlInnerArray = urlDict.CreateArray("CFBundleURLSchemes");
-                    urlInnerArray.AddString("http");
                     plistDoc.WriteToFile(infoPlistPath);
                 }
                 else
