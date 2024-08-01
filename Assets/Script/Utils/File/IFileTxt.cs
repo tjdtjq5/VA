@@ -9,7 +9,8 @@ public interface IFileTxt
     Dictionary<string, string> GetFileData();
 
     public bool Exist();
-    public T Read<T>(string key);
+    public T Read<T>(string key) where T : new();
+    public string Read(string key);
     public void Add(string key, object value);
     public void Remove(string key);
     public List<string> Keys();

@@ -33,6 +33,12 @@ public enum Sound
     InGmae,
     UI,
 }
+public enum AnchorStyles
+{
+    Left,
+    Middle,
+    Right,
+}
 public enum UIScrollViewLayoutStartCorner
 {
     Left,

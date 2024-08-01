@@ -126,7 +126,7 @@ public class TableServicePacket
 
     static string GetFile()
     {
-        string file = secretFile.Read<string>("TableServicePath");
+        string file = secretFile.Read("TableServicePath");
 
         if (FileHelper.FileExist(file))
         {

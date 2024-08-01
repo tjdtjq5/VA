@@ -175,7 +175,7 @@ public class TableRRPacket
 
     public static string GetTableFile()
     {
-        string file = secretFile.Read<string>("TableRRPath");
+        string file = secretFile.Read("TableRRPath");
 
         if (FileHelper.FileExist(file))
         {

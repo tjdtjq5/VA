@@ -217,7 +217,7 @@ public class ServerProgramPacket
 
     static string GetFile()
     {
-        string file = secretFile.Read<string>("ServerProgramPath");
+        string file = secretFile.Read("ServerProgramPath");
 
         if (FileHelper.FileExist(file))
         {

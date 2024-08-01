@@ -8,7 +8,7 @@ public class ErrorResponse
     { 
         get 
         {
-            HttpResponceMessageType result = CSharpHelper.Parse<HttpResponceMessageType>(Detail, false);
+            HttpResponceMessageType result = CSharpHelper.EnumParse<HttpResponceMessageType>(Detail, false);
             return result;
         } 
     }

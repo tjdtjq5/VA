@@ -117,7 +117,7 @@ public class TableControllerPacket
 
     static string GetFile()
     {
-        string file = secretFile.Read<string>("TableControllerPath");
+        string file = secretFile.Read("TableControllerPath");
 
         if (FileHelper.FileExist(file))
         {

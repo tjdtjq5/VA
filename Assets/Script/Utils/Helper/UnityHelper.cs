@@ -13,6 +13,20 @@ public static class UnityHelper
     {
         Debug.Log($"<color=#006AFF>{message}</color>");
     }
+    public static void Log_H<T1, T2>(Dictionary<T1, T2> dics) where T1 : new() where T2 : new()
+    {
+        string message = "";
+
+        foreach (var data in dics)
+        {
+            string keyData = CSharpHelper.SerializeObject(data.Key);
+            string valueData = CSharpHelper.SerializeObject(data.Value);
+
+            message += $"{keyData} : {valueData}\n";
+        }
+
+        Log_H(message);
+    }
     public static void LogError_H(object message)
     {
         Debug.LogError(message);
@@ -197,6 +211,40 @@ public static class UnityHelper
         if (component == null) component = _go.AddComponent<T>();
         return component;
     }
- 
+
+    #endregion
+
+    #region Build
+    public static int GetVersionValue(string version, int _index)
+    {
+        string[] values = version.Split('.');
+
+        if (values.Length > _index)
+        {
+            return CSharpHelper.Parse<int>(values[_index], true);
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    public static string GetVersionCode(params int[] values)
+    {
+        string versionCode = "0.0";
+
+        for (int i = 0; i < values.Length; i++) 
+        {
+            if (i == 0)
+            {
+                versionCode = $"{values[i]}";
+            }
+            else
+            {
+                versionCode += $".{values[i]}";
+            }
+        }
+
+        return versionCode;
+    }
     #endregion
 }

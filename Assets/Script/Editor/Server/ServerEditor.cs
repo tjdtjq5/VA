@@ -12,13 +12,13 @@ public class ServerEditor
         switch (GameOptionManager.ServerUrlType)
         {
             case ServerUrlType.DebugUrl:
-                FileHelper.ProcessStart(secretFileTxt.Read<string>("ServerSlnPath"));
+                FileHelper.ProcessStart(secretFileTxt.Read("ServerSlnPath"));
                 break;
             case ServerUrlType.LocalhostUrl:
-                FileHelper.ProcessStart(secretFileTxt.Read<string>("LocalhostStartPath"));
+                FileHelper.ProcessStart(secretFileTxt.Read("LocalhostStartPath"));
                 break;
             case ServerUrlType.DebugNgrok:
-                FileHelper.ProcessStart(secretFileTxt.Read<string>("NgrokPath"));
+                FileHelper.ProcessStart(secretFileTxt.Read("NgrokPath"));
                 break;
             default:
                 break;

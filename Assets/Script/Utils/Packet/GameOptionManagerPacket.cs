@@ -60,7 +60,7 @@ public class GameOptionManagerPacket
     }
     static string GetFile()
     {
-        string file = secretFile.Read<string>("GameOptionManagerPath");
+        string file = secretFile.Read("GameOptionManagerPath");
 
         if (FileHelper.FileExist(file))
         {

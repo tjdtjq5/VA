@@ -179,7 +179,7 @@ public class TableDataPacket
 
     public static string GetTableFile()
     {
-        string file = secretFile.Read<string>("TableDataPath");
+        string file = secretFile.Read("TableDataPath");
 
         if (FileHelper.FileExist(file))
         {

@@ -13,6 +13,11 @@ public class GoogleSheetFileModel
     public string tableName;
     public string range;
 
+    public GoogleSheetFileModel()
+    {
+
+    }
+
     public GoogleSheetFileModel(long sheetId, string tableName, string range)
     {
         this.sheetId = sheetId;

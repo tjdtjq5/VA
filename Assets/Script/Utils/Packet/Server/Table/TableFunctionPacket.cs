@@ -102,7 +102,7 @@ public class TableFunctionPacket
 
     static string GetFile()
     {
-        string file = secretFile.Read<string>("TableFunctionPath");
+        string file = secretFile.Read("TableFunctionPath");
 
         if (FileHelper.FileExist(file))
         {

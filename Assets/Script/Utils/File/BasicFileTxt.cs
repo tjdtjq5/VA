@@ -54,7 +54,7 @@ public class BasicFileTxt : IFileTxt
         return CSharpHelper.DeserializeObject<Dictionary<string, string>>(json);
     }
 
-    public virtual T Read<T>(string key)
+    public virtual T Read<T>(string key) where T : new()
     {
         Dictionary<string, string> data = GetFileData();
         if (data.ContainsKey(key))
@@ -62,6 +62,19 @@ public class BasicFileTxt : IFileTxt
             string valueData = data[key];
             T value = CSharpHelper.DeserializeObject<T>(valueData);
             return value;
+        }
+        else
+        {
+            return default;
+        }
+    }
+    public string Read(string key)
+    {
+        Dictionary<string, string> data = GetFileData();
+        if (data.ContainsKey(key))
+        {
+            string valueData = data[key];
+            return valueData;
         }
         else
         {
@@ -94,4 +107,6 @@ public class BasicFileTxt : IFileTxt
         }
         return keys;
     }
+
+  
 }

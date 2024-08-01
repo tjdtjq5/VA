@@ -21,7 +21,7 @@ public class GameOptionManager
         }
         else
         {
-            string url = optionFile.Read<string>(serverUrlType.ToString());
+            string url = optionFile.Read(serverUrlType.ToString());
             serverUrlDics.Add(serverUrlType, url);
             return url;
         }

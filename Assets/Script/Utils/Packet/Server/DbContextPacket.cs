@@ -116,7 +116,7 @@ public class DbContextPacket
     }
     public static string GetTableFile()
     {
-        string file = secretFile.Read<string>("ApplicationDbContextPath");
+        string file = secretFile.Read("ApplicationDbContextPath");
 
         if (FileHelper.FileExist(file))
         {

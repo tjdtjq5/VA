@@ -23,7 +23,21 @@ public static class CSharpHelper
     #endregion
 
     #region Parse
-    public static T Parse<T>(string value, bool isDebug) where T : Enum
+    public static T EnumParse<T>(string value, bool isDebug) where T : Enum
+    {
+        try
+        {
+            return (T)Enum.Parse(typeof(T), value);
+        }
+        catch
+        {
+            if (isDebug)
+                UnityHelper.Log_H($"CSharpHelper Parse Error\nvalue : {value}");
+
+            return default(T);
+        }
+    }
+    public static T Parse<T>(string value, bool isDebug)
     {
         try
         {
@@ -69,7 +83,7 @@ public static class CSharpHelper
     }
     public static string GetTypeString(Type type)
     {
-        TypeCollect tc = Parse<TypeCollect>(type.Name, false);
+        TypeCollect tc = EnumParse<TypeCollect>(type.Name, false);
         switch (tc)
         {
             case TypeCollect.Int32:
@@ -173,7 +187,7 @@ public static class CSharpHelper
     #endregion
 
     #region Json
-    public static string SerializeObject<T>(T value) 
+    public static string SerializeObject<T>(T value) where T : new()
     {
         try
         {
@@ -185,7 +199,7 @@ public static class CSharpHelper
             return "";
         }
     }
-    public static T DeserializeObject<T>(string value)
+    public static T DeserializeObject<T>(string value) where T : new()
     {
         try
         {
@@ -196,7 +210,7 @@ public static class CSharpHelper
             UnityHelper.LogError_H($"CSharpHelper DeserializeObject Error\nvalue : {value}");
             return default;
         }
-    }
+    } 
     #endregion
 
     #region String 

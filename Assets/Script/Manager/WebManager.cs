@@ -77,7 +77,7 @@ public class WebManager
                 break;
         }
     }
-    public async Task<T> PostFormUrlEncoded<T>(string url, IEnumerable<KeyValuePair<string, string>> postData)
+    public async Task<T> PostFormUrlEncoded<T>(string url, IEnumerable<KeyValuePair<string, string>> postData) where T : new()
     {
         using (var httpClient = new HttpClient())
         {

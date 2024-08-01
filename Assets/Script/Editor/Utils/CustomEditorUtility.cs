@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEditor;
-using UnityEditorInternal;
+using Unity.VisualScripting;
 
 public static class CustomEditorUtility
 {
     public readonly static GUIStyle titleStyle;
+    public readonly static GUIStyle middleTitleStyle;
 
     static CustomEditorUtility()
     {
@@ -17,7 +18,7 @@ public static class CustomEditorUtility
             // 유니티 Default Label의 font를 가져옴
             font = new GUIStyle(EditorStyles.label).font,
             fontStyle = FontStyle.Bold,
-            fontSize = 14,
+            fontSize = 16,
             // title을 그릴 공간에 여유를 줌
             border = new RectOffset(15, 7, 4, 4),
             // 높이는 26
@@ -25,6 +26,22 @@ public static class CustomEditorUtility
             // 내부 Text의 위치를 조절함
             contentOffset = new Vector2(20f, -2f)
         };
+
+        middleTitleStyle = new GUIStyle("ShurikenModuleTitle")
+        {
+            // 유니티 Default Label의 font를 가져옴
+            font = new GUIStyle(EditorStyles.label).font,
+            fontStyle = FontStyle.Bold,
+            fontSize = 14,
+            // title을 그릴 공간에 여유를 줌
+            border = new RectOffset(15, 7, 4, 4),
+            // 높이는 26
+            fixedHeight = 22f,
+            // 내부 Text의 위치를 조절함
+            contentOffset = new Vector2(20f, -2f)
+        };
+
+        buttonStyle.margin = new RectOffset(0, 0, buttonStyle.margin.top, buttonStyle.margin.bottom);
     }
 
     public static bool DrawFoldoutTitle(string title, bool isExpanded, float space = 15f)
@@ -93,7 +110,54 @@ public static class CustomEditorUtility
     public static float GetScreenWidth { get => EditorGUIUtility.currentViewWidth; }
     public static float GetScreenHeight { get => Screen.height * (GetScreenWidth / Screen.width); }
 
+    #region Label
+
     public static GUIStyle GetMiddleLabel { get=> new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter }; }
     public static GUIStyle GetRightLabel { get=> new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight }; }
     public static GUIStyle GetLeftLabel { get=> new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft }; }
+    public static GUIStyle GetLabelStyle(int fontSize)
+    {
+        return new GUIStyle(EditorStyles.helpBox) { fontSize = fontSize };
+    }
+
+    #endregion
+
+    #region Text Area
+
+    public static GUIStyle GetTextAreaSeretStyle
+    {
+        get
+        {
+            return new GUIStyle(GUI.skin.textArea) { };
+        }
+    }
+
+    #endregion
+
+    #region Button
+    static GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
+    public static GUIStyle GetButtonStyle(float width, float height, AnchorStyles anchorStyles)
+    {
+        GUIStyle buttonStyle = null;
+
+        switch (anchorStyles)
+        {
+            case AnchorStyles.Left:
+                buttonStyle = new GUIStyle(EditorStyles.miniButtonLeft);
+                break;
+            case AnchorStyles.Right:
+                buttonStyle = new GUIStyle(EditorStyles.miniButtonRight);
+                break;
+            default:
+                buttonStyle = new GUIStyle(EditorStyles.miniButtonMid);
+                break;
+        }
+
+        buttonStyle.fixedWidth = width;
+        buttonStyle.fixedHeight = height;
+
+        return buttonStyle;
+    }
+
+    #endregion
 }
