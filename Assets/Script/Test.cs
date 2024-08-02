@@ -25,50 +25,12 @@ public class Test : MonoBehaviour
     }
 
     [Button]
-    public void Push()
+    public void LoginCheck()
     {
-       
-    }
-    [Button]
-    public void Flush()
-    {
-        jobSerializer.Flush();
-    }
-
-    void DebugTime(string data)
-    {
-        UnityHelper.Log_H(data);
-    }
-
-    void DebugA()
-    {
-        UnityHelper.Log_H("A");
-    }
-    void DebugB()
-    {
-        UnityHelper.Log_H("B");
-    }
-    void DebugC()
-    {
-        UnityHelper.Log_H("C");
-    }
-
-    void Debug(int _data)
-    {
-        UnityHelper.Log_H(_data);
-    }
-    void Debug(float _data)
-    {
-        UnityHelper.Log_H(_data);
-    }
-    void Debug(string _data)
-    {
-        UnityHelper.Log_H(_data);
-    }
-
-    [Button]
-    public async void Gpgs2()
-    {
+        Managers.Web.SendPostRequest<bool>("Test/LoginCheck", null, (res) =>
+        {
+            UnityHelper.Log_H(res);
+        });
     }
 }
 [System.Serializable]

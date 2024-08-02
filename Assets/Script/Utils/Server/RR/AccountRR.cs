@@ -9,4 +9,5 @@ public class AccountLoginResponce
 {
     public bool LoginOk { get; set; }
     public string JwtAccessToken { get; set; }
+    public int AccountId {  get; set; }
 }

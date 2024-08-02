@@ -37,6 +37,10 @@ public static class CSharpHelper
             return default(T);
         }
     }
+    public static int GetEnumLength<T>() where T : Enum
+    {
+        return Enum.GetValues(typeof(T)).Length;
+    }
     public static int IntParse(string value, bool isDebug)
     {
         try
@@ -82,10 +86,6 @@ public static class CSharpHelper
         }
 
         return value;
-    }
-    public static int GetEnumLength<T>() where T : Enum
-    {
-        return Enum.GetValues(typeof(T)).Length;
     }
     #endregion
 
@@ -205,7 +205,15 @@ public static class CSharpHelper
     {
         try
         {
-            return JsonConvert.SerializeObject(value, Formatting.Indented);
+            if (typeof(T) == typeof(string))
+            {
+                return value.ToString();
+            }
+            else
+            {
+                return JsonConvert.SerializeObject(value, Formatting.Indented);
+            }
+
         }
         catch
         {
@@ -217,7 +225,14 @@ public static class CSharpHelper
     {
         try
         {
-            return JsonConvert.DeserializeObject<T>(value);
+            if (typeof(T) == typeof(string))
+            {
+                return (T)(object)value;
+            }
+            else
+            {
+                return JsonConvert.DeserializeObject<T>(value);
+            }
         }
         catch
         {

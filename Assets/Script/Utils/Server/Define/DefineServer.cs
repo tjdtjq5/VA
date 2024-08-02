@@ -26,4 +26,6 @@ public enum HttpResponceMessageType
     // 로그인 관련 에러 : 1500 ~ 1599  
     InvalidJwtToken = 1500, // 잘못된 유형의 Jwt Token
     ExpiredJwtToken = 1501, // 기한 만료된 Jwt Token
+    FailAccountAdd = 1502, // 계정 만들기 실패
+    FailCacheAddJwtToken = 1503, // 레디스에 jwt 정보 넣기 실패
 }

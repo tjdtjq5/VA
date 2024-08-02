@@ -48,7 +48,8 @@ public class GoogleLogin : MonoBehaviour, ILoginService
 
         Managers.Web.SendPostRequest<AccountLoginResponce>("account/login", req, (res) =>
         {
-            UnityHelper.LogSerialize(res);
+            Managers.Web.JwtToken = res.JwtAccessToken;
+            Managers.Web.AccountId = res.AccountId;
 
             if (_callback != null)
             {

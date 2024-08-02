@@ -11,46 +11,48 @@ using UnityEngine.Networking;
 public class WebManager
 {
     public string JwtToken { get; set; }
+    public int AccountId { get; set; }
 
     const string _jwtTokenHeaderKey = "JwtToken";
+    const string _accountIdHeaderKey = "AccountId";
 
     JobSerializer _jobSerializer = new JobSerializer();
     bool _isWorking;
 
-    public void SendPostRequest<T>(string url, object obj, Action<T> res)
+    public void SendPostRequest<T>(string url, object obj, Action<T> res, params ErrorResponseJob[] errorJob)
 	{
         if (_isWorking)
-            _jobSerializer.Push(Post, true, url, obj, res);
+            _jobSerializer.Push(Post, true, url, obj, res, errorJob);
         else
         {
             Post(true, url, obj, res);
             _isWorking = true;
         }
     }
-    public void SendGetRequest<T>(string url, Action<T> res)
+    public void SendGetRequest<T>(string url, Action<T> res, params ErrorResponseJob[] errorJob)
     {
         if (_isWorking)
-            _jobSerializer.Push(Get, true, url, res);
+            _jobSerializer.Push(Get, true, url, res, errorJob);
         else
         {
             Get(true, url, res);
             _isWorking = true;
         }
     }
-    public void SendPostRequest<T>(bool isMyServer, string url, object obj, Action<T> res)
+    public void SendPostRequest<T>(bool isMyServer, string url, object obj, Action<T> res, params ErrorResponseJob[] errorJob)
     {
         if (_isWorking)
-            _jobSerializer.Push(Post, isMyServer, url, obj, res);
+            _jobSerializer.Push(Post, isMyServer, url, obj, res, errorJob);
         else
         {
             Post(isMyServer, url, obj, res);
             _isWorking = true;
         }
     }
-    public void SendGetRequest<T>(bool isMyServer, string url, Action<T> res)
+    public void SendGetRequest<T>(bool isMyServer, string url, Action<T> res, params ErrorResponseJob[] errorJob)
     {
         if (_isWorking)
-            _jobSerializer.Push(Get, isMyServer, url, res);
+            _jobSerializer.Push(Get, isMyServer, url, res, errorJob);
         else
         {
             Get(isMyServer, url, res);
@@ -58,17 +60,16 @@ public class WebManager
         }
     }
 
-    void Get<T>(bool isMyServer, string url, Action<T> res)
+    void Get<T>(bool isMyServer, string url, Action<T> res, params ErrorResponseJob[] errorJob)
     {
         Managers.Instance.StartCoroutine(CoSendWebRequest(isMyServer, WebRequestMethod.Get, url, null, res));
     }
-    void Post<T>(bool isMyServer, string url, object obj, Action<T> res)
+    void Post<T>(bool isMyServer, string url, object obj, Action<T> res, params ErrorResponseJob[] errorJob)
     {
         Managers.Instance.StartCoroutine(CoSendWebRequest(isMyServer, WebRequestMethod.Post, url, obj, res));
     }
 
-
-    IEnumerator CoSendWebRequest<T>(bool isMyServer, WebRequestMethod method, string url, object obj, Action<T> res)
+    IEnumerator CoSendWebRequest<T>(bool isMyServer, WebRequestMethod method, string url, object obj, Action<T> res, params ErrorResponseJob[] errorJob)
     {
         string sendUrl = isMyServer ? $"{GameOptionManager.GetCurrentServerUrl}/{url}" : url;
 
@@ -80,9 +81,12 @@ public class WebManager
                     if (!string.IsNullOrEmpty(JwtToken))
                         uwr.SetRequestHeader(_jwtTokenHeaderKey, JwtToken);
 
+                    if (AccountId > 0)
+                        uwr.SetRequestHeader(_accountIdHeaderKey, AccountId.ToString());
+
                     yield return uwr.SendWebRequest();
 
-                    WebResult(uwr, sendUrl, res);
+                    WebResult(uwr, sendUrl, res, errorJob);
                 }
                 break;
             case WebRequestMethod.Post:
@@ -103,13 +107,14 @@ public class WebManager
                     uwr.SetRequestHeader("Content-Type", "application/json");
 
                     if (!string.IsNullOrEmpty(JwtToken))
-                    {
                         uwr.SetRequestHeader(_jwtTokenHeaderKey, JwtToken);
-                    }
+
+                    if (AccountId > 0)
+                        uwr.SetRequestHeader(_accountIdHeaderKey, AccountId.ToString());
 
                     yield return uwr.SendWebRequest();
 
-                    WebResult(uwr, sendUrl, res);
+                    WebResult(uwr, sendUrl, res, errorJob);
                 }
                 break;
         }
@@ -131,11 +136,31 @@ public class WebManager
         }
     }
 
-    void WebResult<T>(UnityWebRequest req, string sendUrl ,Action<T> res)
+    void WebResult<T>(UnityWebRequest req, string sendUrl ,Action<T> res, params ErrorResponseJob[] errorJob)
     {
         if (req.result != UnityWebRequest.Result.Success)
         {
             Debug.LogError($"{req.error}     sendUrl : {sendUrl}    result : {req.downloadHandler.text}");
+
+            var errorResponse = CSharpHelper.DeserializeObject<ErrorResponse>(req.downloadHandler.text);
+            HttpResponceMessageType errorMsgType = errorResponse.MessageType;
+
+            bool isJopWork = false;
+            for (int i = 0; i < errorJob.Length; i++)
+            {
+                if(errorJob[i]._messageType == errorMsgType)
+                {
+                    if (errorJob[i]._job != null)
+                    {
+                        isJopWork = true;
+                        errorJob[i]._job.Execute();
+                        break;
+                    }
+                }
+            }
+
+            if (!isJopWork)
+                ErrorResponseMessage(errorMsgType);
         }
         else
         {
@@ -166,6 +191,11 @@ public class WebManager
     {
         if (!string.IsNullOrEmpty(JwtToken))
             uwr.SetRequestHeader(_jwtTokenHeaderKey, JwtToken);
+    }
+
+    void ErrorResponseMessage(HttpResponceMessageType type)
+    {
+
     }
 }
 public enum WebRequestMethod
