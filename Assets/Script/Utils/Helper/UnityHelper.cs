@@ -246,5 +246,11 @@ public static class UnityHelper
 
         return versionCode;
     }
+    public static string GetBuildPath(string buildTarget)
+    {
+        string path = Application.dataPath.Substring(0, Application.dataPath.LastIndexOf('/'));
+        path += $"/Build/{buildTarget}";
+        return path;
+    }
     #endregion
 }

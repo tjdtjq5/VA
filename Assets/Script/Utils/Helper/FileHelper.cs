@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 #if UNITY_EDITOR
 using System.Windows.Forms;
 #endif
 using UnityEditor;
-using UnityEngine;
 
 public class FileHelper
 {
@@ -115,6 +115,43 @@ public class FileHelper
 
     public static void ProcessStart(string file)
     {
-        System.Diagnostics.Process.Start(file);
+        Process.Start(file);
+    }
+
+    public static void RunCmd(string exePath, string directory, string arguments = null)
+    {
+        ProcessStartInfo startInfo = new ProcessStartInfo(exePath, arguments);
+        startInfo.Arguments = " -c \"" + arguments + " \"";
+        startInfo.WorkingDirectory = directory;
+        startInfo.CreateNoWindow = true;
+        startInfo.RedirectStandardError = true;
+        startInfo.RedirectStandardOutput = true;
+        startInfo.RedirectStandardInput = false;
+        startInfo.UseShellExecute = false;
+        startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+        startInfo.ErrorDialog = false;
+        startInfo.Environment["LANG"] = "en_US.UTF-8"; //REQUIRED FOR POD INSTALL
+
+        using (Process p = new Process { StartInfo = startInfo, EnableRaisingEvents = true })
+        {
+            p.ErrorDataReceived += (sender, e) => {
+                if (!System.String.IsNullOrEmpty(e.Data))
+                {
+                    UnityEngine.Debug.Log("Error: " + e.Data);
+                }
+            };
+
+            p.OutputDataReceived += (sender, e) => {
+                if (!System.String.IsNullOrEmpty(e.Data))
+                {
+                    UnityEngine.Debug.Log("Output: " + e.Data);
+                }
+            };
+
+            p.Start();
+            p.BeginErrorReadLine();
+            p.BeginOutputReadLine();
+            p.WaitForExit();
+        }
     }
 }

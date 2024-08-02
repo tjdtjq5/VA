@@ -19,7 +19,7 @@ public class AutoBuilder
         else
             appName += ".apk";
 
-        string targetDir = ProjectPath + "/" + "Build/Android";
+        string targetDir = UnityHelper.GetBuildPath(BuildTarget.Android.ToString());
         Directory.CreateDirectory(targetDir);
 
         BuildAndroid(targetDir, SCENES, targetDir + "/" + appName);
@@ -54,17 +54,12 @@ public class AutoBuilder
         return EditorScenes.ToArray();
     }
 
-    static string ProjectPath
-    {
-        get { return Application.dataPath.Substring(0, Application.dataPath.LastIndexOf('/')); }
-    }
-
     public static void PerformBuildIOS()
     {
         BuildOptions opt = BuildOptions.None; 
-        PlayerSettings.iOS.sdkVersion = iOSSdkVersion.DeviceSDK; // 시뮬레이터에서 돌리시려면 시뮬레이터 sdk 로 
+        PlayerSettings.iOS.sdkVersion = iOSSdkVersion.DeviceSDK; // ?????????????? ?????????? ?????????? sdk ?? 
         char sep = Path.DirectorySeparatorChar;
-        string BUILD_TARGET_PATH = ProjectPath + "/Build/IOS";
+        string BUILD_TARGET_PATH = UnityHelper.GetBuildPath(BuildTarget.iOS.ToString());
         Directory.CreateDirectory(BUILD_TARGET_PATH);
         // PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
         try
