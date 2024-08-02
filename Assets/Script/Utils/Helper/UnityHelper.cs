@@ -221,7 +221,7 @@ public static class UnityHelper
 
         if (values.Length > _index)
         {
-            return CSharpHelper.Parse<int>(values[_index], true);
+            return CSharpHelper.IntParse(values[_index], true);
         }
         else
         {

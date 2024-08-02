@@ -1,18 +1,14 @@
 using EasyButtons;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class Test : MonoBehaviour
 {
-    static BuildOptionFile buildOptionFile = new BuildOptionFile();
-
     [Button]
     public void Gpgs()
     {
-
+ 
     }
 
     string O =

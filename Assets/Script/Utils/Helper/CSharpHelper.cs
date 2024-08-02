@@ -37,18 +37,32 @@ public static class CSharpHelper
             return default(T);
         }
     }
-    public static T Parse<T>(string value, bool isDebug)
+    public static int IntParse(string value, bool isDebug)
     {
         try
         {
-            return (T)Enum.Parse(typeof(T), value);
+            return int.Parse(value);
         }
         catch
         {
             if (isDebug)
                 UnityHelper.Log_H($"CSharpHelper Parse Error\nvalue : {value}");
 
-            return default(T);
+            return 0;
+        }
+    }
+    public static float FloatParse(string value, bool isDebug)
+    {
+        try
+        {
+            return float.Parse(value);
+        }
+        catch
+        {
+            if (isDebug)
+                UnityHelper.Log_H($"CSharpHelper Parse Error\nvalue : {value}");
+
+            return 0;
         }
     }
     public static object AutoParse(string value)

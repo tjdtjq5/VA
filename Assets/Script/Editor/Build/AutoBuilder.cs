@@ -13,7 +13,12 @@ public class AutoBuilder
 
     public static void PerformBuildAOS()
     {
-        string appName = "Android_" + PlayerSettings.Android.bundleVersionCode + ".apk";
+        string appName = "Android_" + PlayerSettings.Android.bundleVersionCode;
+        if (EditorUserBuildSettings.buildAppBundle)
+            appName += ".aab";
+        else
+            appName += ".apk";
+
         string targetDir = ProjectPath + "/" + "Build";
         Directory.CreateDirectory(targetDir);
 

@@ -11,12 +11,10 @@ public class BuildAndroidWindow : EditorWindow
     static bool _versionFoldout;
     static bool _bundleCodeFoldout;
     static bool _googleBuildFoldout;
-    static bool _keyStorePasswordFoldout;
     static bool _serverUrlFoldout;
     static bool _logFoldout;
 
     static string _title = "Android Build";
-    static string _keystorePassward;
     static Vector2 _logScrollPos;
     static bool _isGoogleBuild;
 
@@ -28,6 +26,7 @@ public class BuildAndroidWindow : EditorWindow
     static string _buildLog = "BuildLog";
     static string _keyaliasName = "AliasName";
     static string _keystoreName = "KeystoreName";
+    static string _keystorePasswardKey = "KeystorePassward";
 
     [MenuItem("Build/Android")]
     static void OpenAndroid()
@@ -57,10 +56,6 @@ public class BuildAndroidWindow : EditorWindow
 
             EditorGUILayout.Space(4);
 
-            KeystorePasswardGUI();
-
-            EditorGUILayout.Space(4);
-
             ServerURLSetting();
 
             EditorGUILayout.Space(4);
@@ -77,7 +72,6 @@ public class BuildAndroidWindow : EditorWindow
     private void OnEnable()
     {
         _googleBuildFoldout = true;
-        _keyStorePasswordFoldout = true;
     }
 
     void TitleGUI()
@@ -220,26 +214,6 @@ public class BuildAndroidWindow : EditorWindow
         }
     }
 
-    void KeystorePasswardGUI()
-    {
-        _keyStorePasswordFoldout = CustomEditorUtility.DrawFoldoutTitle("KeystorePassward Setting", _keyStorePasswordFoldout);
-
-        if (_keyStorePasswordFoldout) 
-        {
-            EditorGUILayout.Space(4);
-
-            EditorGUILayout.BeginHorizontal();
-            {
-                EditorGUILayout.LabelField("Passward : ");
-
-                EditorGUILayout.Space(4);
-
-                _keystorePassward = EditorGUILayout.PasswordField(_keystorePassward, EditorStyles.textArea);
-            }
-            EditorGUILayout.EndHorizontal();
-        }
-    }
-
     void ServerURLSetting()
     {
         _serverUrlFoldout = CustomEditorUtility.DrawFoldoutTitle("Server Url Setting", _serverUrlFoldout);
@@ -287,7 +261,7 @@ public class BuildAndroidWindow : EditorWindow
             {
                 List<BuildLogData> datas = BuildLogDatas.Datas;
 
-                for (int i = 0; i < datas.Count; i++)
+                for (int i = datas.Count -1; i >= 0; i--)
                 {
                     logData += $"{datas[i].ToString()}\n\n";
                 }
@@ -321,11 +295,12 @@ public class BuildAndroidWindow : EditorWindow
 
             PlayerSettings.bundleVersion = version;
             PlayerSettings.Android.bundleVersionCode = bundleCode;
+            EditorUserBuildSettings.buildAppBundle = _isGoogleBuild;
 
             PlayerSettings.Android.keyaliasName = buildOptionFile.Read(_keyaliasName).Replace("\"", "");
             PlayerSettings.Android.keystoreName = buildOptionFile.Read(_keystoreName).Replace("\"","");
-            PlayerSettings.Android.keyaliasPass = _keystorePassward;
-            PlayerSettings.Android.keystorePass = _keystorePassward;
+            PlayerSettings.Android.keyaliasPass = buildOptionFile.Read(_keystorePasswardKey).Replace("\"", "");
+            PlayerSettings.Android.keystorePass = buildOptionFile.Read(_keystorePasswardKey).Replace("\"", "");
 
             AutoBuilder.PerformBuildAOS();
         }
