@@ -258,6 +258,15 @@ public static class CSharpHelper
             return value;
         }
     }
+    public static string RemoveSemi(string path)
+    {
+        string result = path;
+        result = result.Replace("\\\\\\", "");
+        result = result.Replace("\\\\", "\\");
+        result = result.Replace("\"", "");
+
+        return result;
+    }
     #endregion
 
     #region Encoding

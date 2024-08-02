@@ -12,28 +12,65 @@ public class WebManager
 {
     public string JwtToken { get; set; }
 
-    const string jwtTokenHeaderKey = "JwtToken";
+    const string _jwtTokenHeaderKey = "JwtToken";
+
+    JobSerializer _jobSerializer = new JobSerializer();
+    bool _isWorking;
 
     public void SendPostRequest<T>(string url, object obj, Action<T> res)
 	{
-        SendPostRequest(true, url, obj, res);
-	}
+        if (_isWorking)
+            _jobSerializer.Push(Post, true, url, obj, res);
+        else
+        {
+            Post(true, url, obj, res);
+            _isWorking = true;
+        }
+    }
     public void SendGetRequest<T>(string url, Action<T> res)
     {
-        SendGetRequest(true, url, res);
+        if (_isWorking)
+            _jobSerializer.Push(Get, true, url, res);
+        else
+        {
+            Get(true, url, res);
+            _isWorking = true;
+        }
     }
     public void SendPostRequest<T>(bool isMyServer, string url, object obj, Action<T> res)
     {
-        Managers.Instance.StartCoroutine(CoSendWebRequest(isMyServer, WebRequestMethod.Post, url, obj, res));
+        if (_isWorking)
+            _jobSerializer.Push(Post, isMyServer, url, obj, res);
+        else
+        {
+            Post(isMyServer, url, obj, res);
+            _isWorking = true;
+        }
     }
     public void SendGetRequest<T>(bool isMyServer, string url, Action<T> res)
     {
+        if (_isWorking)
+            _jobSerializer.Push(Get, isMyServer, url, res);
+        else
+        {
+            Get(isMyServer, url, res);
+            _isWorking = true;
+        }
+    }
+
+    void Get<T>(bool isMyServer, string url, Action<T> res)
+    {
         Managers.Instance.StartCoroutine(CoSendWebRequest(isMyServer, WebRequestMethod.Get, url, null, res));
     }
+    void Post<T>(bool isMyServer, string url, object obj, Action<T> res)
+    {
+        Managers.Instance.StartCoroutine(CoSendWebRequest(isMyServer, WebRequestMethod.Post, url, obj, res));
+    }
+
+
     IEnumerator CoSendWebRequest<T>(bool isMyServer, WebRequestMethod method, string url, object obj, Action<T> res)
     {
         string sendUrl = isMyServer ? $"{GameOptionManager.GetCurrentServerUrl}/{url}" : url;
-        UnityHelper.Log_H(sendUrl);
 
         switch (method)
         {
@@ -41,7 +78,7 @@ public class WebManager
                 using (var uwr = UnityWebRequest.Get(sendUrl))
                 {
                     if (!string.IsNullOrEmpty(JwtToken))
-                        uwr.SetRequestHeader(jwtTokenHeaderKey, JwtToken);
+                        uwr.SetRequestHeader(_jwtTokenHeaderKey, JwtToken);
 
                     yield return uwr.SendWebRequest();
 
@@ -67,7 +104,7 @@ public class WebManager
 
                     if (!string.IsNullOrEmpty(JwtToken))
                     {
-                        uwr.SetRequestHeader(jwtTokenHeaderKey, JwtToken);
+                        uwr.SetRequestHeader(_jwtTokenHeaderKey, JwtToken);
                     }
 
                     yield return uwr.SendWebRequest();
@@ -119,11 +156,16 @@ public class WebManager
                 Debug.LogError($"Failed Deserialize : {req.downloadHandler.text}\nsendUrl : {sendUrl}");
             }
         }
+
+        if (_jobSerializer.Count <= 0)
+            _isWorking = false;
+        else
+            _jobSerializer.Pop().Execute();
     }
     void SetHeader(UnityWebRequest uwr)
     {
         if (!string.IsNullOrEmpty(JwtToken))
-            uwr.SetRequestHeader(jwtTokenHeaderKey, JwtToken);
+            uwr.SetRequestHeader(_jwtTokenHeaderKey, JwtToken);
     }
 }
 public enum WebRequestMethod

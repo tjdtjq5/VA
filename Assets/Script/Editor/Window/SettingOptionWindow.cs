@@ -114,6 +114,12 @@ public class SettingOptionWindow : EditorWindow
                     EditorGUILayout.SelectableLabel(fileName);
 
                     GUI.contentColor = originColor;
+
+                    if (GUILayout.Button("Link"))
+                    {
+                        string path = _txtFiles[i].GetFile();
+                        FileHelper.ProcessStart(path);
+                    }
                 }
                 EditorGUILayout.EndHorizontal();
 
@@ -127,7 +133,7 @@ public class SettingOptionWindow : EditorWindow
                         string key = keys[j];
                         object value = _txtFiles[i].Read<object>(key);
                         string valueStr = CSharpHelper.SerializeObject(value);
-                        valueStr = RemoveSemi(valueStr);
+                        valueStr = CSharpHelper.RemoveSemi(valueStr);
 
                         bool isModify = modifyFlag.ContainsKey(key) ? modifyFlag[key] : false;
 
@@ -152,7 +158,7 @@ public class SettingOptionWindow : EditorWindow
                                     if (!string.IsNullOrEmpty(filePath))
                                     {
                                         _inputValue = filePath;
-                                        _inputValue = RemoveSemi(_inputValue);
+                                        _inputValue = CSharpHelper.RemoveSemi(_inputValue);
 
                                         ChangeData(i, key, valueStr);
                                     }
@@ -165,7 +171,7 @@ public class SettingOptionWindow : EditorWindow
 
                                 if (GUILayout.Button("M", GUILayout.Width(35)))
                                 {
-                                    _inputValue = RemoveSemi(_inputValue);
+                                    _inputValue = CSharpHelper.RemoveSemi(_inputValue);
 
                                     ChangeData(i, key, valueStr);
 
@@ -183,7 +189,7 @@ public class SettingOptionWindow : EditorWindow
                 {
                     int index = keys != null ? keys.Count : 0;
                     string key = $"NewOption_{index}";
-                    optionFile.Add(key, $"Value");
+                    _txtFiles[i].Add(key, $"Value");
                 }
             }
             EditorGUILayout.EndScrollView();
@@ -228,16 +234,6 @@ public class SettingOptionWindow : EditorWindow
         {
             _modifyFlag[index].Clear();
         }
-    }
-
-    string RemoveSemi(string path)
-    {
-        string result = path;
-        result = result.Replace("\\\\\\", "");
-        result = result.Replace("\\\\", "\\");
-        result = result.Replace("\"", "");
-
-        return result;
     }
 
     void ChangeData(int index, string originKey, string originValue)

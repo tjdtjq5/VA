@@ -68,7 +68,7 @@ public class GameOptionManagerPacket
         }
         else
         {
-            UnityHelper.LogError_H($"GameOptionManagerPacket GetTableFile No Linked File");
+            UnityHelper.LogError_H($"GameOptionManagerPacket GetTableFile No Linked File\nfile : {file}");
             return "";
         }
     }

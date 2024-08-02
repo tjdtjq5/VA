@@ -73,7 +73,7 @@ public class BasicFileTxt : IFileTxt
         Dictionary<string, string> data = GetFileData();
         if (data.ContainsKey(key))
         {
-            string valueData = data[key];
+            string valueData = CSharpHelper.RemoveSemi(data[key]);
             return valueData;
         }
         else
