@@ -19,7 +19,7 @@ public class AutoBuilder
         else
             appName += ".apk";
 
-        string targetDir = ProjectPath + "/" + "Build";
+        string targetDir = ProjectPath + "/" + "Build/Android";
         Directory.CreateDirectory(targetDir);
 
         BuildAndroid(targetDir, SCENES, targetDir + "/" + appName);
@@ -59,31 +59,14 @@ public class AutoBuilder
         get { return Application.dataPath.Substring(0, Application.dataPath.LastIndexOf('/')); }
     }
 
-    private static string GetArg(string name)
-    {
-        var args = System.Environment.GetCommandLineArgs();
-
-        for (int i = 0; i < args.Length; i++)
-        {
-            if (args[i] == name && args.Length > i + 1)
-            {
-                return args[i + 1];
-            }
-        }
-
-        return null;
-    }
-
     public static void PerformBuildIOS()
     {
-        BuildOptions opt = BuildOptions.None; // 기본이 cpp
+        BuildOptions opt = BuildOptions.None; 
         PlayerSettings.iOS.sdkVersion = iOSSdkVersion.DeviceSDK; // 시뮬레이터에서 돌리시려면 시뮬레이터 sdk 로 
-                                                                 //PlayerSettings.bundleVersion = GetArg ("-BUNDLE_VERSION"); //todo
-                                                                 //PlayerSettings.iOS.buildNumber = (GetArg ("-VERSION_CODE")); //todo
         char sep = Path.DirectorySeparatorChar;
-        string BUILD_TARGET_PATH = ProjectPath + "/ios"; //ios 폴더로 뱉습니다. 
+        string BUILD_TARGET_PATH = ProjectPath + "/Build/IOS";
         Directory.CreateDirectory(BUILD_TARGET_PATH);
-        PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
+        // PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
         try
         {
             BuildIOS(SCENES, BUILD_TARGET_PATH, BuildTarget.iOS, opt);
@@ -97,7 +80,6 @@ public class AutoBuilder
     static void BuildIOS(string[] scenes, string target_path,
         BuildTarget build_target, BuildOptions build_options)
     {
-        EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.iOS, build_target);
         BuildReport res = BuildPipeline.BuildPlayer(scenes, target_path, build_target, build_options);
         if (res == null) { throw new Exception("BuildPlayer failure: " + res); }
 
