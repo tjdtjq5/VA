@@ -21,6 +21,11 @@ public class ResourcesManager
         T resourcesLoad = Resources.Load<T>(path);
         return resourcesLoad;
     }
+    public T Instantiate<T>(string path, Transform parent = null) where T : UnityEngine.Object
+    {
+        GameObject go = Instantiate(path, parent);
+        return go.GetComponent<T>();
+    }
     public GameObject Instantiate(string path, Transform parent = null)
     {
         GameObject original = Load<GameObject>(path);

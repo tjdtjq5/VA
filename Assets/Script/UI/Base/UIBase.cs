@@ -13,6 +13,12 @@ public class UIBase : MonoBehaviour
     }
     protected virtual void Initialize() { }
 
+    private void Start()
+    {
+        UISet();
+    }
+    protected virtual void UISet() { }
+
     protected void Bind<T>(Type type) where T : UIBase
     {
         string[] names = type.GetEnumNames();
@@ -41,6 +47,15 @@ public class UIBase : MonoBehaviour
                     continue;
                 case nameof(UIScrollbar):
                     objs[i] = gameObject.GetComponent<UIScrollbar>();
+                    continue;
+                case nameof(UIScrollView):
+                    objs[i] = gameObject.GetComponent<UIScrollView>();
+                    continue;
+                case nameof(UIButton):
+                    objs[i] = gameObject.GetComponent<UIButton>();
+                    continue;
+                case nameof(UIInputField):
+                    objs[i] = gameObject.GetComponent<UIInputField>();
                     continue;
             }
 
@@ -87,6 +102,10 @@ public class UIBase : MonoBehaviour
     {
         return Get<UIButton>(_enumValue);
     }
+    protected UIInputField GetInputField(Enum _enumValue)
+    {
+        return Get<UIInputField>(_enumValue);
+    }
 
 
     protected void BindEvent(GameObject _go, Action<PointerEventData> _action, UIEvent eventType = UIEvent.Click)
@@ -110,6 +129,26 @@ public class UIBase : MonoBehaviour
             case UIEvent.PointUp:
                 evt.eventHandlerPointUp -= _action;
                 evt.eventHandlerPointUp += _action;
+                break;
+        }
+    }
+    protected void UnBindEvent(GameObject _go, Action<PointerEventData> _action, UIEvent eventType = UIEvent.Click)
+    {
+        UIEventHandler evt = UnityHelper.GetOrAddComponent<UIEventHandler>(_go);
+
+        switch (eventType)
+        {
+            case UIEvent.Click:
+                evt.eventHandlerClick -= _action;
+                break;
+            case UIEvent.Drag:
+                evt.eventHandlerOnDrag -= _action;
+                break;
+            case UIEvent.PointDown:
+                evt.eventHandlerPointDown -= _action;
+                break;
+            case UIEvent.PointUp:
+                evt.eventHandlerPointUp -= _action;
                 break;
         }
     }

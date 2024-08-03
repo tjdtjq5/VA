@@ -13,8 +13,8 @@ public class WebManager
     public string JwtToken { get; set; }
     public int AccountId { get; set; }
 
-    const string _jwtTokenHeaderKey = "JwtToken";
-    const string _accountIdHeaderKey = "AccountId";
+    const string _jwtTokenHeaderKey = "jwttoken";
+    const string _accountIdHeaderKey = "accountId";
 
     JobSerializer _jobSerializer = new JobSerializer();
     bool _isWorking;
@@ -78,11 +78,20 @@ public class WebManager
             case WebRequestMethod.Get:
                 using (var uwr = UnityWebRequest.Get(sendUrl))
                 {
+                    uwr.downloadHandler = new DownloadHandlerBuffer();
+                    uwr.SetRequestHeader("Content-Type", "application/json");
+
                     if (!string.IsNullOrEmpty(JwtToken))
+                    {
+                        UnityHelper.Log_H($"Add Header Jwt Token : {JwtToken}");
                         uwr.SetRequestHeader(_jwtTokenHeaderKey, JwtToken);
+                    }
 
                     if (AccountId > 0)
+                    {
+                        UnityHelper.Log_H($"Add Header Account Id : {AccountId}");
                         uwr.SetRequestHeader(_accountIdHeaderKey, AccountId.ToString());
+                    }
 
                     yield return uwr.SendWebRequest();
 
@@ -107,10 +116,16 @@ public class WebManager
                     uwr.SetRequestHeader("Content-Type", "application/json");
 
                     if (!string.IsNullOrEmpty(JwtToken))
+                    {
+                        UnityHelper.Log_H($"Add Header Jwt Token : {JwtToken}");
                         uwr.SetRequestHeader(_jwtTokenHeaderKey, JwtToken);
+                    }
 
                     if (AccountId > 0)
+                    {
+                        UnityHelper.Log_H($"Add Header Account Id : {AccountId}");
                         uwr.SetRequestHeader(_accountIdHeaderKey, AccountId.ToString());
+                    }
 
                     yield return uwr.SendWebRequest();
 
@@ -138,29 +153,35 @@ public class WebManager
 
     void WebResult<T>(UnityWebRequest req, string sendUrl ,Action<T> res, params ErrorResponseJob[] errorJob)
     {
+        Debug.LogError($"{req.result}   sendUrl : {sendUrl}    result : {req.downloadHandler.text}");
+
         if (req.result != UnityWebRequest.Result.Success)
         {
-            Debug.LogError($"{req.error}     sendUrl : {sendUrl}    result : {req.downloadHandler.text}");
+            Debug.LogError($"{req.result}     sendUrl : {sendUrl}    result : {req.downloadHandler.text}");
 
             var errorResponse = CSharpHelper.DeserializeObject<ErrorResponse>(req.downloadHandler.text);
-            HttpResponceMessageType errorMsgType = errorResponse.MessageType;
 
-            bool isJopWork = false;
-            for (int i = 0; i < errorJob.Length; i++)
+            if (errorResponse != null) 
             {
-                if(errorJob[i]._messageType == errorMsgType)
+                HttpResponceMessageType errorMsgType = errorResponse.MessageType;
+
+                bool isJopWork = false;
+                for (int i = 0; i < errorJob.Length; i++)
                 {
-                    if (errorJob[i]._job != null)
+                    if (errorJob[i]._messageType == errorMsgType)
                     {
-                        isJopWork = true;
-                        errorJob[i]._job.Execute();
-                        break;
+                        if (errorJob[i]._job != null)
+                        {
+                            isJopWork = true;
+                            errorJob[i]._job.Execute();
+                            break;
+                        }
                     }
                 }
-            }
 
-            if (!isJopWork)
-                ErrorResponseMessage(errorMsgType);
+                if (!isJopWork)
+                    ErrorResponseMessage(errorMsgType);
+            }
         }
         else
         {

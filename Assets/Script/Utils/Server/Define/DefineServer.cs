@@ -28,4 +28,5 @@ public enum HttpResponceMessageType
     ExpiredJwtToken = 1501, // 기한 만료된 Jwt Token
     FailAccountAdd = 1502, // 계정 만들기 실패
     FailCacheAddJwtToken = 1503, // 레디스에 jwt 정보 넣기 실패
+    DuplicationAccount, // 중복 로그인
 }

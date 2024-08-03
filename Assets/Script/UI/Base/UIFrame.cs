@@ -62,7 +62,6 @@ public class UIFrame : UIBase
     {
         enumDics.Clear();
         AddChildPath(null, this.transform);
-        // AddRootPath();
     }
     void AddChildPath(string parentsName, Transform parents)
     {
@@ -118,6 +117,12 @@ public class UIFrame : UIBase
                 BindDicsAdd(typeof(UIScrollView), key);
                 EnumDicsAdd(key, current);
             }
+            if (child.GetComponent<UIInputField>())
+            {
+                string key = $"{nameof(UIInputField) + "E"}";
+                BindDicsAdd(typeof(UIInputField), key);
+                EnumDicsAdd(key, current);
+            }
 
             if (child.GetComponent<UIFrame>())
             {
@@ -164,6 +169,12 @@ public class UIFrame : UIBase
             string key = $"{nameof(UIScrollView) + "E"}";
             BindDicsAdd(typeof(UIScrollView), key);
             EnumDicsAdd(key, nameof(UIScrollView));
+        }
+        if (this.GetComponent<UIInputField>())
+        {
+            string key = $"{nameof(UIInputField) + "E"}";
+            BindDicsAdd(typeof(UIInputField), key);
+            EnumDicsAdd(key, nameof(UIInputField));
         }
     }
     void EnumDicsAdd(string key, string value)

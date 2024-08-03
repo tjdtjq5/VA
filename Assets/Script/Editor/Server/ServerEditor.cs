@@ -5,7 +5,21 @@ public class ServerEditor
 {
     static SecretOptionFile secretFileTxt = new SecretOptionFile();
 
-    [MenuItem("Server/Start")]
+    [MenuItem("Server/LocalhostStart")]
+    public static void LocalhostStart()
+    {
+        FileHelper.ProcessStart(secretFileTxt.Read("LocalhostStartPath"));
+    }
+    [MenuItem("Server/NgrokStart")]
+    public static void NgrokStart()
+    {
+        FileHelper.ProcessStart(secretFileTxt.Read("NgrokPath"));
+    }
+    [MenuItem("Server/DefineCopyStart")]
+    public static void DefineCopyStart()
+    {
+        FileHelper.ProcessStart(secretFileTxt.Read("DefineCopyPath"));
+    }
     public static void StartServer()
     {
         // 서버 실행 

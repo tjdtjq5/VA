@@ -18,7 +18,10 @@ public class Job : IJob
     public override void Execute()
     {
         if (Cancel == false)
-            _action.Invoke();
+        {
+            if (_action != null)
+                _action.Invoke();
+        }
     }
 }
 
@@ -36,7 +39,10 @@ public class Job<T1> : IJob
     public override void Execute()
     {
         if (Cancel == false)
-            _action.Invoke(_t1);
+        {
+            if (_action != null)
+                _action.Invoke(_t1);
+        }
     }
 }
 
@@ -56,7 +62,10 @@ public class Job<T1, T2> : IJob
     public override void Execute()
     {
         if (Cancel == false)
-            _action.Invoke(_t1, _t2);
+        {
+            if (_action != null)
+                _action.Invoke(_t1, _t2);
+        }
     }
 }
 
@@ -78,7 +87,10 @@ public class Job<T1, T2, T3> : IJob
     public override void Execute()
     {
         if (Cancel == false)
-            _action.Invoke(_t1, _t2, _t3);
+        {
+            if (_action != null)
+                _action.Invoke(_t1, _t2, _t3);
+        }
     }
 }
 
@@ -102,7 +114,10 @@ public class Job<T1, T2, T3, T4> : IJob
     public override void Execute()
     {
         if (Cancel == false)
-            _action.Invoke(_t1, _t2, _t3, _t4);
+        {
+            if (_action != null)
+                _action.Invoke(_t1, _t2, _t3, _t4);
+        }
     }
 }
 
@@ -128,6 +143,9 @@ public class Job<T1, T2, T3, T4, T5> : IJob
     public override void Execute()
     {
         if (Cancel == false)
-            _action.Invoke(_t1, _t2, _t3, _t4, _t5);
+        {
+            if (_action != null)
+                _action.Invoke(_t1, _t2, _t3, _t4, _t5);
+        }
     }
 }

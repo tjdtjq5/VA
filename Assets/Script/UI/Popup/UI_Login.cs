@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,14 +8,18 @@ public class UI_Login : UIPopup
 
     [SerializeField] Transform _btnListTr;
 
-	protected override void Initialize()
+    Action _callback;
+
+    protected override void Initialize()
 	{
 		base.Initialize();
 		Bind<UIImage>(typeof(UIImageE));
 	}
 
-    private void Start()
+    protected override void UISet()
     {
+        base.UISet();
+
         BtnSpawn();
     }
 
@@ -27,8 +32,13 @@ public class UI_Login : UIPopup
             ProviderType type = providerTypes[i];
             GameObject go = Managers.Resources.Instantiate(loginBtnPrepab, _btnListTr);
             UILoginBtn loginBtn = go.GetOrAddComponent<UILoginBtn>();
-            loginBtn.Set(type);
+            loginBtn.Set(type, _callback);
         }
+    }
+
+    public void LoginAfterJob(Action callback)
+    {
+        this._callback = callback;
     }
 
     public enum UIImageE

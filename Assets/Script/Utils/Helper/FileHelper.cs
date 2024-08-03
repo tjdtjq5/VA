@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
+
 #if UNITY_EDITOR
 using System.Windows.Forms;
 #endif
@@ -33,7 +35,7 @@ public class FileHelper
     }
     public static void Write(string file, string text, bool isRefreash)
     {
-        File.WriteAllText(file, text);
+        File.WriteAllText(file, text, Encoding.UTF8);
 
 #if UNITY_EDITOR
         if (isRefreash)
@@ -42,11 +44,11 @@ public class FileHelper
     }
     public static IEnumerable<string> ReadLines(string file)
     {
-        return File.ReadLines(file);
+        return File.ReadLines(file, Encoding.UTF8);
     }
     public static string ReadAll(string file)
     {
-        return File.ReadAllText(file);
+        return File.ReadAllText(file, Encoding.UTF8);
     }
     public static bool FileExist(string file)
     {

@@ -12,16 +12,23 @@ public class GuestLogin : MonoBehaviour, ILoginService
     {
         string userId = SystemInfo.deviceUniqueIdentifier;
 
+        Login(userId, callback);
+    }
+
+    public void Login(string id, Action callback)
+    {
         AccountLoginRequest req = new AccountLoginRequest()
         {
             ProviderType = ProviderType.Guest,
-            NetworkIdOrCode = userId,
+            NetworkIdOrCode = id,
         };
 
         Managers.Web.SendPostRequest<AccountLoginResponce>("account/login", req, (res) =>
         {
             Managers.Web.JwtToken = res.JwtAccessToken;
             Managers.Web.AccountId = res.AccountId;
+
+            UnityHelper.Log_H($"Id : {res.AccountId}\nToken : {res.JwtAccessToken}");
 
             if (callback != null)
             {

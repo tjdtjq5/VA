@@ -273,6 +273,11 @@ public static class CSharpHelper
             return value;
         }
     }
+    public static bool IsRegex(string value)
+    {
+        string regex = GetReplaceRegex(value);
+        return regex.Equals(value);
+    }
     public static string RemoveSemi(string path)
     {
         string result = path;
