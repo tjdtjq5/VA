@@ -83,13 +83,11 @@ public class WebManager
 
                     if (!string.IsNullOrEmpty(JwtToken))
                     {
-                        UnityHelper.Log_H($"Add Header Jwt Token : {JwtToken}");
                         uwr.SetRequestHeader(_jwtTokenHeaderKey, JwtToken);
                     }
 
                     if (AccountId > 0)
                     {
-                        UnityHelper.Log_H($"Add Header Account Id : {AccountId}");
                         uwr.SetRequestHeader(_accountIdHeaderKey, AccountId.ToString());
                     }
 
@@ -117,13 +115,11 @@ public class WebManager
 
                     if (!string.IsNullOrEmpty(JwtToken))
                     {
-                        UnityHelper.Log_H($"Add Header Jwt Token : {JwtToken}");
                         uwr.SetRequestHeader(_jwtTokenHeaderKey, JwtToken);
                     }
 
                     if (AccountId > 0)
                     {
-                        UnityHelper.Log_H($"Add Header Account Id : {AccountId}");
                         uwr.SetRequestHeader(_accountIdHeaderKey, AccountId.ToString());
                     }
 
@@ -153,8 +149,6 @@ public class WebManager
 
     void WebResult<T>(UnityWebRequest req, string sendUrl ,Action<T> res, params ErrorResponseJob[] errorJob)
     {
-        Debug.LogError($"{req.result}   sendUrl : {sendUrl}    result : {req.downloadHandler.text}");
-
         if (req.result != UnityWebRequest.Result.Success)
         {
             Debug.LogError($"{req.result}     sendUrl : {sendUrl}    result : {req.downloadHandler.text}");
