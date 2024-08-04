@@ -10,6 +10,11 @@ public class ServerEditor
     {
         FileHelper.ProcessStart(secretFileTxt.Read("LocalhostStartPath"));
     }
+    [MenuItem("Server/ServerSlnFile")]
+    public static void ServerSlnFile()
+    {
+        FileHelper.ProcessStart(secretFileTxt.Read("ServerSlnPath"));
+    }
     [MenuItem("Server/NgrokStart")]
     public static void NgrokStart()
     {

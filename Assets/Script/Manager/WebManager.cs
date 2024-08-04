@@ -1,13 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using Best.HTTP;
+using Newtonsoft.Json;
+using OPS.Obfuscator.Attribute;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.Http;
+using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Networking;
 
+[DoNotObfuscateClass]
 public class WebManager
 {
     public string JwtToken { get; set; }
@@ -62,101 +61,67 @@ public class WebManager
 
     void Get<T>(bool isMyServer, string url, Action<T> res, params ErrorResponseJob[] errorJob)
     {
-        Managers.Instance.StartCoroutine(CoSendWebRequest(isMyServer, WebRequestMethod.Get, url, null, res));
+        var request = HTTPRequest.CreatePost($"{GetUrl(isMyServer, url)}");
+
+        AddHeader(request);
+
+        Send(request, res, errorJob);
     }
     void Post<T>(bool isMyServer, string url, object obj, Action<T> res, params ErrorResponseJob[] errorJob)
     {
-        Managers.Instance.StartCoroutine(CoSendWebRequest(isMyServer, WebRequestMethod.Post, url, obj, res));
-    }
+        var request = HTTPRequest.CreatePost($"{GetUrl(isMyServer, url)}");
 
-    IEnumerator CoSendWebRequest<T>(bool isMyServer, WebRequestMethod method, string url, object obj, Action<T> res, params ErrorResponseJob[] errorJob)
-    {
-        string sendUrl = isMyServer ? $"{GameOptionManager.GetCurrentServerUrl}/{url}" : url;
+        request.SetHeader("content-type", "application/json");
 
-        switch (method)
+        AddHeader(request);
+
+        if (obj != null)
         {
-            case WebRequestMethod.Get:
-                using (var uwr = UnityWebRequest.Get(sendUrl))
-                {
-                    uwr.downloadHandler = new DownloadHandlerBuffer();
-                    uwr.SetRequestHeader("Content-Type", "application/json");
-
-                    if (!string.IsNullOrEmpty(JwtToken))
-                    {
-                        uwr.SetRequestHeader(_jwtTokenHeaderKey, JwtToken);
-                    }
-
-                    if (AccountId > 0)
-                    {
-                        uwr.SetRequestHeader(_accountIdHeaderKey, AccountId.ToString());
-                    }
-
-                    yield return uwr.SendWebRequest();
-
-                    WebResult(uwr, sendUrl, res, errorJob);
-                }
-                break;
-            case WebRequestMethod.Post:
-
-                WWWForm form = new WWWForm();
-
-                byte[] jsonBytes = null;
-                if (obj != null)
-                {
-                    string jsonStr = CSharpHelper.SerializeObject(obj);
-                    jsonBytes = Encoding.UTF8.GetBytes(jsonStr);
-                }
-
-                using (var uwr = UnityWebRequest.Post(sendUrl, form))
-                {
-                    uwr.uploadHandler = new UploadHandlerRaw(jsonBytes);
-                    uwr.downloadHandler = new DownloadHandlerBuffer();
-                    uwr.SetRequestHeader("Content-Type", "application/json");
-
-                    if (!string.IsNullOrEmpty(JwtToken))
-                    {
-                        uwr.SetRequestHeader(_jwtTokenHeaderKey, JwtToken);
-                    }
-
-                    if (AccountId > 0)
-                    {
-                        uwr.SetRequestHeader(_accountIdHeaderKey, AccountId.ToString());
-                    }
-
-                    yield return uwr.SendWebRequest();
-
-                    WebResult(uwr, sendUrl, res, errorJob);
-                }
-                break;
+            byte[] jsonBytes = null;
+            string jsonStr = CSharpHelper.SerializeObject(obj);
+            jsonBytes = Encoding.UTF8.GetBytes(jsonStr);
+            request.UploadSettings.UploadStream = new MemoryStream(jsonBytes);
         }
-    }
-    public async Task<T> PostFormUrlEncoded<T>(string url, IEnumerable<KeyValuePair<string, string>> postData) where T : new()
-    {
-        using (var httpClient = new HttpClient())
-        {
-            using (var content = new FormUrlEncodedContent(postData))
-            {
-                content.Headers.Clear();
-                content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
 
-                HttpResponseMessage response = await httpClient.PostAsync(url, content);
-                string json = await response.Content.ReadAsStringAsync();
-                T result = CSharpHelper.DeserializeObject<T>(json);
-                return result;
+        Send(request, res, errorJob);
+    }
+
+    void AddHeader(HTTPRequest request)
+    {
+        if (!string.IsNullOrEmpty(JwtToken))
+            request.SetHeader(_jwtTokenHeaderKey, JwtToken);
+
+        if (AccountId > 0)
+            request.SetHeader(_accountIdHeaderKey, AccountId.ToString());
+    }
+    async void Send<T>(HTTPRequest request, Action<T> res, params ErrorResponseJob[] errorJob)
+    {
+        try
+        {
+            var response = await request.GetHTTPResponseAsync();
+
+            if (response.IsSuccess)
+            {
+                if (typeof(T) == typeof(string))
+                {
+                    res.Invoke((T)(object)(response.DataAsText));
+                }
+                else
+                {
+                    T resObj = JsonConvert.DeserializeObject<T>(response.DataAsText);
+                    res.Invoke(resObj);
+                }
             }
-        }
-    }
-
-    void WebResult<T>(UnityWebRequest req, string sendUrl ,Action<T> res, params ErrorResponseJob[] errorJob)
-    {
-        if (req.result != UnityWebRequest.Result.Success)
-        {
-            Debug.LogError($"{req.result}     sendUrl : {sendUrl}    result : {req.downloadHandler.text}");
-
-            var errorResponse = CSharpHelper.DeserializeObject<ErrorResponse>(req.downloadHandler.text);
-
-            if (errorResponse != null) 
+            else
             {
+                UnityHelper.LogError_H($"Server sent an error: {response.StatusCode}-{response.Message}\nRequest Url : {request.Uri}");
+
+                var errorResponse = new ErrorResponse() 
+                {
+                    Detail = response.Message,
+                    Status = response.StatusCode.ToString(),
+                };
+
                 HttpResponceMessageType errorMsgType = errorResponse.MessageType;
 
                 bool isJopWork = false;
@@ -177,40 +142,27 @@ public class WebManager
                     ErrorResponseMessage(errorMsgType);
             }
         }
-        else
+        catch (AsyncHTTPException e)
         {
-            try
-            {
-                if (typeof(T) == typeof(string))
-                {
-                    res.Invoke((T)(object)(req.downloadHandler.text));
-                }
-                else
-                {
-                    T resObj = JsonConvert.DeserializeObject<T>(req.downloadHandler.text);
-                    res.Invoke(resObj);
-                }
-            }
-            catch
-            {
-                Debug.LogError($"Failed Deserialize : {req.downloadHandler.text}\nsendUrl : {sendUrl}");
-            }
+            Debug.LogError($"Request finished with error! Error: {e.Message}");
         }
-
-        if (_jobSerializer.Count <= 0)
-            _isWorking = false;
-        else
-            _jobSerializer.Pop().Execute();
-    }
-    void SetHeader(UnityWebRequest uwr)
-    {
-        if (!string.IsNullOrEmpty(JwtToken))
-            uwr.SetRequestHeader(_jwtTokenHeaderKey, JwtToken);
+        finally 
+        {
+            if (_jobSerializer.Count <= 0)
+                _isWorking = false;
+            else
+                _jobSerializer.Pop().Execute();
+        }
     }
 
     void ErrorResponseMessage(HttpResponceMessageType type)
     {
 
+    }
+
+    private string GetUrl(bool isMyServer, string url)
+    {
+        return isMyServer ? $"{GameOptionManager.GetCurrentServerUrl}/{url}" : url;
     }
 }
 public enum WebRequestMethod

@@ -15,17 +15,11 @@ public static class UnityHelper
     }
     public static void Log_H<T1, T2>(Dictionary<T1, T2> dics) where T1 : new() where T2 : new()
     {
-        string message = "";
-
-        foreach (var data in dics)
-        {
-            string keyData = CSharpHelper.SerializeObject(data.Key);
-            string valueData = CSharpHelper.SerializeObject(data.Value);
-
-            message += $"{keyData} : {valueData}\n";
-        }
-
-        Log_H(message);
+        Log_H(dics.ToString());
+    }
+    public static void Log_H<T>(List<T> list)
+    {
+        Log_H(list.ToString());
     }
     public static void LogError_H(object message)
     {

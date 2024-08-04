@@ -23,6 +23,7 @@ public class UILoginTest : UIPopup
 
         GetInputField(UIInputFieldE.IDInputField).placeHolder = $"아이디를 입력하세요";
 		GetButton(UIButtonE.OkBtn).AddClickEvent(OnGuestLogin);
+		GetButton(UIButtonE.TestLogBtn).AddClickEvent(OnServerLogTest);
     }
 
 	void OnGuestLogin(PointerEventData ped)
@@ -48,11 +49,20 @@ public class UILoginTest : UIPopup
 		this._callback = callback;
 	}
 
+	void OnServerLogTest(PointerEventData ped)
+	{
+		Managers.Web.SendPostRequest<string>("Test/TestResponse", null, (res) => 
+		{
+			UnityHelper.Log_H(res);
+		});
+	}
+
 	public enum UIImageE
     {
 		BG,
 		IDInputField,
 		OkBtn,
+		TestLogBtn,
     }
 	public enum UIInputFieldE
     {
@@ -61,5 +71,6 @@ public class UILoginTest : UIPopup
 	public enum UIButtonE
     {
 		OkBtn,
+		TestLogBtn,
     }
 }

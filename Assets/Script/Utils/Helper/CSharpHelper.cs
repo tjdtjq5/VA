@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -322,6 +323,30 @@ public static class CSharpHelper
         {
             throw new Exception("Error in Base64Decode: " + e.Message);
         }
+    }
+    #endregion
+
+    #region Dictionary
+    public static string ToString<T1, T2>(this Dictionary<T1, T2> dics) where T1 : new() where T2 : new()
+    {
+        string result = "";
+
+        foreach (var data in dics)
+        {
+            string keyData = SerializeObject(data.Key);
+            string valueData = SerializeObject(data.Value);
+
+            result += $"{keyData} : {valueData}\n";
+        }
+
+        return result;
+    }
+    #endregion
+
+    #region List
+    public static string ToString<T>(this List<T> list)
+    {
+        return SerializeObject(list);
     }
     #endregion
 }
