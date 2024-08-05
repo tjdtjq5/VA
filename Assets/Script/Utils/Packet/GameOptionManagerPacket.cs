@@ -37,7 +37,20 @@ public class GameOptionManagerPacket
 
         FileHelper.Write(file, text, true);
     }
-    public static bool Exist()
+    public static void SetRelease(bool isRelease)
+    {
+        string file = GetFile();
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"Must Link GameOptionManager.cs");
+            return;
+        }
+
+        string origin = CSharpHelper.Format_H(releaseFormat, GameOptionManager.IsRelease.ToString().ToLower());
+        string replace = CSharpHelper.Format_H(releaseFormat, isRelease.ToString().ToLower());
+        SimpleFormat.Replace(file, origin, replace);
+    }
+    static bool Exist()
     {
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
@@ -79,5 +92,9 @@ public class GameOptionManagerPacket
     // {0} Server Url Type
     static string serverUrlFormat =
 @"public static ServerUrlType ServerUrlType {{ get; }} = ServerUrlType.{0};";
+
+    // {0} bool 
+    static string releaseFormat =
+@"public static bool IsRelease {{ get; }} = {0};";
     #endregion
 }

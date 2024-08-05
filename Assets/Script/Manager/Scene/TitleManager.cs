@@ -8,12 +8,14 @@ public class TitleManager : SceneBase
     {
         base.Initialize();
 
+        SetMonitor();
+
         SceneType = SceneType.Title;
 
         // Managers.Resources.Instantiate("Prefab/UI/Popup/UILogin");
 
         UILoginTest ult = Managers.Resources.Instantiate<UILoginTest>("Prefab/UI/Popup/UILoginTest");
-        ult.LoginAfterJob(() => 
+        ult.LoginAfterJob(() =>
         {
             Managers.Resources.Destroy(ult.gameObject);
 
@@ -24,5 +26,13 @@ public class TitleManager : SceneBase
     public override void Clear()
     {
         throw new System.NotImplementedException();
+    }
+
+    void SetMonitor()
+    {
+        if (!GameOptionManager.IsRelease)
+        {
+            Managers.Resources.Instantiate("Prefab/UI/Popup/Monitor/Monitor");
+        }
     }
 }

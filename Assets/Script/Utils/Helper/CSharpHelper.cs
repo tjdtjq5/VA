@@ -88,6 +88,22 @@ public static class CSharpHelper
 
         return value;
     }
+    public static string ToString_H(this DateTime dateTime)
+    {
+        return dateTime.ToString("yyyy-mm-dd hh:mm:ss", CultureInfo.InvariantCulture);
+    }
+    public static DateTime ToDateTime(this string str, bool isDebug)
+    {
+        DateTime result = new DateTime(0);
+
+        if (!DateTime.TryParseExact(str, "yyyy-mm-dd hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
+        {
+            if (isDebug)
+                UnityHelper.LogError_H($"CSharpHelper ToDateTime Error\nstr : {str}\nresult : {result}");
+        }
+
+        return result;
+    }
     #endregion
 
     #region Type Field
@@ -327,7 +343,7 @@ public static class CSharpHelper
     #endregion
 
     #region Dictionary
-    public static string ToString<T1, T2>(this Dictionary<T1, T2> dics) where T1 : new() where T2 : new()
+    public static string ToString_H<T1, T2>(this Dictionary<T1, T2> dics) where T1 : new() where T2 : new()
     {
         string result = "";
 
@@ -344,7 +360,7 @@ public static class CSharpHelper
     #endregion
 
     #region List
-    public static string ToString<T>(this List<T> list)
+    public static string ToString_H<T>(this List<T> list)
     {
         return SerializeObject(list);
     }

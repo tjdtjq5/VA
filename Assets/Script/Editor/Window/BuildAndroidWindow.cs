@@ -11,6 +11,7 @@ public class BuildAndroidWindow : EditorWindow
     static bool _versionFoldout;
     static bool _bundleCodeFoldout;
     static bool _googleBuildFoldout;
+    static bool _releaseBuildFoldout;
     static bool _serverUrlFoldout;
     static bool _logFoldout;
 
@@ -56,6 +57,10 @@ public class BuildAndroidWindow : EditorWindow
 
             EditorGUILayout.Space(4);
 
+            ReleaseBuildGUI();
+
+            EditorGUILayout.Space(4);
+
             ServerURLSetting();
 
             EditorGUILayout.Space(4);
@@ -72,6 +77,7 @@ public class BuildAndroidWindow : EditorWindow
     private void OnEnable()
     {
         _googleBuildFoldout = true;
+        _releaseBuildFoldout = true;
     }
 
     void TitleGUI()
@@ -214,6 +220,37 @@ public class BuildAndroidWindow : EditorWindow
         }
     }
 
+    void ReleaseBuildGUI()
+    {
+        _releaseBuildFoldout = CustomEditorUtility.DrawFoldoutTitle("Release", _releaseBuildFoldout);
+
+        if (_releaseBuildFoldout)
+        {
+            EditorGUILayout.Space(4);
+
+            EditorGUILayout.BeginHorizontal();
+            {
+                Color originColor = GUI.backgroundColor;
+                bool isRelease = GameOptionManager.IsRelease;
+
+                for (int i = 0; i < 2; i++)
+                {
+                    bool flag = i % 2 == 0;
+                    bool isSelect = flag == isRelease;
+                    GUI.backgroundColor = isSelect ? Color.cyan : Color.white;
+
+                    if (GUILayout.Button($"{flag.ToString()}"))
+                    {
+                        GameOptionManager.SetRelease(flag);
+                    }
+                }
+
+                GUI.backgroundColor = originColor;
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+    }
+
     void ServerURLSetting()
     {
         _serverUrlFoldout = CustomEditorUtility.DrawFoldoutTitle("Server Url Setting", _serverUrlFoldout);
@@ -301,6 +338,16 @@ public class BuildAndroidWindow : EditorWindow
             PlayerSettings.Android.keystoreName = buildOptionFile.Read(_keystoreName).Replace("\"","");
             PlayerSettings.Android.keyaliasPass = buildOptionFile.Read(_keystorePasswardKey).Replace("\"", "");
             PlayerSettings.Android.keystorePass = buildOptionFile.Read(_keystorePasswardKey).Replace("\"", "");
+
+            bool isRelease = GameOptionManager.IsRelease;
+            if (isRelease)
+            {
+                EditorUserBuildSettings.androidBuildType = AndroidBuildType.Release;
+            }
+            else
+            {
+                EditorUserBuildSettings.androidBuildType = AndroidBuildType.Development;
+            }
 
             AutoBuilder.PerformBuildAOS();
         }

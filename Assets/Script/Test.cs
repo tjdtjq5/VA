@@ -1,15 +1,16 @@
 using EasyButtons;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Test : MonoBehaviour
 {
-
+    Dictionary<int, int> dats = new Dictionary<int, int>();
     [Button]
-    public void Credentials()
+    public void Credentials(bool flag)
     {
-        UnityHelper.Log_H(2);
+        Debug.Log(1111111);
     }
 }
 [System.Serializable]

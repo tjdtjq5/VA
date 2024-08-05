@@ -5,7 +5,9 @@ public class GameOptionManager
     static OptionFile optionFile = new OptionFile();
     static Dictionary<ServerUrlType, string> serverUrlDics = new Dictionary<ServerUrlType, string>();
 
-	public static ServerUrlType ServerUrlType { get; } = ServerUrlType.DebugNgrok;
+    public static bool IsRelease { get; } = false;
+
+	public static ServerUrlType ServerUrlType { get; } = ServerUrlType.LocalhostUrl;
 	public static string GetCurrentServerUrl
 	{
 		get
@@ -52,4 +54,8 @@ public class GameOptionManager
 
         GameOptionManagerPacket.ServerUrlChange(changeUrlType);
 	}
+    public static void SetRelease(bool flag)
+    {
+        GameOptionManagerPacket.SetRelease(flag);
+    }
 }

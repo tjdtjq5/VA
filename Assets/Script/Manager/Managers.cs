@@ -15,6 +15,8 @@ public class Managers : MonoBehaviour
     PoolManager _pool = new PoolManager();
     UIManager _ui = new UIManager();
     ProcessDeepLinkManager _deepLink = new ProcessDeepLinkManager();
+    TimeManager _time = new TimeManager();
+    TweenManager _tween = new TweenManager();
 
     public static WebManager Web { get { return Instance._web; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
@@ -24,6 +26,8 @@ public class Managers : MonoBehaviour
     public static PoolManager Pool { get { return Instance._pool; } }
     public static UIManager UI { get { return Instance._ui; } }
     public static ProcessDeepLinkManager DeepLink { get { return Instance._deepLink; } }
+    public static TimeManager Time { get { return Instance._time; } }
+    public static TweenManager Tween { get { return Instance._tween; } }
 
     void Start()
     {
@@ -45,11 +49,17 @@ public class Managers : MonoBehaviour
 
             s_instance._sound.Initialize();
             s_instance._pool.Initialize();
+            s_instance._time.Initialize();
         }
     }
 
     private void Update()
     {
         _input.OnUpdate();
+    }
+    private void FixedUpdate()
+    {
+        _time.OnFixedUpdate();
+        _tween.OnFixedUpdate();
     }
 }

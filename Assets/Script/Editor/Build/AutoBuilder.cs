@@ -57,11 +57,10 @@ public class AutoBuilder
     public static void PerformBuildIOS()
     {
         BuildOptions opt = BuildOptions.None; 
-        PlayerSettings.iOS.sdkVersion = iOSSdkVersion.DeviceSDK; // ?????????????? ?????????? ?????????? sdk ?? 
+        PlayerSettings.iOS.sdkVersion = iOSSdkVersion.DeviceSDK;
         char sep = Path.DirectorySeparatorChar;
         string BUILD_TARGET_PATH = UnityHelper.GetBuildPath(BuildTarget.iOS.ToString());
         Directory.CreateDirectory(BUILD_TARGET_PATH);
-        // PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
         try
         {
             BuildIOS(SCENES, BUILD_TARGET_PATH, BuildTarget.iOS, opt);

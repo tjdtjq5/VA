@@ -16,6 +16,8 @@ public class SettingOptionWindow : EditorWindow
 
     static IFileTxt[] _txtFiles;
     static Vector2 _windowSize;
+    static bool _serverUrlFoldout;
+    static bool _releaseBuildFoldout;
 
     [MenuItem("Tool/Setting %q")]
     static void Open()
@@ -64,6 +66,8 @@ public class SettingOptionWindow : EditorWindow
             }
 
             ServerURLSetting();
+
+            ReleaseBuildGUI();
         }
         EditorGUILayout.EndVertical();
     }
@@ -197,30 +201,65 @@ public class SettingOptionWindow : EditorWindow
     }
     void ServerURLSetting()
     {
-        ServerUrlType selectType = GameOptionManager.ServerUrlType;
-        int len = Enum.GetValues(typeof(ServerUrlType)).Length;
+        _serverUrlFoldout = CustomEditorUtility.DrawFoldoutTitle("Server Url Setting", _serverUrlFoldout);
 
-        EditorGUILayout.LabelField("Server Url", CustomEditorUtility.GetMiddleLabel);
-
-        Color originColor = GUI.backgroundColor;
-
-        EditorGUILayout.BeginHorizontal();
+        if (_serverUrlFoldout)
         {
-            for (int i = 0; i < len; i++) 
-            {
-                ServerUrlType cType = (ServerUrlType)i;
-                bool isSelect = cType == selectType;
-                GUI.backgroundColor = isSelect ? Color.cyan : Color.white;
+            EditorGUILayout.Space(4);
 
-                if (GUILayout.Button($"{cType.ToString()}"))
+            ServerUrlType selectType = GameOptionManager.ServerUrlType;
+            int len = Enum.GetValues(typeof(ServerUrlType)).Length;
+
+            Color originColor = GUI.backgroundColor;
+
+            EditorGUILayout.BeginHorizontal();
+            {
+                for (int i = 0; i < len; i++)
                 {
-                    GameOptionManager.ChangeServerUrl(cType);
+                    ServerUrlType cType = (ServerUrlType)i;
+                    bool isSelect = cType == selectType;
+                    GUI.backgroundColor = isSelect ? Color.cyan : Color.white;
+
+                    if (GUILayout.Button($"{cType.ToString()}"))
+                    {
+                        GameOptionManager.ChangeServerUrl(cType);
+                    }
                 }
             }
-        }
-        EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();
 
-        GUI.backgroundColor = originColor;
+            GUI.backgroundColor = originColor;
+        }
+    }
+    void ReleaseBuildGUI()
+    {
+        _releaseBuildFoldout = CustomEditorUtility.DrawFoldoutTitle("Release", _releaseBuildFoldout);
+
+        if (_releaseBuildFoldout)
+        {
+            EditorGUILayout.Space(4);
+
+            EditorGUILayout.BeginHorizontal();
+            {
+                Color originColor = GUI.backgroundColor;
+                bool isRelease = GameOptionManager.IsRelease;
+
+                for (int i = 0; i < 2; i++)
+                {
+                    bool flag = i % 2 == 0;
+                    bool isSelect = flag == isRelease;
+                    GUI.backgroundColor = isSelect ? Color.cyan : Color.white;
+
+                    if (GUILayout.Button($"{flag.ToString()}"))
+                    {
+                        GameOptionManager.SetRelease(flag);
+                    }
+                }
+
+                GUI.backgroundColor = originColor;
+            }
+            EditorGUILayout.EndHorizontal();
+        }
     }
 
     void SwitchModifyFlag(int index, string key, bool flag)
