@@ -6,6 +6,24 @@ using UnityEngine.UI;
 
 public class Test : MonoBehaviour
 {
+    [Button]
+    public void AdminResponse()
+    {
+        Managers.Web.SendGetRequest<string>("Test/AdminResponse", (res) => 
+        {
+            UnityHelper.Log_H(res);
+        });
+    }
+
+    [Button]
+    public void LoginResponse()
+    {
+        Managers.Web.SendGetRequest<string>("Test/LoginCheck", (res) =>
+        {
+            UnityHelper.Log_H(res);
+        });
+    }
+
     EventSource _sse;
 
     [Button]
@@ -52,6 +70,7 @@ public class Test : MonoBehaviour
 
         Managers.Web.SendPostRequest<string>("Sse/Message", message, (res) => 
         {
+
         });
     }
 

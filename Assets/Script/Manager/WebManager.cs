@@ -108,19 +108,20 @@ public class WebManager
                 }
                 else
                 {
-                    T resObj = JsonConvert.DeserializeObject<T>(response.DataAsText);
+                    T resObj = CSharpHelper.DeserializeObject<T>(response.DataAsText);
                     res.Invoke(resObj);
                 }
             }
             else
             {
-                UnityHelper.LogError_H($"Server sent an error: {response.StatusCode}-{response.Message}\nRequest Url : {request.Uri}");
+                UnityHelper.LogError_H($"Server sent an error: {response.StatusCode}-{response.DataAsText}\nRequest Url : {request.Uri}");
 
-                var errorResponse = new ErrorResponse() 
+
+                ErrorResponse errorResponse = CSharpHelper.DeserializeObject<ErrorResponse>(response.DataAsText);
+                if (errorResponse == null)
                 {
-                    Detail = response.Message,
-                    Status = response.StatusCode.ToString(),
-                };
+                    return;
+                }
 
                 HttpResponceMessageType errorMsgType = errorResponse.MessageType;
 

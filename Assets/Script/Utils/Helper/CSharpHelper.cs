@@ -218,7 +218,7 @@ public static class CSharpHelper
     #endregion
 
     #region Json
-    public static string SerializeObject<T>(T value) where T : new()
+    public static string SerializeObject<T>(T value)
     {
         try
         {
@@ -238,7 +238,7 @@ public static class CSharpHelper
             return "";
         }
     }
-    public static T DeserializeObject<T>(string value) where T : new()
+    public static T DeserializeObject<T>(string value)
     {
         try
         {
