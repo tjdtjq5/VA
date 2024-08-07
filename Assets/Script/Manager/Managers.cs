@@ -17,6 +17,8 @@ public class Managers : MonoBehaviour
     ProcessDeepLinkManager _deepLink = new ProcessDeepLinkManager();
     TimeManager _time = new TimeManager();
     TweenManager _tween = new TweenManager();
+    SseManager _sse = new SseManager();
+    ChatManager _chat = new ChatManager();
 
     public static WebManager Web { get { return Instance._web; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
@@ -28,6 +30,8 @@ public class Managers : MonoBehaviour
     public static ProcessDeepLinkManager DeepLink { get { return Instance._deepLink; } }
     public static TimeManager Time { get { return Instance._time; } }
     public static TweenManager Tween { get { return Instance._tween; } }
+    public static SseManager Sse { get { return Instance._sse; } }
+    public static ChatManager Chat { get { return Instance._chat; } }
 
     void Start()
     {
@@ -50,6 +54,8 @@ public class Managers : MonoBehaviour
             s_instance._sound.Initialize();
             s_instance._pool.Initialize();
             s_instance._time.Initialize();
+            s_instance._chat.Initialize();
+            s_instance._web.Initialize();
         }
     }
 
@@ -61,5 +67,6 @@ public class Managers : MonoBehaviour
     {
         _time.OnFixedUpdate();
         _tween.OnFixedUpdate();
+        _chat.OnFixedUpdate();
     }
 }

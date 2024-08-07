@@ -159,7 +159,7 @@ public class {0}TableController : ControllerBase
     }}
 
     [Route(""update"")]
-    public string TableUpdate(List<{0}TableData> allDatas)
+    public string TableUpdate([FromBody] List<{0}TableData> allDatas)
     {{
         {0}TableResponse res = new {0}TableResponse();
 

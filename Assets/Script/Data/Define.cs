@@ -62,3 +62,9 @@ public enum TypeCollect
     List,
     Dictionary,
 }
+public enum ChatFrequencyCycle
+{
+    Often,
+    Sometimes,
+    Close
+}

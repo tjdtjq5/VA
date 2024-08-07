@@ -44,5 +44,7 @@ public class SceneManagerEx
         Managers.Input.Clear();
         Managers.UI.Clear();
         Managers.Pool.Clear();
+        Managers.Sse.Clear();
+        Managers.Chat.Clear();
     }
 }

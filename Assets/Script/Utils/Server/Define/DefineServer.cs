@@ -7,6 +7,11 @@
     Google,
     Apple,
 }
+public enum HttpHeaderKey
+{
+    AccountId,
+    JwtToken,
+}
 public enum HttpResponceMessageType
 {
     Unknown = 0,
@@ -30,4 +35,12 @@ public enum HttpResponceMessageType
     FailCacheAddJwtToken = 1503, // 레디스에 jwt 정보 넣기 실패
     DuplicationAccount, // 중복 로그인
     NotAdmin, // 어드민 계정이 아닙니다
+}
+public enum SseEvent
+{
+    Announce,
+}
+public enum ChatChannel
+{
+    All
 }

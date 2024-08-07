@@ -1,22 +1,27 @@
 ﻿using Best.HTTP;
-using Newtonsoft.Json;
-using OPS.Obfuscator.Attribute;
 using System;
 using System.IO;
 using System.Text;
 using UnityEngine;
 
-[DoNotObfuscateClass]
+#if !UNITY_WEBGL || UNITY_EDITOR
+using Best.TLSSecurity;
+#endif
+
 public class WebManager
 {
     public string JwtToken { get; set; }
     public int AccountId { get; set; }
 
-    const string _jwtTokenHeaderKey = "jwttoken";
-    const string _accountIdHeaderKey = "accountId";
-
     JobSerializer _jobSerializer = new JobSerializer();
     bool _isWorking;
+
+    public void Initialize()
+    {
+#if !UNITY_WEBGL || UNITY_EDITOR
+        TLSSecurity.Setup();
+#endif
+    }
 
     public void SendPostRequest<T>(string url, object obj, Action<T> res, params ErrorResponseJob[] errorJob)
 	{
@@ -89,10 +94,10 @@ public class WebManager
     void AddHeader(HTTPRequest request)
     {
         if (!string.IsNullOrEmpty(JwtToken))
-            request.SetHeader(_jwtTokenHeaderKey, JwtToken);
+            request.SetHeader(HttpHeaderKey.JwtToken.ToString(), JwtToken);
 
         if (AccountId > 0)
-            request.SetHeader(_accountIdHeaderKey, AccountId.ToString());
+            request.SetHeader(HttpHeaderKey.AccountId.ToString(), AccountId.ToString());
     }
     async void Send<T>(HTTPRequest request, Action<T> res, params ErrorResponseJob[] errorJob)
     {
