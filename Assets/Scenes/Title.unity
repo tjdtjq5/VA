@@ -301,6 +301,83 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1535844527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1535844528}
+  - component: {fileID: 1535844530}
+  - component: {fileID: 1535844529}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1535844528
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535844527}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1535844529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535844527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab91a9a460244344487d07bf020f3ee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpStat: {fileID: 11400000, guid: a25236d71c208b445aa86ccd88dd7283, type: 2}
+  skillCostStat: {fileID: 11400000, guid: 25d0b08776b6669438cfc5e24fea1262, type: 2}
+  statOverrides:
+  - stat: {fileID: 11400000, guid: a25236d71c208b445aa86ccd88dd7283, type: 2}
+    isUseOverride: 1
+    overrideDefaultValue: 100
+  - stat: {fileID: 11400000, guid: 3370400e55c148f45a1fd4a0f17540f5, type: 2}
+    isUseOverride: 0
+    overrideDefaultValue: 0
+  - stat: {fileID: 11400000, guid: 8797b07d14f09024db461699eb97660c, type: 2}
+    isUseOverride: 0
+    overrideDefaultValue: 0
+  - stat: {fileID: 11400000, guid: db6e84f97638de94fa4bf27ed6c17391, type: 2}
+    isUseOverride: 0
+    overrideDefaultValue: 0
+  - stat: {fileID: 11400000, guid: 25d0b08776b6669438cfc5e24fea1262, type: 2}
+    isUseOverride: 0
+    overrideDefaultValue: 0
+--- !u!114 &1535844530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535844527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6193b5f9cabb6a4b939e338ad9d4f6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  categories: []
+  controlType: 0
 --- !u!1 &1870862106
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,3 +435,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c146a732f12594748b0d83e4ad1b0780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bbb:
+    significand: 100
+    exponent: 100
+  player: {fileID: 1535844530}
+  stats: {fileID: 1535844529}
+  stat: {fileID: 11400000, guid: a25236d71c208b445aa86ccd88dd7283, type: 2}

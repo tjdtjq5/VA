@@ -5,39 +5,21 @@ using UnityEngine.UI;
 
 public class Test : MonoBehaviour
 {
+    [SerializeField] BBNumber bbb;
+    [SerializeField] Entity player;
+    [SerializeField] Stats stats;
+    [SerializeField] Stat stat;
+
     [Button]
-    public void AdminResponse()
+    public void AddStat(string key, string subKey, float bonus)
     {
-        Managers.Web.SendGetRequest<string>("Test/AdminResponse", (res) => 
-        {
-            UnityHelper.Log_H(res);
-        });
+        player.Stats.GetStat(stat).SetBonusValue(key, subKey, bonus);
+        UnityHelper.Log_H(player.Stats.GetValue(stat));
     }
 
     [Button]
-    public void LoginResponse()
+    public void DebugStats()
     {
-        Managers.Web.SendGetRequest<string>("Test/LoginCheck", (res) =>
-        {
-            UnityHelper.Log_H(res);
-        });
-    }
-
-    [Button]
-    public void ChatConnect()
-    {
-        Managers.Chat.ConnectChanel(ChatChannel.All, ListenAction);
-        Managers.Chat.SetChanelCycle(ChatChannel.All, ChatFrequencyCycle.Often);
-    }
-
-    [Button]
-    public void ChatSend(string msg)
-    {
-        Managers.Chat.ChatSend(ChatChannel.All, msg);
-    }
-
-    void ListenAction(List<ChatData> chatDatas)
-    {
-        UnityHelper.LogSerialize(chatDatas);
+        UnityHelper.Log_H(stats.GetStat(stat).Value);
     }
 }

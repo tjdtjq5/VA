@@ -10,6 +10,7 @@ public class StatEditor : IdentifiedObjectEditor
     private SerializedProperty maxValueProperty;
     private SerializedProperty minValueProperty;
     private SerializedProperty defaultValueProperty;
+    private SerializedProperty bonusFormulaTypeProperty;
 
     protected override void OnEnable()
     {
@@ -19,6 +20,7 @@ public class StatEditor : IdentifiedObjectEditor
         maxValueProperty = serializedObject.FindProperty("maxValue");
         minValueProperty = serializedObject.FindProperty("minValue");
         defaultValueProperty = serializedObject.FindProperty("defaultValue");
+        bonusFormulaTypeProperty = serializedObject.FindProperty("bonusFormulaType");
     }
 
     public override void OnInspectorGUI()
@@ -33,6 +35,7 @@ public class StatEditor : IdentifiedObjectEditor
             EditorGUILayout.PropertyField(maxValueProperty);
             EditorGUILayout.PropertyField(minValueProperty);
             EditorGUILayout.PropertyField(defaultValueProperty);
+            EditorGUILayout.PropertyField(bonusFormulaTypeProperty);
         }
 
         serializedObject.ApplyModifiedProperties();

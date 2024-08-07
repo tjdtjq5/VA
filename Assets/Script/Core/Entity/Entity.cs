@@ -32,7 +32,7 @@ public class Entity : MonoBehaviour
 
     public Animator Animator { get; private set; }
     public Stats Stats { get; private set; }
-    public bool IsDead => Stats.HPStat != null && Mathf.Approximately(Stats.HPStat.DefaultValue, 0f);
+    public bool IsDead => Stats.HPStat != null && BBNumber.Approximately(Stats.HPStat.DefaultValue, 0f);
 
     // Target은 말 그대로 목표 대상으로 Entity가 공격해야하는 Target일 수도 있고, 치유해야하는 Target일 수도 있음
     public Entity Target { get; set; }
@@ -56,12 +56,12 @@ public class Entity : MonoBehaviour
         if (IsDead)
             return;
 
-        float prevValue = Stats.HPStat.DefaultValue;
+        BBNumber prevValue = Stats.HPStat.DefaultValue;
         Stats.HPStat.DefaultValue -= damage;
 
         onTakeDamage?.Invoke(this, instigator, causer, damage);
 
-        if (Mathf.Approximately(Stats.HPStat.DefaultValue, 0f))
+        if (BBNumber.Approximately(Stats.HPStat.DefaultValue, 0f))
             OnDead();
     }
 

@@ -150,7 +150,7 @@ public class WebManager
         }
         catch (AsyncHTTPException e)
         {
-            Debug.LogError($"Request finished with error! Error: {e.Message}");
+            // UnityHelper.LogError_H($"Request finished with error! Error: {e.Message}");
         }
         finally 
         {

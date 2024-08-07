@@ -5,17 +5,26 @@ using UnityEngine;
 
 public class Stat : IdentifiedObject
 {
-    public delegate void ValueChangedHandler(Stat stat, float currentValue, float prevValue);
+    public delegate void ValueChangedHandler(Stat stat, BBNumber currentValue, BBNumber prevValue);
 
     // % type인가? (ex, 1 => 100%, 0 => 0%)
     [SerializeField]
     private bool isPercentType;
     [SerializeField]
-    private float maxValue;
+    private BBNumber maxValue;
     [SerializeField]
-    private float minValue;
+    private BBNumber minValue;
     [SerializeField]
-    private float defaultValue;
+    private BBNumber defaultValue;
+    [SerializeField]
+    private BonusFormulaType bonusFormulaType;
+
+    public enum BonusFormulaType
+    {
+        AllAdd, // 모든 값 더하기
+        MainMultiple, // 메인끼리 모두 곱
+        AllMultiple, // 모두 곱하기
+    }
 
     // 기본 stat 외의 bonus stat을 저장하는 dictionary,
     // key 값은 bonus stat을 준 대상 (ex. 장비가 bonus Stat을 주었다면 그 장비가 key값이 됨)
@@ -25,48 +34,61 @@ public class Stat : IdentifiedObject
     private Dictionary<object, Dictionary<object, float>> bonusValuesByKey = new();
 
     public bool IsPercentType => isPercentType;
-    public float MaxValue
+    public BBNumber MaxValue
     {
         get => maxValue;
         set => maxValue = value;
     }
 
-    public float MinValue
+    public BBNumber MinValue
     {
         get => minValue;
         set => minValue = value;
     }
 
-    public float DefaultValue
+    public BBNumber DefaultValue
     {
         get => defaultValue;
         set
         {
-            float prevValue = Value;
-            defaultValue = Mathf.Clamp(value, MinValue, MaxValue);
+            BBNumber prevValue = Value;
+            if (MaxValue <= 0)
+                defaultValue = BBNumber.Max(value, MinValue);
+            else
+                defaultValue = BBNumber.Clamp(value, MinValue, MaxValue);
+
             // value가 변했을 시 event로 알림
             TryInvokeValueChangedEvent(Value, prevValue);
         }
     }
     // 위 Dictionary에 저장된 bonus value의 합
-    public float BonusValue { get; private set; }
+    public BBNumber BonusValue { get; private set; }
     // Default + Bonus, 현재 총 수치
-    public float Value => Mathf.Clamp(defaultValue + BonusValue, MinValue, MaxValue);
-    public bool IsMax => Mathf.Approximately(Value, maxValue);
-    public bool IsMin => Mathf.Approximately(Value, minValue);
+    public BBNumber Value
+    {
+        get
+        {
+            if (MaxValue <= 0)
+                return BBNumber.Max(defaultValue + BonusValue, MinValue);
+            else
+                return BBNumber.Clamp(defaultValue + BonusValue, MinValue, MaxValue);
+        }
+    }
+    public bool IsMax => BBNumber.Approximately(Value, maxValue);
+    public bool IsMin => BBNumber.Approximately(Value, minValue);
 
     public event ValueChangedHandler onValueChanged;
     public event ValueChangedHandler onValueMax;
     public event ValueChangedHandler onValueMin;
 
-    private void TryInvokeValueChangedEvent(float currentValue, float prevValue)
+    private void TryInvokeValueChangedEvent(BBNumber currentValue, BBNumber prevValue)
     {
-        if (!Mathf.Approximately(currentValue, prevValue))
+        if (!BBNumber.Approximately(currentValue, prevValue))
         {
             onValueChanged?.Invoke(this, currentValue, prevValue);
-            if (Mathf.Approximately(currentValue, MaxValue))
+            if (BBNumber.Approximately(currentValue, MaxValue))
                 onValueMax?.Invoke(this, MaxValue, prevValue);
-            else if (Mathf.Approximately(currentValue, MinValue))
+            else if (BBNumber.Approximately(currentValue, MinValue))
                 onValueMin?.Invoke(this, MinValue, prevValue);
         }
     }
@@ -75,12 +97,16 @@ public class Stat : IdentifiedObject
     {
         if (!bonusValuesByKey.ContainsKey(key))
             bonusValuesByKey[key] = new Dictionary<object, float>();
-        else if (bonusValuesByKey[key].ContainsKey(subKey))
-            BonusValue -= bonusValuesByKey[key][subKey];
+        else
+        {
+            if (bonusValuesByKey[key].ContainsKey(subKey))
+                bonusValuesByKey[key][subKey] = 0;
+        }
 
-        float prevValue = Value;
+        BonusValue = CurrentBonusValue;
+        BBNumber prevValue = Value;
         bonusValuesByKey[key][subKey] = value;
-        BonusValue += value;
+        BonusValue = CurrentBonusValue;
 
         TryInvokeValueChangedEvent(Value, prevValue);
     }
@@ -88,10 +114,85 @@ public class Stat : IdentifiedObject
     public void SetBonusValue(object key, float value)
         => SetBonusValue(key, string.Empty, value);
 
-    public float GetBonusValue(object key)
-        => bonusValuesByKey.TryGetValue(key, out var bonusValuesBySubkey) ?
-        bonusValuesBySubkey.Sum(x => x.Value) : 0f;
+    BBNumber CurrentBonusValue
+    {
+        get
+        {
+            BBNumber result = 0;
 
+            switch (bonusFormulaType)
+            {
+                case BonusFormulaType.MainMultiple:
+                    result = 1;
+                    break;
+                case BonusFormulaType.AllMultiple:
+                    result = 1;
+                    break;
+            }
+
+            foreach (var mainKey in bonusValuesByKey)
+            {
+                object key = mainKey.Key;
+
+                switch (bonusFormulaType)
+                {
+                    case BonusFormulaType.AllAdd:
+                        result += GetBonusValue(key);
+                        break;
+                    case BonusFormulaType.MainMultiple:
+                        result *= GetBonusValue(key);
+                        break;
+                    case BonusFormulaType.AllMultiple:
+                        result *= GetBonusValue(key);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            return result;
+        }
+    }
+    public BBNumber GetBonusValue(object key)
+    {
+        BBNumber result = 0;
+
+        switch (bonusFormulaType)
+        {
+            case BonusFormulaType.AllAdd:
+                if (bonusValuesByKey.TryGetValue(key, out var bonusValuesBySubkeyAA))
+                {
+                    foreach (var sub in bonusValuesBySubkeyAA)
+                    {
+                        result += sub.Value;
+                    }
+                }
+                break;
+            case BonusFormulaType.MainMultiple:
+                if (bonusValuesByKey.TryGetValue(key, out var bonusValuesBySubkeyMM))
+                {
+                    foreach (var sub in bonusValuesBySubkeyMM)
+                    {
+                        result += sub.Value;
+                    }
+                }
+                break;
+            case BonusFormulaType.AllMultiple:
+                result = 1;
+                if (bonusValuesByKey.TryGetValue(key, out var bonusValuesBySubkeyAM))
+                {
+                    foreach (var sub in bonusValuesBySubkeyAM)
+                    {
+                        result *= sub.Value;
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+
+        return result;
+    }
     public float GetBonusValue(object key, object subKey)
     {
         if (bonusValuesByKey.TryGetValue(key, out var bonusValuesBySubkey))
@@ -106,7 +207,7 @@ public class Stat : IdentifiedObject
     {
         if (bonusValuesByKey.TryGetValue(key, out var bonusValuesBySubkey))
         {
-            float prevValue = Value;
+            BBNumber prevValue = Value;
             BonusValue -= bonusValuesBySubkey.Values.Sum();
             bonusValuesByKey.Remove(key);
 

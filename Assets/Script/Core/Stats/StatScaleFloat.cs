@@ -5,10 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public struct StatScaleFloat
 {
-    public float defaultValue;
+    public BBNumber defaultValue;
     public Stat scaleStat;
 
-    public float GetValue(Stats stats)
+    public BBNumber GetValue(Stats stats)
     {
         if (scaleStat && stats.TryGetStat(scaleStat, out var stat))
             return defaultValue * (1 + stat.Value);
