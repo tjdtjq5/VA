@@ -94,7 +94,7 @@ public class Stats : MonoBehaviour
 
 #if UNITY_EDITOR
     [Button]
-    private void LoadStats()
+    public void LoadStats()
     {
         var stats = Resources.LoadAll<Stat>("Stat").OrderBy(x => x.ID);
         statOverrides = stats.Select(x => new StatOverride(x)).ToArray();

@@ -574,13 +574,37 @@ public struct BBNumber : IComparable<BBNumber>, IEquatable<BBNumber> {
     }
     public double GetDouble()
     {
-        if (exponent < -5)
+        try
+        {
+            if (exponent < -5)
+            {
+                return 0;
+            }
+
+            double p = Math.Pow(10.0, exponent);
+            return significand * p;
+        }
+        catch
         {
             return 0;
         }
+    }
+    public float GetFloat()
+    {
+        try
+        {
+            if (exponent < -5)
+            {
+                return 0;
+            }
 
-        double p = Math.Pow(10.0, exponent);
-        return significand * p;
+            float p = (float)Math.Pow(10.0, exponent);
+            return (float)significand * p;
+        }
+        catch
+        {
+            return 0;
+        }
     }
     public string ToCountString()
     {

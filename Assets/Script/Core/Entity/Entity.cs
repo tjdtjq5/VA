@@ -30,10 +30,14 @@ public class Entity : MonoBehaviour
     public IReadOnlyList<Category> Categories => categories;
     public bool IsPlayer => controlType == EntityControlType.Player;
 
+    [SerializeField] Animator _animator;
     public Animator Animator { get; private set; }
+    [SerializeField] SpriteRenderer _charaterSpriteRenderer;
+    public SpriteRenderer CharaterSpriteRenderer { get; private set; }
     public Stats Stats { get; private set; }
     public bool IsDead => Stats.HPStat != null && BBNumber.Approximately(Stats.HPStat.DefaultValue, 0f);
 
+    public EntityMovement Movement { get; private set; }
     // Target은 말 그대로 목표 대상으로 Entity가 공격해야하는 Target일 수도 있고, 치유해야하는 Target일 수도 있음
     public Entity Target { get; set; }
 
@@ -42,10 +46,14 @@ public class Entity : MonoBehaviour
 
     private void Awake()
     {
-        Animator = GetComponent<Animator>();
+        Animator = _animator;
+        CharaterSpriteRenderer = _charaterSpriteRenderer;
 
         Stats = GetComponent<Stats>();
         Stats.Setup(this);
+
+        Movement = GetComponent<EntityMovement>();
+        Movement?.Setup(this);
     }
 
     // 데미지 공식도 모듈식으로 만들어서 지정할 수 있게 만든다면

@@ -5,7 +5,8 @@ using UnityEngine.EventSystems;
 
 public class InputManager
 {
-    Dictionary<KeyCode, Action> _keyActions = new Dictionary<KeyCode, Action>();
+    Dictionary<KeyCode, Action> _keyDownActions = new Dictionary<KeyCode, Action>();
+    Dictionary<KeyCode, Action> _keyUpActions = new Dictionary<KeyCode, Action>();
     Action<MouseEvent> _mouseAction;
 
     Dictionary<float, Action> _mousePressedActions = new Dictionary<float, Action>();
@@ -16,80 +17,105 @@ public class InputManager
 
     public void OnUpdate()
     {
-        if (!EventSystem.current.IsPointerOverGameObject())
-            return;
-
-        if (Input.anyKey && _keyActions.Count > 0)
+        if (EventSystem.current.IsPointerOverGameObject())
         {
-            foreach (var keyAction in _keyActions) 
+            if (_mouseAction != null)
             {
-                if (Input.GetKeyDown(keyAction.Key))
+                if (Input.GetMouseButton(0))
                 {
-                    keyAction.Value.Invoke();
-                }
-            }
-        }
-
-        if (_mouseAction != null)
-        {
-            if (Input.GetMouseButton(0))
-            {
-                _mouseAction.Invoke(MouseEvent.Press);
-                _isPressed = true;
-            }
-            else
-            {
-                if (_isPressed)
-                    _mouseAction.Invoke(MouseEvent.Click);
-                _isPressed = false;
-            }
-        }
-
-        
-
-        if (_mousePressedActions.Count > 0)
-        {
-            if (Input.GetMouseButton(0))
-            {
-                if (!_isPressed)
-                {
+                    _mouseAction.Invoke(MouseEvent.Press);
                     _isPressed = true;
-                    _mousePressedActionFlags.Clear();
-                    _pressedTimer = 0;
+                }
+                else
+                {
+                    if (_isPressed)
+                        _mouseAction.Invoke(MouseEvent.Click);
+                    _isPressed = false;
                 }
             }
-            else
-            {
-                _isPressed = false;
-            }
 
-            if (_isPressed)
-            {
-                _pressedTimer += Managers.Time.DeltaTime;
 
-                foreach (var mousePressedAction in _mousePressedActions)
+
+            if (_mousePressedActions.Count > 0)
+            {
+                if (Input.GetMouseButton(0))
                 {
-                    if (mousePressedAction.Key < _pressedTimer)
+                    if (!_isPressed)
                     {
-                        if (_mousePressedActionFlags.TryAdd(mousePressedAction.Value, true))
+                        _isPressed = true;
+                        _mousePressedActionFlags.Clear();
+                        _pressedTimer = 0;
+                    }
+                }
+                else
+                {
+                    _isPressed = false;
+                }
+
+                if (_isPressed)
+                {
+                    _pressedTimer += Managers.Time.DeltaTime;
+
+                    foreach (var mousePressedAction in _mousePressedActions)
+                    {
+                        if (mousePressedAction.Key < _pressedTimer)
                         {
-                            mousePressedAction.Value.Invoke();
+                            if (_mousePressedActionFlags.TryAdd(mousePressedAction.Value, true))
+                            {
+                                mousePressedAction.Value.Invoke();
+                            }
                         }
                     }
                 }
             }
         }
-    }
-    public void AddKeyAction(KeyCode keyCode, Action action)
-    {
-        if (_keyActions.ContainsKey(keyCode))
+        else
         {
-            _keyActions[keyCode] -= action;
-            _keyActions[keyCode] += action;
+            if (_keyDownActions.Count > 0)
+            {
+                foreach (var keyAction in _keyDownActions)
+                {
+                    if (Input.GetKeyDown(keyAction.Key))
+                    {
+                        keyAction.Value.Invoke();
+                    }
+                }
+            }
+
+            if (_keyUpActions.Count > 0)
+            {
+                foreach (var keyAction in _keyUpActions)
+                {
+                    if (Input.GetKeyUp(keyAction.Key))
+                    {
+                        keyAction.Value.Invoke();
+                    }
+                }
+            }
+        }
+    }
+    public void AddKeyDownAction(KeyCode keyCode, Action action)
+    {
+        if (_keyDownActions.ContainsKey(keyCode))
+        {
+            _keyDownActions[keyCode] -= action;
+            _keyDownActions[keyCode] += action;
         }
         else
         {
-            _keyActions.Add(keyCode, action);
+            _keyDownActions.Add(keyCode, action);
+        }
+    }
+    public void AddKeyUpAction(KeyCode keyCode, Action action)
+    {
+        if (_keyUpActions.ContainsKey(keyCode))
+        {
+            _keyUpActions[keyCode] -= action;
+            _keyUpActions[keyCode] += action;
+        }
+        else
+        {
+            _keyUpActions.Add(keyCode, action);
         }
     }
     public void AddMouseAction(Action<MouseEvent> action)
@@ -111,7 +137,8 @@ public class InputManager
     }
     public void Clear()
     {
-        _keyActions.Clear();
+        _keyDownActions.Clear();
+        _keyUpActions.Clear();
         _mouseAction = null;
         _mousePressedActions.Clear();
     }
