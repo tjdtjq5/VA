@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,23 +12,33 @@ public static class UnityHelper
     #region Log
     public static void Log_H(object message)
     {
-        Debug.Log($"<color=#006AFF>{message}</color>");
+        if (!GameOptionManager.IsRelease)
+            Debug.Log($"<color=#006AFF>{message}</color>");
     }
     public static void Log_H<T1, T2>(Dictionary<T1, T2> dics) where T1 : new() where T2 : new()
     {
-        Log_H(dics.ToString());
+        if (!GameOptionManager.IsRelease)
+            Log_H(dics.ToString());
     }
     public static void Log_H<T>(List<T> list)
     {
-        Log_H(list.ToString());
+        if (!GameOptionManager.IsRelease)
+            Log_H(list.ToString());
     }
     public static void LogError_H(object message)
     {
-        Debug.LogError(message);
+        if (!GameOptionManager.IsRelease)
+            Debug.LogError(message);
     }
     public static void LogSerialize(object message)
     {
-        Debug.Log($"<color=#006AFF>{CSharpHelper.SerializeObject(message)}</color>");
+        if (!GameOptionManager.IsRelease)
+            Debug.Log($"<color=#006AFF>{CSharpHelper.SerializeObject(message)}</color>");
+    }
+    public static void Assert_H(bool condition, string message)
+    {
+        if (!GameOptionManager.IsRelease)
+            Debug.Assert(condition, $"<color=#006AFF>message</color>");
     }
     #endregion
 

@@ -4,7 +4,6 @@ using System;
 using UnityEngine;
 using System.Linq;
 
-// Entitiy의 Control 주체를 나타내기 위한 enum
 public enum EntityControlType
 {
     Player,
@@ -16,29 +15,25 @@ public class Entity : MonoBehaviour
     public delegate void TakeDamageHandler(Entity entity, Entity instigator, object causer, float damage);
     public delegate void DeadHandler(Entity entity);
 
-    // 여기서 Category는 적과 아군을 구분하기 위한 용도로 사용됨
     [SerializeField]
     private Category[] categories;
     [SerializeField]
     private EntityControlType controlType;
 
-    // socket은 Entity Script를 가진 GameObject의 자식 GameObject를 의미함
-    // 스킬의 발사 위치나, 어떤 특정 위치를 저장해두고 외부에서 찾아오기위해 존재
     private Dictionary<string, Transform> socketsByName = new();
 
     public EntityControlType ControlType => controlType;
     public IReadOnlyList<Category> Categories => categories;
     public bool IsPlayer => controlType == EntityControlType.Player;
 
-    [SerializeField] Animator _animator;
-    public Animator Animator { get; private set; }
-    [SerializeField] SpriteRenderer _charaterSpriteRenderer;
-    public SpriteRenderer CharaterSpriteRenderer { get; private set; }
+    EntityAnimator entityAnimator;
+
     public Stats Stats { get; private set; }
     public bool IsDead => Stats.HPStat != null && BBNumber.Approximately(Stats.HPStat.DefaultValue, 0f);
 
     public EntityMovement Movement { get; private set; }
-    // Target은 말 그대로 목표 대상으로 Entity가 공격해야하는 Target일 수도 있고, 치유해야하는 Target일 수도 있음
+    public MonoStateMachine<Entity> StateMachine { get; private set; }
+
     public Entity Target { get; set; }
 
     public event TakeDamageHandler onTakeDamage;
@@ -46,19 +41,18 @@ public class Entity : MonoBehaviour
 
     private void Awake()
     {
-        Animator = _animator;
-        CharaterSpriteRenderer = _charaterSpriteRenderer;
+        entityAnimator = GetComponent<EntityAnimator>();
 
         Stats = GetComponent<Stats>();
         Stats.Setup(this);
 
         Movement = GetComponent<EntityMovement>();
         Movement?.Setup(this);
+
+        StateMachine = GetComponent<MonoStateMachine<Entity>>();
+        StateMachine?.Setup(this);
     }
 
-    // 데미지 공식도 모듈식으로 만들어서 지정할 수 있게 만든다면
-    // 만드는 게임마다 다른 데미지 공식을 사용한다던가, 캐릭터마다 다른 데미지 공식을 사용하는 등
-    // 굉장히 유연한 Entity 클래스를 만들 수 있음.
     public void TakeDamage(Entity instigator, object causer, float damage)
     {
         if (IsDead)
@@ -78,7 +72,6 @@ public class Entity : MonoBehaviour
         onDead?.Invoke(this);
     }
 
-    // root transform의 자식 transform들을 순회하며 이름이 socketName인 GameObject의 Transform을 찾아옴 
     private Transform GetTransformSocket(Transform root, string socketName)
     {
         if (root.name == socketName)
@@ -96,7 +89,6 @@ public class Entity : MonoBehaviour
         return null;
     }
 
-    // 저장되있는 Socket을 가져오거나 순회를 통해 찾아옴
     public Transform GetTransformSocket(string socketName)
     {
         // dictionary에서 socketName을 검색하여 있다면 return
@@ -113,4 +105,10 @@ public class Entity : MonoBehaviour
     }
 
     public bool HasCategory(Category category) => categories.Any(x => x.ID == category.ID);
+
+    public bool IsInState<T>() where T : State<Entity>
+           => StateMachine.IsInState<T>();
+
+    public bool IsInState<T>(int layer) where T : State<Entity>
+        => StateMachine.IsInState<T>(layer);
 }

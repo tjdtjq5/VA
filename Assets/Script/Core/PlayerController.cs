@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Stats))]
 [RequireComponent(typeof(MoveController))]
 [RequireComponent(typeof(EntityMovement))]
+[RequireComponent(typeof(EntityAnimator))]
+[RequireComponent(typeof(EntityStateMachine))]
 public class PlayerController : MonoBehaviour
 {
     private Entity entity;

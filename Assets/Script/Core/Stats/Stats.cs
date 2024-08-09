@@ -40,13 +40,13 @@ public class Stats : MonoBehaviour
 
     public Stat GetStat(Stat stat)
     {
-        Debug.Assert(stat != null, $"Stats::GetStat - stat은 null이 될 수 없습니다.");
+        UnityHelper.Assert_H(stat != null, $"Stats::GetStat - stat은 null이 될 수 없습니다.");
         return stats.FirstOrDefault(x => x.ID == stat.ID);
     }
 
     public bool TryGetStat(Stat stat, out Stat outStat)
     {
-        Debug.Assert(stat != null, $"Stats::TryGetStat - stat은 null이 될 수 없습니다.");
+        UnityHelper.Assert_H(stat != null, $"Stats::TryGetStat - stat은 null이 될 수 없습니다.");
 
         outStat = stats.FirstOrDefault(x => x.ID == stat.ID);
         return outStat != null;
@@ -57,7 +57,7 @@ public class Stats : MonoBehaviour
 
     public bool HasStat(Stat stat)
     {
-        Debug.Assert(stat != null, $"Stats::HasStat - stat은 null이 될 수 없습니다.");
+        UnityHelper.Assert_H(stat != null, $"Stats::HasStat - stat은 null이 될 수 없습니다.");
         return stats.Any(x => x.ID == stat.ID);
     }
 

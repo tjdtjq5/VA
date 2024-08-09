@@ -18,78 +18,74 @@ public class InputManager
     public void OnUpdate()
     {
         if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
+        if (_mouseAction != null)
         {
-            if (_mouseAction != null)
+            if (Input.GetMouseButton(0))
             {
-                if (Input.GetMouseButton(0))
+                _mouseAction.Invoke(MouseEvent.Press);
+                _isPressed = true;
+            }
+            else
+            {
+                if (_isPressed)
+                    _mouseAction.Invoke(MouseEvent.Click);
+                _isPressed = false;
+            }
+        }
+
+        if (_mousePressedActions.Count > 0)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                if (!_isPressed)
                 {
-                    _mouseAction.Invoke(MouseEvent.Press);
                     _isPressed = true;
-                }
-                else
-                {
-                    if (_isPressed)
-                        _mouseAction.Invoke(MouseEvent.Click);
-                    _isPressed = false;
+                    _mousePressedActionFlags.Clear();
+                    _pressedTimer = 0;
                 }
             }
-
-
-
-            if (_mousePressedActions.Count > 0)
+            else
             {
-                if (Input.GetMouseButton(0))
-                {
-                    if (!_isPressed)
-                    {
-                        _isPressed = true;
-                        _mousePressedActionFlags.Clear();
-                        _pressedTimer = 0;
-                    }
-                }
-                else
-                {
-                    _isPressed = false;
-                }
+                _isPressed = false;
+            }
 
-                if (_isPressed)
-                {
-                    _pressedTimer += Managers.Time.DeltaTime;
+            if (_isPressed)
+            {
+                _pressedTimer += Managers.Time.DeltaTime;
 
-                    foreach (var mousePressedAction in _mousePressedActions)
+                foreach (var mousePressedAction in _mousePressedActions)
+                {
+                    if (mousePressedAction.Key < _pressedTimer)
                     {
-                        if (mousePressedAction.Key < _pressedTimer)
+                        if (_mousePressedActionFlags.TryAdd(mousePressedAction.Value, true))
                         {
-                            if (_mousePressedActionFlags.TryAdd(mousePressedAction.Value, true))
-                            {
-                                mousePressedAction.Value.Invoke();
-                            }
+                            mousePressedAction.Value.Invoke();
                         }
                     }
                 }
             }
         }
-        else
+
+        if (_keyDownActions.Count > 0)
         {
-            if (_keyDownActions.Count > 0)
+            foreach (var keyAction in _keyDownActions)
             {
-                foreach (var keyAction in _keyDownActions)
+                if (Input.GetKeyDown(keyAction.Key))
                 {
-                    if (Input.GetKeyDown(keyAction.Key))
-                    {
-                        keyAction.Value.Invoke();
-                    }
+                    keyAction.Value.Invoke();
                 }
             }
+        }
 
-            if (_keyUpActions.Count > 0)
+        if (_keyUpActions.Count > 0)
+        {
+            foreach (var keyAction in _keyUpActions)
             {
-                foreach (var keyAction in _keyUpActions)
+                if (Input.GetKeyUp(keyAction.Key))
                 {
-                    if (Input.GetKeyUp(keyAction.Key))
-                    {
-                        keyAction.Value.Invoke();
-                    }
+                    keyAction.Value.Invoke();
                 }
             }
         }

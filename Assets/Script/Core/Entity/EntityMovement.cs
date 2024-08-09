@@ -1,13 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.UI.GridLayoutGroup;
 
 [RequireComponent(typeof(MoveController))]
 public class EntityMovement : MonoBehaviour
 {
     public delegate void SetDestinationHandler(EntityMovement movement, Vector3 destination);
-
-    private readonly static int kSpeedHash = Animator.StringToHash("speed");
 
     // 이동 속도로 쓸 Stat
     [SerializeField]
@@ -66,7 +63,6 @@ public class EntityMovement : MonoBehaviour
         if (entityMoveSpeedStat)
         {
             moveController.Speed = entityMoveSpeedStat.Value.GetFloat();
-            moveController._moveFiexedUpdateAction += OnMoveFiexedUpdateAction;
             entityMoveSpeedStat.onValueChanged += OnMoveSpeedChanged;
         }
     }
@@ -113,10 +109,4 @@ public class EntityMovement : MonoBehaviour
 
     private void OnMoveSpeedChanged(Stat stat, BBNumber currentValue, BBNumber prevValue)
         => moveController.Speed = currentValue.GetFloat();
-
-    private void OnMoveFiexedUpdateAction(bool isLeft, float weight)
-    {
-        Owner.CharaterSpriteRenderer.flipX = isLeft;
-        Owner.Animator?.SetFloat(kSpeedHash, weight);
-    }
 }

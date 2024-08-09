@@ -1,12 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveController : MonoBehaviour
 {
-  
-
     float _speed;
     float _adjustSpeed = .01f;
     float _maxSpeed = 1;
@@ -37,21 +33,16 @@ public class MoveController : MonoBehaviour
         }
     }
 
-    public Action<bool, float> _moveFiexedUpdateAction;
+    Vector3 _scaleRight = new Vector3(1, 1, 1);
+    Vector3 _scaleLeft = new Vector3(-1, 1, 1);
 
+    public void Stop() => IsMove = false;
 
-    public void Stop()
-    {
-        IsMove = false;
-    }
-
-    float aniWeight = 0;
-    bool aniIsLeft = false;
     private void FixedUpdate()
     {
         if (IsMove)
         {
-            aniIsLeft = IsLeft;
+            SetFlipScale(IsLeft);
 
             Weight += Managers.Time.FixedDeltaTime * Speed * _weightAdjustValue;
             this.transform.position = Vector3.MoveTowards(this.transform.position, Destination, _speed);
@@ -65,9 +56,7 @@ public class MoveController : MonoBehaviour
         {
             Weight -= Managers.Time.FixedDeltaTime * Speed * _weightAdjustValue;
         }
-
-        aniWeight = Weight;
-
-        _moveFiexedUpdateAction?.Invoke(aniIsLeft, aniWeight);
     }
+
+    void SetFlipScale(bool isLeft) => this.transform.localScale = isLeft ? _scaleLeft : _scaleRight;
 }
