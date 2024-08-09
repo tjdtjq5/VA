@@ -12,7 +12,7 @@ public enum EntityControlType
 
 public class Entity : MonoBehaviour
 {
-    public delegate void TakeDamageHandler(Entity entity, Entity instigator, object causer, float damage);
+    public delegate void TakeDamageHandler(Entity entity, Entity instigator, object causer, BBNumber damage);
     public delegate void DeadHandler(Entity entity);
 
     [SerializeField]
@@ -53,7 +53,7 @@ public class Entity : MonoBehaviour
         StateMachine?.Setup(this);
     }
 
-    public void TakeDamage(Entity instigator, object causer, float damage)
+    public void TakeDamage(Entity instigator, object causer, BBNumber damage)
     {
         if (IsDead)
             return;
