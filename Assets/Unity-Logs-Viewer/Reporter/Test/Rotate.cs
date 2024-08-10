@@ -12,7 +12,7 @@ public class Rotate : MonoBehaviour
 
 	void Update()
 	{
-		angle.y += Time.deltaTime * 100;
+		angle.y += Managers.Time.DeltaTime * 100;
 		transform.eulerAngles = angle;
 	}
 

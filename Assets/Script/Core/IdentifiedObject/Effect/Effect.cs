@@ -70,7 +70,7 @@ public class Effect : IdentifiedObject
         get => level;
         set
         {
-            Debug.Assert(value > 0 && value <= MaxLevel, $"Effect.Rank = {value} - value는 0보다 크고 MaxLevel보다 같거나 작아야합니다.");
+            UnityHelper.Assert_H(value > 0 && value <= MaxLevel, $"Effect.Rank = {value} - value는 0보다 크고 MaxLevel보다 같거나 작아야합니다.");
 
             if (level == value)
                 return;
@@ -265,7 +265,7 @@ public class Effect : IdentifiedObject
 
     public void Start()
     {
-        Debug.Assert(!IsReleased, "Effect::Start - 이미 종료된 Effect입니다.");
+        UnityHelper.Assert_H(!IsReleased, "Effect::Start - 이미 종료된 Effect입니다.");
 
         Action?.Start(this, User, Target, Level, Scale);
 
@@ -279,8 +279,8 @@ public class Effect : IdentifiedObject
 
     public void Update()
     {
-        CurrentDuration += Time.deltaTime;
-        currentApplyCycle += Time.deltaTime;
+        CurrentDuration += Managers.Time.DeltaTime;
+        currentApplyCycle += Managers.Time.DeltaTime;
 
         if (IsApplicable)
             Apply();
@@ -294,7 +294,7 @@ public class Effect : IdentifiedObject
 
     public void Apply()
     {
-        Debug.Assert(!IsReleased, "Effect::Apply - 이미 종료된 Effect입니다.");
+        UnityHelper.Assert_H(!IsReleased, "Effect::Apply - 이미 종료된 Effect입니다.");
 
         if (Action == null)
             return;
@@ -321,7 +321,7 @@ public class Effect : IdentifiedObject
 
     public void Release()
     {
-        Debug.Assert(!IsReleased, "Effect::Release - 이미 종료된 Effect입니다.");
+        UnityHelper.Assert_H(!IsReleased, "Effect::Release - 이미 종료된 Effect입니다.");
 
         Action?.Release(this, User, Target, level, Scale);
         ReleaseStackActionsAll();

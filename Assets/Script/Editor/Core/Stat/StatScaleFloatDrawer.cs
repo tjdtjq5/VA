@@ -24,7 +24,7 @@ public class StatScaleFloatDrawer : PropertyDrawer
         float halfWidth = (position.width * 0.5f) + adjust;
 
         var defaultValueRect = new Rect(position.x - adjust, position.y, halfWidth - 2.5f, position.height);
-        defaultValueProperty.floatValue = EditorGUI.FloatField(defaultValueRect, GUIContent.none, defaultValueProperty.floatValue);
+        defaultValueProperty.floatValue = EditorGUI.FloatField(defaultValueRect, defaultValueProperty.floatValue);
 
         var scaleStatRect = new Rect(defaultValueRect.x + defaultValueRect.width - adjust + 2.5f, position.y, halfWidth, position.height);
         scaleStatProperty.objectReferenceValue = EditorGUI.ObjectField(scaleStatRect, GUIContent.none, scaleStatProperty.objectReferenceValue, typeof(Stat), false);

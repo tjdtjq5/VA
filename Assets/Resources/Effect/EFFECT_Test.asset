@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5572046b21b14245abd62fa7d8c6ca9, type: 3}
+  m_Name: EFFECT_Test
+  m_EditorClassIdentifier: 
+  categories: []
+  icon: {fileID: 0}
+  id: 0
+  codeName: Test
+  displayName: Test
+  description: 
+  type: 0
+  isAllowDuplicate: 1
+  removeDuplicateTargetOption: 0
+  isShowInUI: 0
+  isAllowLevelExceedDatas: 0
+  maxLevel: 1
+  effectDatas:
+  - level: 1
+    maxStack: 1
+    stackActions: []
+    action:
+      rid: 4300027480577933328
+    runningFinishOption: 0
+    isApplyAllWhenDurationExpires: 0
+    duration:
+      defaultValue: 0
+      scaleStat: {fileID: 11400000, guid: aef9630f060c64a489a18feba4e29890, type: 2}
+    applyCount: 5
+    applyCycle: 1
+    customActions:
+    - rid: 4300027480577933322
+  references:
+    version: 2
+    RefIds:
+    - rid: 4300027480577933322
+      type: {class: CameraShakeAction, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 4300027480577933328
+      type: {class: TestEffectAction2, ns: , asm: Assembly-CSharp}
+      data:
+        value: 1

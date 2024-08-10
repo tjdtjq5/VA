@@ -7,8 +7,9 @@ public class InputManager
 {
     Dictionary<KeyCode, Action> _keyDownActions = new Dictionary<KeyCode, Action>();
     Dictionary<KeyCode, Action> _keyUpActions = new Dictionary<KeyCode, Action>();
-    Action<MouseEvent> _mouseAction;
 
+    Action<MouseEvent> _mouseAction;
+    Action<Vector2> _mouseScreenPosAction;
     Dictionary<float, Action> _mousePressedActions = new Dictionary<float, Action>();
     Dictionary<Action, bool> _mousePressedActionFlags = new Dictionary<Action, bool>();
 
@@ -32,6 +33,14 @@ public class InputManager
                 if (_isPressed)
                     _mouseAction.Invoke(MouseEvent.Click);
                 _isPressed = false;
+            }
+        }
+
+        if (_mouseScreenPosAction != null)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                _mouseScreenPosAction.Invoke(Input.mousePosition);
             }
         }
 
@@ -90,6 +99,7 @@ public class InputManager
             }
         }
     }
+
     public void AddKeyDownAction(KeyCode keyCode, Action action)
     {
         if (_keyDownActions.ContainsKey(keyCode))
@@ -119,6 +129,11 @@ public class InputManager
         _mouseAction -= action;
         _mouseAction += action;
     }
+    public void AddMouseAction(Action<Vector2> action)
+    {
+        _mouseScreenPosAction -= action;
+        _mouseScreenPosAction += action;
+    }
     public void AddMousePressedTimeAction(float pressedTime, Action action)
     {
         if (_mousePressedActions.ContainsKey(pressedTime))
@@ -131,6 +146,37 @@ public class InputManager
             _mousePressedActions.Add(pressedTime, action);
         }
     }
+
+    public void SubKeyDownAction(KeyCode keyCode, Action action)
+    {
+        if (_keyDownActions.ContainsKey(keyCode))
+        {
+            _keyDownActions[keyCode] -= action;
+        }
+    }
+    public void SubKeyUpAction(KeyCode keyCode, Action action)
+    {
+        if (_keyUpActions.ContainsKey(keyCode))
+        {
+            _keyUpActions[keyCode] -= action;
+        }
+    }
+    public void SubMouseAction(Action<MouseEvent> action)
+    {
+        _mouseAction -= action;
+    }
+    public void SubMouseAction(Action<Vector2> action)
+    {
+        _mouseScreenPosAction -= action;
+    }
+    public void SubMousePressedTimeAction(float pressedTime, Action action)
+    {
+        if (_mousePressedActions.ContainsKey(pressedTime))
+        {
+            _mousePressedActions[pressedTime] -= action;
+        }
+    }
+
     public void Clear()
     {
         _keyDownActions.Clear();

@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public struct StatScaleFloat
 {
-    public BBNumber defaultValue;
+    public float defaultValue;
     public Stat scaleStat;
 
     public BBNumber GetValue(Stats stats)
