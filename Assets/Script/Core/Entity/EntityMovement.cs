@@ -18,7 +18,9 @@ public class EntityMovement : MonoBehaviour
 
     public Entity Owner { get; private set; }
     public float MoveSpeed => moveController.Speed;
+    public bool IsDashing { get; private set; }
 
+    public MoveController MoveController { get { return moveController; } }
     public Transform TraceTarget
     {
         get => traceTarget;
@@ -109,4 +111,46 @@ public class EntityMovement : MonoBehaviour
 
     private void OnMoveSpeedChanged(Stat stat, BBNumber currentValue, BBNumber prevValue)
         => moveController.Speed = currentValue.GetFloat();
+
+    public void Dash(float distance, Vector3 direction)
+    {
+        Stop();
+
+        IsDashing = true;
+
+        if (_dashUpdateCoroutine != null)
+            StopCoroutine(_dashUpdateCoroutine);
+
+        _dashUpdateCoroutine = DashUpdate(distance, direction);
+        StartCoroutine(_dashUpdateCoroutine);
+    }
+
+    IEnumerator _dashUpdateCoroutine;
+    private IEnumerator DashUpdate(float distance, Vector3 direction)
+    {
+        // 현재까지 구른 시간
+        float currentDashTime = 0f;
+        // 이전 Frame에 이동한 거리
+        float prevDashDistance = 0f;
+
+        while (true)
+        {
+            currentDashTime += Managers.Time.FixedDeltaTime * MoveSpeed / 3;
+
+            float timePoint = currentDashTime / distance;
+            float inOutSine = -(Mathf.Cos(Mathf.PI * timePoint) - 1f) / 2f;
+            float currentDashDistance = Mathf.Lerp(0f, distance, inOutSine);
+            float deltaValue = currentDashDistance - prevDashDistance;
+
+            transform.position += (direction.normalized * deltaValue);
+            prevDashDistance = currentDashDistance;
+
+            if (currentDashTime >= distance)
+                break;
+            else
+                yield return null;
+        }
+
+        IsDashing = false;
+    }
 }

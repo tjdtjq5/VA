@@ -15,10 +15,10 @@ public class EntityTest : MonoBehaviour
 
     void HpMinus()
     {
-        if (entity)
-        {
-            entity.TakeDamage(null, null , 1);
-            UnityHelper.Log_H(entity.Stats.HPStat.Value.ToCountString());
-        }
+        //if (entity)
+        //{
+        //    entity.TakeDamage(null, null , 1);
+        //    UnityHelper.Log_H(entity.Stats.HPStat.Value.ToCountString());
+        //}
     }
 }

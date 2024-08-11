@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
             Managers.Input.AddKeyUpAction(KeyCode.RightArrow, RightArrowUp);
             Managers.Input.AddKeyUpAction(KeyCode.UpArrow, UpArrowUp);
             Managers.Input.AddKeyUpAction(KeyCode.DownArrow, DownArrowUp);
+
+            Managers.Input.AddKeyDownAction(KeyCode.Space, InputSpace);
         }
     }
 
@@ -76,6 +78,10 @@ public class PlayerController : MonoBehaviour
             return;
 
         _inputVector.z = 0;
+    }
+    void InputSpace()
+    {
+        _entity.Movement.Dash(5f, _inputVector);
     }
     private void Update()
     {

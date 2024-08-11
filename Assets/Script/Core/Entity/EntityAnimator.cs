@@ -10,20 +10,26 @@ public class EntityAnimator : MonoBehaviour
 
     private Entity _entity;
     private MoveController _moveController;
+    private EntityMovement _entityMovement;
 
     private readonly static int kSpeedHash = Animator.StringToHash("speed");
     private readonly static int kDeadHash = Animator.StringToHash("isDead");
+    private readonly static int kDashHash = Animator.StringToHash("isDash");
 
 
-    private void Awake()
+    public void Setup(Entity entity)
     {
         Animator = _animator;
         _stateMachine = _animator.GetBehaviour<BaseLayerBehaviour>();
 
-        _moveController = GetComponent<MoveController>();
-        _entity = GetComponent<Entity>();
+        _entity = entity;
 
+        _entityMovement = _entity?.Movement;
+        _moveController = _entityMovement?.MoveController;
+
+        _stateMachine.onStateEnter -= OnStateEnter;
         _stateMachine.onStateEnter += OnStateEnter;
+        _stateMachine.onStateUpdate -= OnStateUpdate;
         _stateMachine.onStateUpdate += OnStateUpdate;
     }
 
@@ -34,9 +40,14 @@ public class EntityAnimator : MonoBehaviour
 
     public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(_moveController)
-            Animator?.SetFloat(kSpeedHash, _moveController.Weight);
-
         Animator?.SetBool(kDeadHash, _entity.IsDead);
+        if (!_entity.IsDead)
+        {
+            if (_entityMovement)
+                Animator?.SetBool(kDashHash, _entityMovement.IsDashing);
+
+            if (_moveController)
+                Animator?.SetFloat(kSpeedHash, _moveController.Weight);
+        }
     }
 }

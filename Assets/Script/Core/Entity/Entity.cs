@@ -33,6 +33,8 @@ public class Entity : MonoBehaviour
 
     public EntityMovement Movement { get; private set; }
     public MonoStateMachine<Entity> StateMachine { get; private set; }
+    public SkillSystem SkillSystem { get; private set; }
+    public EntityAnimator Animator { get; private set; }
 
     public Entity Target { get; set; }
 
@@ -51,6 +53,12 @@ public class Entity : MonoBehaviour
 
         StateMachine = GetComponent<MonoStateMachine<Entity>>();
         StateMachine?.Setup(this);
+
+        Animator = GetComponent<EntityAnimator>();
+        Animator?.Setup(this);
+
+        SkillSystem = GetComponent<SkillSystem>();
+        SkillSystem?.Setup(this);
     }
 
     public void TakeDamage(Entity instigator, object causer, BBNumber damage)
@@ -69,6 +77,9 @@ public class Entity : MonoBehaviour
 
     private void OnDead()
     {
+        if (Movement)
+            Movement.enabled = false;
+
         onDead?.Invoke(this);
     }
 
