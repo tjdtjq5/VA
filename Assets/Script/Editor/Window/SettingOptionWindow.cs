@@ -1,6 +1,9 @@
+
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEditor;
 using UnityEngine;
@@ -9,7 +12,12 @@ public class SettingOptionWindow : EditorWindow
 {
     static OptionFile optionFile = new OptionFile();
     static SecretOptionFile secretOptionFile = new SecretOptionFile();
+    static BuildOptionFile buildFile = new BuildOptionFile();
+
+    static IFileTxt[] _txtFiles;
     static Vector2 _windowSize;
+    static bool _serverUrlFoldout;
+    static bool _releaseBuildFoldout;
 
     [MenuItem("Tool/Setting %q")]
     static void Open()
@@ -20,196 +28,118 @@ public class SettingOptionWindow : EditorWindow
         window.Show();
     }
 
-    bool _isExpandedOption;
-    bool _isExpandedSecret;
+    Vector2 _scrollPos;
+    float _scrollMinusHeight;
 
-    bool _linkedOptionFile;
-    bool _linkedSecretFile;
+    bool[] _isExpanded;
+
+    bool[] _isLinked;
 
     string _inputKey;
     string _inputValue;
 
-    Dictionary<string, bool> _optionModifyFlag = new Dictionary<string, bool>();
-    Dictionary<string, bool> _secretModifyFlag = new Dictionary<string, bool>();
+    Dictionary<string, bool>[] _modifyFlag;
          
     private void OnEnable()
     {
+        Init();
+
         _windowSize = new Vector2(600, 700);
 
-        _linkedOptionFile = optionFile.Exist();
-        _linkedSecretFile = secretOptionFile.Exist();
-
-        _optionModifyFlag.Clear();
-        _secretModifyFlag.Clear();
+        _scrollMinusHeight = 250;
     }
     private void OnGUI()
     {
         EditorGUILayout.BeginVertical(GUILayout.ExpandWidth(true));
         {
-            _isExpandedOption = CustomEditorUtility.DrawFoldoutTitle("OptionSetting", _isExpandedOption);
-
-            if (_isExpandedOption)
+            for (int i = 0; i < _txtFiles.Length; i++)
             {
-                OptionSetting();
+                string fileName = _txtFiles[i].FileName;
+                _isExpanded[i] = CustomEditorUtility.DrawFoldoutTitle($"{fileName} Setting", _isExpanded[i]);
+
+                if (_isExpanded[i])
+                {
+                    TxtFilesSetting(i);
+                }
+
+                EditorGUILayout.Space();
             }
-
-            EditorGUILayout.Space();
-
-            _isExpandedSecret = CustomEditorUtility.DrawFoldoutTitle("SecretSetting", _isExpandedSecret);
-
-            if (_isExpandedSecret) 
-            {
-                SecretSetting();
-            }
-
-            EditorGUILayout.Space();
 
             ServerURLSetting();
+
+            ReleaseBuildGUI();
         }
         EditorGUILayout.EndVertical();
     }
 
-    void OptionSetting()
+    void Init()
     {
-        // Path ø¨∞·¿Ã æ»µ 
-        if (!_linkedOptionFile)
+        _txtFiles = new IFileTxt[] { optionFile, secretOptionFile, buildFile };
+        _isExpanded = new bool[_txtFiles.Length];
+        _isLinked = new bool[_txtFiles.Length];
+        _modifyFlag = new Dictionary<string, bool>[_txtFiles.Length];
+
+        for (int i = 0; i < _txtFiles.Length; i++)
         {
-            EditorGUILayout.BeginHorizontal();
-            {
-                EditorGUILayout.PrefixLabel($"Need Link Path : Option.txt");
-            }
-            EditorGUILayout.EndHorizontal();
+            _isLinked[i] = _txtFiles[i].Exist();
         }
-        else
+
+        for (int i = 0; i < _modifyFlag.Length; i++)
         {
-            EditorGUILayout.BeginVertical();
-            {
-                EditorGUILayout.LabelField("Success Linked Option Path!");
-
-                EditorGUILayout.BeginHorizontal();
-                {
-                    Color originColor = GUI.contentColor;
-
-                    GUI.contentColor = Color.cyan;
-                    EditorGUILayout.SelectableLabel(optionFile.FileName);
-
-                    GUI.contentColor = originColor;
-                }
-                EditorGUILayout.EndHorizontal();
-
-                EditorGUILayout.Space();
-
-                List<string> optionKeys = optionFile.Keys();
-                if (optionKeys != null)
-                {
-                    for (int i = 0; i < optionKeys.Count; i++)
-                    {
-                        string key = optionKeys[i];
-                        object value = optionFile.Read<object>(key);
-                        string valueStr = CSharpHelper.SerializeObject(value);
-                        valueStr = RemoveSemi(valueStr);
-
-                        bool isModify = _optionModifyFlag.ContainsKey(key) ? _optionModifyFlag[key] : false;
-
-                        EditorGUILayout.BeginHorizontal();
-                        {
-                            if (!isModify)
-                            {
-                                EditorGUILayout.LabelField(key, EditorStyles.helpBox, GUILayout.Width(150));
-                                EditorGUILayout.LabelField(valueStr, GUILayout.Width(CustomEditorUtility.GetScreenWidth - 400));
-
-                                if (GUILayout.Button("M", GUILayout.Width(35)))
-                                {
-                                    _inputKey = key;
-                                    _inputValue = valueStr;
-
-                                    SwitchOptionModifyFlag(key, true);
-                                }
-
-                                if (GUILayout.Button("P", GUILayout.Width(35)))
-                                {
-                                    string filePath = FileHelper.SelectFilePath("C:\\workspace\\unity\\villagerA");
-                                    if (!string.IsNullOrEmpty(filePath))
-                                    {
-                                        _inputValue = filePath;
-                                        _inputValue = RemoveSemi(_inputValue);
-
-                                        ChangeOption(key, valueStr);
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                _inputKey = EditorGUILayout.TextArea(_inputKey, GUILayout.Width(150));
-                                _inputValue = EditorGUILayout.TextArea(_inputValue);
-
-                                if (GUILayout.Button("M", GUILayout.Width(35)))
-                                {
-                                    _inputValue = RemoveSemi(_inputValue);
-
-                                    ChangeOption(key, valueStr);
-
-                                    SwitchOptionModifyFlag(key, false);
-                                }
-                            }
-                        }
-                        EditorGUILayout.EndHorizontal();
-
-                        EditorGUILayout.Space();
-                    }
-                }
-
-                if (GUILayout.Button("+"))
-                {
-                    int index = optionKeys != null ? optionKeys.Count : 0;
-                    string key = $"NewOption_{index}";
-                    optionFile.Add(key, $"Value");
-                }
-            }
-            EditorGUILayout.EndVertical();
+            _modifyFlag[i] = new Dictionary<string, bool>();
+            _modifyFlag[i].Clear();
         }
     }
-    void SecretSetting()
+    void TxtFilesSetting(int i)
     {
-        // Path ø¨∞·¿Ã æ»µ 
-        if (!_linkedSecretFile)
+        string fileName = _txtFiles[i].FileName;
+        bool isLinked = _isLinked[i];
+        Dictionary<string, bool> modifyFlag = _modifyFlag[i];
+
+        if (!isLinked)
         {
             EditorGUILayout.BeginHorizontal();
             {
-                EditorGUILayout.PrefixLabel($"Need Link Path : Secret.txt");
+                EditorGUILayout.PrefixLabel($"Need Link Path : {fileName}");
             }
             EditorGUILayout.EndHorizontal();
         }
         else
         {
-            EditorGUILayout.BeginVertical();
+            _scrollPos = EditorGUILayout.BeginScrollView(_scrollPos, GUILayout.Height(CustomEditorUtility.GetScreenHeight - _scrollMinusHeight));
             {
-                EditorGUILayout.LabelField("Success Linked Secret Path!");
+                EditorGUILayout.LabelField($"Success Linked {fileName} Path!");
 
                 EditorGUILayout.BeginHorizontal();
                 {
                     Color originColor = GUI.contentColor;
 
                     GUI.contentColor = Color.cyan;
-                    EditorGUILayout.SelectableLabel(secretOptionFile.FileName);
+                    EditorGUILayout.SelectableLabel(fileName);
 
                     GUI.contentColor = originColor;
+
+                    if (GUILayout.Button("Link"))
+                    {
+                        string path = _txtFiles[i].GetFile();
+                        FileHelper.ProcessStart(path);
+                    }
                 }
                 EditorGUILayout.EndHorizontal();
 
                 EditorGUILayout.Space();
 
-                List<string> secretKeys = secretOptionFile.Keys();
-                if (secretKeys != null)
+                List<string> keys = _txtFiles[i].Keys();
+                if (keys != null)
                 {
-                    for (int i = 0; i < secretKeys.Count; i++)
+                    for (int j = 0; j < keys.Count; j++)
                     {
-                        string key = secretKeys[i];
-                        object value = secretOptionFile.Read<object>(key);
+                        string key = keys[j];
+                        object value = _txtFiles[i].Read<object>(key);
                         string valueStr = CSharpHelper.SerializeObject(value);
-                        valueStr = RemoveSemi(valueStr);
+                        valueStr = CSharpHelper.RemoveSemi(valueStr);
 
-                        bool isModify = _secretModifyFlag.ContainsKey(key) ? _secretModifyFlag[key] : false;
+                        bool isModify = modifyFlag.ContainsKey(key) ? modifyFlag[key] : false;
 
                         EditorGUILayout.BeginHorizontal();
                         {
@@ -217,22 +147,24 @@ public class SettingOptionWindow : EditorWindow
                             {
                                 EditorGUILayout.LabelField(key, EditorStyles.helpBox, GUILayout.Width(150));
                                 EditorGUILayout.LabelField(valueStr, GUILayout.Width(CustomEditorUtility.GetScreenWidth - 400));
-                          
+
                                 if (GUILayout.Button("M", GUILayout.Width(35)))
                                 {
                                     _inputKey = key;
                                     _inputValue = valueStr;
 
-                                    SwitchSecretModifyFlag(key, true);
+                                    SwitchModifyFlag(i, key, true);
                                 }
+
                                 if (GUILayout.Button("P", GUILayout.Width(35)))
                                 {
-                                    string filePath = FileHelper.SelectFilePath("C:\\workspace\\unity\\villagerA");
+                                    string filePath = FileHelper.SelectFilePath(FileHelper.GetCurrentDirectory());
                                     if (!string.IsNullOrEmpty(filePath))
                                     {
                                         _inputValue = filePath;
-                                        _inputValue = RemoveSemi(_inputValue);
-                                        ChangeSecretOption(key, valueStr);
+                                        _inputValue = CSharpHelper.RemoveSemi(_inputValue);
+
+                                        ChangeData(i, key, valueStr);
                                     }
                                 }
                             }
@@ -243,11 +175,11 @@ public class SettingOptionWindow : EditorWindow
 
                                 if (GUILayout.Button("M", GUILayout.Width(35)))
                                 {
-                                    _inputValue = RemoveSemi(_inputValue);
+                                    _inputValue = CSharpHelper.RemoveSemi(_inputValue);
 
-                                    ChangeSecretOption(key, valueStr);
+                                    ChangeData(i, key, valueStr);
 
-                                    SwitchSecretModifyFlag(key, false);
+                                    SwitchModifyFlag(i, key, false);
                                 }
                             }
                         }
@@ -259,120 +191,110 @@ public class SettingOptionWindow : EditorWindow
 
                 if (GUILayout.Button("+"))
                 {
-                    int index = secretKeys != null ? secretKeys.Count : 0;
+                    int index = keys != null ? keys.Count : 0;
                     string key = $"NewOption_{index}";
-                    secretOptionFile.Add(key, $"Value");
+                    _txtFiles[i].Add(key, $"Value");
                 }
             }
-            EditorGUILayout.EndVertical();
+            EditorGUILayout.EndScrollView();
         }
     }
     void ServerURLSetting()
     {
-        ServerUrlType selectType = GameOptionManager.ServerUrlType;
-        int len = Enum.GetValues(typeof(ServerUrlType)).Length;
+        _serverUrlFoldout = CustomEditorUtility.DrawFoldoutTitle("Server Url Setting", _serverUrlFoldout);
 
-        EditorGUILayout.LabelField("Server Url", CustomEditorUtility.GetMiddleLabel);
-
-        Color originColor = GUI.backgroundColor;
-
-        EditorGUILayout.BeginHorizontal();
+        if (_serverUrlFoldout)
         {
-            for (int i = 0; i < len; i++) 
-            {
-                ServerUrlType cType = (ServerUrlType)i;
-                bool isSelect = cType == selectType;
-                GUI.backgroundColor = isSelect ? Color.cyan : Color.white;
+            EditorGUILayout.Space(4);
 
-                if (GUILayout.Button($"{cType.ToString()}"))
+            ServerUrlType selectType = GameOptionManager.ServerUrlType;
+            int len = Enum.GetValues(typeof(ServerUrlType)).Length;
+
+            Color originColor = GUI.backgroundColor;
+
+            EditorGUILayout.BeginHorizontal();
+            {
+                for (int i = 0; i < len; i++)
                 {
-                    GameOptionManagerPacket.ServerUrlChange(cType);
+                    ServerUrlType cType = (ServerUrlType)i;
+                    bool isSelect = cType == selectType;
+                    GUI.backgroundColor = isSelect ? Color.cyan : Color.white;
+
+                    if (GUILayout.Button($"{cType.ToString()}"))
+                    {
+                        GameOptionManager.ChangeServerUrl(cType);
+                    }
                 }
             }
-        }
-        EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();
 
-        GUI.backgroundColor = originColor;
+            GUI.backgroundColor = originColor;
+        }
+    }
+    void ReleaseBuildGUI()
+    {
+        _releaseBuildFoldout = CustomEditorUtility.DrawFoldoutTitle("Release", _releaseBuildFoldout);
+
+        if (_releaseBuildFoldout)
+        {
+            EditorGUILayout.Space(4);
+
+            EditorGUILayout.BeginHorizontal();
+            {
+                Color originColor = GUI.backgroundColor;
+                bool isRelease = GameOptionManager.IsRelease;
+
+                for (int i = 0; i < 2; i++)
+                {
+                    bool flag = i % 2 == 0;
+                    bool isSelect = flag == isRelease;
+                    GUI.backgroundColor = isSelect ? Color.cyan : Color.white;
+
+                    if (GUILayout.Button($"{flag.ToString()}"))
+                    {
+                        GameOptionManager.SetRelease(flag);
+                    }
+                }
+
+                GUI.backgroundColor = originColor;
+            }
+            EditorGUILayout.EndHorizontal();
+        }
     }
 
-    void SwitchOptionModifyFlag(string key, bool flag)
+    void SwitchModifyFlag(int index, string key, bool flag)
     {
         if (flag)
         {
-            _optionModifyFlag.Clear();
-            _optionModifyFlag.Add(key, flag);
+            _modifyFlag[index].Clear();
+            _modifyFlag[index].Add(key, flag);
         }
         else
         {
-            _optionModifyFlag.Clear();
-        }
-    }
-    void SwitchSecretModifyFlag(string key, bool flag)
-    {
-        if (flag)
-        {
-            _secretModifyFlag.Clear();
-            _secretModifyFlag.Add(key, flag);
-        }
-        else
-        {
-            _secretModifyFlag.Clear();
+            _modifyFlag[index].Clear();
         }
     }
 
-    string RemoveSemi(string path)
-    {
-        string result = path;
-        result = result.Replace("\\\\\\", "");
-        result = result.Replace("\\\\", "\\");
-        result = result.Replace("\"", "");
-
-        return result;
-    }
-
-    void ChangeOption(string originKey, string originValue)
+    void ChangeData(int index, string originKey, string originValue)
     {
         if (originKey != _inputKey)
         {
             if (string.IsNullOrEmpty(_inputKey))
             {
-                optionFile.Remove(originKey);
+                _txtFiles[index].Remove(originKey);
             }
             else
             {
-                optionFile.Remove(originKey);
-                optionFile.Add(_inputKey, CSharpHelper.AutoParse(_inputValue));
+                _txtFiles[index].Remove(originKey);
+                _txtFiles[index].Add(_inputKey, CSharpHelper.AutoParse(_inputValue));
             }
         }
         else
         {
             if (_inputValue != originValue)
             {
-                optionFile.Remove(originKey);
-                optionFile.Add(_inputKey, CSharpHelper.AutoParse(_inputValue));
-            }
-        }
-    }
-    void ChangeSecretOption(string originKey, string originValue)
-    {
-        if (originKey != _inputKey)
-        {
-            if (string.IsNullOrEmpty(_inputKey))
-            {
-                secretOptionFile.Remove(originKey);
-            }
-            else
-            {
-                secretOptionFile.Remove(originKey);
-                secretOptionFile.Add(_inputKey, CSharpHelper.AutoParse(_inputValue));
-            }
-        }
-        else
-        {
-            if (_inputValue != originValue)
-            {
-                secretOptionFile.Remove(originKey);
-                secretOptionFile.Add(_inputKey, CSharpHelper.AutoParse(_inputValue));
+                _txtFiles[index].Remove(originKey);
+                _txtFiles[index].Add(_inputKey, CSharpHelper.AutoParse(_inputValue));
             }
         }
     }

@@ -232,16 +232,16 @@ public class TableWindow : EditorWindow
     }
     async void GoogleSheetLoadTable(long sheetId, string range, System.Action<string> res)
     {
-        string address = secretFileTxt.Read<string>("GoogleSheetAdress");
+        string address = secretFileTxt.Read("GoogleSheetAdress");
         string url = GoogleSpreadSheetUtils.GetTSVAdress(address, range, sheetId);
 
-        string data = await WebTaskCall.Get<string>(url);
+        string data = await WebTaskCall.Get(url);
 
         res.Invoke(data);
     }
     void OnClickGoToGoogleSheet(long sheetId)
     {
-        string address = secretFileTxt.Read<string>("GoogleSheetAdress");
+        string address = secretFileTxt.Read("GoogleSheetAdress");
         Application.OpenURL(GoogleSpreadSheetUtils.GetUrl(address, sheetId));
     }
     void OnClickCreateTableDB(string tableName, string tableData)
@@ -296,13 +296,13 @@ public class TableWindow : EditorWindow
         }
 
         // 복사하기 DefineCopyPath
-        string defineCopyPath = secretFileTxt.Read<string>("DefineCopyPath");
+        string defineCopyPath = secretFileTxt.Read("DefineCopyPath");
         FileHelper.ProcessStart(defineCopyPath);
 
         bool isDialogMsg = EditorMessageUtils.DialogMessage("CreateTableDB", "Do It\n1. Add-Migration [Message]\n2. Update-Database\n3. Build");
         if (isDialogMsg)
         {
-            string serverPath = secretFileTxt.Read<string>("ServerSlnPath");
+            string serverPath = secretFileTxt.Read("ServerSlnPath");
             FileHelper.ProcessStart(serverPath);
         }
     }
@@ -321,19 +321,7 @@ public class TableWindow : EditorWindow
     void OnClickDebugServerStart()
     {
         // 서버 실행 
-        switch (GameOptionManager.ServerUrlType)
-        {
-            case ServerUrlType.DebugUrl:
-                string serverSlnPath = secretFileTxt.Read<string>("ServerSlnPath");
-                FileHelper.ProcessStart(serverSlnPath);
-                break;
-            case ServerUrlType.LocalhostUrl:
-                string serverDebugExePath = secretFileTxt.Read<string>("LocalhostStartPath");
-                FileHelper.ProcessStart(serverDebugExePath);
-                break;
-            default:
-                break;
-        }
+        ServerEditor.StartServer();
     }
     void ConnetModeSetting()
     {

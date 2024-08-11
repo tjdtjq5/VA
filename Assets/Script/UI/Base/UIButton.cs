@@ -1,31 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIButton : UIBase
+public class UIButton : UIFrame
 {
-    enum Buttons
+    Image Image
     {
-        PointButton
-    }
-    enum Texts : int
-    {
-        PointText,
-        ScoreText,
-    }
-
-    enum GameObjects
-    {
-        TestObj
+        get
+        {
+            return GetComponent<Image>();
+        }
     }
 
     private void Start()
     {
-        Bind<Button>(typeof(Buttons));
-        Bind<Text>(typeof(Texts));
-        Bind<GameObject>(typeof(GameObjects));
+        Image.raycastTarget = true;
+    }
 
-        Get<Button>(Buttons.PointButton);
+    public void AddClickEvent(Action<PointerEventData> _action)
+    {
+        BindEvent(Image.gameObject, _action, UIEvent.Click);
+    }
+    public void AddPointDownEvent(Action<PointerEventData> _action)
+    {
+        BindEvent(Image.gameObject, _action, UIEvent.PointDown);
+    }
+    public void AddPointUpEvent(Action<PointerEventData> _action)
+    {
+        BindEvent(Image.gameObject, _action, UIEvent.PointUp);
+    }
+
+    public void RemoveClickEvent(Action<PointerEventData> _action)
+    {
+        UnBindEvent(Image.gameObject, _action, UIEvent.Click);
+    }
+    public void RemovePointDownEvent(Action<PointerEventData> _action)
+    {
+        UnBindEvent(Image.gameObject, _action, UIEvent.PointDown);
+    }
+    public void RemovePointUpEvent(Action<PointerEventData> _action)
+    {
+        UnBindEvent(Image.gameObject, _action, UIEvent.PointUp);
     }
 }

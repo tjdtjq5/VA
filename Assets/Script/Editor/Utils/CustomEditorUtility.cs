@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEditor;
-using UnityEditorInternal;
 
 public static class CustomEditorUtility
 {
     public readonly static GUIStyle titleStyle;
+    public readonly static GUIStyle middleTitleStyle;
 
     static CustomEditorUtility()
     {
@@ -17,7 +17,7 @@ public static class CustomEditorUtility
             // 유니티 Default Label의 font를 가져옴
             font = new GUIStyle(EditorStyles.label).font,
             fontStyle = FontStyle.Bold,
-            fontSize = 14,
+            fontSize = 16,
             // title을 그릴 공간에 여유를 줌
             border = new RectOffset(15, 7, 4, 4),
             // 높이는 26
@@ -25,6 +25,22 @@ public static class CustomEditorUtility
             // 내부 Text의 위치를 조절함
             contentOffset = new Vector2(20f, -2f)
         };
+
+        middleTitleStyle = new GUIStyle("ShurikenModuleTitle")
+        {
+            // 유니티 Default Label의 font를 가져옴
+            font = new GUIStyle(EditorStyles.label).font,
+            fontStyle = FontStyle.Bold,
+            fontSize = 14,
+            // title을 그릴 공간에 여유를 줌
+            border = new RectOffset(15, 7, 4, 4),
+            // 높이는 26
+            fixedHeight = 22f,
+            // 내부 Text의 위치를 조절함
+            contentOffset = new Vector2(20f, -2f)
+        };
+
+        buttonStyle.margin = new RectOffset(0, 0, buttonStyle.margin.top, buttonStyle.margin.bottom);
     }
 
     public static bool DrawFoldoutTitle(string title, bool isExpanded, float space = 15f)
@@ -93,7 +109,91 @@ public static class CustomEditorUtility
     public static float GetScreenWidth { get => EditorGUIUtility.currentViewWidth; }
     public static float GetScreenHeight { get => Screen.height * (GetScreenWidth / Screen.width); }
 
+    #region Label
+
     public static GUIStyle GetMiddleLabel { get=> new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter }; }
     public static GUIStyle GetRightLabel { get=> new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight }; }
     public static GUIStyle GetLeftLabel { get=> new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft }; }
+    public static GUIStyle GetLabelStyle(int fontSize)
+    {
+        return new GUIStyle(EditorStyles.helpBox) { fontSize = fontSize };
+    }
+
+    #endregion
+
+    #region Text Area
+
+    public static GUIStyle GetTextAreaSeretStyle
+    {
+        get
+        {
+            return new GUIStyle(GUI.skin.textArea) { };
+        }
+    }
+
+    #endregion
+
+    #region Button
+    static GUIStyle buttonStyle = new GUIStyle(GUI.skin.button);
+    public static GUIStyle GetButtonStyle(float width, float height, AnchorStyles anchorStyles)
+    {
+        GUIStyle buttonStyle = null;
+
+        switch (anchorStyles)
+        {
+            case AnchorStyles.Left:
+                buttonStyle = new GUIStyle(EditorStyles.miniButtonLeft);
+                break;
+            case AnchorStyles.Right:
+                buttonStyle = new GUIStyle(EditorStyles.miniButtonRight);
+                break;
+            default:
+                buttonStyle = new GUIStyle(EditorStyles.miniButtonMid);
+                break;
+        }
+
+        buttonStyle.fixedWidth = width;
+        buttonStyle.fixedHeight = height;
+
+        return buttonStyle;
+    }
+
+    #endregion
+
+    public static void DrawEnumToolbar(SerializedProperty enumProperty)
+    {
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.PrefixLabel(enumProperty.displayName);
+        enumProperty.enumValueIndex = GUILayout.Toolbar(enumProperty.enumValueIndex, enumProperty.enumDisplayNames);
+        EditorGUILayout.EndHorizontal();
+    }
+
+    // T는 Deep Copy할 객체의 Type
+    public static void DeepCopySerializeReference(SerializedProperty property)
+    {
+        // managedReferenceValue는 SerializeReference Attribute를 적용한 변수
+        if (property.managedReferenceValue == null)
+            return;
+
+        property.managedReferenceValue = (property.managedReferenceValue as ICloneable).Clone();
+    }
+
+    public static void DeepCopySerializeReferenceArray(SerializedProperty property, string fieldName = "")
+    {
+        for (int i = 0; i < property.arraySize; i++)
+        {
+            // Array에서 Element를 가져옴
+            var elementProperty = property.GetArrayElementAtIndex(i);
+            // Element가 일반 class나 struct라서 Element 내부에 SerializeReference 변수가 있을 수 있으므로,
+            // fieldName이 Empty가 아니라면 Elenemt에서 fieldName 변수 정보를 찾아옴
+            if (!string.IsNullOrEmpty(fieldName))
+                elementProperty = elementProperty.FindPropertyRelative(fieldName);
+
+            if (elementProperty.managedReferenceValue == null)
+                continue;
+
+            // 찾아온 정보를 이용해서 property의 manageredRefenceValue에서 Clone 함수를 실행시킴
+            elementProperty.managedReferenceValue = (elementProperty.managedReferenceValue as ICloneable).Clone();
+        }
+    }
 }

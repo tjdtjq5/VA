@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -23,7 +24,7 @@ public static class CSharpHelper
     #endregion
 
     #region Parse
-    public static T Parse<T>(string value, bool isDebug) where T : Enum
+    public static T EnumParse<T>(string value, bool isDebug) where T : Enum
     {
         try
         {
@@ -35,6 +36,38 @@ public static class CSharpHelper
                 UnityHelper.Log_H($"CSharpHelper Parse Error\nvalue : {value}");
 
             return default(T);
+        }
+    }
+    public static int GetEnumLength<T>() where T : Enum
+    {
+        return Enum.GetValues(typeof(T)).Length;
+    }
+    public static int IntParse(string value, bool isDebug)
+    {
+        try
+        {
+            return int.Parse(value);
+        }
+        catch
+        {
+            if (isDebug)
+                UnityHelper.Log_H($"CSharpHelper Parse Error\nvalue : {value}");
+
+            return 0;
+        }
+    }
+    public static float FloatParse(string value, bool isDebug)
+    {
+        try
+        {
+            return float.Parse(value);
+        }
+        catch
+        {
+            if (isDebug)
+                UnityHelper.Log_H($"CSharpHelper Parse Error\nvalue : {value}");
+
+            return 0;
         }
     }
     public static object AutoParse(string value)
@@ -55,6 +88,22 @@ public static class CSharpHelper
 
         return value;
     }
+    public static string ToString_H(this DateTime dateTime)
+    {
+        return dateTime.ToString("yyyy-mm-dd hh:mm:ss", CultureInfo.InvariantCulture);
+    }
+    public static DateTime ToDateTime(this string str, bool isDebug)
+    {
+        DateTime result = new DateTime(0);
+
+        if (!DateTime.TryParseExact(str, "yyyy-mm-dd hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
+        {
+            if (isDebug)
+                UnityHelper.LogError_H($"CSharpHelper ToDateTime Error\nstr : {str}\nresult : {result}");
+        }
+
+        return result;
+    }
     #endregion
 
     #region Type Field
@@ -65,7 +114,7 @@ public static class CSharpHelper
     }
     public static string GetTypeString(Type type)
     {
-        TypeCollect tc = Parse<TypeCollect>(type.Name, false);
+        TypeCollect tc = EnumParse<TypeCollect>(type.Name, false);
         switch (tc)
         {
             case TypeCollect.Int32:
@@ -169,11 +218,19 @@ public static class CSharpHelper
     #endregion
 
     #region Json
-    public static string SerializeObject<T>(T value) 
+    public static string SerializeObject<T>(T value)
     {
         try
         {
-            return JsonConvert.SerializeObject(value, Formatting.Indented);
+            if (typeof(T) == typeof(string))
+            {
+                return value.ToString();
+            }
+            else
+            {
+                return JsonConvert.SerializeObject(value, Formatting.Indented);
+            }
+
         }
         catch
         {
@@ -185,14 +242,21 @@ public static class CSharpHelper
     {
         try
         {
-            return JsonConvert.DeserializeObject<T>(value);
+            if (typeof(T) == typeof(string))
+            {
+                return (T)(object)value;
+            }
+            else
+            {
+                return JsonConvert.DeserializeObject<T>(value);
+            }
         }
         catch
         {
             UnityHelper.LogError_H($"CSharpHelper DeserializeObject Error\nvalue : {value}");
             return default;
         }
-    }
+    } 
     #endregion
 
     #region String 
@@ -225,6 +289,80 @@ public static class CSharpHelper
             UnityHelper.LogError_H($"GetReplaceRegex Error\nvalue : {value}");
             return value;
         }
+    }
+    public static bool IsRegex(string value)
+    {
+        string regex = GetReplaceRegex(value);
+        return regex.Equals(value);
+    }
+    public static string RemoveSemi(string path)
+    {
+        string result = path;
+        result = result.Replace("\\\\\\", "");
+        result = result.Replace("\\\\", "\\");
+        result = result.Replace("\"", "");
+
+        return result;
+    }
+    #endregion
+
+    #region Encoding
+    public static string Base64Encode(string data)
+    {
+        try
+        {
+            byte[] encData_byte = new byte[data.Length];
+            encData_byte = System.Text.Encoding.UTF8.GetBytes(data);
+            string encodedData = Convert.ToBase64String(encData_byte);
+            return encodedData;
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Error in Base64Encode: " + e.Message);
+        }
+    }
+    public static string Base64Decode(string data)
+    {
+        try
+        {
+            System.Text.UTF8Encoding encoder = new System.Text.UTF8Encoding();
+            System.Text.Decoder utf8Decode = encoder.GetDecoder();
+
+            byte[] todecode_byte = Convert.FromBase64String(data);
+            int charCount = utf8Decode.GetCharCount(todecode_byte, 0, todecode_byte.Length);
+            char[] decoded_char = new char[charCount];
+            utf8Decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
+            string result = new String(decoded_char);
+            return result;
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Error in Base64Decode: " + e.Message);
+        }
+    }
+    #endregion
+
+    #region Dictionary
+    public static string ToString_H<T1, T2>(this Dictionary<T1, T2> dics) where T1 : new() where T2 : new()
+    {
+        string result = "";
+
+        foreach (var data in dics)
+        {
+            string keyData = SerializeObject(data.Key);
+            string valueData = SerializeObject(data.Value);
+
+            result += $"{keyData} : {valueData}\n";
+        }
+
+        return result;
+    }
+    #endregion
+
+    #region List
+    public static string ToString_H<T>(this List<T> list)
+    {
+        return SerializeObject(list);
     }
     #endregion
 }

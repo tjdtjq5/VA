@@ -1,6 +1,6 @@
-public class UIPopup : UIBase
+public class UIPopup : UIFrame
 {
-    public override void Initialize()
+    protected override void Initialize()
     {
         base.Initialize();
 
