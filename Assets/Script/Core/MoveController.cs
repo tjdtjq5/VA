@@ -57,6 +57,7 @@ public class MoveController : MonoBehaviour
         }
     }
     public void LookAtImmediate(Transform target) => SetFlipScale(this.transform.position.x > target.position.x);
-    public void LookAtImmediate(Vector3 direction) => SetFlipScale(direction.x < 0);
+    public void LookAtImmediate(Vector3 target) => SetFlipScale(this.transform.position.x > target.x);
+    public void LookAtImmediateDirection(Vector3 direction) => SetFlipScale(direction.x < 0);
     void SetFlipScale(bool isLeft) => this.transform.localScale = isLeft ? _scaleLeft : _scaleRight;
 }

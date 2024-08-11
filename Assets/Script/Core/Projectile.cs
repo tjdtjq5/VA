@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : MonoBehaviour
 {
     [SerializeField]
-    private GameObject impactPrefab;
+    private string impactPrefabPath;
 
     private Entity owner;
     private Rigidbody rigidBody;
@@ -31,7 +32,7 @@ public class Projectile : MonoBehaviour
 
     private void OnDestroy()
     {
-        Destroy(skill);
+        Managers.Resources.Destroy(skill.GameObject());
     }
 
     private void FixedUpdate()
@@ -44,7 +45,7 @@ public class Projectile : MonoBehaviour
         if (other.GetComponent<Entity>() == owner)
             return;
 
-        var impact = Instantiate(impactPrefab);
+        var impact = Managers.Resources.Instantiate(impactPrefabPath);
         impact.transform.forward = -transform.forward;
         impact.transform.position = transform.position;
 
@@ -52,6 +53,6 @@ public class Projectile : MonoBehaviour
         if (entity)
             entity.SkillSystem.Apply(skill);
 
-        Destroy(gameObject);
+        Managers.Resources.Destroy(gameObject);
     }
 }

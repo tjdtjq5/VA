@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpawnProjectileAction : SkillAction
 {
     [SerializeField]
-    private GameObject projectilePrefab;
+    private string projectilePrefabPath;
     [SerializeField]
     private string spawnPointSocketName;
     [SerializeField]
@@ -15,7 +15,7 @@ public class SpawnProjectileAction : SkillAction
     public override void Apply(Skill skill)
     {
         var socket = skill.Owner.GetTransformSocket(spawnPointSocketName);
-        var projectile = GameObject.Instantiate(projectilePrefab);
+        var projectile = Managers.Resources.Instantiate(projectilePrefabPath);
         projectile.transform.position = socket.position;
         projectile.GetComponent<Projectile>().Setup(skill.Owner, speed, socket.forward, skill);
     }
@@ -24,7 +24,7 @@ public class SpawnProjectileAction : SkillAction
     {
         return new SpawnProjectileAction()
         {
-            projectilePrefab = projectilePrefab,
+            projectilePrefabPath = projectilePrefabPath,
             spawnPointSocketName = spawnPointSocketName,
             speed = speed
         };
