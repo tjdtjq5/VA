@@ -76,19 +76,21 @@ public class SkillSystem : MonoBehaviour
     public void Setup(Entity entity)
     {
         Owner = entity;
-        Debug.Assert(Owner != null, "SkillSystem::Awake - Owner는 null이 될 수 없습니다.");
+        UnityHelper.Assert_H(Owner != null, "SkillSystem::Awake - Owner는 null이 될 수 없습니다.");
         SetupSkills();
     }
 
     private void SetupSkills()
     {
         foreach (var skill in defaultSkills)
+        {
             RegisterWithoutCost(skill);
+        }
     }
 
     public Skill RegisterWithoutCost(Skill skill, int level = 0)
     {
-        Debug.Assert(!ownSkills.Exists(x => x.ID == skill.ID), "SkillSystem::Register - 이미 존재하는 Skill입니다.");
+        UnityHelper.Assert_H(!ownSkills.Exists(x => x.ID == skill.ID), "SkillSystem::Register - 이미 존재하는 Skill입니다.");
 
         var clone = skill.Clone() as Skill;
         if (level > 0)
@@ -113,8 +115,8 @@ public class SkillSystem : MonoBehaviour
 
     public Skill Register(Skill skill, int level = 0)
     {
-        Debug.Assert(!ownSkills.Exists(x => x.ID == skill.ID), "SkillSystem::Register - 이미 존재하는 Skill입니다.");
-        Debug.Assert(skill.HasEnoughAcquisitionCost(Owner), "SkillSystem::Register - 습득을 위한 Cost가 부족합니다.");
+        UnityHelper.Assert_H(!ownSkills.Exists(x => x.ID == skill.ID), "SkillSystem::Register - 이미 존재하는 Skill입니다.");
+        UnityHelper.Assert_H(skill.HasEnoughAcquisitionCost(Owner), "SkillSystem::Register - 습득을 위한 Cost가 부족합니다.");
 
         skill.UseAcquisitionCost(Owner);
         skill = RegisterWithoutCost(skill, level);
@@ -252,7 +254,7 @@ public class SkillSystem : MonoBehaviour
     {
         skill = Find(skill);
 
-        Debug.Assert(skill != null,
+        UnityHelper.Assert_H(skill != null,
             $"SkillSystem::IncreaseStack({skill.CodeName}) - Skill이 System에 등록되지 않았습니다.");
 
         return skill.Use();

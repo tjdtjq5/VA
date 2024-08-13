@@ -94,7 +94,7 @@ public class Skill : IdentifiedObject
         get => level;
         set
         {
-            Debug.Assert(value >= 1 && value <= MaxLevel, 
+            UnityHelper.Assert_H(value >= 1 && value <= MaxLevel, 
                 $"Skill.Rank = {value} - value는 1과 MaxLevel({MaxLevel}) 사이 값이여야합니다.");
 
 
@@ -356,9 +356,9 @@ public class Skill : IdentifiedObject
 
     public void Setup(Entity owner, int level)
     {
-        Debug.Assert(owner != null, $"Skill::Setup - Owner는 Null이 될 수 없습니다.");
-        Debug.Assert(level >= 1 && level <= maxLevel, $"Skill::Setup - {level}이 1보다 작거나 {maxLevel}보다 큽니다.");
-        Debug.Assert(Owner == null, $"Skill::Setup - 이미 Setup하였습니다.");
+        UnityHelper.Assert_H(owner != null, $"Skill::Setup - Owner는 Null이 될 수 없습니다.");
+        UnityHelper.Assert_H(level >= 1 && level <= maxLevel, $"Skill::Setup - {level}이 1보다 작거나 {maxLevel}보다 큽니다.");
+        UnityHelper.Assert_H(Owner == null, $"Skill::Setup - 이미 Setup하였습니다.");
 
         Owner = owner;
         Level = level;
@@ -428,7 +428,7 @@ public class Skill : IdentifiedObject
 
     public void LevelUp()
     {
-        Debug.Assert(IsCanLevelUp, "Skill::LevelUP - Level Up 조건을 충족하지 못했습니다.");
+        UnityHelper.Assert_H(IsCanLevelUp, "Skill::LevelUP - Level Up 조건을 충족하지 못했습니다.");
 
         foreach (var cost in LevelUpCosts)
             cost.UseCost(Owner);
@@ -512,7 +512,7 @@ public class Skill : IdentifiedObject
 
     public bool Use()
     {
-        Debug.Assert(IsUseable, "Skill::Use - 사용 조건을 만족하지 못했습니다.");
+        UnityHelper.Assert_H(IsUseable, "Skill::Use - 사용 조건을 만족하지 못했습니다.");
 
         bool isUsed = StateMachine.ExecuteCommand(SkillExecuteCommand.Use) || StateMachine.SendMessage(SkillStateMessage.Use);
         if (isUsed)
@@ -523,7 +523,7 @@ public class Skill : IdentifiedObject
 
     public bool UseImmediately(Vector3 position)
     {
-        Debug.Assert(IsUseable, "Skill::UseImmediately - 사용 조건을 만족하지 못했습니다.");
+        UnityHelper.Assert_H(IsUseable, "Skill::UseImmediately - 사용 조건을 만족하지 못했습니다.");
 
         SelectTargetImmediate(position);
 
@@ -536,7 +536,7 @@ public class Skill : IdentifiedObject
 
     public bool Cancel(bool isForce = false)
     {
-        Debug.Assert(!IsPassive, "Skill::Cancel - Passive Skill은 Cancel 할 수 없습니다.");
+        UnityHelper.Assert_H(!IsPassive, "Skill::Cancel - Passive Skill은 Cancel 할 수 없습니다.");
 
         var isCanceled = isForce ? StateMachine.ExecuteCommand(SkillExecuteCommand.CancelImmediately) :
             StateMachine.ExecuteCommand(SkillExecuteCommand.Cancel);
@@ -549,7 +549,7 @@ public class Skill : IdentifiedObject
 
     public void UseCost()
     {
-        Debug.Assert(HasEnoughCost, "Skill::UseCost - 사용할 Cost가 부족합니다.");
+        UnityHelper.Assert_H(HasEnoughCost, "Skill::UseCost - 사용할 Cost가 부족합니다.");
 
         foreach (var cost in Costs)
             cost.UseCost(Owner);
@@ -557,7 +557,7 @@ public class Skill : IdentifiedObject
 
     public void UseDeltaCost()
     {
-        Debug.Assert(HasEnoughCost, "Skill::UseDeltaCost - 사용할 Cost가 부족합니다.");
+        UnityHelper.Assert_H(HasEnoughCost, "Skill::UseDeltaCost - 사용할 Cost가 부족합니다.");
 
         foreach (var cost in Costs)
             cost.UseDeltaCost(Owner);
@@ -565,7 +565,7 @@ public class Skill : IdentifiedObject
 
     public void Activate()
     {
-        Debug.Assert(!IsActivated, "Skill::Activate - 이미 활성화되어 있습니다.");
+        UnityHelper.Assert_H(!IsActivated, "Skill::Activate - 이미 활성화되어 있습니다.");
 
         UseCost();
 
@@ -575,7 +575,7 @@ public class Skill : IdentifiedObject
 
     public void Deactivate()
     {
-        Debug.Assert(IsActivated, "Skill::Activate - Skill이 활성화되어있지 않습니다.");
+        UnityHelper.Assert_H(IsActivated, "Skill::Activate - Skill이 활성화되어있지 않습니다.");
 
         IsActivated = false;
         onDeactivated?.Invoke(this); 
@@ -632,7 +632,7 @@ public class Skill : IdentifiedObject
 
     public void Apply(bool isConsumeApplyCount = true)
     {
-        Debug.Assert(IsInfinitelyApplicable || !isConsumeApplyCount || (CurrentApplyCount < ApplyCount),
+        UnityHelper.Assert_H(IsInfinitelyApplicable || !isConsumeApplyCount || (CurrentApplyCount < ApplyCount),
             $"Skill({CodeName})의 최대 적용 횟수({ApplyCount})를 초과해서 적용할 수 없습니다.");
 
         if (targetSearchTimingOption == TargetSearchTimingOption.Apply)

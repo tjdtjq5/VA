@@ -28,7 +28,7 @@ public class CircleIndicatorViewAction : IndicatorViewAction
     public override void ShowIndicator(TargetSearcher targetSearcher, GameObject requesterObject,
         object range, float angle, float fillAmount)
     {
-        Debug.Assert(range is float, "CircleIndicatorViewAction::ShowIndicator - range는 null 또는 float형만 허용됩니다.");
+        UnityHelper.Assert_H(range is float, "CircleIndicatorViewAction::ShowIndicator - range는 null 또는 float형만 허용됩니다.");
 
         // 이미 Indicator를 보여주고 있다면 먼저 Hide 처리를 해줌
         HideIndicator();

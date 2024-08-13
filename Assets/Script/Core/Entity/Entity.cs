@@ -25,6 +25,19 @@ public class Entity : MonoBehaviour
     public EntityControlType ControlType => controlType;
     public IReadOnlyList<Category> Categories => categories;
     public bool IsPlayer => controlType == EntityControlType.Player;
+    private bool isAiMove = false;
+    public bool IsAIMove
+    {
+        get
+        {
+             return controlType != EntityControlType.Player || isAiMove;
+        }
+        set
+        {
+            isAiMove = value;
+        }
+    }
+
 
     EntityAnimator entityAnimator;
 
@@ -51,14 +64,14 @@ public class Entity : MonoBehaviour
         Movement = GetComponent<EntityMovement>();
         Movement?.Setup(this);
 
-        StateMachine = GetComponent<MonoStateMachine<Entity>>();
-        StateMachine?.Setup(this);
+        SkillSystem = GetComponent<SkillSystem>();
+        SkillSystem?.Setup(this);
 
         Animator = GetComponent<EntityAnimator>();
         Animator?.Setup(this);
 
-        SkillSystem = GetComponent<SkillSystem>();
-        SkillSystem?.Setup(this);
+        StateMachine = GetComponent<MonoStateMachine<Entity>>();
+        StateMachine?.Setup(this);
     }
 
     public void TakeDamage(Entity instigator, object causer, BBNumber damage)

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5572046b21b14245abd62fa7d8c6ca9, type: 3}
-  m_Name: EFFECT_Test
+  m_Name: EFFECT_BasicAttackEffect
   m_EditorClassIdentifier: 
   categories: []
   icon: {fileID: 0}
-  id: 0
-  codeName: Test
-  displayName: Test
-  description: 
+  id: 1
+  codeName: BasicAttackEffect
+  displayName: BasicAttackEffect
+  description: "\uAE30\uBCF8 \uACF5\uACA9\uC785\uB2C8\uB2E4 _ \uD6A8\uACFC"
   type: 0
   isAllowDuplicate: 1
   removeDuplicateTargetOption: 0
@@ -29,23 +29,23 @@ MonoBehaviour:
     maxStack: 1
     stackActions: []
     action:
-      rid: 4300027480577933328
+      rid: 4300027546592083968
     runningFinishOption: 0
     isApplyAllWhenDurationExpires: 0
     duration:
       defaultValue: 0
-      scaleStat: {fileID: 11400000, guid: aef9630f060c64a489a18feba4e29890, type: 2}
-    applyCount: 5
-    applyCycle: 1
-    customActions:
-    - rid: 4300027480577933322
+      scaleStat: {fileID: 0}
+    applyCount: 1
+    applyCycle: 0
+    customActions: []
   references:
     version: 2
     RefIds:
-    - rid: 4300027480577933322
-      type: {class: CameraShakeAction, ns: , asm: Assembly-CSharp}
-      data: 
-    - rid: 4300027480577933328
-      type: {class: TestEffectAction2, ns: , asm: Assembly-CSharp}
+    - rid: 4300027546592083968
+      type: {class: DealDamageAction, ns: , asm: Assembly-CSharp}
       data:
-        value: 1
+        defaultDamage: 10
+        bonusDamageStat: {fileID: 11400000, guid: a25236d71c208b445aa86ccd88dd7283, type: 2}
+        bonusDamageStatFactor: 0
+        bonusDamagePerLevel: 0
+        bonusDamagePerStack: 0

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ public static class UnityHelper
     public static void Log_H(object message)
     {
         if (!GameOptionManager.IsRelease)
-            Debug.Log($"<color=#006AFF>{message}</color>");
+            Debug.Log(message);
     }
     public static void Log_H<T1, T2>(Dictionary<T1, T2> dics) where T1 : new() where T2 : new()
     {
@@ -28,17 +29,20 @@ public static class UnityHelper
     public static void LogError_H(object message)
     {
         if (!GameOptionManager.IsRelease)
-            Debug.LogError(message);
+        {
+            string msg = $"{message}";
+            Debug.LogError(msg);
+        }
     }
     public static void LogSerialize(object message)
     {
         if (!GameOptionManager.IsRelease)
-            Debug.Log($"<color=#006AFF>{CSharpHelper.SerializeObject(message)}</color>");
+            Log_H($"<color=#006AFF>{CSharpHelper.SerializeObject(message)}</color>");
     }
     public static void Assert_H(bool condition, string message)
     {
         if (!GameOptionManager.IsRelease)
-            Debug.Assert(condition, $"<color=#006AFF>message</color>");
+            Debug.Assert(condition, message);
     }
     #endregion
 

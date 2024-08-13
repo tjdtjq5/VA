@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SelectPosition : SelectTarget
+public class MouseSelectPosition : MouseSelectTarget
 {
     [Header("Layer")]
     [SerializeField]
     private LayerMask layerMask;
 
-    public SelectPosition() { }
+    public MouseSelectPosition() { }
 
-    public SelectPosition(SelectPosition copy)
+    public MouseSelectPosition(MouseSelectPosition copy)
         : base(copy)
     {
         layerMask = copy.layerMask;
@@ -45,5 +45,5 @@ public class SelectPosition : SelectTarget
             return new TargetSelectionResult(position, SearchResultMessage.OutOfRange);
     }
 
-    public override object Clone() => new SelectPosition(this);
+    public override object Clone() => new MouseSelectPosition(this);
 }

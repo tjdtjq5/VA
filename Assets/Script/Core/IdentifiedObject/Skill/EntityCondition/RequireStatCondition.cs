@@ -8,7 +8,7 @@ public class RequireStatCondition : EntityCondition
     [SerializeField]
     private Stat stat;
     [SerializeField]
-    private float needValue;
+    private BBNumber needValue;
 
     public override string Description => $"Lv.{needValue}";
 

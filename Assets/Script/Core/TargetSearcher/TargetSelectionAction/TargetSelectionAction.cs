@@ -79,7 +79,7 @@ public abstract class TargetSelectionAction : ICloneable
         GameObject requesterObject, SelectCompletedHandler onSelectCompleted);
 
     // 위의 Select 함수로 기준점을 비동기 검색 중일 때, 검색을 취소함
-    public abstract void CancelSelect(TargetSearcher targetSearcher);
+    public virtual void CancelSelect(TargetSearcher targetSearcher) { }
 
     // 인자로 받은 좌표가 기준점 검색 범위 안에 있는지 확인하는 함수
     public abstract bool IsInRange(TargetSearcher targetSearcher, Entity requesterEntity, GameObject requesterObject, Vector3 targetPosition);

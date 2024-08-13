@@ -1,17 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+
+// 언제 Spawn 시킬 것인가?
+public enum MethodType { Start, Run }
+// 누구를 기준으로 Object를 Spawn할 것인가?
+public enum TargetType { OwnerOrUser, Target }
 
 [System.Serializable]
 public class SpawnObjectAction : CustomAction
 {
-    // 언제 Spawn 시킬 것인가?
-    private enum MethodType { Start, Run }
-    // 누구를 기준으로 Object를 Spawn할 것인가?
-    private enum TargetType { OwnerOrUser, Target }
-
     [SerializeField]
     private TargetType targetType;
     [SerializeField]

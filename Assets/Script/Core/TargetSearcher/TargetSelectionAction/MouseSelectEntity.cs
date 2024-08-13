@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
-public class SelectEntity : SelectTarget
+public class MouseSelectEntity : MouseSelectTarget
 {
     // 검색을 요청한 Entity도 검색 대상에 포함할 것인가?
     [SerializeField]
@@ -13,9 +13,9 @@ public class SelectEntity : SelectTarget
     [SerializeField]
     private bool isSelectSameCategory;
 
-    public SelectEntity() { }
+    public MouseSelectEntity() { }
 
-    public SelectEntity(SelectEntity copy)
+    public MouseSelectEntity(MouseSelectEntity copy)
         : base(copy)
     {
         isIncludeSelf = copy.isIncludeSelf;
@@ -65,5 +65,5 @@ public class SelectEntity : SelectTarget
             return new TargetSelectionResult(target.gameObject, SearchResultMessage.OutOfRange);
     }
 
-    public override object Clone() => new SelectEntity(this);
+    public override object Clone() => new MouseSelectEntity(this);
 }

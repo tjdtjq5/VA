@@ -4,13 +4,13 @@ using UnityEngine;
 
 // SelectSelf Module과 똑같지만, Mosue 좌 Click을 해줘야함.
 [System.Serializable]
-public class SelectSelfByOneClick : SelectTarget
+public class MouseSelectSelfByOneClick : MouseSelectTarget
 {
-    public SelectSelfByOneClick() { }
-    public SelectSelfByOneClick(SelectSelfByOneClick copy) : base(copy) { }
+    public MouseSelectSelfByOneClick() { }
+    public MouseSelectSelfByOneClick(MouseSelectSelfByOneClick copy) : base(copy) { }
 
     public override object Clone()
-    => new SelectSelfByOneClick(this);
+    => new MouseSelectSelfByOneClick(this);
 
     protected override TargetSelectionResult SelectImmediateByPlayer(Vector2 screenPoint, TargetSearcher targetSearcher,
         Entity requesterEntity, GameObject requesterObject)

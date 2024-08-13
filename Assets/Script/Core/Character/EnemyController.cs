@@ -8,6 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(EntityMovement))]
 [RequireComponent(typeof(EntityAnimator))]
 [RequireComponent(typeof(EntityStateMachine))]
+[RequireComponent(typeof(SkillSystem))]
 public class EnemyController : MonoBehaviour
 {
     private Entity _entity;
