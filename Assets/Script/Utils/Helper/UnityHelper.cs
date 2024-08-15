@@ -262,4 +262,12 @@ public static class UnityHelper
         return path;
     }
     #endregion
+
+    #region Direction
+    public static Vector3 GetDirection(this Vector3 originPos, Vector3 targetPos)
+    {
+        targetPos = targetPos - originPos;
+        return targetPos.normalized;
+    }
+    #endregion
 }

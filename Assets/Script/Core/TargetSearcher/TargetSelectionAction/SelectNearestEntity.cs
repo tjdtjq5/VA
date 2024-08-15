@@ -68,6 +68,7 @@ public class SelectNearestEntity : SelectTarget
 
         requesterEntity.Target = target;
 
+
         if (targetSearcher.IsInRange(requesterEntity, requesterObject, target.transform.position))
             return new TargetSelectionResult(target.gameObject, SearchResultMessage.FindTarget);
         else

@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Numerics;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
@@ -365,4 +366,6 @@ public static class CSharpHelper
         return SerializeObject(list);
     }
     #endregion
+
+
 }

@@ -23,6 +23,7 @@ public abstract class MouseSelectTarget : TargetSelectionAction
     public override object Range => range;
     public override object ScaledRange => range * Scale;
     public override float Angle => angle;
+    public override bool IsMouseAction => true;
 
     public MouseSelectTarget() { }
 

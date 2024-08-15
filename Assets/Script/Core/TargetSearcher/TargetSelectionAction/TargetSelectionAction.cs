@@ -51,6 +51,7 @@ public abstract class TargetSelectionAction : ICloneable
     public object ProperRange => isUseScale ? ScaledRange : Range;
 
     public bool IsUseScale => isUseScale;
+    public abstract bool IsMouseAction { get; }
 
     public TargetSelectionAction() { }
 

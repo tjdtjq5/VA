@@ -7,20 +7,22 @@ using UnityEngine;
 [RequireComponent(typeof(EntityMovement))]
 [RequireComponent(typeof(EntityAnimator))]
 [RequireComponent(typeof(EntityStateMachine))]
-[RequireComponent(typeof(SkillSystem))]
 public class PlayerController : MonoBehaviour
 {
     private Entity entity;
     private SkillSystem skillSystem;
+    private MoveController moveController;
 
     [SerializeField]
     private Skill basicAttackSkill;
 
     private void Start()
     {
-        entity = GetComponent<Entity>();
+        entity = UnityHelper.FindChild<Entity>(this.gameObject, true);
 
         skillSystem = entity.SkillSystem;
+        moveController = entity.Movement.MoveController;
+
         skillSystem.onSkillTargetSelectionCompleted += ReserveSkill;
 
         if (!GameOptionManager.IsRelease)
@@ -55,11 +57,9 @@ public class PlayerController : MonoBehaviour
 
     #region Input
     Vector3 _inputVector = Vector3.zero;
-    float _inputMoveValue = .05f;
     void LeftArrowDown()
     {
-        _inputVector = new Vector3(-_inputMoveValue, _inputVector.y, _inputVector.z);
-        _inputVector.x = -_inputMoveValue;
+        _inputVector.x = -moveController.NoneAdjustSpeed;
     }
     void LeftArrowUp()
     {
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
     }
     void RightArrowDown()
     {
-        _inputVector.x = _inputMoveValue;
+        _inputVector.x = moveController.NoneAdjustSpeed;
     }
     void RightArrowUp()
     {
@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
     }
     void UpArrowDown()
     {
-        _inputVector.z = _inputMoveValue;
+        _inputVector.z = moveController.NoneAdjustSpeed;
     }
     void UpArrowUp()
     {
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
     }
     void DownArrowDown()
     {
-        _inputVector.z = -_inputMoveValue;
+        _inputVector.z = -moveController.NoneAdjustSpeed;
     }
     void DownArrowUp()
     {
@@ -111,7 +111,6 @@ public class PlayerController : MonoBehaviour
     }
     void InputSpace()
     {
-        var skillSystem = GetComponent<SkillSystem>();
         if (!skillSystem.Register(basicAttackSkill))
             Debug.LogAssertion($"{basicAttackSkill.CodeName}을 등록하지 못했습니다.");
 

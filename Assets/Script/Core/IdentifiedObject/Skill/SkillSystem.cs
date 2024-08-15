@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[RequireComponent(typeof(Entity))]
 public class SkillSystem : MonoBehaviour
 {
     #region Event

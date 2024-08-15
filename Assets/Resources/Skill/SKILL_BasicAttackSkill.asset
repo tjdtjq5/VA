@@ -27,7 +27,8 @@ MonoBehaviour:
   targetSearchTimingOption: 0
   acquisitionConditions: []
   acquisitionCosts: []
-  useConditions: []
+  useConditions:
+  - rid: 4300027582026612736
   isAllowLevelExceedDatas: 0
   maxLevel: 1
   defaultLevel: 1
@@ -48,9 +49,9 @@ MonoBehaviour:
       scaleStat: {fileID: 0}
     targetSearcher:
       selectionAction:
-        rid: 4300027560455569413
+        rid: 4300027582026612740
       searchAction:
-        rid: 4300027560455569410
+        rid: 4300027582026612738
     costs: []
     isUseCast: 0
     castTime:
@@ -90,19 +91,22 @@ MonoBehaviour:
     - rid: 4300027557286772752
       type: {class: InstantApplyAction, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 4300027560455569410
+    - rid: 4300027582026612736
+      type: {class: IsEntityReadyCondition, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 4300027582026612738
       type: {class: SelectedTarget, ns: , asm: Assembly-CSharp}
       data:
         indicatorViewAction:
           rid: -2
         isUseScale: 0
-    - rid: 4300027560455569413
-      type: {class: SelectNearestEntity, ns: , asm: Assembly-CSharp}
+    - rid: 4300027582026612740
+      type: {class: SelectFarestEntity, ns: , asm: Assembly-CSharp}
       data:
         indicatorViewAction:
           rid: -2
         isUseScale: 0
-        range: 1
+        range: 2
         angle: 360
-        castRadius: 10
+        castRadius: 100
         isSelectSameCategory: 0

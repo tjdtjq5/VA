@@ -28,11 +28,4 @@ public readonly struct TargetSelectionResult
 
     public TargetSelectionResult(Vector3 selectedPosition, SearchResultMessage resultMessage)
         => (selectedTarget, this.selectedPosition, this.resultMessage) = (null, selectedPosition, resultMessage);
-
-
-    public readonly Vector3 selectDirection(Transform requestTr)
-    {
-        Vector3 targetPos = selectedPosition == Vector3.zero ? selectedTarget.transform.position : selectedPosition;
-        return (targetPos - requestTr.position).normalized;
-    }
 }

@@ -9653,6 +9653,7 @@ GameObject:
   - component: {fileID: 8434549275280110234}
   - component: {fileID: 2727012441182202348}
   - component: {fileID: 8640084771416837782}
+  - component: {fileID: -6511843745186916250}
   m_Layer: 0
   m_Name: FX_PF_Electricity_GroundLoop _Green
   m_TagString: Untagged
@@ -9668,7 +9669,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2017905715039404307}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.64, y: 1.38, z: 27.71}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14461,6 +14462,21 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-6511843745186916250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017905715039404307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a87f5d5b15a38f14ea7a9987128ace54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  poolObjectType: 0
+  time: 0
 --- !u!1 &5048575405742553841
 GameObject:
   m_ObjectHideFlags: 0
@@ -34541,8 +34557,7 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    m_Mesh: {fileID: -6323149653033177705, guid: 1d931969b59e51046a391ba83939bbae,
-      type: 3}
+    m_Mesh: {fileID: -6323149653033177705, guid: 1d931969b59e51046a391ba83939bbae, type: 3}
     m_MeshRenderer: {fileID: 0}
     m_SkinnedMeshRenderer: {fileID: 0}
     m_Sprite: {fileID: 0}

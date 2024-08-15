@@ -38,9 +38,6 @@ public class Entity : MonoBehaviour
         }
     }
 
-
-    EntityAnimator entityAnimator;
-
     public Stats Stats { get; private set; }
     public bool IsDead => Stats.HPStat != null && BBNumber.Approximately(Stats.HPStat.DefaultValue, 0f);
 
@@ -56,21 +53,19 @@ public class Entity : MonoBehaviour
 
     private void Awake()
     {
-        entityAnimator = GetComponent<EntityAnimator>();
-
-        Stats = GetComponent<Stats>();
+        Stats = UnityHelper.FindChild<Stats>(this.gameObject, true);
         Stats.Setup(this);
 
-        Movement = GetComponent<EntityMovement>();
+        Movement = UnityHelper.FindChild<EntityMovement>(this.gameObject, true);
         Movement?.Setup(this);
 
-        SkillSystem = GetComponent<SkillSystem>();
+        SkillSystem = UnityHelper.FindChild<SkillSystem>(this.gameObject, true);
         SkillSystem?.Setup(this);
 
-        Animator = GetComponent<EntityAnimator>();
+        Animator = UnityHelper.FindChild<EntityAnimator>(this.gameObject, true);
         Animator?.Setup(this);
 
-        StateMachine = GetComponent<MonoStateMachine<Entity>>();
+        StateMachine = UnityHelper.FindChild<MonoStateMachine<Entity>>(this.gameObject, true);
         StateMachine?.Setup(this);
     }
 

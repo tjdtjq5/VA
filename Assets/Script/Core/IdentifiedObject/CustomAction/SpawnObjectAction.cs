@@ -16,7 +16,7 @@ public class SpawnObjectAction : CustomAction
     [SerializeField]
     private MethodType methodType;
     [SerializeField]
-    private string prefabPath;
+    private GameObject prefab;
     [SerializeField]
     private Vector3 offset;
     [SerializeField]
@@ -48,7 +48,7 @@ public class SpawnObjectAction : CustomAction
 
     private GameObject Spawn(Vector3 position)
     {
-        spawnedObject = Managers.Resources.Instantiate(prefabPath);
+        spawnedObject = Managers.Resources.Instantiate(prefab);
         spawnedObject.transform.position = position + offset;
         var localScale = spawnedObject.transform.localScale;
         spawnedObject.transform.localScale = Vector3.Scale(localScale, scaleFactor);
@@ -94,7 +94,7 @@ public class SpawnObjectAction : CustomAction
             methodType = methodType,
             targetType = targetType,
             offset = offset,
-            prefabPath = prefabPath,
+            prefab = prefab,
             scaleFactor = scaleFactor,
         };
     }

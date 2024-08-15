@@ -6,6 +6,7 @@ public class MoveController : MonoBehaviour
     float _speed;
     float _adjustSpeed = .01f;
     public float Speed { get { return _speed / _adjustSpeed; } set { _speed = value * _adjustSpeed; } }
+    public float NoneAdjustSpeed { get { return _speed; } }
 
     Vector3 _destination;
     public Vector3 Destination { get { return _destination; } set { IsMove = true; _destination = value; } }

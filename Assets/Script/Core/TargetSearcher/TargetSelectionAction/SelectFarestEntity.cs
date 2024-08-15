@@ -55,7 +55,6 @@ public class SelectFarestEntity : SelectTarget
                     targets.Add(castTarget);
             }
         }
-
         if (targets.Count <= 0)
             return new TargetSelectionResult(requesterPos, SearchResultMessage.Fail);
 

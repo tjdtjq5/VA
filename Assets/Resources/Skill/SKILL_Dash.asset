@@ -17,7 +17,9 @@ MonoBehaviour:
   id: 1
   codeName: Dash
   displayName: Dash
-  description: 
+  description: "\uCE90\uB9AD\uD130\uAC00 \uBC14\uB77C\uBCF4\uACE0 \uC788\uB294 \uC804\uBC29\uC73C\uB85C
+    <color=blue>$[precedingAction.distance]m</color>\uB9CC\uD07C \uAD6C\uB978 \uB4A4,
+    <color=green>$[effectAction.totalValue.0]</color>\uB9CC\uD07C \uD68C\uBCF5\uD569\uB2C8\uB2E4.\r"
   type: 0
   useType: 0
   executionType: 0
@@ -27,7 +29,8 @@ MonoBehaviour:
   targetSearchTimingOption: 0
   acquisitionConditions: []
   acquisitionCosts: []
-  useConditions: []
+  useConditions:
+  - rid: 4300027570744983552
   isAllowLevelExceedDatas: 0
   maxLevel: 1
   defaultLevel: 1
@@ -36,21 +39,21 @@ MonoBehaviour:
     levelUpConditions: []
     levelUpCosts: []
     precedingAction:
-      rid: -2
+      rid: 4300027570744983554
     action:
-      rid: -2
+      rid: 4300027582026612741
     runningFinishOption: 0
     duration: 0
-    applyCount: 0
+    applyCount: 1
     applyCycle: 0
     cooldown:
-      defaultValue: 0
+      defaultValue: 1
       scaleStat: {fileID: 0}
     targetSearcher:
       selectionAction:
-        rid: -2
+        rid: 4300027582026612742
       searchAction:
-        rid: -2
+        rid: 4300027582026612743
     costs: []
     isUseCast: 0
     castTime:
@@ -62,7 +65,9 @@ MonoBehaviour:
     chargeTime: 0
     needChargeTimeToUse: 0
     startChargePower: 0
-    effectSelectors: []
+    effectSelectors:
+    - level: 1
+      effect: {fileID: 11400000, guid: 47d3740fe17e4bc4ea66e7481bba0929, type: 2}
     inSkillActionFinishOption: 0
     castAnimatorParamter:
       type: 0
@@ -85,3 +90,46 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 4300027570744983552
+      type: {class: IsEntityReadyCondition, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 4300027570744983554
+      type: {class: DashingAction, ns: , asm: Assembly-CSharp}
+      data:
+        distance: 5
+        targetSearcher:
+          selectionAction:
+            rid: 4300027582026612744
+          searchAction:
+            rid: 4300027582026612745
+    - rid: 4300027582026612741
+      type: {class: InstantApplyAction, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 4300027582026612742
+      type: {class: SelectSelf, ns: , asm: Assembly-CSharp}
+      data:
+        indicatorViewAction:
+          rid: -2
+        isUseScale: 0
+    - rid: 4300027582026612743
+      type: {class: SelectedTarget, ns: , asm: Assembly-CSharp}
+      data:
+        indicatorViewAction:
+          rid: -2
+        isUseScale: 0
+    - rid: 4300027582026612744
+      type: {class: SelectNearestEntity, ns: , asm: Assembly-CSharp}
+      data:
+        indicatorViewAction:
+          rid: -2
+        isUseScale: 0
+        range: 0
+        angle: 360
+        castRadius: 1000
+        isSelectSameCategory: 0
+    - rid: 4300027582026612745
+      type: {class: SelectedTarget, ns: , asm: Assembly-CSharp}
+      data:
+        indicatorViewAction:
+          rid: -2
+        isUseScale: 0

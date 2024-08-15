@@ -59,7 +59,7 @@ public class EntityMovement : MonoBehaviour
     {
         Owner = owner;
 
-        moveController = Owner.GetComponent<MoveController>();
+        moveController = UnityHelper.FindChild<MoveController>(this.gameObject, true);
 
         entityMoveSpeedStat = moveSpeedStat ? Owner.Stats.GetStat(moveSpeedStat) : null;
         if (entityMoveSpeedStat)
