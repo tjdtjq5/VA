@@ -11,7 +11,7 @@ public class ResourcesManager
             string n = path;
             int index = n.LastIndexOf('/');
             if (index >= 0)
-                n= n.Substring(index + 1);
+                n = n.Substring(index + 1);
 
             GameObject go = Managers.Pool.GetOriginal(n);
             if (go != null)
@@ -48,10 +48,13 @@ public class ResourcesManager
     public T Instantiate<T>(T obj, Transform parent = null) where T : UnityEngine.Object
     {
         if (obj.GetComponent<Poolable>() != null)
-            return Managers.Pool.Pop(obj.GameObject(), parent) as T;
+        {
+            var p = Managers.Pool.Pop(obj.GameObject(), parent);
+            return p.GetComponent<T>();
+        }
 
         T go = UnityEngine.Object.Instantiate(obj, parent);
-        go.name = go.name.Replace("(Clone)", "");
+        UnityHelper.Log_H(go == null);
 
         return go;
     }
@@ -65,7 +68,7 @@ public class ResourcesManager
 
         return go;
     }
-    public void Destroy(GameObject go) 
+    public void Destroy(GameObject go)
     {
         if (go == null)
             return;

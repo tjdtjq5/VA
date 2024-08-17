@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8761340642487364582}
   - component: {fileID: 1454134707658578295}
   - component: {fileID: 7420502157701987045}
+  - component: {fileID: 6763987781306369956}
   m_Layer: 0
   m_Name: Ani
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2732728065394757520}
   m_LocalRotation: {x: 0.47715867, y: -0, z: -0, w: 0.8788172}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -106,6 +107,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!114 &6763987781306369956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2732728065394757520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3cc2e4527155bb40a955b5296c7cee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3989666175602487109
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,6 +137,8 @@ GameObject:
   - component: {fileID: 6208181104912488688}
   - component: {fileID: 1707230152027502182}
   - component: {fileID: 8991788056135115141}
+  - component: {fileID: 6981019563054131699}
+  - component: {fileID: -7976518059302697191}
   m_Layer: 0
   m_Name: Enemy_Black
   m_TagString: Untagged
@@ -184,8 +199,8 @@ MonoBehaviour:
     isUseOverride: 0
     overrideDefaultValue: 0
   - stat: {fileID: 11400000, guid: 8797b07d14f09024db461699eb97660c, type: 2}
-    isUseOverride: 0
-    overrideDefaultValue: 0
+    isUseOverride: 1
+    overrideDefaultValue: 10
   - stat: {fileID: 11400000, guid: db6e84f97638de94fa4bf27ed6c17391, type: 2}
     isUseOverride: 0
     overrideDefaultValue: 0
@@ -289,3 +304,31 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6981019563054131699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3989666175602487109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9adefdf264e8845419a746bc8c673f32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultSkills: []
+--- !u!114 &-7976518059302697191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3989666175602487109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a87f5d5b15a38f14ea7a9987128ace54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  poolObjectType: 0
+  time: 0

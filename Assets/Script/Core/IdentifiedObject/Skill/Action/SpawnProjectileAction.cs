@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpawnProjectileAction : SkillAction
 {
     [SerializeField]
-    private string projectilePrefabPath;
+    private GameObject projectilePrefab;
     [SerializeField]
     private string spawnPointSocketName;
     [SerializeField]
@@ -15,16 +15,17 @@ public class SpawnProjectileAction : SkillAction
     public override void Apply(Skill skill)
     {
         var socket = skill.Owner.GetTransformSocket(spawnPointSocketName);
-        var projectile = Managers.Resources.Instantiate(projectilePrefabPath);
+        var projectile = Managers.Resources.Instantiate(projectilePrefab);
         projectile.transform.position = socket.position;
-        projectile.GetComponent<Projectile>().Setup(skill.Owner, speed, socket.forward, skill);
+        Vector3 direction = (skill.Targets[0].transform.position - skill.Owner.transform.position).normalized;
+        projectile.GetComponent<Projectile>().Setup(skill.Owner, speed, direction, skill);
     }
 
     public override object Clone()
     {
         return new SpawnProjectileAction()
         {
-            projectilePrefabPath = projectilePrefabPath,
+            projectilePrefab = projectilePrefab,
             spawnPointSocketName = spawnPointSocketName,
             speed = speed
         };

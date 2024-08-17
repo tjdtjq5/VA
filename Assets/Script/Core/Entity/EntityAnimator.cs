@@ -12,6 +12,7 @@ public class EntityAnimator : MonoBehaviour
     private MoveController _moveController;
     private EntityMovement _entityMovement;
 
+    private readonly static string deadAniName = "Dead";
     private readonly static int kSpeedHash = Animator.StringToHash("speed");
     private readonly static int kDeadHash = Animator.StringToHash("isDead");
     private readonly static int kDashHash = Animator.StringToHash("isDash");
@@ -29,17 +30,12 @@ public class EntityAnimator : MonoBehaviour
         _entityMovement = _entity?.Movement;
         _moveController = _entityMovement?.MoveController;
 
-        _stateMachine.onStateEnter -= OnStateEnter;
-        _stateMachine.onStateEnter += OnStateEnter;
         _stateMachine.onStateUpdate -= OnStateUpdate;
         _stateMachine.onStateUpdate += OnStateUpdate;
-    }
 
-    public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-    
+        _stateMachine.onStateExit -= OnStateEnd;
+        _stateMachine.onStateExit += OnStateEnd;
     }
-
     public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Animator?.SetBool(kDeadHash, _entity.IsDead);
@@ -54,5 +50,11 @@ public class EntityAnimator : MonoBehaviour
             animator.SetBool(kIsStunningHash, _entity.IsInState<StunningState>());
             animator.SetBool(kIsSleepingHash, _entity.IsInState<SleepingState>());
         }
+    }
+
+    public void OnStateEnd(string aniName)
+    {
+        if (aniName.Equals(deadAniName))
+            _entity.Destroy();
     }
 }

@@ -24,7 +24,7 @@ public class SpawnSkillObjectAction : SkillAction
     {
         foreach (var targetPosition in skill.TargetPositions)
         {
-            var skillObject = GameObject.Instantiate(skillObjectPrefab).GetComponent<SkillObject>();
+            var skillObject = Managers.Resources.Instantiate(skillObjectPrefab).GetOrAddComponent<SkillObject>();
             skillObject.transform.position = targetPosition + (Vector3.up * 0.001f);
             skillObject.Setup(skill, targetSearcherForSkillObject, duration, applyCount, objectScale);
         }
@@ -44,8 +44,7 @@ public class SpawnSkillObjectAction : SkillAction
 
     protected override IReadOnlyDictionary<string, string> GetStringsByKeyword()
     {
-        var applyCycle = skillObjectPrefab.GetComponent<SkillObject>()
-            .CalculateApplyCycle(duration, applyCount).ToString("0.##");
+        var applyCycle = skillObjectPrefab.GetOrAddComponent<SkillObject>().CalculateApplyCycle(duration, applyCount).ToString("0.##");
 
         var dictionary = new Dictionary<string, string>()
         {

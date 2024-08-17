@@ -118,9 +118,12 @@ public class PoolManager
 
     public void Clear()
     {
-        foreach (Transform child in _root)
+        if (_root)
         {
-            GameObject.Destroy(child.gameObject);
+            foreach (Transform child in _root)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
         }
 
         _pools.Clear();

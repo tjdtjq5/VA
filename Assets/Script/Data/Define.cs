@@ -12,8 +12,6 @@ public enum SceneType
     Title,
     InGame,
     Dungeon,
-    Life,
-    Guild,
 }
 public enum UIEvent
 {

@@ -1,23 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Entity))]
-[RequireComponent(typeof(Stats))]
-[RequireComponent(typeof(MoveController))]
-[RequireComponent(typeof(EntityMovement))]
-[RequireComponent(typeof(EntityAnimator))]
-[RequireComponent(typeof(EntityStateMachine))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : Character
 {
-    private Entity entity;
     private SkillSystem skillSystem;
     private MoveController moveController;
 
     [SerializeField]
     private Skill basicAttackSkill;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         entity = UnityHelper.FindChild<Entity>(this.gameObject, true);
 
         skillSystem = entity.SkillSystem;
@@ -112,23 +107,14 @@ public class PlayerController : MonoBehaviour
     void InputSpace()
     {
         if (!skillSystem.Register(basicAttackSkill))
-            Debug.LogAssertion($"{basicAttackSkill.CodeName}을 등록하지 못했습니다.");
-
-        UnityHelper.Log_H($"Skill 등록 성공: {basicAttackSkill.CodeName}");
+            Debug.LogAssertion($"{basicAttackSkill.CodeName}");
 
         var skill = skillSystem.Find(basicAttackSkill);
-        UnityHelper.Assert_H(skill != null, $"{skill.CodeName}을 찾지 못했습니다.");
-
-        UnityHelper.Log_H("testSkill을 통해 skillSystem에 등록된 Skill을 검색에 성공.");
-        UnityHelper.Log_H($"{skill.CodeName} 사용 시도...");
+        UnityHelper.Assert_H(skill != null, $"{skill.CodeName}");
 
         if (skillSystem.Use(basicAttackSkill))
         {
-            UnityHelper.Log_H($"공격가능");
-        }
-        else
-        {
-            UnityHelper.Log_H(entity.StateMachine.GetCurrentState());
+            UnityHelper.Log_H($"already use skill");
         }
     }
     private void Update()

@@ -30,7 +30,7 @@ public class Entity : MonoBehaviour
     {
         get
         {
-             return controlType != EntityControlType.Player || isAiMove;
+            return controlType != EntityControlType.Player || isAiMove;
         }
         set
         {
@@ -67,6 +67,13 @@ public class Entity : MonoBehaviour
 
         StateMachine = UnityHelper.FindChild<MonoStateMachine<Entity>>(this.gameObject, true);
         StateMachine?.Setup(this);
+
+        BoxCollider boxCollider = UnityHelper.FindChild<BoxCollider>(this.gameObject, true);
+        ObjectAnglePositionSetting oaps = UnityHelper.FindChild<ObjectAnglePositionSetting>(this.gameObject, true);
+        if (boxCollider && oaps)
+        {
+            oaps.PositionSetting(boxCollider.size.z);
+        }
     }
 
     public void TakeDamage(Entity instigator, object causer, BBNumber damage)
@@ -93,13 +100,13 @@ public class Entity : MonoBehaviour
 
     private Transform GetTransformSocket(Transform root, string socketName)
     {
-        if (root.name == socketName)
+        if (root.name == socketName || string.IsNullOrEmpty(socketName))
             return root;
 
-        // root transformÀÇ ÀÚ½Ä transformµéÀ» ¼øÈ¸
+        // root transformï¿½ï¿½ ï¿½Ú½ï¿½ transformï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
         foreach (Transform child in root)
         {
-            // Àç±ÍÇÔ¼ö¸¦ ÅëÇØ ÀÚ½Äµé Áß¿¡ socketNameÀÌ ÀÖ´ÂÁö °Ë»öÇÔ
+            // ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½Äµï¿½ ï¿½ß¿ï¿½ socketNameï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½
             var socket = GetTransformSocket(child, socketName);
             if (socket)
                 return socket;
@@ -110,13 +117,13 @@ public class Entity : MonoBehaviour
 
     public Transform GetTransformSocket(string socketName)
     {
-        // dictionary¿¡¼­ socketNameÀ» °Ë»öÇÏ¿© ÀÖ´Ù¸é return
+        // dictionaryï¿½ï¿½ï¿½ï¿½ socketNameï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï¿ï¿½ ï¿½Ö´Ù¸ï¿½ return
         if (socketsByName.TryGetValue(socketName, out var socket))
             return socket;
 
-        // dictionary¿¡ ¾øÀ¸¹Ç·Î ¼øÈ¸ °Ë»ö
+        // dictionaryï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½È¸ ï¿½Ë»ï¿½
         socket = GetTransformSocket(transform, socketName);
-        // socketÀ» Ã£À¸¸é dictionary¿¡ ÀúÀåÇÏ¿© ÀÌÈÄ¿¡ ´Ù½Ã °Ë»öÇÒ ÇÊ¿ä°¡ ¾øµµ·Ï ÇÔ
+        // socketï¿½ï¿½ Ã£ï¿½ï¿½ï¿½ï¿½ dictionaryï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½Ù½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         if (socket)
             socketsByName[socketName] = socket;
 
@@ -130,4 +137,9 @@ public class Entity : MonoBehaviour
 
     public bool IsInState<T>(int layer) where T : State<Entity>
         => StateMachine.IsInState<T>(layer);
+
+    public void Destroy()
+    {
+        Managers.Resources.Destroy(this.gameObject);
+    }
 }

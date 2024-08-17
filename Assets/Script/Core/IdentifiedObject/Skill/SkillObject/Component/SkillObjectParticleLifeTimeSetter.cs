@@ -1,3 +1,4 @@
+using EasyButtons;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,11 @@ public class SkillObjectParticleLifeTimeSetter : MonoBehaviour, ISkillObjectComp
     [SerializeField]
     private ParticleSystem[] particleSystems;
 
+    private void Awake()
+    {
+        Setting();
+    }
+
     public void OnSetupSkillObject(SkillObject skillObject)
     {
         foreach (var particleSystem in particleSystems)
@@ -22,5 +28,11 @@ public class SkillObjectParticleLifeTimeSetter : MonoBehaviour, ISkillObjectComp
             main.startLifetime = isUseApplyCycleForStartLifeTime ? skillObject.ApplyCycle : skillObject.Duration;
             particleSystem.Play(false);
         }
+    }
+
+    [Button]
+    public void Setting()
+    {
+        particleSystems = UnityHelper.FlindChilds<ParticleSystem>(this.gameObject, true).ToArray();
     }
 }

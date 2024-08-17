@@ -8,6 +8,7 @@ using Object = UnityEngine.Object;
 [ExecuteInEditMode]
 public class FixGameWindowScaleBug
 {
+#if UNITY_EDITOR
     private static bool mUpdate = false;
 
     static FixGameWindowScaleBug()
@@ -37,10 +38,7 @@ public class FixGameWindowScaleBug
         EditorWindow gameViewWindow = GetGameViewWindow(gameViewType);
 
         if (gameViewWindow == null)
-        {
-            Debug.LogError("GameView is null!");
             return;
-        }
 
         var defScaleField = gameViewType.GetField("m_defaultScale", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 
@@ -70,4 +68,5 @@ public class FixGameWindowScaleBug
         }
         return null;
     }
+#endif
 }

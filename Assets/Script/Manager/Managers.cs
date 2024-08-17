@@ -36,12 +36,12 @@ public class Managers : MonoBehaviour
     void Start()
     {
         Init();
-	}
+    }
     static void Init()
     {
         if (s_instance == null)
         {
-			GameObject go = GameObject.Find("@Managers");
+            GameObject go = GameObject.Find("@Managers");
             if (go == null)
             {
                 go = new GameObject { name = "@Managers" };
@@ -68,5 +68,23 @@ public class Managers : MonoBehaviour
         _time.OnFixedUpdate();
         _tween.OnFixedUpdate();
         _chat.OnFixedUpdate();
+    }
+
+    public void Clean()
+    {
+        if (_scene.CurrentScene != null)
+            _scene.CurrentScene.Clear();
+
+        _resources.Clear();
+        _sound.Clear();
+        _input.Clear();
+        _ui.Clear();
+        _pool.Clear();
+        _sse.Clear();
+        _chat.Clear();
+    }
+    private void OnDisable()
+    {
+        Clean();
     }
 }

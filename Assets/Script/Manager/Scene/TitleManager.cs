@@ -27,7 +27,7 @@ public class TitleManager : SceneBase
 
     public override void Clear()
     {
-        throw new System.NotImplementedException();
+
     }
 
     void SetMonitor()
