@@ -1,17 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+
+// 언제 Spawn 시킬 것인가?
+public enum MethodType { Start, Run }
+// 누구를 기준으로 Object를 Spawn할 것인가?
+public enum TargetType { OwnerOrUser, Target }
 
 [System.Serializable]
 public class SpawnObjectAction : CustomAction
 {
-    // 언제 Spawn 시킬 것인가?
-    private enum MethodType { Start, Run }
-    // 누구를 기준으로 Object를 Spawn할 것인가?
-    private enum TargetType { OwnerOrUser, Target }
-
     [SerializeField]
     private TargetType targetType;
     [SerializeField]
@@ -44,12 +43,12 @@ public class SpawnObjectAction : CustomAction
     public override void Release(object data)
     {
         if (spawnedObject && isDestroyOnRelease)
-            GameObject.Destroy(spawnedObject);
+            Managers.Resources.Destroy(spawnedObject);
     }
 
     private GameObject Spawn(Vector3 position)
     {
-        spawnedObject = GameObject.Instantiate(prefab);
+        spawnedObject = Managers.Resources.Instantiate(prefab);
         spawnedObject.transform.position = position + offset;
         var localScale = spawnedObject.transform.localScale;
         spawnedObject.transform.localScale = Vector3.Scale(localScale, scaleFactor);

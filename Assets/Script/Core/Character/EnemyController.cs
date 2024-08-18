@@ -1,18 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Entity))]
-[RequireComponent(typeof(Stats))]
-[RequireComponent(typeof(MoveController))]
-[RequireComponent(typeof(EntityMovement))]
-[RequireComponent(typeof(EntityAnimator))]
-[RequireComponent(typeof(EntityStateMachine))]
-public class EnemyController : MonoBehaviour
+public class EnemyController : Character
 {
-    private Entity _entity;
-    private void Start()
-    {
-        _entity = GetComponent<Entity>();
-    }
+    public bool IsDead => entity.IsDead;
 }

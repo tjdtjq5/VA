@@ -24410,6 +24410,8 @@ GameObject:
   - component: {fileID: 1531300614576112448}
   - component: {fileID: 3293282791861004443}
   - component: {fileID: 4517495756392424801}
+  - component: {fileID: 1550111921641552571}
+  - component: {fileID: 697380354}
   m_Layer: 0
   m_Name: FX_PF_Electricity_IdleGround
   m_TagString: Untagged
@@ -29212,6 +29214,35 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &1550111921641552571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5906646297588873775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a87f5d5b15a38f14ea7a9987128ace54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  poolObjectType: 0
+  time: 0
+--- !u!114 &697380354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5906646297588873775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e1d1b593db29104f8f1e19c1cd5bdb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDelayFirstApplyByCycle: 1
+  isDelayDestroyByCycle: 1
 --- !u!1 &6032678546724890619
 GameObject:
   m_ObjectHideFlags: 0

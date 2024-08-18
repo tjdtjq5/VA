@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Effect : IdentifiedObject
 {
-    // ¸î¸î º¯¼ö´Â °ªÀÌ 0ÀÌ¸é ¹«ÇÑÀ» ÀÇ¹ÌÇÔ
+    // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 0ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½ï¿½
     private const int kInfinity = 0;
 
     public delegate void StartedHandler(Effect effect);
@@ -16,43 +16,43 @@ public class Effect : IdentifiedObject
 
     [SerializeField]
     private EffectType type;
-    // EffectÀÇ Áßº¹ Àû¿ë °¡´É ¿©ºÎ
+    // Effectï¿½ï¿½ ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     [SerializeField]
     private bool isAllowDuplicate = true;
     [SerializeField]
     private EffectRemoveDuplicateTargetOption removeDuplicateTargetOption;
 
-    // UI·Î Effect Á¤º¸¸¦ º¸¿©ÁÙÁö¿¡ ´ëÇÑ ¿©ºÎ
+    // UIï¿½ï¿½ Effect ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     [SerializeField]
     private bool isShowInUI;
 
-    // maxLevelÀÌ effectDatasÀÇ Length¸¦ ÃÊ°úÇÒ ¼ö ÀÖ´ÂÁö ¿©ºÎ
-    // ÀÌ OptionÀÌ false¸é maxLevelÀº effectDatasÀÇ Length·Î °íÁ¤µÊ
+    // maxLevelï¿½ï¿½ effectDatasï¿½ï¿½ Lengthï¿½ï¿½ ï¿½Ê°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    // ï¿½ï¿½ Optionï¿½ï¿½ falseï¿½ï¿½ maxLevelï¿½ï¿½ effectDatasï¿½ï¿½ Lengthï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     [SerializeField]
     private bool isAllowLevelExceedDatas;
     [SerializeField]
     private int maxLevel;
-    // Levelº° Data, LevelÀº 1ºÎÅÍ ½ÃÀÛÇÏ°í ArrayÀÇ Index´Â 0ºÎÅÍ ½ÃÀÛÇÏ¹Ç·Î
-    // Level¿¡ ¸Â´Â Data¸¦ °¡Á®¿À·Á¸é [ÇöÀç Level - 1]¹øÂ° Data¸¦ °¡Á®¿Í¾ßÇÔ
-    // ex. LevelÀÌ 1ÀÌ¶ó¸é, 1 - 1 = 0, 0¹øÂ° Data¸¦ °¡Á®¿Í¾ßÇÔ(= effectDatas[0])
+    // Levelï¿½ï¿½ Data, Levelï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ Arrayï¿½ï¿½ Indexï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½
+    // Levelï¿½ï¿½ ï¿½Â´ï¿½ Dataï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [ï¿½ï¿½ï¿½ï¿½ Level - 1]ï¿½ï¿½Â° Dataï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¾ï¿½ï¿½ï¿½
+    // ex. Levelï¿½ï¿½ 1ï¿½Ì¶ï¿½ï¿½, 1 - 1 = 0, 0ï¿½ï¿½Â° Dataï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¾ï¿½ï¿½ï¿½(= effectDatas[0])
     [SerializeField]
     private EffectData[] effectDatas;
 
-    // Level¿¡ ¸Â´Â ÇöÀç Data
+    // Levelï¿½ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½ï¿½ Data
     private EffectData currentData;
 
-    // ÇöÀç Effect Level
+    // ï¿½ï¿½ï¿½ï¿½ Effect Level
     private int level;
-    // ÇöÀç ½×ÀÎ Stack
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Stack
     private int currentStack = 1;
     private float currentDuration;
     private int currentApplyCount;
     private float currentApplyCycle;
-    // ActionÀÇ Apply ÇÔ¼ö¸¦ ½ÇÇàÇÏ·Á ½ÃµµÇÑ ÀûÀÌ ÀÖ´ÂÁö ¿©ºÎ, ÀÌ °ª¿¡ µû¶ó Apply ¼º°ø½Ã¿¡ currentApplyCycle º¯¼öÀÇ °ªÀ» ´Ù¸£°Ô ÃÊ±âÈ­ ÇÔ.
-    // ActionÀÇ Apply ÇÔ¼ö°¡ ½ÇÇàµÉ ¶§ true°¡µÇ°í, Apply ÇÔ¼ö°¡ true¸¦ returnÇÏ¸é false·Î ÃÊ±âÈ­ µÊ.
+    // Actionï¿½ï¿½ Apply ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½Ãµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Apply ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ currentApplyCycle ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½.
+    // Actionï¿½ï¿½ Apply ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ trueï¿½ï¿½ï¿½Ç°ï¿½, Apply ï¿½Ô¼ï¿½ï¿½ï¿½ trueï¿½ï¿½ returnï¿½Ï¸ï¿½ falseï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½.
     private bool isApplyTried;
 
-    // ½×ÀÎ Stack¿¡ µû¶ó ÇöÀç Àû¿ëµÈ Stack Actions
+    // ï¿½ï¿½ï¿½ï¿½ Stackï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Stack Actions
     private readonly List<EffectStackAction> aplliedStackActions = new();
 
     public EffectType Type => type;
@@ -70,32 +70,32 @@ public class Effect : IdentifiedObject
         get => level;
         set
         {
-            UnityHelper.Assert_H(value > 0 && value <= MaxLevel, $"Effect.Rank = {value} - value´Â 0º¸´Ù Å©°í MaxLevelº¸´Ù °°°Å³ª ÀÛ¾Æ¾ßÇÕ´Ï´Ù.");
+            UnityHelper.Assert_H(value > 0 && value <= MaxLevel, $"Effect.Rank = {value} - valueï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ MaxLevelï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Å³ï¿½ ï¿½Û¾Æ¾ï¿½ï¿½Õ´Ï´ï¿½.");
 
             if (level == value)
                 return;
 
             level = value;
 
-            // ÇöÀç Effect Levelº¸´Ù ÀÛÀ¸¸é¼­ °¡Àå °¡±î¿î LevelÀÎ Data¸¦ Ã£¾Æ¿È
-            // ¿¹¸¦ µé¾î, Data°¡ Level 1, 3, 5 ÀÌ·¸°Ô ÀÖÀ» ¶§, EffectÀÇ LevelÀÌ 4ÀÏ °æ¿ì,
-            // Level 3ÀÇ Data¸¦ Ã£¾Æ¿È
+            // ï¿½ï¿½ï¿½ï¿½ Effect Levelï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½é¼­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Levelï¿½ï¿½ Dataï¿½ï¿½ Ã£ï¿½Æ¿ï¿½
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, Dataï¿½ï¿½ Level 1, 3, 5 ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, Effectï¿½ï¿½ Levelï¿½ï¿½ 4ï¿½ï¿½ ï¿½ï¿½ï¿½,
+            // Level 3ï¿½ï¿½ Dataï¿½ï¿½ Ã£ï¿½Æ¿ï¿½
             var newData = effectDatas.Last(x => x.level <= level);
             if (newData.level != currentData.level)
                 currentData = newData;
         }
     }
     public bool IsMaxLevel => level == maxLevel;
-    // ÇöÀç Effect¿Í EffectDataÀÇ Level Â÷ÀÌ
-    // Action ÂÊ¿¡¼­ Bonus Value¸¦ ÁÖ´Âµ¥ È°¿ëÇÒ ¼ö ÀÖÀ½
+    // ï¿½ï¿½ï¿½ï¿½ Effectï¿½ï¿½ EffectDataï¿½ï¿½ Level ï¿½ï¿½ï¿½ï¿½
+    // Action ï¿½Ê¿ï¿½ï¿½ï¿½ Bonus Valueï¿½ï¿½ ï¿½Ö´Âµï¿½ È°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     // ex. totalValue = defaultValue + (effect.DataBonusLevel * bonusValuePerLevel)
-    // LevelÀÌ 1000±îÁö ÀÖ´Â Clicker GameÀÇ °æ¿ì Data¸¦ 1000°³ ¸¸µéÁö ¾Ê¾Æµµ
-    // À§¿Í °°ÀÌ BonusLevelÀ» È°¿ëÇØ Level ´ç ¼öÄ¡¸¦ Á¶ÀýÇÒ ¼ö ÀÖÀ½.
+    // Levelï¿½ï¿½ 1000ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Clicker Gameï¿½ï¿½ ï¿½ï¿½ï¿½ Dataï¿½ï¿½ 1000ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Æµï¿½
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ BonusLevelï¿½ï¿½ È°ï¿½ï¿½ï¿½ï¿½ Level ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     public int DataBonusLevel => Mathf.Max(level - currentData.level, 0);
 
-    // EffectÀÇ Áö¼Ó ½Ã°£
-    public float Duration => currentData.duration.GetValue(User.Stats).GetFloat();
-    // DurationÀÌ 0ÀÌ¸é ¹«ÇÑ Áö¼Ó
+    // Effectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    public float Duration => currentData.duration.GetValue(User.Stats).Float();
+    // Durationï¿½ï¿½ 0ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public bool IsTimeless => Mathf.Approximately(Duration, kInfinity);
     public float CurrentDuration
     {
@@ -113,45 +113,45 @@ public class Effect : IdentifiedObject
             var prevStack = currentStack;
             currentStack = Mathf.Clamp(value, 1, MaxStack);
 
-            // StackÀÌ ½×ÀÌ¸é currentDurationÀ» ÃÊ±âÈ­ÇÏ¿© EffectÀÇ Áö¼Ó ½Ã°£À» ´Ã·ÁÁÜ
+            // Stackï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ currentDurationï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ï¿ï¿½ Effectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½
             if (currentStack >= prevStack)
                 currentDuration = 0f;
 
             if (currentStack != prevStack)
             {
-                // Action¿¡ ½×ÀÎ Stack ¼ö°¡ ¹Ù²î¾ú´Ù°í ¾Ë·ÁÁà¼­, Stack¿¡ µû¸¥ ¼öÄ¡¸¦ Update ÇÒ ¼ö ÀÖ°ÔÇÔ
+                // Actionï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Stack ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½Ù°ï¿½ ï¿½Ë·ï¿½ï¿½à¼­, Stackï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ Update ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö°ï¿½ï¿½ï¿½
                 Action?.OnEffectStackChanged(this, User, Target, level, currentStack, Scale);
 
-                // ¹Ù²ï Stack¿¡ µû¶ó ±âÁ¸¿¡ Àû¿ëµÈ Stack È¿°ú¸¦ ReleaseÇÏ°í, ÇöÀç Stack¿¡ ¸Â´Â »õ·Î¿î Stack È¿°úµéÀ» ApplyÇÔ
+                // ï¿½Ù²ï¿½ Stackï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Stack È¿ï¿½ï¿½ï¿½ï¿½ Releaseï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½ Stackï¿½ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ Stack È¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Applyï¿½ï¿½
                 TryApplyStackActions();
 
-                // Stack ¼ö°¡ ¹Ù²î¾úÀ½À» Event¸¦ ÅëÇØ ¿ÜºÎ¿¡ ¾Ë·ÁÁÜ
+                // Stack ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Eventï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ÜºÎ¿ï¿½ ï¿½Ë·ï¿½ï¿½ï¿½
                 onStackChanged?.Invoke(this, currentStack, prevStack);
             }
         }
     }
 
     public int ApplyCount => currentData.applyCount;
-    // ApplyCount°¡ 0ÀÌ¸é ¹«ÇÑ Àû¿ë(= ¸Å ÇÁ·¹ÀÓ¸¶´Ù Àû¿ë)
+    // ApplyCountï¿½ï¿½ 0ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(= ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
     public bool IsInfinitelyApplicable => ApplyCount == kInfinity;
     public int CurrentApplyCount
     {
         get => currentApplyCount;
         set => currentApplyCount = IsInfinitelyApplicable ? value : Mathf.Clamp(value, 0, ApplyCount);
     }
-    // ApplyCycleÀÌ 0ÀÌ°í ApplyCount°¡ 1º¸´Ù Å©¸é EffectÀÇ Áö¼Ó½Ã°£ÀÎ DurationÀ» ³ª´²¼­ ApplyCycleÀ» °è»êÇÔ
-    // ¿¹¸¦µé¾î DurationÀÌ 10ÃÊ°í ApplyCount°¡ 11¹øÀÌ¸é, Ã³À½ Effect°¡ Àû¿ëµÉ ¶§ Apply°¡ 1¹ø ÀÌ·ïÁ®¼­
-    // ³²Àº ApplyCount = 10, Duration / ApplyCount = 10 / 10 = 1, ApplyCycle = 1ÃÊ
+    // ApplyCycleï¿½ï¿½ 0ï¿½Ì°ï¿½ ApplyCountï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ Effectï¿½ï¿½ ï¿½ï¿½ï¿½Ó½Ã°ï¿½ï¿½ï¿½ Durationï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ApplyCycleï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Durationï¿½ï¿½ 10ï¿½Ê°ï¿½ ApplyCountï¿½ï¿½ 11ï¿½ï¿½ï¿½Ì¸ï¿½, Ã³ï¿½ï¿½ Effectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Applyï¿½ï¿½ 1ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ ApplyCount = 10, Duration / ApplyCount = 10 / 10 = 1, ApplyCycle = 1ï¿½ï¿½
     public float ApplyCycle => Mathf.Approximately(currentData.applyCycle, 0f) && ApplyCount > 1 ?
         (Duration / (ApplyCount - 1)) : currentData.applyCycle;
-    // ApplyCycleÀ» È®ÀÎÇÏ±â À§ÇÑ ½Ã°£ º¯¼ö.
-    // CurrentDurationÀ» ÀÌ¿ëÇØ¼­ È®ÀÎÇÏÁö ¾Ê°í CurrentApplyCycleÀ» µû·Î ¸¸µç ÀÌÀ¯´Â
-    // CurrentDurationÀº EffecfÀÇ StackÀÌ ½×ÀÌ¸é 0À¸·Î ÃÊ±âÈ­µÇ±â ¶§¹®.
-    // ¿¹¸¦ µé¾î, ApplyCycleÀÌ 1ÃÊÀÌ°í CurrentDurationÀÌ 0.9999ÃÊÀÏ ¶§,
-    // ¿ø·¡´Â ´ÙÀ½ Frame¿¡ CurrentDurationÀÌ 1ÃÊ°¡ µÇ¸é¼­ Effect°¡ ApplyµÇ¾ßÇÏ´Âµ¥,
-    // StackÀÌ ½×¿©¼­ CurrentDurationÀÌ 0ÃÊ·Î ÃÊ±âÈ­µÇ¹ö¸®¸é, 1ÃÊ¸¦ ´Ù½Ã ±â´Ù·Á¾ß ApplyÀÌ µÇ´Â »óÈ²ÀÌ ¿È.
-    // ±×·¡¼­ µû·Î Apply ½ÃÁ¡ È®ÀÎÇÏ´Â CurrentApplyCycleÀÌ ÀÖÀ¸¸é CurrentDurationÀÌ Áß°£¿¡ 0ÀÌµÇµµ
-    // CurrentApplyCycleÀº °è¼Ó ½Ã°£ÀÌ ½×ÀÌ°í ÀÖÀ¸´Ï Á¦¶§ ApplyµÉ ¼ö ÀÖÀ½.
+    // ApplyCycleï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½.
+    // CurrentDurationï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½ È®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ CurrentApplyCycleï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    // CurrentDurationï¿½ï¿½ Effecfï¿½ï¿½ Stackï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ç±ï¿½ ï¿½ï¿½ï¿½ï¿½.
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ApplyCycleï¿½ï¿½ 1ï¿½ï¿½ï¿½Ì°ï¿½ CurrentDurationï¿½ï¿½ 0.9999ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½,
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Frameï¿½ï¿½ CurrentDurationï¿½ï¿½ 1ï¿½Ê°ï¿½ ï¿½Ç¸é¼­ Effectï¿½ï¿½ Applyï¿½Ç¾ï¿½ï¿½Ï´Âµï¿½,
+    // Stackï¿½ï¿½ ï¿½×¿ï¿½ï¿½ï¿½ CurrentDurationï¿½ï¿½ 0ï¿½Ê·ï¿½ ï¿½Ê±ï¿½È­ï¿½Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½, 1ï¿½Ê¸ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½Ù·ï¿½ï¿½ï¿½ Applyï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½È²ï¿½ï¿½ ï¿½ï¿½.
+    // ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Apply ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ CurrentApplyCycleï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ CurrentDurationï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ 0ï¿½ÌµÇµï¿½
+    // CurrentApplyCycleï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Applyï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     public float CurrentApplyCycle
     {
         get => currentApplyCycle;
@@ -165,24 +165,24 @@ public class Effect : IdentifiedObject
     public object Owner { get; private set; }
     public Entity User { get; private set; }
     public Entity Target { get; private set; }
-    // Scale Á¶ÀýÀ» ÅëÇØ EffectÀÇ À§·ÂÀ» Á¶ÀýÇÒ ¼ö ÀÖÀ½
-    // ChargeÃ³·³ Casting ½Ã°£¿¡ µû¶ó À§·ÂÀÌ ´Þ¶óÁö´Â Skill¿¡ È°¿ëÇÒ ¼ö ÀÖÀ½
+    // Scale ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Effectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    // ChargeÃ³ï¿½ï¿½ Casting ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¶ï¿½ï¿½ï¿½ï¿½ï¿½ Skillï¿½ï¿½ È°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public float Scale { get; set; }
     public override string Description => BuildDescription(base.Description, 0);
 
     private bool IsApplyAllWhenDurationExpires => currentData.isApplyAllWhenDurationExpires;
     private bool IsDurationEnded => !IsTimeless && Mathf.Approximately(Duration, CurrentDuration);
     private bool IsApplyCompleted => !IsInfinitelyApplicable && CurrentApplyCount == ApplyCount;
-    // EffectÀÇ ¿Ï·á ¿©ºÎ
-    // Áö¼Ó ½Ã°£ÀÌ ³¡³µ°Å³ª, RunningFinishOptionÀÌ ApplyCompletedÀÏ ¶§, Apply È½¼ö°¡ ÃÖ´ë È½¼ö¶ó¸é True
+    // Effectï¿½ï¿½ ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å³ï¿½, RunningFinishOptionï¿½ï¿½ ApplyCompletedï¿½ï¿½ ï¿½ï¿½, Apply È½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ È½ï¿½ï¿½ï¿½ï¿½ï¿½ True
     public bool IsFinished => IsDurationEnded ||
         (currentData.runningFinishOption == EffectRunningFinishOption.FinishWhenApplyCompleted && IsApplyCompleted);
-    // EffectÀÇ Release ÇÔ¼ö°¡ ½ÇÇàµÇ¸é(= Effect°¡ Á¾·áµÇ¸é) True°¡ µÊ
-    // IsFinished Property°¡ Effect°¡ ¿ÂÀüÈ÷ ¿Ï·áµÇ¾î¾ß¸¸ TrueÀÎ¹Ý¸é, IsReleased´Â ¹«¾ð°¡¿¡ ÀÇÇØ Effect°¡ Á¦°ÅµÇ¾îµµ TrueµÊ.
-    // ¿Ï·á ¿©ºÎ¿Í »ó°ü¾øÀÌ ¼ø¼öÈ÷ Effect°¡ Á¾·áµÇ¾ú´ÂÁö È®ÀÎÇÏ±â À§ÇÑ Property
+    // Effectï¿½ï¿½ Release ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½(= Effectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½) Trueï¿½ï¿½ ï¿½ï¿½
+    // IsFinished Propertyï¿½ï¿½ Effectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½Ç¾ï¿½ß¸ï¿½ Trueï¿½Î¹Ý¸ï¿½, IsReleasedï¿½ï¿½ ï¿½ï¿½ï¿½ð°¡¿ï¿½ ï¿½ï¿½ï¿½ï¿½ Effectï¿½ï¿½ ï¿½ï¿½ï¿½ÅµÇ¾îµµ Trueï¿½ï¿½.
+    // ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Effectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ Property
     public bool IsReleased { get; private set; }
 
-    // Effect¸¦ Àû¿ëÇÒ ¼ö ÀÖ´Â°¡?
+    // Effectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´Â°ï¿½?
     public bool IsApplicable => Action != null &&
         (CurrentApplyCount < ApplyCount || ApplyCount == kInfinity) &&
         CurrentApplyCycle >= ApplyCycle;
@@ -195,7 +195,7 @@ public class Effect : IdentifiedObject
     public void Setup(object owner, Entity user, int level, float scale = 1f)
     {
         Owner = owner;
-        User  = user;
+        User = user;
         Level = level;
         CurrentApplyCycle = ApplyCycle;
         Scale = scale;
@@ -203,14 +203,14 @@ public class Effect : IdentifiedObject
 
     public void SetTarget(Entity target) => Target = target;
 
-    // ÇöÀç Àû¿ëµÈ ¸ðµç StackActionµéÀ» ReleaseÇÔ
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ StackActionï¿½ï¿½ï¿½ï¿½ Releaseï¿½ï¿½
     private void ReleaseStackActionsAll()
     {
         aplliedStackActions.ForEach(x => x.Release(this, level, User, Target, Scale));
         aplliedStackActions.Clear();
     }
 
-    // ÇöÀç Àû¿ëµÈ StackActionµé¿¡¼­ Á¶°Ç¿¡ ¸Â´Â StackActionµéÀ» Ã£¾Æ ReleaseÇÔ
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ StackActionï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½Â´ï¿½ StackActionï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ Releaseï¿½ï¿½
     private void ReleaseStackActions(System.Func<EffectStackAction, bool> predicate)
     {
         var stackActions = aplliedStackActions.Where(predicate).ToList();
@@ -221,39 +221,39 @@ public class Effect : IdentifiedObject
         }
     }
 
-    // ÇöÀç Àû¿ëµÈ StackActionµé Áß ´õ ÀÌ»ó Á¶°Ç¿¡ ¸ÂÁö ¾Ê´Â StackActionµéÀº ReleaseÇÏ°í,
-    // »õ·Ó°Ô Á¶°Ç¿¡ ¸Â´Â StackActionµéÀ» Àû¿ëÇÏ´Â ÇÔ¼ö
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ StackActionï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ StackActionï¿½ï¿½ï¿½ï¿½ Releaseï¿½Ï°ï¿½,
+    // ï¿½ï¿½ï¿½Ó°ï¿½ ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½Â´ï¿½ StackActionï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     private void TryApplyStackActions()
     {
-        // Àû¿ëµÈ StackActionµé Áß ÇöÀç Stackº¸´Ù ´õ Å« StackÀ» ¿ä±¸ÇÏ´Â StackActionµéÀ» ReleaseÇÔ.
-        // ¾î¶² ÀÌÀ¯¿¡ ÀÇÇØ Stack ¼ö°¡ ¶³¾îÁ³À» ¶§¸¦ À§ÇÑ Ã³¸®.
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ StackActionï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Stackï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Å« Stackï¿½ï¿½ ï¿½ä±¸ï¿½Ï´ï¿½ StackActionï¿½ï¿½ï¿½ï¿½ Releaseï¿½ï¿½.
+        // ï¿½î¶² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Stack ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½.
         ReleaseStackActions(x => x.Stack > currentStack);
 
-        // Àû¿ë °¡´ÉÇÑ StackAction ¸ñ·Ï
-        // StackActionµé Áß¿¡¼­ ÇÊ¿äÇÑ Stack ¼ö°¡ ÃæÁ·µÇ°í, ÇöÀç Àû¿ëÁßÀÌÁö ¾Ê°í, Àû¿ë Á¶°ÇÀ» ¸¸Á·ÇÏ´Â StackActionµéÀ» Ã£¾Æ¿È
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ StackAction ï¿½ï¿½ï¿½
+        // StackActionï¿½ï¿½ ï¿½ß¿ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ Stack ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ StackActionï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Æ¿ï¿½
         var stackActions = StackActions.Where(x => x.Stack <= currentStack && !aplliedStackActions.Contains(x) && x.IsApplicable);
 
-        // ÇöÀç Àû¿ëµÈ StackActionµé°ú Ã£¾Æ¿Â StackActionµé Áß °¡Àå ³ôÀº Stack °ªÀ» Ã£¾Æ¿È
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ StackActionï¿½ï¿½ï¿½ Ã£ï¿½Æ¿ï¿½ StackActionï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Stack ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Æ¿ï¿½
         int aplliedStackHighestStack = aplliedStackActions.Any() ? aplliedStackActions.Max(x => x.Stack) : 0;
         int stackActionsHighestStack = stackActions.Any() ? stackActions.Max(x => x.Stack) : 0;
         var highestStack = Mathf.Max(aplliedStackHighestStack, stackActionsHighestStack);
         if (highestStack > 0)
         {
-            // Ã£¾Æ¿Â StackActionµé Áß StackÀÌ highestStack º¸´Ù ³·°í, IsReleaseOnNextApply°¡ trueÀÎ StackActionµéÀ» Ã£¾Æ¿È
+            // Ã£ï¿½Æ¿ï¿½ StackActionï¿½ï¿½ ï¿½ï¿½ Stackï¿½ï¿½ highestStack ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, IsReleaseOnNextApplyï¿½ï¿½ trueï¿½ï¿½ StackActionï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Æ¿ï¿½
             var except = stackActions.Where(x => x.Stack < highestStack && x.IsReleaseOnNextApply);
-            // ¹Ù·Î À§¿¡¼­ Ã£¾Æ¿Â stackActionµéÀ» stackActions ¸ñ·Ï¿¡¼­ Á¦¿ÜÇÔ
-            // => IsReleaseOnNextApply°¡ trueÀÎ StackActionÀº ´õ ³ôÀº StackÀ» °¡Áø StackActionÀÌ Á¸ÀçÇÑ´Ù¸é
-            //    ReleaseµÇ¾ßÇÏ¹Ç·Î ¾ÖÃÊ¿¡ Àû¿ë ´ë»ó ¸ñ·Ï¿¡¼­ Á¦°ÅÇÔ
+            // ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Æ¿ï¿½ stackActionï¿½ï¿½ï¿½ï¿½ stackActions ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            // => IsReleaseOnNextApplyï¿½ï¿½ trueï¿½ï¿½ StackActionï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Stackï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ StackActionï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù¸ï¿½
+            //    Releaseï¿½Ç¾ï¿½ï¿½Ï¹Ç·ï¿½ ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             stackActions = stackActions.Except(except);
         }
 
         if (stackActions.Any())
         {
-            // Àû¿ëµÈ StackActionµé Áß¿¡¼­ IsReleaseOnNextApply°¡ trueÀÎ StackActionµéÀ» ReleaseÇÔ
-            // ´Ü, ÇÊ¿ä StackÀÌ ÇöÀç Stack°ú µ¿ÀÏÇÑ StackActionµéÀº Á¦¿Ü.
-            // ¿Ö³ÄÇÏ¸é ¿¹¸¦ µé¾î, Stack ¼ö°¡ 5 ÇÊ¿äÇÑ StackActionÀÌ Àû¿ë ÁßÀÌ°í, ÇöÀç Effect StackÀÌ 6ÀÌ¿´´Ù°¡ 5·Î ¶³¾îÁ³À» °æ¿ì
-            // Àû¿ë ÁßÀÎ StackActionÀÇ ÇÊ¿ä Stack ¼ö 5¿Í ÇöÀç Effect Stack ¼ö 5°¡ ÀÏÄ¡ÇÏ¹Ç·Î °¡¸¸ ³öµÎ¸é µÇ´Âµ¥,
-            // x.Stack < currentStack¶ó´Â Á¶°ÇÀÌ ¾øÀ¸¸é, ÇöÀç Effect Stack ¼ö¿Í ÀÏÄ¡ÇÏ´Â StackActionµé±îÁö Release ´ë»óÀ¸·Î Æ÷ÇÔµÊ
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ StackActionï¿½ï¿½ ï¿½ß¿ï¿½ï¿½ï¿½ IsReleaseOnNextApplyï¿½ï¿½ trueï¿½ï¿½ StackActionï¿½ï¿½ï¿½ï¿½ Releaseï¿½ï¿½
+            // ï¿½ï¿½, ï¿½Ê¿ï¿½ Stackï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Stackï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ StackActionï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+            // ï¿½Ö³ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, Stack ï¿½ï¿½ï¿½ï¿½ 5 ï¿½Ê¿ï¿½ï¿½ï¿½ StackActionï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½, ï¿½ï¿½ï¿½ï¿½ Effect Stackï¿½ï¿½ 6ï¿½Ì¿ï¿½ï¿½Ù°ï¿½ 5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ StackActionï¿½ï¿½ ï¿½Ê¿ï¿½ Stack ï¿½ï¿½ 5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Effect Stack ï¿½ï¿½ 5ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½Ç´Âµï¿½,
+            // x.Stack < currentStackï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ Effect Stack ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï´ï¿½ StackActionï¿½ï¿½ï¿½ï¿½ï¿½ Release ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ôµï¿½
             ReleaseStackActions(x => x.Stack < currentStack && x.IsReleaseOnNextApply);
 
             foreach (var stackAction in stackActions)
@@ -265,7 +265,7 @@ public class Effect : IdentifiedObject
 
     public void Start()
     {
-        UnityHelper.Assert_H(!IsReleased, "Effect::Start - ÀÌ¹Ì Á¾·áµÈ EffectÀÔ´Ï´Ù.");
+        UnityHelper.Assert_H(!IsReleased, "Effect::Start - ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Effectï¿½Ô´Ï´ï¿½.");
 
         Action?.Start(this, User, Target, Level, Scale);
 
@@ -294,7 +294,7 @@ public class Effect : IdentifiedObject
 
     public void Apply()
     {
-        UnityHelper.Assert_H(!IsReleased, "Effect::Apply - ÀÌ¹Ì Á¾·áµÈ EffectÀÔ´Ï´Ù.");
+        UnityHelper.Assert_H(!IsReleased, "Effect::Apply - ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Effectï¿½Ô´Ï´ï¿½.");
 
         if (Action == null)
             return;
@@ -321,7 +321,7 @@ public class Effect : IdentifiedObject
 
     public void Release()
     {
-        UnityHelper.Assert_H(!IsReleased, "Effect::Release - ÀÌ¹Ì Á¾·áµÈ EffectÀÔ´Ï´Ù.");
+        UnityHelper.Assert_H(!IsReleased, "Effect::Release - ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Effectï¿½Ô´Ï´ï¿½.");
 
         Action?.Release(this, User, Target, level, Scale);
         ReleaseStackActionsAll();

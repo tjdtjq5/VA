@@ -14630,6 +14630,7 @@ GameObject:
   - component: {fileID: 7256651482667260517}
   - component: {fileID: 2144413079481432552}
   - component: {fileID: 1757157588603384079}
+  - component: {fileID: -3156323872074239516}
   m_Layer: 0
   m_Name: FX_PF_Electricity_ProjectileBurst_Alternative
   m_TagString: Untagged
@@ -14645,7 +14646,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2666960919893275753}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 27.24, y: 2.83, z: 7.06}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19438,6 +19439,22 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-3156323872074239516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2666960919893275753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a87f5d5b15a38f14ea7a9987128ace54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  poolObjectType: 2
+  time: 0
+  particle: {fileID: 0}
 --- !u!1 &2841911064429177691
 GameObject:
   m_ObjectHideFlags: 0

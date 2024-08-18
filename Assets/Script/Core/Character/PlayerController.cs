@@ -1,19 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Entity))]
-[RequireComponent(typeof(Stats))]
-[RequireComponent(typeof(MoveController))]
-[RequireComponent(typeof(EntityMovement))]
-[RequireComponent(typeof(EntityAnimator))]
-[RequireComponent(typeof(EntityStateMachine))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : Character
 {
-    private Entity _entity;
+    private SkillSystem skillSystem;
+    private MoveController moveController;
 
-    private void Start()
+    [SerializeField]
+    private Skill basicAttackSkill;
+
+    protected override void Start()
     {
-        _entity = GetComponent<Entity>();
+        base.Start();
+
+        entity = UnityHelper.FindChild<Entity>(this.gameObject, true);
+
+        skillSystem = entity.SkillSystem;
+        moveController = entity.Movement.MoveController;
+
+        skillSystem.onSkillTargetSelectionCompleted += ReserveSkill;
 
         if (!GameOptionManager.IsRelease)
         {
@@ -27,17 +32,29 @@ public class PlayerController : MonoBehaviour
             Managers.Input.AddKeyUpAction(KeyCode.UpArrow, UpArrowUp);
             Managers.Input.AddKeyUpAction(KeyCode.DownArrow, DownArrowUp);
 
+            Managers.Input.AddKeyDownAction(KeyCode.D, InputKeycodeD);
+            Managers.Input.AddKeyDownAction(KeyCode.C, InputKeycodeC);
             Managers.Input.AddKeyDownAction(KeyCode.Space, InputSpace);
         }
+    }
+    private void ReserveSkill(SkillSystem skillSystem, Skill skill, TargetSearcher targetSearcher, TargetSelectionResult result)
+    {
+        if (result.resultMessage != SearchResultMessage.OutOfRange)
+            return;
+
+        entity.SkillSystem.ReserveSkill(skill);
+
+        if (result.selectedTarget)
+            entity.Movement.TraceTarget = result.selectedTarget.transform;
+        else
+            entity.Movement.Destination = result.selectedPosition;
     }
 
     #region Input
     Vector3 _inputVector = Vector3.zero;
-    float _inputMoveValue = .05f;
     void LeftArrowDown()
     {
-        _inputVector = new Vector3(-_inputMoveValue, _inputVector.y, _inputVector.z);
-        _inputVector.x = -_inputMoveValue;
+        _inputVector.x = -moveController.NoneAdjustSpeed;
     }
     void LeftArrowUp()
     {
@@ -48,7 +65,7 @@ public class PlayerController : MonoBehaviour
     }
     void RightArrowDown()
     {
-        _inputVector.x = _inputMoveValue;
+        _inputVector.x = moveController.NoneAdjustSpeed;
     }
     void RightArrowUp()
     {
@@ -59,7 +76,7 @@ public class PlayerController : MonoBehaviour
     }
     void UpArrowDown()
     {
-        _inputVector.z = _inputMoveValue;
+        _inputVector.z = moveController.NoneAdjustSpeed;
     }
     void UpArrowUp()
     {
@@ -70,7 +87,7 @@ public class PlayerController : MonoBehaviour
     }
     void DownArrowDown()
     {
-        _inputVector.z = -_inputMoveValue;
+        _inputVector.z = -moveController.NoneAdjustSpeed;
     }
     void DownArrowUp()
     {
@@ -79,15 +96,32 @@ public class PlayerController : MonoBehaviour
 
         _inputVector.z = 0;
     }
+    void InputKeycodeD()
+    {
+        entity.Movement.Dash(5f, _inputVector);
+    }
+    void InputKeycodeC()
+    {
+        entity.IsAIMove = !entity.IsAIMove;
+    }
     void InputSpace()
     {
-        _entity.Movement.Dash(5f, _inputVector);
+        if (!skillSystem.Register(basicAttackSkill))
+            Debug.LogAssertion($"{basicAttackSkill.CodeName}");
+
+        var skill = skillSystem.Find(basicAttackSkill);
+        UnityHelper.Assert_H(skill != null, $"{skill.CodeName}");
+
+        if (skillSystem.Use(basicAttackSkill))
+        {
+            UnityHelper.Log_H($"already use skill");
+        }
     }
     private void Update()
     {
         if (_inputVector != Vector3.zero)
         {
-            _entity.Movement.Destination = this.transform.position + _inputVector;
+            entity.Movement.Destination = this.transform.position + _inputVector;
         }
     }
     #endregion

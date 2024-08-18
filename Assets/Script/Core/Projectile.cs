@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(BoxCollider))]
 public class Projectile : MonoBehaviour
 {
     [SerializeField]
@@ -12,14 +12,16 @@ public class Projectile : MonoBehaviour
 
     private Entity owner;
     private Rigidbody rigidBody;
+    private BoxCollider boxCollider;
     private float speed;
     private Skill skill;
+    private Vector3 direction;
 
     public void Setup(Entity owner, float speed, Vector3 direction, Skill skill)
     {
         this.owner = owner;
         this.speed = speed;
-        transform.forward = direction;
+        this.direction = direction;
         // 현재 Skill의 Level 정보를 저장하기 위해 Clone을 보관
         this.skill = skill.Clone() as Skill;
     }
@@ -27,16 +29,22 @@ public class Projectile : MonoBehaviour
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
+        rigidBody.useGravity = false;
+
+        boxCollider = GetComponent<BoxCollider>();
+        boxCollider.isTrigger = true;
+
+        this.gameObject.layer = 1;
     }
 
     private void OnDestroy()
     {
-        Destroy(skill);
+        Managers.Resources.Destroy(skill.GameObject());
     }
 
     private void FixedUpdate()
     {
-        rigidBody.velocity = transform.forward * speed;
+        rigidBody.velocity = direction * speed;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,14 +52,13 @@ public class Projectile : MonoBehaviour
         if (other.GetComponent<Entity>() == owner)
             return;
 
-        var impact = Instantiate(impactPrefab);
-        impact.transform.forward = -transform.forward;
+        var impact = Managers.Resources.Instantiate(impactPrefab);
         impact.transform.position = transform.position;
 
         var entity = other.GetComponent<Entity>();
         if (entity)
             entity.SkillSystem.Apply(skill);
 
-        Destroy(gameObject);
+        Managers.Resources.Destroy(gameObject);
     }
 }

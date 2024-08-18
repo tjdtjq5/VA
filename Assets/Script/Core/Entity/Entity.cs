@@ -25,8 +25,18 @@ public class Entity : MonoBehaviour
     public EntityControlType ControlType => controlType;
     public IReadOnlyList<Category> Categories => categories;
     public bool IsPlayer => controlType == EntityControlType.Player;
-
-    EntityAnimator entityAnimator;
+    private bool isAiMove = false;
+    public bool IsAIMove
+    {
+        get
+        {
+            return controlType != EntityControlType.Player || isAiMove;
+        }
+        set
+        {
+            isAiMove = value;
+        }
+    }
 
     public Stats Stats { get; private set; }
     public bool IsDead => Stats.HPStat != null && BBNumber.Approximately(Stats.HPStat.DefaultValue, 0f);
@@ -35,6 +45,7 @@ public class Entity : MonoBehaviour
     public MonoStateMachine<Entity> StateMachine { get; private set; }
     public SkillSystem SkillSystem { get; private set; }
     public EntityAnimator Animator { get; private set; }
+    public BoxCollider Collider { get; private set; }
 
     public Entity Target { get; set; }
 
@@ -43,22 +54,25 @@ public class Entity : MonoBehaviour
 
     private void Awake()
     {
-        entityAnimator = GetComponent<EntityAnimator>();
-
-        Stats = GetComponent<Stats>();
+        Stats = UnityHelper.FindChild<Stats>(this.gameObject, true);
         Stats.Setup(this);
 
-        Movement = GetComponent<EntityMovement>();
+        Movement = UnityHelper.FindChild<EntityMovement>(this.gameObject, true);
         Movement?.Setup(this);
 
-        StateMachine = GetComponent<MonoStateMachine<Entity>>();
-        StateMachine?.Setup(this);
+        SkillSystem = UnityHelper.FindChild<SkillSystem>(this.gameObject, true);
+        SkillSystem?.Setup(this);
 
-        Animator = GetComponent<EntityAnimator>();
+        Animator = UnityHelper.FindChild<EntityAnimator>(this.gameObject, true);
         Animator?.Setup(this);
 
-        SkillSystem = GetComponent<SkillSystem>();
-        SkillSystem?.Setup(this);
+        StateMachine = UnityHelper.FindChild<MonoStateMachine<Entity>>(this.gameObject, true);
+        StateMachine?.Setup(this);
+
+        Collider = UnityHelper.FindChild<BoxCollider>(this.gameObject, true);
+        ObjectAnglePositionSetting oaps = UnityHelper.FindChild<ObjectAnglePositionSetting>(this.gameObject, true);
+        if (Collider && oaps)
+            oaps.PositionSetting(Collider.size.z);
     }
 
     public void TakeDamage(Entity instigator, object causer, BBNumber damage)
@@ -85,13 +99,13 @@ public class Entity : MonoBehaviour
 
     private Transform GetTransformSocket(Transform root, string socketName)
     {
-        if (root.name == socketName)
+        if (root.name == socketName || string.IsNullOrEmpty(socketName))
             return root;
 
-        // root transformÀÇ ÀÚ½Ä transformµéÀ» ¼øÈ¸
+        // root transformï¿½ï¿½ ï¿½Ú½ï¿½ transformï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
         foreach (Transform child in root)
         {
-            // Àç±ÍÇÔ¼ö¸¦ ÅëÇØ ÀÚ½Äµé Áß¿¡ socketNameÀÌ ÀÖ´ÂÁö °Ë»öÇÔ
+            // ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½Äµï¿½ ï¿½ß¿ï¿½ socketNameï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½
             var socket = GetTransformSocket(child, socketName);
             if (socket)
                 return socket;
@@ -102,13 +116,13 @@ public class Entity : MonoBehaviour
 
     public Transform GetTransformSocket(string socketName)
     {
-        // dictionary¿¡¼­ socketNameÀ» °Ë»öÇÏ¿© ÀÖ´Ù¸é return
+        // dictionaryï¿½ï¿½ï¿½ï¿½ socketNameï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï¿ï¿½ ï¿½Ö´Ù¸ï¿½ return
         if (socketsByName.TryGetValue(socketName, out var socket))
             return socket;
 
-        // dictionary¿¡ ¾øÀ¸¹Ç·Î ¼øÈ¸ °Ë»ö
+        // dictionaryï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½È¸ ï¿½Ë»ï¿½
         socket = GetTransformSocket(transform, socketName);
-        // socketÀ» Ã£À¸¸é dictionary¿¡ ÀúÀåÇÏ¿© ÀÌÈÄ¿¡ ´Ù½Ã °Ë»öÇÒ ÇÊ¿ä°¡ ¾øµµ·Ï ÇÔ
+        // socketï¿½ï¿½ Ã£ï¿½ï¿½ï¿½ï¿½ dictionaryï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½Ù½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         if (socket)
             socketsByName[socketName] = socket;
 
@@ -122,4 +136,9 @@ public class Entity : MonoBehaviour
 
     public bool IsInState<T>(int layer) where T : State<Entity>
         => StateMachine.IsInState<T>(layer);
+
+    public void Destroy()
+    {
+        Managers.Resources.Destroy(this.gameObject);
+    }
 }

@@ -41,6 +41,7 @@ public class TargetSearcher
     public object SelectionScaledRange => selectionAction.ScaledRange;
     public object SelectionProperRange => selectionAction.ProperRange;
     public float SelectionAngle => selectionAction.Angle;
+    public bool IsMouseAction => selectionAction.IsMouseAction;
 
     public object SearchRange => searchAction.Range;
     public object SearchScaledRange => searchAction.ScaledRange;

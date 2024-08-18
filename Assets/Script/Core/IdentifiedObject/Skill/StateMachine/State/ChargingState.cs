@@ -14,10 +14,14 @@ public class ChargingState : SkillState
     {
         Entity.Activate();
 
-        if (Entity.Owner.IsPlayer)
+        if (Entity.TargetSearcher.IsMouseAction)
         {
-            Entity.SelectTarget(OnTargetSearchCompleted, false);
+            if (Entity.Owner.IsPlayer)
+            {
+                Entity.SelectTarget(OnTargetSearchCompleted, false);
+            }
         }
+
         Entity.ShowIndicator();
         Entity.StartCustomActions(SkillCustomActionType.Charge);
 
@@ -39,9 +43,11 @@ public class ChargingState : SkillState
             IsChargeEnded = true;
             if (Entity.ChargeFinishActionOption == SkillChargeFinishActionOption.Use)
             {
-                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity))
-                    Entity.SelectTargetImmediate(hitInfo.point);
+                //var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                //if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity))
+                //    Entity.SelectTargetImmediate(hitInfo.point);
+
+                Entity.SelectTarget(OnTargetSearchCompleted, false);
 
                 TryUse();
             }
@@ -71,9 +77,13 @@ public class ChargingState : SkillState
         return IsChargeSuccessed;
     }
 
+    //private void OnTargetSearchCompleted(Skill skill, TargetSearcher searcher, TargetSelectionResult result)
+    //{
+    //    if (!TryUse())
+    //        Entity.SelectTarget(OnTargetSearchCompleted, false);
+    //}
     private void OnTargetSearchCompleted(Skill skill, TargetSearcher searcher, TargetSelectionResult result)
     {
-        if (!TryUse())
-            Entity.SelectTarget(OnTargetSearchCompleted, false);
+        UnityHelper.Log_H(result.resultMessage);
     }
 }

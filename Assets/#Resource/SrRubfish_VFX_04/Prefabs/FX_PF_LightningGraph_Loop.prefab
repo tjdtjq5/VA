@@ -76,8 +76,8 @@ GameObject:
   - component: {fileID: 8842354612322276226}
   - component: {fileID: 3548217210476896292}
   - component: {fileID: 3154421808064570608}
-  - component: {fileID: 7875455717252063109}
   - component: {fileID: 4806325887793582296}
+  - component: {fileID: -4106138060993761208}
   m_Layer: 0
   m_Name: FX_PF_LightningGraph_Loop
   m_TagString: Untagged
@@ -93,7 +93,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4462018559318958484}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -7.5, y: 2.93, z: -18.27}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -193,10 +193,10 @@ VisualEffect:
       - m_Value: {x: 6, y: 3.49, z: 10.72}
         m_Name: MidPos
         m_Overridden: 1
-      - m_Value: {x: -17.5, y: 2.93, z: -18.27}
+      - m_Value: {x: -10, y: 0, z: 0}
         m_Name: Source
         m_Overridden: 1
-      - m_Value: {x: -7.5, y: 2.93, z: -18.27}
+      - m_Value: {x: 0, y: 0, z: 0}
         m_Name: Target
         m_Overridden: 1
       - m_Value: {x: -4.313215, y: 6, z: 2.4314113}
@@ -436,22 +436,6 @@ MonoBehaviour:
   m_Property:
     m_Name: Target
   Target: {fileID: 7054325584772231604}
---- !u!114 &7875455717252063109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4462018559318958484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6a1dfae3a3235548aa277bc66767cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  start: {fileID: 7054325584772231604}
-  end: {fileID: 2686649153591549829}
-  disableController: {fileID: 1628299402011838437}
-  destroyMeTime: 1
 --- !u!114 &4806325887793582296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,6 +452,22 @@ MonoBehaviour:
   m_Property:
     m_Name: IsActive
   Target: {fileID: 1628299402011838437}
+--- !u!114 &-4106138060993761208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4462018559318958484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a87f5d5b15a38f14ea7a9987128ace54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  poolObjectType: 2
+  time: 0
+  particle: {fileID: 0}
 --- !u!1 &5300430293890790386
 GameObject:
   m_ObjectHideFlags: 0

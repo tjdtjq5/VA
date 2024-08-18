@@ -27,24 +27,12 @@ public class SceneManagerEx
                 return "InGame";
             case SceneType.Dungeon:
                 return "Dungeon";
-            case SceneType.Life:
-                return "Life";
-            case SceneType.Guild:
-                return "Guild";
             default:
                 return "";
         }
     }
     void SceneClear()
     {
-        CurrentScene.Clear();
-
-        Managers.Resources.Clear();
-        Managers.Sound.Clear();
-        Managers.Input.Clear();
-        Managers.UI.Clear();
-        Managers.Pool.Clear();
-        Managers.Sse.Clear();
-        Managers.Chat.Clear();
+        Managers.Instance.Clean();
     }
 }

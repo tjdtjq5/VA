@@ -49,6 +49,9 @@ public class SkillObject : MonoBehaviour
         ApplyCycle = CalculateApplyCycle(duration, applyCount);
         DestroyTime = Duration + (isDelayDestroyByCycle ? ApplyCycle : 0f);
 
+        currentDuration = 0;
+        currentApplyCycle = 0;
+
         // SkillObject에 여러 설정을 적용하기위해 만들어진 SkillObjectComponent Script를 가져와서 Callback 함수를 호출해줌
         foreach (var component in GetComponents<ISkillObjectComponent>())
             component.OnSetupSkillObject(this);
@@ -59,19 +62,21 @@ public class SkillObject : MonoBehaviour
 
     private void OnDestroy()
     {
-        Destroy(Spawner);
+        Managers.Resources.Destroy(Spawner.GameObject());
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        currentDuration += Time.deltaTime;
-        currentApplyCycle += Time.deltaTime;
+        currentDuration += Managers.Time.FixedDeltaTime;
+        currentApplyCycle += Managers.Time.FixedDeltaTime;
 
         if (IsApplicable)
             Apply();
 
         if (currentDuration >= DestroyTime)
-            Destroy(gameObject);
+        {
+            Managers.Resources.Destroy(gameObject);
+        }
     }
 
     public float CalculateApplyCycle(float duration, int applyCount)

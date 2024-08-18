@@ -10,6 +10,7 @@ public class SelectSelf : TargetSelectionAction
     public override object Range => 0f;
     public override object ScaledRange => 0f;
     public override float Angle => 0f;
+    public override bool IsMouseAction => false;
 
     public SelectSelf() { }
     public SelectSelf(SelectSelf copy) : base(copy) { }
