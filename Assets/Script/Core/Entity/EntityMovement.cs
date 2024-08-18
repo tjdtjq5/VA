@@ -6,14 +6,14 @@ public class EntityMovement : MonoBehaviour
 {
     public delegate void SetDestinationHandler(EntityMovement movement, Vector3 destination);
 
-    // ÀÌµ¿ ¼Óµµ·Î ¾µ Stat
+    // ï¿½Ìµï¿½ ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ Stat
     [SerializeField]
     private Stat moveSpeedStat;
 
     private MoveController moveController;
-    // Entity°¡ ÃßÀûÇÏ¿© ¿òÁ÷ÀÏ ´ë»ó
+    // Entityï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     private Transform traceTarget;
-    // À§ moveSpeedStatÀ¸·Î EntityÀÇ Stats¿¡¼­ Ã£¾Æ¿Â Stat
+    // ï¿½ï¿½ moveSpeedStatï¿½ï¿½ï¿½ï¿½ Entityï¿½ï¿½ Statsï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Æ¿ï¿½ Stat
     private Stat entityMoveSpeedStat;
 
     public Entity Owner { get; private set; }
@@ -47,7 +47,7 @@ public class EntityMovement : MonoBehaviour
         get => moveController.Destination;
         set
         {
-            // traceTargetÀ» ÃßÀûÇÏ´Â °ÍÀ» ¸ØÃã
+            // traceTargetï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             TraceTarget = null;
             SetDestination(value);
         }
@@ -64,7 +64,7 @@ public class EntityMovement : MonoBehaviour
         entityMoveSpeedStat = moveSpeedStat ? Owner.Stats.GetStat(moveSpeedStat) : null;
         if (entityMoveSpeedStat)
         {
-            moveController.Speed = entityMoveSpeedStat.Value.GetFloat();
+            moveController.Speed = entityMoveSpeedStat.Value.Float();
             entityMoveSpeedStat.onValueChanged += OnMoveSpeedChanged;
         }
     }
@@ -93,7 +93,7 @@ public class EntityMovement : MonoBehaviour
         moveController.Stop();
     }
 
-    // ÃßÀû ´ë»óÀÇ À§Ä¡¸¦ °è¼Ó DestinationÀ¸·Î ¼³Á¤ÇØÁÜ
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ Destinationï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     IEnumerator TraceUpdateCoroutine;
     private IEnumerator TraceUpdate()
     {
@@ -110,7 +110,7 @@ public class EntityMovement : MonoBehaviour
     }
 
     private void OnMoveSpeedChanged(Stat stat, BBNumber currentValue, BBNumber prevValue)
-        => moveController.Speed = currentValue.GetFloat();
+        => moveController.Speed = currentValue.Float();
 
     public void Dash(float distance, Vector3 direction)
     {
@@ -128,9 +128,9 @@ public class EntityMovement : MonoBehaviour
     IEnumerator _dashUpdateCoroutine;
     private IEnumerator DashUpdate(float distance, Vector3 direction)
     {
-        // ÇöÀç±îÁö ±¸¸¥ ½Ã°£
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
         float currentDashTime = 0f;
-        // ÀÌÀü Frame¿¡ ÀÌµ¿ÇÑ °Å¸®
+        // ï¿½ï¿½ï¿½ï¿½ Frameï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
         float prevDashDistance = 0f;
 
         while (true)

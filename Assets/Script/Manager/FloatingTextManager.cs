@@ -10,7 +10,7 @@ public class FloatingTextManager
     {
         FloatingText floatingText = Managers.Resources.Instantiate<FloatingText>(prefabPath);
 
-        floatingText.Text.text = $"{damage}";
+        floatingText.Text.text = $"{damage.Alphabet()}";
         floatingText.Text.color = isCritial ? critialDamageColor : basicDamageColor;
 
         floatingText.Play(GetPosByTargetEntity(targetEntity));

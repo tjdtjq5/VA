@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Numerics;
 using Newtonsoft.Json.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -36,6 +37,7 @@ public struct BBNumber : IComparable<BBNumber>, IEquatable<BBNumber>
     private static BBNumber MAX_DOUBLE = new BBNumber(1.7976931348623157E+308);
 
     private static BBNumber MIN_DOUBLE = new BBNumber(-1.7976931348623157E+308);
+
 
     private static int ROUND_SIG_DIGITS = 8;
 
@@ -681,98 +683,5 @@ public struct BBNumber : IComparable<BBNumber>, IEquatable<BBNumber>
             return -1.7976931348623157E+308;
         }
         return value.significand * Math.Pow(10.0, value.exponent);
-    }
-
-
-
-    public BigInteger ToStr()
-    {
-        if (significand < 0 || exponent < 0)
-        {
-            return BigInteger.Parse(zeroStr, CultureInfo.InvariantCulture);
-        }
-
-        string signStr = significand.ToString(CultureInfo.InvariantCulture).Replace(commaStr, blankStr);
-        string s = oneStr;
-        int expCount = (int)exponent;
-        int zeroCount = expCount - (signStr.Length - 1);
-        int signCount = expCount + 1;
-        for (int i = 0; i < zeroCount; i++)
-        {
-            s += zeroStr;
-        }
-        signCount = signStr.Length > signCount ? signCount : signStr.Length;
-        signStr = signStr.Substring(0, signCount);
-
-        BigInteger sBig = BigInteger.Parse(s, CultureInfo.InvariantCulture);
-        BigInteger signBig = BigInteger.Parse(signStr, CultureInfo.InvariantCulture);
-
-        return sBig * signBig;
-    }
-    public double GetDouble()
-    {
-        try
-        {
-            if (exponent < -5)
-            {
-                return 0;
-            }
-
-            double p = Math.Pow(10.0, exponent);
-            return significand * p;
-        }
-        catch
-        {
-            return 0;
-        }
-    }
-    public float GetFloat()
-    {
-        try
-        {
-            if (exponent < -5)
-            {
-                return 0;
-            }
-
-            float p = (float)Math.Pow(10.0, exponent);
-            return (float)significand * p;
-        }
-        catch
-        {
-            return 0;
-        }
-    }
-    public string ToCountString()
-    {
-        if (exponent <= 10)
-        {
-            return this.ToString("D");
-        }
-        else
-        {
-            return this.ToString();
-        }
-    }
-    public static BBNumber ToBBStr(string value)
-    {
-        try
-        {
-            return new BBNumber(value);
-        }
-        catch
-        {
-            int length = value.Length - 1;
-            string sValueStr = value.Replace(zeroStr, "");
-
-            double s = double.Parse(sValueStr, CultureInfo.InvariantCulture);
-            double e = length;
-
-            BBNumber bBNumber = new BBNumber();
-            bBNumber.significand = s;
-            bBNumber.exponent = e;
-
-            return bBNumber;
-        }
     }
 }

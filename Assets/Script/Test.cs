@@ -6,10 +6,8 @@ using UnityEngine;
 public class Test : MonoBehaviour
 {
     [Button]
-    public void T()
+    public void T(BBNumber bBNumber)
     {
-        // 65 ~ 90
-        char c = System.Convert.ToChar(90);
-        UnityHelper.Log_H(c);
+        UnityHelper.Log_H($"s = {bBNumber.significand} e : {bBNumber.exponent} alphabet : {bBNumber.Alphabet()}");
     }
 }
