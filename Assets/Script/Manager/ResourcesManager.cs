@@ -54,7 +54,6 @@ public class ResourcesManager
         }
 
         T go = UnityEngine.Object.Instantiate(obj, parent);
-        UnityHelper.Log_H(go == null);
 
         return go;
     }

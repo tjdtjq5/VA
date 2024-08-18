@@ -10,12 +10,6 @@ public class PlayerSpawn : CharacterSpawn
     {
         throw new System.NotImplementedException();
     }
-
-    public override void OnDead(Entity entity)
-    {
-        throw new System.NotImplementedException();
-    }
-
     public override Character Spawn(Character prefab)
     {
         throw new System.NotImplementedException();

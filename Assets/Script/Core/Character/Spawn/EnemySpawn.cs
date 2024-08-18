@@ -13,9 +13,6 @@ public class EnemySpawn : CharacterSpawn
         Character c = Managers.Resources.Instantiate(enemyPrefab);
         EnemyController enemy = c.GetComponent<EnemyController>();
 
-        enemy.onDead -= OnDead;
-        enemy.onDead += OnDead;
-
         if (!currentSpawnEnemies.Contains(enemy))
             currentSpawnEnemies.Add(enemy);
 
@@ -23,5 +20,4 @@ public class EnemySpawn : CharacterSpawn
     }
 
     public override void Clear() => currentSpawnEnemies.Clear();
-    public override void OnDead(Entity entity) => onDead?.Invoke(entity);
 }

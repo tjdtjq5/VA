@@ -16,9 +16,9 @@ public class Managers : MonoBehaviour
     UIManager _ui = new UIManager();
     ProcessDeepLinkManager _deepLink = new ProcessDeepLinkManager();
     TimeManager _time = new TimeManager();
-    TweenManager _tween = new TweenManager();
     SseManager _sse = new SseManager();
     ChatManager _chat = new ChatManager();
+    FloatingTextManager _floatingText = new FloatingTextManager();
 
     public static WebManager Web { get { return Instance._web; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
@@ -29,9 +29,9 @@ public class Managers : MonoBehaviour
     public static UIManager UI { get { return Instance._ui; } }
     public static ProcessDeepLinkManager DeepLink { get { return Instance._deepLink; } }
     public static TimeManager Time { get { return Instance._time; } }
-    public static TweenManager Tween { get { return Instance._tween; } }
     public static SseManager Sse { get { return Instance._sse; } }
     public static ChatManager Chat { get { return Instance._chat; } }
+    public static FloatingTextManager FloatingText { get { return Instance._floatingText; } }
 
     void Start()
     {
@@ -66,7 +66,6 @@ public class Managers : MonoBehaviour
     private void FixedUpdate()
     {
         _time.OnFixedUpdate();
-        _tween.OnFixedUpdate();
         _chat.OnFixedUpdate();
     }
 

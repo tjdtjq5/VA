@@ -14,7 +14,7 @@ public class EnemySpawnActionInGame : EnemySpawnAction
     [SerializeField] Vector2 mapOffset;
     [Header("Group")]
     [SerializeField] Vector2Int groupCell;
-    [SerializeField] int groupEnemyCount;
+    [SerializeField, Min(1)] int groupEnemyCount;
     [SerializeField, Range(0f, 1f)] float groupSpawnPosRangeMin;
     [SerializeField, Range(0.1f, 10f)] float groupSpawnPosRangeMax;
 
@@ -32,15 +32,33 @@ public class EnemySpawnActionInGame : EnemySpawnAction
         }
     }
 
+    float mapWidth;
+    float mapHeight;
+    float cellWidth;
+    float cellHeight;
+    float cellWidthHalf;
+    float cellHeightHalf;
     bool isPlay = false;
-
 
     public override void Play()
     {
         Clear();
 
+        mapWidth = mapSizeMax.x - mapSizeMin.x;
+        mapHeight = mapSizeMax.y - mapSizeMin.y;
+        cellWidth = mapWidth / groupCell.x;
+        cellHeight = mapHeight / groupCell.y;
+        cellWidthHalf = cellWidth / 2;
+        cellHeightHalf = cellHeight / 2;
+
         enemySpawn = new EnemySpawn[groupCell.x, groupCell.y];
+        for (int i = 0; i < groupCell.x; i++)
+            for (int j = 0; j < groupCell.y; j++)
+                enemySpawn[i, j] = new();
+
         isPlay = true;
+
+        GroupSpawn();
     }
 
     public override void Stop()
@@ -56,33 +74,62 @@ public class EnemySpawnActionInGame : EnemySpawnAction
             if (spawnTimer > spawnTime)
             {
                 spawnTimer = 0;
-                AllSpawn();
+                GroupSpawn();
             }
         }
     }
 
     void EnemySpawn(int groupX, int groupY)
     {
-        // int random = UnityEngine.Random.Range(0, enemyPrefabs.Count);
-        // Character enemy = enemySpawn.Spawn(enemyPrefabs[random]);
+        int random = UnityEngine.Random.Range(0, enemyPrefabs.Count);
+        Character enemy = enemySpawn[groupX, groupY].Spawn(enemyPrefabs[random]);
 
-        // float randomPosXInMap = UnityEngine.Random.Range(mapSizeMin.x, mapSizeMax.x) + mapOffset.x;
-        // float randomPosZInMap = UnityEngine.Random.Range(mapSizeMin.y, mapSizeMax.y) + mapOffset.y;
-        // Vector3 randomPosInMap = new Vector3(randomPosXInMap, 0, randomPosZInMap);
-        // enemy.transform.position = randomPosInMap;
-    }
-    void GroupSpawn(int groupX, int groupY)
-    {
+        Vector3 groupPosition = new Vector3(mapSizeMin.x + cellWidth * groupX + cellWidthHalf, 0, mapSizeMin.y + cellHeight * groupY + cellHeightHalf);
+        float posX = UnityEngine.Random.Range(0, 100) % 2 == 0 ? UnityEngine.Random.Range(groupSpawnPosRangeMin, groupSpawnPosRangeMax) : UnityEngine.Random.Range(-groupSpawnPosRangeMax, -groupSpawnPosRangeMin);
+        float posZ = UnityEngine.Random.Range(0, 100) % 2 == 0 ? UnityEngine.Random.Range(groupSpawnPosRangeMin, groupSpawnPosRangeMax) : UnityEngine.Random.Range(-groupSpawnPosRangeMax, -groupSpawnPosRangeMin);
+        Vector3 pos = new Vector3(posX, 0, posZ) + groupPosition;
+        enemy.transform.position = pos;
 
+        enemy.onTakeDamage -= OnTakeDamage;
+        enemy.onTakeDamage += OnTakeDamage;
+
+        enemy.onDead -= OnDead;
+        enemy.onDead += OnDead;
     }
-    void AllSpawn()
-    {
-        // 그룹 안에 한마리라도 살아있으면 패스
-    }
-    public override void Clear()
+    void GroupSpawn(int minCount = 1)
     {
         for (int i = 0; i < groupCell.x; i++)
             for (int j = 0; j < groupCell.y; j++)
+            {
+                int groupEnemyC = enemySpawn[i, j].Count;
+                if (groupEnemyC < minCount)
+                {
+                    while (groupEnemyC < groupEnemyCount)
+                    {
+                        EnemySpawn(i, j);
+                        groupEnemyC++;
+                    }
+                }
+            }
+    }
+    public override void Clear()
+    {
+        if (enemySpawn == null)
+            return;
+
+        for (int i = 0; i < groupCell.x; i++)
+            for (int j = 0; j < groupCell.y; j++)
                 enemySpawn[i, j].Clear();
+    }
+
+    public void OnTakeDamage(Entity entity, Entity instigator, object causer, BBNumber damage)
+    {
+        onTakeDamage?.Invoke(entity, instigator, causer, damage);
+
+        Managers.FloatingText.DamageSpawn(entity, damage, false);
+    }
+    public void OnDead(Entity entity)
+    {
+        onDead?.Invoke(entity);
     }
 }

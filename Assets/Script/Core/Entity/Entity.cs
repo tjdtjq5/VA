@@ -45,6 +45,7 @@ public class Entity : MonoBehaviour
     public MonoStateMachine<Entity> StateMachine { get; private set; }
     public SkillSystem SkillSystem { get; private set; }
     public EntityAnimator Animator { get; private set; }
+    public BoxCollider Collider { get; private set; }
 
     public Entity Target { get; set; }
 
@@ -68,12 +69,10 @@ public class Entity : MonoBehaviour
         StateMachine = UnityHelper.FindChild<MonoStateMachine<Entity>>(this.gameObject, true);
         StateMachine?.Setup(this);
 
-        BoxCollider boxCollider = UnityHelper.FindChild<BoxCollider>(this.gameObject, true);
+        Collider = UnityHelper.FindChild<BoxCollider>(this.gameObject, true);
         ObjectAnglePositionSetting oaps = UnityHelper.FindChild<ObjectAnglePositionSetting>(this.gameObject, true);
-        if (boxCollider && oaps)
-        {
-            oaps.PositionSetting(boxCollider.size.z);
-        }
+        if (Collider && oaps)
+            oaps.PositionSetting(Collider.size.z);
     }
 
     public void TakeDamage(Entity instigator, object causer, BBNumber damage)

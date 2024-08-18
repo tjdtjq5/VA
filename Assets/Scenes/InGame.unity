@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 50361044}
   - component: {fileID: 50361045}
   - component: {fileID: 50361046}
+  - component: {fileID: 50361047}
   m_Layer: 0
   m_Name: '@Scene'
   m_TagString: Untagged
@@ -196,10 +197,22 @@ MonoBehaviour:
         mapSizeMin: {x: -50, y: -50}
         mapSizeMax: {x: 50, y: 50}
         mapOffset: {x: 0, y: 0}
-        groupCell: {x: 10, y: 10}
+        groupCell: {x: 6, y: 6}
         groupEnemyCount: 5
         groupSpawnPosRangeMin: 0.1
-        groupSpawnPosRangeMax: 7
+        groupSpawnPosRangeMax: 4
+--- !u!114 &50361047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50361043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52052769f39e44245a59a19c2393dd5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &868108430
 PrefabInstance:
   m_ObjectHideFlags: 0
