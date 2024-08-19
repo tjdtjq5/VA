@@ -67,6 +67,7 @@ public class Managers : MonoBehaviour
     {
         _time.OnFixedUpdate();
         _chat.OnFixedUpdate();
+        _floatingText.OnFixedUpdate();
     }
 
     public void Clean()

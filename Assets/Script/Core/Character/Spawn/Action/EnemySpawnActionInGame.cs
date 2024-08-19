@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -126,7 +127,7 @@ public class EnemySpawnActionInGame : EnemySpawnAction
     {
         onTakeDamage?.Invoke(entity, instigator, causer, damage);
 
-        Managers.FloatingText.DamageSpawn(entity, damage, false);
+        Managers.FloatingText.DamageSpawn(entity, causer, damage, false);
     }
     public void OnDead(Entity entity)
     {

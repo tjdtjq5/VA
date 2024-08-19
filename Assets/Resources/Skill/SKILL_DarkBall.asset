@@ -52,7 +52,7 @@ MonoBehaviour:
       scaleStat: {fileID: 0}
     targetSearcher:
       selectionAction:
-        rid: 4300027606639050756
+        rid: 4300027678793400320
       searchAction:
         rid: 4300027606639050757
     costs: []
@@ -102,8 +102,14 @@ MonoBehaviour:
         projectilePrefab: {fileID: 8860298158425988441, guid: cb67d106a59ef164cbf3eebc15445d19, type: 3}
         spawnPointSocketName: 
         speed: 5
-    - rid: 4300027606639050756
-      type: {class: SelectFarestEntity, ns: , asm: Assembly-CSharp}
+    - rid: 4300027606639050757
+      type: {class: SelectedTarget, ns: , asm: Assembly-CSharp}
+      data:
+        indicatorViewAction:
+          rid: -2
+        isUseScale: 0
+    - rid: 4300027678793400320
+      type: {class: SelectNearestEntity, ns: , asm: Assembly-CSharp}
       data:
         indicatorViewAction:
           rid: -2
@@ -112,9 +118,3 @@ MonoBehaviour:
         angle: 360
         castRadius: 1000
         isSelectSameCategory: 0
-    - rid: 4300027606639050757
-      type: {class: SelectedTarget, ns: , asm: Assembly-CSharp}
-      data:
-        indicatorViewAction:
-          rid: -2
-        isUseScale: 0
