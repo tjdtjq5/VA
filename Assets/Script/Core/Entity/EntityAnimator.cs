@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EntityAnimator : MonoBehaviour
@@ -22,8 +23,9 @@ public class EntityAnimator : MonoBehaviour
 
     public void Setup(Entity entity)
     {
+        UnityHelper.Log_H($"{_animator.gameObject.transform.parent.name}");
         Animator = _animator;
-        _stateMachine = _animator.GetBehaviour<BaseLayerBehaviour>();
+        _stateMachine = _animator.GetBehaviour<BaseLayerBehaviour>().Clone() as BaseLayerBehaviour;
 
         _entity = entity;
 
@@ -45,7 +47,9 @@ public class EntityAnimator : MonoBehaviour
                 Animator?.SetBool(kDashHash, _entityMovement.IsDashing);
 
             if (_moveController)
+            {
                 Animator?.SetFloat(kSpeedHash, _moveController.Weight);
+            }
 
             animator.SetBool(kIsStunningHash, _entity.IsInState<StunningState>());
             animator.SetBool(kIsSleepingHash, _entity.IsInState<SleepingState>());

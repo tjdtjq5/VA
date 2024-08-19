@@ -8,9 +8,6 @@ public class SelectFarestEntity : SelectTarget
 {
     [SerializeField]
     private float castRadius;
-    // Target이 검색을 요청한 Entity와 같은 Category를 가지고 있어야하는가?
-    [SerializeField]
-    private bool isSelectSameCategory;
 
     public SelectFarestEntity() { }
 
@@ -18,7 +15,6 @@ public class SelectFarestEntity : SelectTarget
         : base(copy)
     {
         castRadius = copy.castRadius;
-        isSelectSameCategory = copy.isSelectSameCategory;
     }
 
     protected override TargetSelectionResult SelectImmediateByPlayer(TargetSearcher targetSearcher, Entity requesterEntity,
@@ -46,7 +42,6 @@ public class SelectFarestEntity : SelectTarget
             if (!castTarget)
                 continue;
 
-            // 요청자 본인일 경우 제외
             if (castTarget.transform.position != requesterObject.transform.position)
             {
                 var hasCategory = requesterEntity.Categories.Any(x => castTarget.HasCategory(x));

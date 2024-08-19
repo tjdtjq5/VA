@@ -8,5 +8,6 @@ public class EnemySpawnActionController : MonoBehaviour
 
     public void Play() => enemySpawnAction.Play();
     public void Stop() => enemySpawnAction.Stop();
-    void FixedUpdate() => enemySpawnAction.Update();
+    public void Clear() => enemySpawnAction.Clear();
+    public void FixedUpdate() => enemySpawnAction.Update();
 }

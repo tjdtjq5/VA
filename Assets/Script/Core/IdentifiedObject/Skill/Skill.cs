@@ -12,9 +12,7 @@ public class Skill : IdentifiedObject
     public delegate void StateChangedHandler(Skill skill, State<Skill> newState, State<Skill> prevState, int layer);
     public delegate void AppliedHander(Skill skill, int currentApplyCount);
     public delegate void UsedHandler(Skill skill);
-    // Skill�� ���(Use)�� ���� ����Ǵ� Event
     public delegate void ActivatedHandler(Skill skill);
-    // Skill�� ����� ���� ����Ǵ� Event
     public delegate void DeactivatedHandler(Skill skill);
     public delegate void CanceledHandler(Skill skill);
     public delegate void TargetSelectionCompletedHandler(Skill skill, TargetSearcher targetSearcher, TargetSelectionResult result);
@@ -43,7 +41,6 @@ public class Skill : IdentifiedObject
     [SerializeReference, SubclassSelector]
     private Cost[] acquisitionCosts;
 
-    // Skill�� ����ϱ� ���� ���ǵ�
     [SerializeReference, SubclassSelector]
     private SkillCondition[] useConditions;
 
@@ -214,9 +211,6 @@ public class Skill : IdentifiedObject
             onCurrentApplyCountChanged?.Invoke(this, currentApplyCount, prevApplyCount);
         }
     }
-    // currentData�� applyCycle�� 0�̰� applyCount�� 1���� ũ��(������ ���� �����ϸ�)
-    // Skill�� duration�� (ApplyCount - 1)�� ������ ApplyCycle�� ����Ͽ� return ��.
-    // �ƴ϶�� ������ currentData�� applyCycle�� �״�� return ��.
     public float ApplyCycle => Mathf.Approximately(currentData.applyCycle, 0f) && ApplyCount > 1 ?
         Duration / (ApplyCount - 1) : currentData.applyCycle;
     public float CurrentApplyCycle { get; set; }
@@ -512,7 +506,7 @@ public class Skill : IdentifiedObject
 
     public bool Use()
     {
-        UnityHelper.Assert_H(IsUseable, "Skill::Use - ��� ������ �������� ���߽��ϴ�.");
+        UnityHelper.Assert_H(IsUseable, "Skill::Use - IsUseable True.");
 
         bool isUsed = StateMachine.ExecuteCommand(SkillExecuteCommand.Use) || StateMachine.SendMessage(SkillStateMessage.Use);
         if (isUsed)
@@ -523,7 +517,7 @@ public class Skill : IdentifiedObject
 
     public bool UseImmediately(Vector3 position)
     {
-        UnityHelper.Assert_H(IsUseable, "Skill::UseImmediately - ��� ������ �������� ���߽��ϴ�.");
+        UnityHelper.Assert_H(IsUseable, "Skill::UseImmediately - IsUseable True.");
 
         SelectTargetImmediate(position);
 
@@ -536,7 +530,7 @@ public class Skill : IdentifiedObject
 
     public bool Cancel(bool isForce = false)
     {
-        UnityHelper.Assert_H(!IsPassive, "Skill::Cancel - Passive Skill�� Cancel �� �� �����ϴ�.");
+        UnityHelper.Assert_H(!IsPassive, "Skill::Cancel - Not Skill Passive.");
 
         var isCanceled = isForce ? StateMachine.ExecuteCommand(SkillExecuteCommand.CancelImmediately) :
             StateMachine.ExecuteCommand(SkillExecuteCommand.Cancel);
@@ -549,7 +543,7 @@ public class Skill : IdentifiedObject
 
     public void UseCost()
     {
-        UnityHelper.Assert_H(HasEnoughCost, "Skill::UseCost - ����� Cost�� �����մϴ�.");
+        UnityHelper.Assert_H(HasEnoughCost, "Skill::UseCost - Not Enough Cost.");
 
         foreach (var cost in Costs)
             cost.UseCost(Owner);
@@ -557,7 +551,7 @@ public class Skill : IdentifiedObject
 
     public void UseDeltaCost()
     {
-        UnityHelper.Assert_H(HasEnoughCost, "Skill::UseDeltaCost - ����� Cost�� �����մϴ�.");
+        UnityHelper.Assert_H(HasEnoughCost, "Skill::UseDeltaCost - Not Enough Cost.");
 
         foreach (var cost in Costs)
             cost.UseDeltaCost(Owner);
@@ -642,9 +636,6 @@ public class Skill : IdentifiedObject
 
         Action.Apply(this);
 
-        // Auto�� ���� Duration���� ���� ���� ����� ���� ApplyCycle�� ���� �������� ���� ������
-        // Ex. Duration = 1.001, CurrentApplyCycle = 1.001
-        //     => Duration = 1.001, CurrentApplyCycle = 0.001
         if (executionType == SkillExecutionType.Auto)
             CurrentApplyCycle %= ApplyCycle;
         else

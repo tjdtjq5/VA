@@ -6,14 +6,11 @@ public class EntityMovement : MonoBehaviour
 {
     public delegate void SetDestinationHandler(EntityMovement movement, Vector3 destination);
 
-    // �̵� �ӵ��� �� Stat
     [SerializeField]
     private Stat moveSpeedStat;
 
     private MoveController moveController;
-    // Entity�� �����Ͽ� ������ ���
     private Transform traceTarget;
-    // �� moveSpeedStat���� Entity�� Stats���� ã�ƿ� Stat
     private Stat entityMoveSpeedStat;
 
     public Entity Owner { get; private set; }
@@ -47,7 +44,6 @@ public class EntityMovement : MonoBehaviour
         get => moveController.Destination;
         set
         {
-            // traceTarget�� �����ϴ� ���� ����
             TraceTarget = null;
             SetDestination(value);
         }
@@ -93,7 +89,6 @@ public class EntityMovement : MonoBehaviour
         moveController.Stop();
     }
 
-    // ���� ����� ��ġ�� ��� Destination���� ��������
     IEnumerator TraceUpdateCoroutine;
     private IEnumerator TraceUpdate()
     {

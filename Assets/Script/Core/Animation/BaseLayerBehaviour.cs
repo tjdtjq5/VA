@@ -24,4 +24,14 @@ public class BaseLayerBehaviour : StateMachineBehaviour
             onStateExit?.Invoke(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name);
         }
     }
+
+    public object Clone()
+    {
+        return new BaseLayerBehaviour()
+        {
+            onStateEnter = this.onStateEnter,
+            onStateUpdate = this.onStateUpdate,
+            onStateExit = this.onStateExit,
+        };
+    }
 }

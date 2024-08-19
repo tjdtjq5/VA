@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class PlayerSpawn : CharacterSpawn
 {
-    public override int Count => throw new System.NotImplementedException();
+    List<PlayerController> players = new List<PlayerController>();
+    public override int Count => players.Count;
 
-    public override void Clear()
-    {
-        throw new System.NotImplementedException();
-    }
     public override Character Spawn(Character prefab)
     {
-        throw new System.NotImplementedException();
+        Character c = Managers.Resources.Instantiate(prefab);
+        PlayerController player = c.GetComponent<PlayerController>();
+
+        if (!players.Contains(player))
+            players.Add(player);
+
+        return player;
     }
+    public override void Clear() => players.Clear();
 }

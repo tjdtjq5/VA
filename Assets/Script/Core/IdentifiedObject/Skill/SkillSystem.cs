@@ -26,6 +26,7 @@ public class SkillSystem : MonoBehaviour
 
     [SerializeField]
     private Skill[] defaultSkills;
+    public Skill[] DefaultSkills { get { return defaultSkills; } }
 
     private List<Skill> ownSkills = new();
     private Skill reservedSkill;
@@ -75,7 +76,7 @@ public class SkillSystem : MonoBehaviour
     public void Setup(Entity entity)
     {
         Owner = entity;
-        UnityHelper.Assert_H(Owner != null, "SkillSystem::Awake - Owner´Â nullÀÌ µÉ ¼ö ¾ø½À´Ï´Ù.");
+        UnityHelper.Assert_H(Owner != null, "SkillSystem::Awake - Ownerï¿½ï¿½ nullï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
         SetupSkills();
     }
 
@@ -89,7 +90,7 @@ public class SkillSystem : MonoBehaviour
 
     public Skill RegisterWithoutCost(Skill skill, int level = 0)
     {
-        UnityHelper.Assert_H(!ownSkills.Exists(x => x.ID == skill.ID), "SkillSystem::Register - ÀÌ¹Ì Á¸ÀçÇÏ´Â SkillÀÔ´Ï´Ù.");
+        UnityHelper.Assert_H(!ownSkills.Exists(x => x.ID == skill.ID), "SkillSystem::Register - ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Skillï¿½Ô´Ï´ï¿½.");
 
         var clone = skill.Clone() as Skill;
         if (level > 0)
@@ -114,8 +115,8 @@ public class SkillSystem : MonoBehaviour
 
     public Skill Register(Skill skill, int level = 0)
     {
-        UnityHelper.Assert_H(!ownSkills.Exists(x => x.ID == skill.ID), "SkillSystem::Register - ÀÌ¹Ì Á¸ÀçÇÏ´Â SkillÀÔ´Ï´Ù.");
-        UnityHelper.Assert_H(skill.HasEnoughAcquisitionCost(Owner), "SkillSystem::Register - ½ÀµæÀ» À§ÇÑ Cost°¡ ºÎÁ·ÇÕ´Ï´Ù.");
+        UnityHelper.Assert_H(!ownSkills.Exists(x => x.ID == skill.ID), "SkillSystem::Register - ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Skillï¿½Ô´Ï´ï¿½.");
+        UnityHelper.Assert_H(skill.HasEnoughAcquisitionCost(Owner), "SkillSystem::Register - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Costï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
 
         skill.UseAcquisitionCost(Owner);
         skill = RegisterWithoutCost(skill, level);
@@ -147,8 +148,6 @@ public class SkillSystem : MonoBehaviour
 
     private void UpdateRunningEffects()
     {
-        // UpdateµÈ Effect¿¡ ÀÇÇØ¼­ »õ·Î¿î Effect°¡ runningEffects¿¡ Ãß°¡µÉ ¼öµµ ÀÖÀ¸¹Ç·Î,
-        // foreach¹®ÀÌ ¾Æ´Ñ for¹®À¸·Î ¼øÈ¸ÇÔ
         int count = runningEffects.Count;
         for (int i = 0; i < count; i++)
         {
@@ -179,10 +178,7 @@ public class SkillSystem : MonoBehaviour
             return;
 
         var selectionResult = reservedSkill.TargetSelectionResult;
-        // selectionResult°¡ TargetÀÌ¸é ÇØ´ç TargetÀÇ À§Ä¡¸¦, ¾Æ´Ï¸é ¼±ÅÃµÈ À§Ä¡¸¦ °¡Á®¿È.
         var targetPosition = selectionResult.selectedTarget?.transform.position ?? selectionResult.selectedPosition;
-        // TargetÀÌ SkillÀÇ ¹üÀ§ ¾È¿¡ µé¾î¿ÔÀ» ¶§,
-        // SkillÀÌ »ç¿ë °¡´ÉÇÑ »óÅÂ¸é »ç¿ë, »ç¿ëÀÌ ºÒ°¡´ÉÇÏ´Ù¸é »ç¿ë ¿¹¾àÀ» Ãë¼ÒÇÔ
         if (reservedSkill.IsInRange(targetPosition))
         {
             if (reservedSkill.IsUseable)
@@ -220,21 +216,17 @@ public class SkillSystem : MonoBehaviour
     public void Apply(Effect effect)
     {
         var runningEffect = Find(effect);
-        // »õ·Î¿î Effect°Å³ª EffectÀÇ Áßº¹ Àû¿ëÀÌ Çã¿ëµÈ´Ù¸é Effect¸¦ Àû¿ëÇÔ
         if (runningEffect == null || effect.IsAllowDuplicate)
             ApplyNewEffect(effect);
         else
         {
-            // StackÀÌ ½×ÀÌ´Â Effect¶ó¸é StackÀ» ½×À½
             if (runningEffect.MaxStack > 1)
                 runningEffect.CurrentStack++;
-            // EffectÀÇ RemoveDuplicateTargetOptionÀÌ Old(ÀÌ¹Ì Àû¿ë ÁßÀÎ Effect)¶ó¸é ±âÁ¸ Effect¸¦ Áö¿ì°í, Effect¸¦ »õ·Î Àû¿ëÇÔ
             else if (runningEffect.RemoveDuplicateTargetOption == EffectRemoveDuplicateTargetOption.Old)
             {
                 RemoveEffect(runningEffect);
                 ApplyNewEffect(effect);
             }
-            // ±× ¿ÜÀÇ °æ¿ì´Â RemoveDuplicateTargetOptionÀÌ New¶ó´Â ÀÇ¹ÌÀÌ¹Ç·Î »õ·Î µé¾î¿Â Effect¸¦ ¹«½ÃÇÔ
         }
     }
 
@@ -254,7 +246,7 @@ public class SkillSystem : MonoBehaviour
         skill = Find(skill);
 
         UnityHelper.Assert_H(skill != null,
-            $"SkillSystem::IncreaseStack({skill.CodeName}) - SkillÀÌ System¿¡ µî·ÏµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            $"SkillSystem::IncreaseStack({skill.CodeName}) - Skillï¿½ï¿½ Systemï¿½ï¿½ ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.");
 
         return skill.Use();
     }
@@ -340,8 +332,6 @@ public class SkillSystem : MonoBehaviour
     public void CancelTargetSearching()
         => ownSkills.Find(x => x.IsInState<SearchingTargetState>())?.Cancel();
 
-    // Animation¿¡¼­ È£ÃâµÈ Animation Event ÇÔ¼ö
-    // ½ÇÇà ÁßÀÎ SkillÀ» ¹ßµ¿(Apply)½ÃÅ´
     private void ApplyCurrentRunningSkill()
     {
         if (Owner.StateMachine.GetCurrentState() is InSkillActionState ownerState)

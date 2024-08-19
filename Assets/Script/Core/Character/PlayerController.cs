@@ -42,6 +42,8 @@ public class PlayerController : Character
         if (result.resultMessage != SearchResultMessage.OutOfRange)
             return;
 
+        UnityHelper.Log_H("ReserveSkill");
+
         entity.SkillSystem.ReserveSkill(skill);
 
         if (result.selectedTarget)
@@ -50,6 +52,16 @@ public class PlayerController : Character
             entity.Movement.Destination = result.selectedPosition;
     }
 
+    public override void Play() { }
+    public override void Stop()
+    {
+        moveController.Stop();
+    }
+    public override void Clear()
+    {
+        onDead = null;
+        onTakeDamage = null;
+    }
     #region Input
     Vector3 _inputVector = Vector3.zero;
     void LeftArrowDown()

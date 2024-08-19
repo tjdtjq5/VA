@@ -4,12 +4,12 @@ using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemySpawnActionController))]
+[RequireComponent(typeof(PlayerSpawnActionController))]
 public class InGameManager : SceneBase
 {
-    [SerializeField]
     EnemySpawnActionController enemySpawnActionController;
-    [SerializeField]
-    PlayerController player;
+    PlayerSpawnActionController playerSpawnActionController;
 
     protected override void Initialize()
     {
@@ -17,13 +17,22 @@ public class InGameManager : SceneBase
 
         SceneType = SceneType.InGame;
 
+        enemySpawnActionController = GetComponent<EnemySpawnActionController>();
         enemySpawnActionController.Play();
 
+        playerSpawnActionController = GetComponent<PlayerSpawnActionController>();
+        playerSpawnActionController.Play();
+
         CameraController cameraController = FindObjectOfType<CinemachineVirtualCamera>().GetOrAddComponent<CameraController>();
-        cameraController.SetTarget(player.transform);
+        cameraController.SetTarget(playerSpawnActionController.Player.transform);
     }
     public override void Clear()
     {
-
+        enemySpawnActionController.Clear();
+        playerSpawnActionController.Clear();
+    }
+    void FixedUpdate()
+    {
+        enemySpawnActionController.FixedUpdate();
     }
 }
