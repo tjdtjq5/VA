@@ -19,10 +19,13 @@ public class EnemyController : Character
     float attackTime = 1f;
     float attackTimer = 0;
     float traceTargetRadius = 7f;
+    float traceTargetRadiusMul;
 
     protected override void Start()
     {
         base.Start();
+
+        traceTargetRadiusMul = traceTargetRadius * traceTargetRadius;
 
         skillSystem = entity.SkillSystem;
         moveController = entity.Movement.MoveController;
@@ -46,19 +49,23 @@ public class EnemyController : Character
     }
     private void ReserveSkill(SkillSystem skillSystem, Skill skill, TargetSearcher targetSearcher, TargetSelectionResult result)
     {
-        if (result.resultMessage != SearchResultMessage.OutOfRange)
+        if (!skill.IsInState<SearchingTargetState>())
             return;
 
-        entity.SkillSystem.ReserveSkill(skill);
-        Vector3 targetPos = result.selectedTarget ? result.selectedTarget.transform.position : result.selectedPosition;
+        if (result.resultMessage == SearchResultMessage.OutOfRange)
+        {
+            skillSystem.ReserveSkill(skill);
 
-        if (Vector3.SqrMagnitude(targetPos - this.transform.position) > Mathf.Sqrt(traceTargetRadius))
+            Vector3 targetPos = result.selectedTarget ? result.selectedTarget.transform.position : result.selectedPosition;
+
+            if (Vector3.SqrMagnitude(targetPos - this.transform.position) > traceTargetRadiusMul)
+                entity.Movement.Destination = spawnPos;
+            else
+                entity.Movement.Destination = targetPos;
+        }
+        else if (result.resultMessage == SearchResultMessage.Fail)
         {
             entity.Movement.Destination = spawnPos;
-        }
-        else
-        {
-            entity.Movement.Destination = targetPos;
         }
     }
     public override void Stop()

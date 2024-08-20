@@ -35,6 +35,7 @@ public class EntityAnimator : MonoBehaviour
         if (AniController.anim)
         {
             AniController.SetBool(kDeadHash, entity.IsDead);
+
             if (!entity.IsDead)
             {
                 if (entityMovement)

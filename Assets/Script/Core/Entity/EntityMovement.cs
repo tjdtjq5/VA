@@ -44,6 +44,9 @@ public class EntityMovement : MonoBehaviour
         get => moveController.Destination;
         set
         {
+            // if (moveController.Destination == value)
+            //     return;
+
             TraceTarget = null;
             SetDestination(value);
         }

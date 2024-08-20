@@ -42,8 +42,6 @@ public class PlayerController : Character
         if (result.resultMessage != SearchResultMessage.OutOfRange)
             return;
 
-        UnityHelper.Log_H("ReserveSkill");
-
         entity.SkillSystem.ReserveSkill(skill);
 
         if (result.selectedTarget)
