@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using OPS.Obfuscator.Editor.Project.PostAssemblyBuild.Renaming.Charset;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -241,7 +242,7 @@ public static class UnityHelper
     {
         string versionCode = "0.0";
 
-        for (int i = 0; i < values.Length; i++) 
+        for (int i = 0; i < values.Length; i++)
         {
             if (i == 0)
             {
@@ -268,6 +269,14 @@ public static class UnityHelper
     {
         targetPos = targetPos - originPos;
         return targetPos.normalized;
+    }
+    #endregion
+    #region  Animation
+    public static AniController Initialize(this Animator animator)
+    {
+        AniController ac = animator.GetOrAddComponent<AniController>();
+        ac.Initialize(animator);
+        return ac;
     }
     #endregion
 }

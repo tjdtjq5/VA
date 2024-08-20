@@ -18,7 +18,7 @@ public class EntitySkillState : State<Entity>
 
     public override void Exit()
     {
-        Entity.Animator?.Animator?.SetBool(AnimatorParameterHash, false);
+        Entity.Animator?.AniController?.SetBool(AnimatorParameterHash, false);
 
         RunningSkill = null;
 
@@ -40,15 +40,13 @@ public class EntitySkillState : State<Entity>
         UnityHelper.Assert_H(RunningSkill != null,
             $"CastingSkillState({message})::OnReceiveMessage - �߸��� data�� ���޵Ǿ����ϴ�.");
 
-        // Skill�� �ڽ��� ����� �������� ã�� ���¶��(=TargetSearcher.SelectTarget), �� ������ �ٶ�
         if (RunningSkill.IsTargetSelectSuccessful)
         {
             var selectionResult = RunningSkill.TargetSelectionResult;
             if (selectionResult.selectedTarget != Entity.gameObject)
                 Entity.Movement.MoveController.LookAtImmediate(selectionResult.selectedPosition);
         }
-
-        Entity.Animator?.Animator?.SetBool(AnimatorParameterHash, true);
+        Entity.Animator?.AniController?.SetBool(AnimatorParameterHash, true);
 
         return true;
     }

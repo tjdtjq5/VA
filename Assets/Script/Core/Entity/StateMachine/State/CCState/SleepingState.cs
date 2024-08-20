@@ -6,6 +6,6 @@ public class SleepingState : EntityCCState
 {
     private static readonly int kAnimationHash = Animator.StringToHash("isSleeping");
 
-    public override string Description => "¼ö¸é";
+    public override string Description => "Description";
     protected override int AnimationHash => kAnimationHash;
 }

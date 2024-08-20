@@ -18,6 +18,7 @@ public class EnemyController : Character
     Vector3 spawnPos;
     float attackTime = 1f;
     float attackTimer = 0;
+    float traceTargetRadius = 7f;
 
     protected override void Start()
     {
@@ -49,12 +50,16 @@ public class EnemyController : Character
             return;
 
         entity.SkillSystem.ReserveSkill(skill);
+        Vector3 targetPos = result.selectedTarget ? result.selectedTarget.transform.position : result.selectedPosition;
 
-
-        if (result.selectedTarget)
-            entity.Movement.TraceTarget = result.selectedTarget.transform;
+        if (Vector3.SqrMagnitude(targetPos - this.transform.position) > Mathf.Sqrt(traceTargetRadius))
+        {
+            entity.Movement.Destination = spawnPos;
+        }
         else
-            entity.Movement.Destination = result.selectedPosition;
+        {
+            entity.Movement.Destination = targetPos;
+        }
     }
     public override void Stop()
     {

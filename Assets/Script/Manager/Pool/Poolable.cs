@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum PoolObjectType
@@ -19,11 +20,10 @@ public class Poolable : MonoBehaviour
     [SerializeField, ShowWhen("poolObjectType", PoolObjectType.Time)]
     float time;
 
-    // [SerializeField, ShowWhen("poolObjectType", PoolObjectType.Particle)]
     ParticleSystem particle;
 
     Animator animator;
-    BaseLayerBehaviour _stateMachine;
+    AniController aniController;
     [SerializeField, ShowWhen("poolObjectType", PoolObjectType.Animator)]
     string endAniName;
 
@@ -43,9 +43,6 @@ public class Poolable : MonoBehaviour
             case PoolObjectType.Particle:
                 ParticleDestory();
                 break;
-            case PoolObjectType.Animator:
-                AnimatorDestroy();
-                break;
         }
     }
 
@@ -57,8 +54,10 @@ public class Poolable : MonoBehaviour
                 particle = GetComponent<ParticleSystem>();
                 break;
             case PoolObjectType.Animator:
-                animator = GetComponent<Animator>();
-                _stateMachine = animator.GetBehaviour<BaseLayerBehaviour>();
+                animator = this.GetOrAddComponent<Animator>();
+                aniController = animator.Initialize();
+                aniController.OnAnimationComplete -= OnStateEnd;
+                aniController.OnAnimationComplete += OnStateEnd;
                 break;
             case PoolObjectType.Time:
                 destoryTime = 0;
@@ -82,11 +81,7 @@ public class Poolable : MonoBehaviour
         destoryTimer = 0;
         isDestroy = true;
     }
-    void AnimatorDestroy()
-    {
-        _stateMachine.onStateExit -= OnStateEnd;
-        _stateMachine.onStateExit += OnStateEnd;
-    }
+
     public void OnStateEnd(string aniName)
     {
         if (aniName.Equals(endAniName))

@@ -9,7 +9,7 @@ public abstract class EntityCCState : State<Entity>
 
     public override void Enter()
     {
-        Entity.Animator?.Animator?.SetBool(AnimationHash, true);
+        Entity.Animator?.AniController?.SetBool(AnimationHash, true);
         Entity.Movement?.Stop();
         Entity.SkillSystem.CancelAll();
 
@@ -20,7 +20,7 @@ public abstract class EntityCCState : State<Entity>
 
     public override void Exit()
     {
-        Entity.Animator?.Animator?.SetBool(AnimationHash, false);
+        Entity.Animator?.AniController?.SetBool(AnimationHash, false);
 
         var playerController = Entity.GetComponent<PlayerController>();
         if (playerController)

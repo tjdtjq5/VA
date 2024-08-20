@@ -17,7 +17,7 @@ public class EntityDefaultState : State<Entity>
             return false;
 
         var tupleData = ((Skill skill, AnimatorParameter animatorParameter))data;
-        Entity.Animator?.Animator?.SetTrigger(tupleData.Item2.Hash);
+        Entity.Animator?.AniController?.SetTrigger(tupleData.Item2.Hash);
 
         return true;
     }
@@ -38,7 +38,7 @@ public class EntityDefaultState : State<Entity>
 
     //    if (isUseableSkill) 
     //    {
-    //        UnityHelper.Log_H($"½ºÅ³À» »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù");
+    //        UnityHelper.Log_H($"ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½");
     //    }
     //}
 }

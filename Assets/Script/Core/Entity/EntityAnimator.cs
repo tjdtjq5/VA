@@ -6,59 +6,52 @@ using UnityEngine;
 public class EntityAnimator : MonoBehaviour
 {
     [SerializeField] Animator _animator;
-    private BaseLayerBehaviour _stateMachine;
-    public Animator Animator { get; private set; }
+    public AniController AniController { get; private set; }
+    private Entity entity;
+    private MoveController moveController;
+    private EntityMovement entityMovement;
 
-    private Entity _entity;
-    private MoveController _moveController;
-    private EntityMovement _entityMovement;
-
-    private readonly static string deadAniName = "Dead";
-    private readonly static int kSpeedHash = Animator.StringToHash("speed");
-    private readonly static int kDeadHash = Animator.StringToHash("isDead");
-    private readonly static int kDashHash = Animator.StringToHash("isDash");
-    private readonly static int kIsStunningHash = Animator.StringToHash("isStunning");
-    private readonly static int kIsSleepingHash = Animator.StringToHash("isSleeping");
+    private readonly static int kSpeedHash = UnityEngine.Animator.StringToHash("speed");
+    private readonly static int kDeadHash = UnityEngine.Animator.StringToHash("isDead");
+    private readonly static int kDashHash = UnityEngine.Animator.StringToHash("isDash");
+    private readonly static int kIsStunningHash = UnityEngine.Animator.StringToHash("isStunning");
+    private readonly static int kIsSleepingHash = UnityEngine.Animator.StringToHash("isSleeping");
 
 
     public void Setup(Entity entity)
     {
-        UnityHelper.Log_H($"{_animator.gameObject.transform.parent.name}");
-        Animator = _animator;
-        _stateMachine = _animator.GetBehaviour<BaseLayerBehaviour>().Clone() as BaseLayerBehaviour;
+        AniController = _animator.Initialize();
 
-        _entity = entity;
+        this.entity = entity;
 
-        _entityMovement = _entity?.Movement;
-        _moveController = _entityMovement?.MoveController;
+        entityMovement = this.entity?.Movement;
+        moveController = entityMovement?.MoveController;
 
-        _stateMachine.onStateUpdate -= OnStateUpdate;
-        _stateMachine.onStateUpdate += OnStateUpdate;
-
-        _stateMachine.onStateExit -= OnStateEnd;
-        _stateMachine.onStateExit += OnStateEnd;
+        AniController.OnAnimationComplete = OnAniEnd;
+        AniController.OnAnimationComplete += OnAniEnd;
     }
-    public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    void FixedUpdate()
     {
-        Animator?.SetBool(kDeadHash, _entity.IsDead);
-        if (!_entity.IsDead)
+        if (AniController.anim)
         {
-            if (_entityMovement)
-                Animator?.SetBool(kDashHash, _entityMovement.IsDashing);
-
-            if (_moveController)
+            AniController.SetBool(kDeadHash, entity.IsDead);
+            if (!entity.IsDead)
             {
-                Animator?.SetFloat(kSpeedHash, _moveController.Weight);
-            }
+                if (entityMovement)
+                    AniController.SetBool(kDashHash, entityMovement.IsDashing);
 
-            animator.SetBool(kIsStunningHash, _entity.IsInState<StunningState>());
-            animator.SetBool(kIsSleepingHash, _entity.IsInState<SleepingState>());
+                if (moveController)
+                    AniController.SetFloat(kSpeedHash, moveController.Weight);
+
+                AniController.SetBool(kIsStunningHash, entity.IsInState<StunningState>());
+                AniController.SetBool(kIsSleepingHash, entity.IsInState<SleepingState>());
+            }
         }
     }
 
-    public void OnStateEnd(string aniName)
+    public void OnAniEnd(string aniName)
     {
-        if (aniName.Equals(deadAniName))
-            _entity.Destroy();
+        if (aniName.Equals("Dead"))
+            entity.Destroy();
     }
 }

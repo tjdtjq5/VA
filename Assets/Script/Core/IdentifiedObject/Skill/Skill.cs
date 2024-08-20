@@ -111,7 +111,6 @@ public class Skill : IdentifiedObject
     }
     public int DataBonusLevel => Mathf.Max(level - currentData.level, 0);
     public bool IsMaxLevel => level == maxLevel;
-    // Skill�� �ִ� Level�� �ƴϰ�, Level Up ������ �����ϰ�, Level Up�� ���� Costs�� ����ϴٸ� True
     public bool IsCanLevelUp => !IsMaxLevel && LevelUpConditions.All(x => x.IsPass(Owner)) &&
         LevelUpCosts.All(x => x.HasEnoughCost(Owner));
 
@@ -157,7 +156,6 @@ public class Skill : IdentifiedObject
     public bool IsSearchingTarget => TargetSearcher.IsSearching;
     public TargetSelectionResult TargetSelectionResult => TargetSearcher.SelectionResult;
     public TargetSearchResult TargetSearchResult => TargetSearcher.SearchResult;
-    // Skill�� �ʿ�� �ϴ� ������ Type�� TargetSearcher�� �˻��� �������� Type�� ��ġ�ϴ°�?
     public bool HasValidTargetSelectionResult
     {
         get
@@ -170,7 +168,6 @@ public class Skill : IdentifiedObject
             };
         }
     }
-    // Skill�� ������ �˻����� �ƴϰ�, �˻��� �������� Skill�� �ʿ�� �ϴ� Type�̶�� True 
     public bool IsTargetSelectSuccessful => !IsSearchingTarget && HasValidTargetSelectionResult;
 
     public IReadOnlyList<Cost> Costs => currentData.costs;
@@ -245,10 +242,7 @@ public class Skill : IdentifiedObject
                 effect.Scale = currentChargePower;
         }
     }
-    // ������ ���� �ð�
     public float ChargeDuration => currentData.chargeDuration;
-    // IsUseCharge�� false�� 1�� ����,
-    // true��� Lerp�� ���ؼ� StartChargePower���� 1���� currentChargeDuration���� ������
     public float CurrentChargeDuration
     {
         get => currentChargeDuration;
@@ -260,18 +254,14 @@ public class Skill : IdentifiedObject
         }
     }
     public float NeedChargeTimeToUse => currentData.needChargeTimeToUse;
-    // ����� ���� �ʿ��� ChargeTime�� �����ߴ°�?
     public bool IsMinChargeCompleted => currentChargeDuration >= NeedChargeTimeToUse;
-    // �ִ� ������ �����ߴ°�?
     public bool IsMaxChargeCompleted => currentChargeDuration >= ChargeTime;
-    // ������ ���� �ð��� �����°�?
     public bool IsChargeDurationEnded => Mathf.Approximately(ChargeDuration, CurrentChargeDuration);
 
     public bool IsPassive => type == SkillType.Passive;
     public bool IsToggleType => useType == SkillUseType.Toggle;
     public bool IsActivated { get; private set; }
     public bool IsReady => StateMachine.IsInState<ReadyState>();
-    // �ߵ� Ƚ���� ���Ұ�, ApplyCycle��ŭ �ð��� �������� true�� return
     public bool IsApplicable => (CurrentApplyCount < ApplyCount || IsInfinitelyApplicable) &&
     (CurrentApplyCycle >= ApplyCycle);
     public bool IsUseable
@@ -280,10 +270,8 @@ public class Skill : IdentifiedObject
         {
             if (IsReady)
                 return HasEnoughCost && useConditions.All(x => x.IsPass(this));
-            // SkillExecutionType�� Input�� ��, ������� �Է��� ���� �� �ִ� ���¶�� true
             else if (StateMachine.IsInState<InActionState>())
                 return ExecutionType == SkillExecutionType.Input && IsApplicable && useConditions.All(x => x.IsPass(this));
-            // Skill�� Charge ���� �� �ּ� ��� �������� �޼��ϸ� true
             else if (StateMachine.IsInState<ChargingState>())
                 return IsMinChargeCompleted;
             else
@@ -296,7 +284,6 @@ public class Skill : IdentifiedObject
 
     private bool IsDurationEnded => !IsTimeless && Mathf.Approximately(Duration, CurrentDuration);
     private bool IsApplyCompleted => !IsInfinitelyApplicable && CurrentApplyCount == ApplyCount;
-    // Skill�� �ߵ��� ����Ǿ��°�?
     public bool IsFinished => currentData.runningFinishOption == SkillRunningFinishOption.FinishWhenDurationEnded ?
         IsDurationEnded : IsApplyCompleted;
 
@@ -412,8 +399,6 @@ public class Skill : IdentifiedObject
         currentData = newData;
 
         Effects = currentData.effectSelectors.Select(x => x.CreateEffect(this)).ToArray();
-        // Skill�� ���� Level�� data�� Level���� ũ��, ���� Level ���� Effect�� Bonus Level ��.
-        // ���� Skill�� 2 Level�̰�, data�� 1 level�̶��, effect���� 2-1�ؼ� 1�� Bonus Level�� �ް� ��.
         if (level > currentData.level)
             UpdateCurrentEffectLevels();
 
@@ -460,8 +445,6 @@ public class Skill : IdentifiedObject
             if (isShowIndicator)
                 HideIndicator();
 
-            // Skill�� �ʿ�� �ϴ� Type�� ������ �˻��� �����߰�,
-            // SearchTiming�� ������ �˻� ���Ķ��(TargetSelectionCompleted) Target �˻� ����
             if (IsTargetSelectSuccessful && targetSearchTimingOption == TargetSearchTimingOption.TargetSelectionCompleted)
                 SearchTargets();
 

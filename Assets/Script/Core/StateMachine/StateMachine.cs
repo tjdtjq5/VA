@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// EntityTypeÀº StateMachineÀ» ¼ÒÀ¯ÇÏ´Â EntityÀÇ Type
+// EntityTypeï¿½ï¿½ StateMachineï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Entityï¿½ï¿½ Type
 public class StateMachine<EntityType>
 {
-    // State°¡ ÀüÀÌµÇ¾úÀ½À» ¾Ë¸®´Â Event
+    // Stateï¿½ï¿½ ï¿½ï¿½ï¿½ÌµÇ¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ï¿½ï¿½ Event
     public delegate void StateChangedHandler(StateMachine<EntityType> stateMachine,
         State<EntityType> newState,
         State<EntityType> prevState,
@@ -15,39 +15,31 @@ public class StateMachine<EntityType>
 
     private class StateData
     {
-        // State°¡ ½ÇÇàµÇ´Â Layer
+        // Stateï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ Layer
         public int Layer { get; private set; }
-        // StateÀÇ µî·Ï ¼ø¼­
+        // Stateï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         public int Priority { get; private set; }
-        // Data°¡ °¡Áø State
         public State<EntityType> State { get; private set; }
-        // À§ÀÇ State¿Í ´Ù¸¥ State°¡ ÀÌ¾îÁø Transitions
         public List<StateTransition<EntityType>> Transitions { get; private set; } = new();
 
         public StateData(int layer, int priority, State<EntityType> state)
             => (Layer, Priority, State) = (layer, priority, state);
     }
 
-    // Layerº° °¡Áö°í ÀÖ´Â StateDatas(=Layer Dictionary), DictionaryÀÇ Key´Â ValueÀÎ StateData°¡ °¡Áø StateÀÇ Type
-    // Áï, StateÀÇ TypeÀ» ÅëÇØ ÇØ´ç State¸¦ °¡Áø StateData¸¦ Ã£¾Æ¿Ã ¼ö ÀÖÀ½
     private readonly Dictionary<int, Dictionary<Type, StateData>> stateDatasByLayer = new();
-    // Layerº° Any Tansitions(Á¶°Ç¸¸ ¸¸Á·ÇÏ¸é ¾ğÁ¦µçÁö ToState·Î ÀüÀÌµÇ´Â Transition)
     private readonly Dictionary<int, List<StateTransition<EntityType>>> anyTransitionsByLayer = new();
 
-    // Layerº° ÇöÀç ½ÇÇàÁßÀÎ StateData(=ÇöÀç ½ÇÇàÁßÀÎ State)
     private readonly Dictionary<int, StateData> currentStateDatasByLayer = new();
 
-    // StatMachine¿¡ Á¸ÀçÇÏ´Â Layerµé, Layer´Â Áßº¹µÇÁö ¾Ê¾Æ¾ßÇÏ°í, ÀÚµ¿ Á¤·ÄÀ» À§ÇØ¼­ SortedSetÀ» »ç¿ëÇÔ
     private readonly SortedSet<int> layers = new();
 
-    // StateMachineÀÇ ¼ÒÀ¯ÁÖ
     public EntityType Owner { get; private set; }
 
     public event StateChangedHandler onStateChanged;
 
     public void Setup(EntityType owner)
     {
-        UnityHelper.Assert_H(owner != null, $"StateMachine<{typeof(EntityType).Name}>::Setup - owner´Â nullÀÌ µÉ ¼ö ¾ø½À´Ï´Ù.");
+        UnityHelper.Assert_H(owner != null, $"StateMachine<{typeof(EntityType).Name}>::Setup - ownerï¿½ï¿½ nullï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 
         Owner = owner;
 
@@ -56,59 +48,44 @@ public class StateMachine<EntityType>
         SetupLayers();
     }
 
-    // Layerº°·Î Current State¸¦ ¼³Á¤ÇØÁÖ´Â ÇØÁÖ´Â ÇÔ¼ö
     public void SetupLayers()
     {
         foreach ((int layer, var statDatasByType) in stateDatasByLayer)
         {
-            // State¸¦ ½ÇÇà½ÃÅ³ Layer¸¦ ¸¸µé¾îÁÜ
             currentStateDatasByLayer[layer] = null;
 
-            // ¿ì¼± ¼øÀ§°¡ °¡Àå ³ôÀº StateData¸¦ Ã£¾Æ¿È
             var firstStateData = statDatasByType.Values.First(x => x.Priority == 0);
-            // Ã£¾Æ¿Â StateDataÀÇ State¸¦ ÇöÀç LayerÀÇ Current State·Î ¼³Á¤ÇØÁÜ
             ChangeState(firstStateData);
         }
     }
 
-    // ÇöÀç ½ÇÇàÁßÀÎ CurrentStateData¸¦ º¯°æÇÏ´Â ÇÔ¼ö
     private void ChangeState(StateData newStateData)
     {
-        // Layer¿¡ ¸Â´Â ÇöÀç ½ÇÇàÁßÀÎ CurrentStateData¸¦ °¡Á®¿È
         var prevState = currentStateDatasByLayer[newStateData.Layer];
 
         prevState?.State.Exit();
-        // ÇöÀç ½ÇÇàÁßÀÎ CurrentStateData¸¦ ÀÎÀÚ·Î ¹ŞÀº newStateData·Î ±³Ã¼ÇØÁÜ
         currentStateDatasByLayer[newStateData.Layer] = newStateData;
         newStateData.State.Enter();
 
-        // State°¡ ÀüÀÌµÇ¾úÀ½À» ¾Ë¸²
         onStateChanged?.Invoke(this, newStateData.State, prevState.State, newStateData.Layer);
     }
 
-    // newStateÀÇ TypeÀ» ÀÌ¿ëÇØ StateData¸¦ Ã£¾Æ¿Í¼­ ÇöÀç ½ÇÇàÁßÀÎ CurrentStateData¸¦ º¯°æÇÏ´Â ÇÔ¼ö
     private void ChangeState(State<EntityType> newState, int layer)
     {
-        // Layer¿¡ ÀúÀåµÈ StateDatasÁß newState¸¦ °¡Áø StateData¸¦ Ã£¾Æ¿È
         var newStateData = stateDatasByLayer[layer][newState.GetType()];
         ChangeState(newStateData);
     }
 
-    // TransitionÀÇ Á¶°ÇÀ» È®ÀÎÇÏ¿© ÀüÀÌ¸¦ ½ÃµµÇÏ´Â ÇÔ¼ö
     private bool TryTransition(IReadOnlyList<StateTransition<EntityType>> transtions, int layer)
     {
         foreach (var transition in transtions)
         {
-            // Command°¡ Á¸ÀçÇÑ´Ù¸é, Command¸¦ ¹Ş¾ÒÀ» ¶§¸¸ ÀüÀÌ ½Ãµµ¸¦ ÇØ¾ßÇÔÀ¸·Î ³Ñ¾î°¨
-            // Command°¡ Á¸ÀçÇÏÁö ¾Ê¾Æµµ, ÀüÀÌ Á¶°ÇÀ» ¸¸Á·ÇÏÁö ¸øÇÏ¸é ³Ñ¾î°¨
             if (transition.TransitionCommand != StateTransition<EntityType>.kNullCommand || !transition.IsTransferable)
                 continue;
 
-            // CanTrainsitionToSelf(ÀÚ±â ÀÚ½ÅÀ¸·Î ÀüÀÌ °¡´É ¿É¼Ç)°¡ false°í ÀüÀÌÇØ¾ßÇÒ ToState°¡ CurrentState¿Í °°´Ù¸é ³Ñ¾î°¨
             if (!transition.CanTrainsitionToSelf && currentStateDatasByLayer[layer].State == transition.ToState)
                 continue;
 
-            // ¸ğµç Á¶°ÇÀ» ¸¸Á·ÇÑ´Ù¸é ToState·Î ÀüÀÌ
             ChangeState(transition.ToState, layer);
             return true;
         }
@@ -119,171 +96,139 @@ public class StateMachine<EntityType>
     {
         foreach (var layer in layers)
         {
-            // Layer¿¡¼­ ½ÇÇàÁßÀÎ ÇöÀç StateData¸¦ °¡Á®¿È
             var currentStateData = currentStateDatasByLayer[layer];
 
-            // Layer°¡ °¡Áø AnyTransitions¸¦ Ã£¾Æ¿È
             bool hasAnyTransitions = anyTransitionsByLayer.TryGetValue(layer, out var anyTransitions);
 
-            // AnyTansitionÀÌ Á¸ÀçÇÏ¸é´Ù¸é AnyTransitionÅëÇØ ToState ÀüÀÌ¸¦ ½ÃµµÇÏ°í,
-            // Á¶°ÇÀÌ ¸ÂÁö ¾Ê¾Æ ÀüÀÌÇÏÁö ¾Ê¾Ò´Ù¸é, ÇöÀç StateDataÀÇ TransitionÀ» ÀÌ¿ëÇØ ÀüÀÌ¸¦ ½ÃµµÇÔ
             if ((hasAnyTransitions && TryTransition(anyTransitions, layer)) ||
                 TryTransition(currentStateData.Transitions, layer))
                 continue;
 
-            // ÀüÀÌÇÏÁö ¸øÇß´Ù¸é ÇöÀç StateÀÇ Update¸¦ ½ÇÇàÇÔ
             currentStateData.State.Update();
         }
     }
 
-    // GenericÀ» ÅëÇØ StateMachine¿¡ State¸¦ Ãß°¡ÇÏ´Â ÇÔ¼ö
-    // T´Â State<EntityType> class¸¦ »ó¼Ó¹ŞÀº TypeÀÌ¿©¾ßÇÔ
     public void AddState<T>(int layer = 0) where T : State<EntityType>
     {
-        // Layer Ãß°¡, SetÀÌ¹Ç·Î ÀÌ¹Ì Layer°¡ Á¸ÀçÇÑ´Ù¸é Ãß°¡µÇÁö ¾ÊÀ½
         layers.Add(layer);
 
-        // TypeÀ» ÅëÇØ State¸¦ »ı¼º
         var newState = Activator.CreateInstance<T>();
         newState.Setup(this, Owner, layer);
 
-        // ¾ÆÁ÷ stateDatasByLayer¿¡ Ãß°¡µÇÁö ¾ÊÀº Layer¶ó¸é Layer¸¦ »ı¼ºÇØÁÜ
         if (!stateDatasByLayer.ContainsKey(layer))
         {
-            // LayerÀÇ StateData ¸ñ·ÏÀÎ Dictionary<Type, StateData> »ı¼º
             stateDatasByLayer[layer] = new();
-            // LayerÀÇ AnyTransitions ¸ñ·ÏÀÎ List<StateTransition<EntityType>> »ı¼º
             anyTransitionsByLayer[layer] = new();
         }
 
         UnityHelper.Assert_H(!stateDatasByLayer[layer].ContainsKey(typeof(T)),
-            $"StateMachine::AddState<{typeof(T).Name}> - ÀÌ¹Ì »óÅÂ°¡ Á¸ÀçÇÕ´Ï´Ù.");
+            $"StateMachine::AddState<{typeof(T).Name}> - ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
 
         var stateDatasByType = stateDatasByLayer[layer];
-        // StateData¸¦ ¸¸µé¾î¼­ Layer¿¡ Ãß°¡
         stateDatasByType[typeof(T)] = new StateData(layer, stateDatasByType.Count, newState);
     }
 
-    // TransitionÀ» »ı¼ºÇÏ´Â ÇÔ¼ö
-    // FromStateTypeÀº ÇöÀç StateÀÇ Type
-    // ToStateTypeÀº ÀüÀÌÇÒ StateÀÇ Type
-    // µÎ Tpye ¸ğµÎ State<EntityType> class¸¦ ÀÚ½ÄÀÌ¿©¾ßÇÔ
     public void MakeTransition<FromStateType, ToStateType>(int transitionCommand,
         Func<State<EntityType>, bool> transitionCondition, int layer = 0)
         where FromStateType : State<EntityType>
         where ToStateType : State<EntityType>
     {
         var stateDatas = stateDatasByLayer[layer];
-        // StateDatas¿¡¼­ FromStateTypeÀÇ State¸¦ °¡Áø StateData¸¦ Ã£¾Æ¿È
         var fromStateData = stateDatas[typeof(FromStateType)];
-        // StateDatas¿¡¼­ ToStateTypeÀÇ State¸¦ °¡Áø StateData¸¦ Ã£¾Æ¿È
         var toStateData = stateDatas[typeof(ToStateType)];
-         
-        // ÀÎÀÚ¿Í Ã£¾Æ¿Â Data¸¦ °¡Áö°í TransitionÀ» »ı¼º
-        // AnyTransitionÀÌ ¾Æ´Ñ ÀÏ¹İ TransitionÀº canTransitionToSelf ÀÎÀÚ°¡ ¹«Á¶°Ç true
+
         var newTransition = new StateTransition<EntityType>(fromStateData.State, toStateData.State,
             transitionCommand, transitionCondition, true);
-        // »ı¼ºÇÑ TransitionÀ» FromStateDataÀÇ TransitionÀ¸·Î Ãß°¡
         fromStateData.Transitions.Add(newTransition);
     }
 
-    // MakeTransition ÇÔ¼öÀÇ Enum Command ¹öÀü
-    // EnumÇüÀ¸·Î ¹ŞÀº Command¸¦ Int·Î º¯È¯ÇÏ¿© À§ÀÇ ÇÔ¼ö¸¦ È£ÃâÇÔ
     public void MakeTransition<FromStateType, ToStateType>(Enum transitionCommand,
         Func<State<EntityType>, bool> transitionCondition, int layer = 0)
         where FromStateType : State<EntityType>
         where ToStateType : State<EntityType>
         => MakeTransition<FromStateType, ToStateType>(Convert.ToInt32(transitionCommand), transitionCondition, layer);
-    
-    // MakeTransition ÇÔ¼öÀÇ Command ÀÎÀÚ°¡ ¾ø´Â ¹öÀü
-    // NullCommand¸¦ ³Ö¾î¼­ ÃÖ»ó´ÜÀÇ MakeTransition ÇÔ¼ö¸¦ È£ÃâÇÔ
+
     public void MakeTransition<FromStateType, ToStateType>(Func<State<EntityType>, bool> transitionCondition, int layer = 0)
         where FromStateType : State<EntityType>
         where ToStateType : State<EntityType>
         => MakeTransition<FromStateType, ToStateType>(StateTransition<EntityType>.kNullCommand, transitionCondition, layer);
 
-    // MakeTransition ÇÔ¼öÀÇ Condition ÀÎÀÚ°¡ ¾ø´Â ¹öÀü
-    // ConditionÀ¸·Î nullÀ» ³Ö¾î¼­ ÃÖ»ó´ÜÀÇ MakeTransition ÇÔ¼ö¸¦ È£ÃâÇÔ 
     public void MakeTransition<FromStateType, ToStateType>(int transitionCommand, int layer = 0)
         where FromStateType : State<EntityType>
         where ToStateType : State<EntityType>
         => MakeTransition<FromStateType, ToStateType>(transitionCommand, null, layer);
 
-    // À§ ÇÔ¼öÀÇ Enum ¹öÀü(Command ÀÎÀÚ°¡ EnumÇüÀÌ°í Condition ÀÎÀÚ°¡ ¾øÀ½)
-    // À§¿¡ Á¤ÀÇµÈ Enum¹öÀü MakeTransition ÇÔ¼ö¸¦ È£ÃâÇÔ
     public void MakeTransition<FromStateType, ToStateType>(Enum transitionCommand, int layer = 0)
         where FromStateType : State<EntityType>
         where ToStateType : State<EntityType>
         => MakeTransition<FromStateType, ToStateType>(transitionCommand, null, layer);
 
-    // AnyTransitionÀ» ¸¸µå´Â ÇÔ¼ö
-    // ToStateTypeÀº ÀüÀÌÇÒ StateÀÇ Type, State<EntityType> class¸¦ »ó¼ÓÇÑ TypeÀÌ¿©¾ßÇÔ
     public void MakeAnyTransition<ToStateType>(int transitionCommand,
         Func<State<EntityType>, bool> transitionCondition, int layer = 0, bool canTransitonToSelf = false)
         where ToStateType : State<EntityType>
     {
         var stateDatasByType = stateDatasByLayer[layer];
-        // StateDatas¿¡¼­ ToStateTypeÀÇ State¸¦ °¡Áø StateData¸¦ Ã£¾Æ¿È
+        // StateDatasï¿½ï¿½ï¿½ï¿½ ToStateTypeï¿½ï¿½ Stateï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ StateDataï¿½ï¿½ Ã£ï¿½Æ¿ï¿½
         var state = stateDatasByType[typeof(ToStateType)].State;
-        // Transition »ı¼º, ¾ğÁ¦µçÁö Á¶°Ç¸¸ ¸ÂÀ¸¸é ÀüÀÌÇÒ °ÍÀÌ¹Ç·Î FromState´Â Á¸ÀçÇÏÁö ¾ÊÀ½
+        // Transition ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ FromStateï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         var newTransition = new StateTransition<EntityType>(null, state, transitionCommand, transitionCondition, canTransitonToSelf);
-        // LayerÀÇ AnyTransitionÀ¸·Î Ãß°¡
+        // Layerï¿½ï¿½ AnyTransitionï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
         anyTransitionsByLayer[layer].Add(newTransition);
     }
 
-    // MakeAnyTransition ÇÔ¼öÀÇ Enum Command ¹öÀü
-    // EnumÇüÀ¸·Î ¹ŞÀº Command¸¦ Int·Î º¯È¯ÇÏ¿© À§ÀÇ ÇÔ¼ö¸¦ È£ÃâÇÔ
+    // MakeAnyTransition ï¿½Ô¼ï¿½ï¿½ï¿½ Enum Command ï¿½ï¿½ï¿½ï¿½
+    // Enumï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Commandï¿½ï¿½ Intï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½
     public void MakeAnyTransition<ToStateType>(Enum transitionCommand,
         Func<State<EntityType>, bool> transitionCondition, int layer = 0, bool canTransitonToSelf = false)
         where ToStateType : State<EntityType>
         => MakeAnyTransition<ToStateType>(Convert.ToInt32(transitionCommand), transitionCondition, layer, canTransitonToSelf);
 
-    // MakeAnyTransition ÇÔ¼öÀÇ Command ÀÎÀÚ°¡ ¾ø´Â ¹öÀü
-    // NullCommand¸¦ ³Ö¾î¼­ ÃÖ»ó´ÜÀÇ MakeTransition ÇÔ¼ö¸¦ È£ÃâÇÔ
+    // MakeAnyTransition ï¿½Ô¼ï¿½ï¿½ï¿½ Command ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    // NullCommandï¿½ï¿½ ï¿½Ö¾î¼­ ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ MakeTransition ï¿½Ô¼ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½
     public void MakeAnyTransition<ToStateType>(Func<State<EntityType>, bool> transitionCondition,
         int layer = 0, bool canTransitonToSelf = false)
         where ToStateType : State<EntityType>
         => MakeAnyTransition<ToStateType>(StateTransition<EntityType>.kNullCommand, transitionCondition, layer, canTransitonToSelf);
 
-    // MakeAnyTransiitonÀÇ Condition ÀÎÀÚ°¡ ¾ø´Â ¹öÀü
-    // ConditionÀ¸·Î nullÀ» ³Ö¾î¼­ ÃÖ»ó´ÜÀÇ MakeTransition ÇÔ¼ö¸¦ È£ÃâÇÔ 
+    // MakeAnyTransiitonï¿½ï¿½ Condition ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    // Conditionï¿½ï¿½ï¿½ï¿½ nullï¿½ï¿½ ï¿½Ö¾î¼­ ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ MakeTransition ï¿½Ô¼ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½ 
     public void MakeAnyTransition<ToStateType>(int transitionCommand, int layer = 0, bool canTransitonToSelf = false)
     where ToStateType : State<EntityType>
         => MakeAnyTransition<ToStateType>(transitionCommand, null, layer, canTransitonToSelf);
 
-    // À§ ÇÔ¼öÀÇ Enum ¹öÀü(Command ÀÎÀÚ°¡ EnumÇüÀÌ°í Condition ÀÎÀÚ°¡ ¾øÀ½)
-    // À§¿¡ Á¤ÀÇµÈ Enum¹öÀü MakeAnyTransition ÇÔ¼ö¸¦ È£ÃâÇÔ
+    // ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ Enum ï¿½ï¿½ï¿½ï¿½(Command ï¿½ï¿½ï¿½Ú°ï¿½ Enumï¿½ï¿½ï¿½Ì°ï¿½ Condition ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½)
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Çµï¿½ Enumï¿½ï¿½ï¿½ï¿½ MakeAnyTransition ï¿½Ô¼ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½
     public void MakeAnyTransition<ToStateType>(Enum transitionCommand, int layer = 0, bool canTransitonToSelf = false)
         where ToStateType : State<EntityType>
         => MakeAnyTransition<ToStateType>(transitionCommand, null, layer, canTransitonToSelf);
 
-    // Command¸¦ ¹Ş¾Æ¼­ TransitionÀ» ½ÇÇàÇÏ´Â ÇÔ¼ö
+    // Commandï¿½ï¿½ ï¿½Ş¾Æ¼ï¿½ Transitionï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     public bool ExecuteCommand(int transitionCommand, int layer)
     {
-        // AnyTransition¿¡¼­ Command°¡ ÀÏÄ¡ÇÏ°í, ÀüÀÌ Á¶°ÇÀ» ¸¸Á·ÇÏ´Â TransitonÀ» Ã£¾Æ¿È
+        // AnyTransitionï¿½ï¿½ï¿½ï¿½ Commandï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Transitonï¿½ï¿½ Ã£ï¿½Æ¿ï¿½
         var transition = anyTransitionsByLayer[layer].Find(x =>
         x.TransitionCommand == transitionCommand && x.IsTransferable);
 
-        // AnyTransition¿¡¼­ TranstionÀ» ¸ø Ã£¾Æ¿Ô´Ù¸é ÇöÀç ½ÇÇàÁßÀÎ CurrentStateDataÀÇ Transitions¿¡¼­
-        // Command°¡ ÀÏÄ¡ÇÏ°í, ÀüÀÌ Á¶°ÇÀ» ¸¸Á·ÇÏ´Â TransitionÀ» Ã£¾Æ¿È
+        // AnyTransitionï¿½ï¿½ï¿½ï¿½ Transtionï¿½ï¿½ ï¿½ï¿½ Ã£ï¿½Æ¿Ô´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ CurrentStateDataï¿½ï¿½ Transitionsï¿½ï¿½ï¿½ï¿½
+        // Commandï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Transitionï¿½ï¿½ Ã£ï¿½Æ¿ï¿½
         transition ??= currentStateDatasByLayer[layer].Transitions.Find(x =>
         x.TransitionCommand == transitionCommand && x.IsTransferable);
 
-        // ÀûÇÕÇÑ TranstionÀ» Ã£¾Æ¿ÀÁö ¸øÇß´Ù¸é ¸í·É ½ÇÇàÀº ½ÇÆĞ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Transtionï¿½ï¿½ Ã£ï¿½Æ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (transition == null)
             return false;
 
-        // ÀûÇÕÇÑ TransitonÀ» Ã£¾Æ¿Ô´Ù¸é ÇØ´ç TransitionÀÇ ToState·Î ÀüÀÌ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Transitonï¿½ï¿½ Ã£ï¿½Æ¿Ô´Ù¸ï¿½ ï¿½Ø´ï¿½ Transitionï¿½ï¿½ ToStateï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         ChangeState(transition.ToState, layer);
         return true;
     }
 
-    // ExecuteCommandÀÇ Enum Command ¹öÀü
+    // ExecuteCommandï¿½ï¿½ Enum Command ï¿½ï¿½ï¿½ï¿½
     public bool ExecuteCommand(Enum transitionCommand, int layer)
         => ExecuteCommand(Convert.ToInt32(transitionCommand), layer);
 
-    // ¸ğµç Layer¸¦ ´ë»óÀ¸·Î ExecuteCommand ÇÔ¼ö¸¦ ½ÇÇàÇÏ´Â ÇÔ¼ö
-    // ÇÏ³ªÀÇ Layer¶óµµ ÀüÀÌ¿¡ ¼º°øÇÏ¸é true¸¦ ¹İÈ¯ 
+    // ï¿½ï¿½ï¿½ Layerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ExecuteCommand ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
+    // ï¿½Ï³ï¿½ï¿½ï¿½ Layerï¿½ï¿½ ï¿½ï¿½ï¿½Ì¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ trueï¿½ï¿½ ï¿½ï¿½È¯ 
     public bool ExecuteCommand(int transitionCommand)
     {
         bool isSuccess = false;
@@ -297,20 +242,20 @@ public class StateMachine<EntityType>
         return isSuccess;
     }
 
-    // À§ ExecuteCommand ÇÔ¼öÀÇ Enum Command ¹öÀü
+    // ï¿½ï¿½ ExecuteCommand ï¿½Ô¼ï¿½ï¿½ï¿½ Enum Command ï¿½ï¿½ï¿½ï¿½
     public bool ExecuteCommand(Enum transitionCommand)
         => ExecuteCommand(Convert.ToInt32(transitionCommand));
 
-    // ÇöÀç ½ÇÇàÁßÀÎ CurrentStateData·Î Message¸¦ º¸³»´Â ÇÔ¼ö
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ CurrentStateDataï¿½ï¿½ Messageï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
     public bool SendMessage(int message, int layer, object extraData = null)
         => currentStateDatasByLayer[layer].State.OnReceiveMessage(message, extraData);
 
-    // SendMessage ÇÔ¼öÀÇ Enum Message ¹öÀü
+    // SendMessage ï¿½Ô¼ï¿½ï¿½ï¿½ Enum Message ï¿½ï¿½ï¿½ï¿½
     public bool SendMessage(Enum message, int layer, object extraData = null)
         => SendMessage(Convert.ToInt32(message), layer, extraData);
 
-    // ¸ğµç LayerÀÇ ÇöÀç ½ÇÇàÁßÀÎ CurrentStateData¸¦ ´ë»óÀ¸·Î SendMessage ÇÔ¼ö¸¦ ½ÇÇàÇÏ´Â ÇÔ¼ö
-    // ÇÏ³ªÀÇ CurrentStateData¶óµµ ÀûÀıÇÑ Message¸¦ ¼ö½ÅÇß´Ù¸é true¸¦ ¹İÈ¯
+    // ï¿½ï¿½ï¿½ Layerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ CurrentStateDataï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SendMessage ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
+    // ï¿½Ï³ï¿½ï¿½ï¿½ CurrentStateDataï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Messageï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´Ù¸ï¿½ trueï¿½ï¿½ ï¿½ï¿½È¯
     public bool SendMessage(int message, object extraData = null)
     {
         bool isSuccess = false;
@@ -322,12 +267,12 @@ public class StateMachine<EntityType>
         return isSuccess;
     }
 
-    // À§ SendMessage ÇÔ¼öÀÇ Enum Message ¹öÀü
+    // ï¿½ï¿½ SendMessage ï¿½Ô¼ï¿½ï¿½ï¿½ Enum Message ï¿½ï¿½ï¿½ï¿½
     public bool SendMessage(Enum message, object extraData = null)
         => SendMessage(Convert.ToInt32(message), extraData);
 
-    // ¸ğµç LayerÀÇ ÇöÀç ½ÇÇàÁßÀÎ CurrentState¸¦ È®ÀÎÇÏ¿©, ÇöÀç State°¡ T TypeÀÇ StateÀÎÁö È®ÀÎÇÏ´Â ÇÔ¼ö
-    // CurrentState°¡ T TypeÀÎ°Ô È®ÀÎµÇ¸é Áï½Ã true¸¦ ¹İÈ¯ÇÔ
+    // ï¿½ï¿½ï¿½ Layerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ CurrentStateï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï¿ï¿½, ï¿½ï¿½ï¿½ï¿½ Stateï¿½ï¿½ T Typeï¿½ï¿½ Stateï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
+    // CurrentStateï¿½ï¿½ T Typeï¿½Î°ï¿½ È®ï¿½ÎµÇ¸ï¿½ ï¿½ï¿½ï¿½ trueï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½
     public bool IsInState<T>() where T : State<EntityType>
     {
         foreach ((_, StateData data) in currentStateDatasByLayer)
@@ -338,20 +283,20 @@ public class StateMachine<EntityType>
         return false;
     }
 
-    // Æ¯Á¤ Layer¸¦ ´ë»óÀ¸·Î ½ÇÇàÁßÀÎ CurrentState°¡ T TypeÀÎÁö È®ÀÎÇÏ´Â ÇÔ¼ö
+    // Æ¯ï¿½ï¿½ Layerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ CurrentStateï¿½ï¿½ T Typeï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     public bool IsInState<T>(int layer) where T : State<EntityType>
         => currentStateDatasByLayer[layer].State.GetType() == typeof(T);
 
-    // LayerÀÇ ÇöÀç ½ÇÇàÁßÀÎ State¸¦ °¡Á®¿È
+    // Layerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Stateï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public State<EntityType> GetCurrentState(int layer = 0) => currentStateDatasByLayer[layer].State;
 
-    // LayerÀÇ ÇöÀç ½ÇÇàÁßÀÎ StateÀÇ TypeÀ» °¡Á®¿È
+    // Layerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Stateï¿½ï¿½ Typeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public Type GetCurrentStateType(int layer = 0) => GetCurrentState(layer).GetType();
 
-    // ÀÚ½Ä class¿¡¼­ Á¤ÀÇÇÒ State Ãß°¡ ÇÔ¼ö
-    // ÀÌ ÇÔ¼ö¿¡¼­ AddState ÇÔ¼ö¸¦ »ç¿ëÇØ State¸¦ Ãß°¡ÇØÁÖ¸éµÊ
+    // ï¿½Ú½ï¿½ classï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ State ï¿½ß°ï¿½ ï¿½Ô¼ï¿½
+    // ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ AddState ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Stateï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
     protected virtual void AddStates() { }
-    // ÀÚ½Ä class¿¡¼­ Á¤ÀÇÇÒ Transition »ı¼º ÇÔ¼ö
-    // ÀÌ ÇÔ¼ö¿¡¼­ MakeTransition ÇÔ¼ö¸¦ »ç¿ëÇØ TransitionÀ» ¸¸µé¾îÁÖ¸é µÊ
+    // ï¿½Ú½ï¿½ classï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Transition ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+    // ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ MakeTransition ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Transitionï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½ï¿½
     protected virtual void MakeTransitions() { }
 }
