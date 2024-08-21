@@ -6,7 +6,7 @@ public class InSkillActionState : EntitySkillState
 {
     public bool IsStateEnded { get; private set; }
 
-    public override void Update()
+    public override void FixedUpdate()
     {
         if (RunningSkill.InSkillActionFinishOption == InSkillActionFinishOption.FinishWhenAnimationEnded)
             IsStateEnded = !Entity.Animator.AniController.GetBool(AnimatorParameterHash);

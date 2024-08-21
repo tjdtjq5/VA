@@ -22,15 +22,17 @@ public class EnemySpawnActionTest : EnemySpawnAction
         enemySpawn.Clear();
     }
 
-    public override void Play()
+    public override void Play(PlayerController player)
     {
+        this.player = player;
         Clear();
 
         for (int i = 0; i < enemyPrefabs.Count; i++)
         {
-            Character enemy = enemySpawn.Spawn(enemyPrefabs[i]);
-
             Vector3 pos = new Vector3(UnityEngine.Random.Range(mapSizeMin.x, mapSizeMax.x), 0, UnityEngine.Random.Range(mapSizeMin.y, mapSizeMax.y));
+            Character enemy = enemySpawn.Spawn(enemyPrefabs[i], pos);
+            enemy.GetComponent<EnemyController>().Setup(player);
+
             enemy.transform.position = pos;
 
             enemy.onTakeDamage -= OnTakeDamage;

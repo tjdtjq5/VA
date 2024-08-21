@@ -40,8 +40,10 @@ public class EnemySpawnActionInGame : EnemySpawnAction
     float cellHeightHalf;
     bool isPlay = false;
 
-    public override void Play()
+    public override void Play(PlayerController player)
     {
+        this.player = player;
+
         Clear();
 
         mapWidth = mapSizeMax.x - mapSizeMin.x;
@@ -82,13 +84,14 @@ public class EnemySpawnActionInGame : EnemySpawnAction
     void EnemySpawn(int groupX, int groupY)
     {
         int random = UnityEngine.Random.Range(0, enemyPrefabs.Count);
-        Character enemy = enemySpawn[groupX, groupY].Spawn(enemyPrefabs[random]);
 
         Vector3 groupPosition = new Vector3(mapSizeMin.x + cellWidth * groupX + cellWidthHalf, 0, mapSizeMin.y + cellHeight * groupY + cellHeightHalf);
         float posX = UnityEngine.Random.Range(0, 100) % 2 == 0 ? UnityEngine.Random.Range(groupSpawnPosRangeMin, groupSpawnPosRangeMax) : UnityEngine.Random.Range(-groupSpawnPosRangeMax, -groupSpawnPosRangeMin);
         float posZ = UnityEngine.Random.Range(0, 100) % 2 == 0 ? UnityEngine.Random.Range(groupSpawnPosRangeMin, groupSpawnPosRangeMax) : UnityEngine.Random.Range(-groupSpawnPosRangeMax, -groupSpawnPosRangeMin);
         Vector3 pos = new Vector3(posX, 0, posZ) + groupPosition;
-        enemy.transform.position = pos;
+
+        Character enemy = enemySpawn[groupX, groupY].Spawn(enemyPrefabs[random], pos);
+        enemy.GetComponent<EnemyController>().Setup(player);
 
         enemy.onTakeDamage -= OnTakeDamage;
         enemy.onTakeDamage += OnTakeDamage;

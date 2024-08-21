@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// EntityType�� StateMachine�� �����ϴ� Entity�� Type
 public class StateMachine<EntityType>
 {
-    // State�� ���̵Ǿ����� �˸��� Event
     public delegate void StateChangedHandler(StateMachine<EntityType> stateMachine,
         State<EntityType> newState,
         State<EntityType> prevState,
@@ -15,9 +13,7 @@ public class StateMachine<EntityType>
 
     private class StateData
     {
-        // State�� ����Ǵ� Layer
         public int Layer { get; private set; }
-        // State�� ��� ����
         public int Priority { get; private set; }
         public State<EntityType> State { get; private set; }
         public List<StateTransition<EntityType>> Transitions { get; private set; } = new();
@@ -39,7 +35,7 @@ public class StateMachine<EntityType>
 
     public void Setup(EntityType owner)
     {
-        UnityHelper.Assert_H(owner != null, $"StateMachine<{typeof(EntityType).Name}>::Setup - owner�� null�� �� �� �����ϴ�.");
+        Debug.Assert(owner != null, $"StateMachine<{typeof(EntityType).Name}>::Setup - owner�� null�� �� �� �����ϴ�.");
 
         Owner = owner;
 
@@ -92,7 +88,7 @@ public class StateMachine<EntityType>
         return false;
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         foreach (var layer in layers)
         {
@@ -104,9 +100,10 @@ public class StateMachine<EntityType>
                 TryTransition(currentStateData.Transitions, layer))
                 continue;
 
-            currentStateData.State.Update();
+            currentStateData.State.FixedUpdate();
         }
     }
+
 
     public void AddState<T>(int layer = 0) where T : State<EntityType>
     {
@@ -121,7 +118,7 @@ public class StateMachine<EntityType>
             anyTransitionsByLayer[layer] = new();
         }
 
-        UnityHelper.Assert_H(!stateDatasByLayer[layer].ContainsKey(typeof(T)),
+        Debug.Assert(!stateDatasByLayer[layer].ContainsKey(typeof(T)),
             $"StateMachine::AddState<{typeof(T).Name}> - �̹� ���°� �����մϴ�.");
 
         var stateDatasByType = stateDatasByLayer[layer];
@@ -168,67 +165,47 @@ public class StateMachine<EntityType>
         where ToStateType : State<EntityType>
     {
         var stateDatasByType = stateDatasByLayer[layer];
-        // StateDatas���� ToStateType�� State�� ���� StateData�� ã�ƿ�
         var state = stateDatasByType[typeof(ToStateType)].State;
-        // Transition ����, �������� ���Ǹ� ������ ������ ���̹Ƿ� FromState�� �������� ����
         var newTransition = new StateTransition<EntityType>(null, state, transitionCommand, transitionCondition, canTransitonToSelf);
-        // Layer�� AnyTransition���� �߰�
         anyTransitionsByLayer[layer].Add(newTransition);
     }
 
-    // MakeAnyTransition �Լ��� Enum Command ����
-    // Enum������ ���� Command�� Int�� ��ȯ�Ͽ� ���� �Լ��� ȣ����
     public void MakeAnyTransition<ToStateType>(Enum transitionCommand,
         Func<State<EntityType>, bool> transitionCondition, int layer = 0, bool canTransitonToSelf = false)
         where ToStateType : State<EntityType>
         => MakeAnyTransition<ToStateType>(Convert.ToInt32(transitionCommand), transitionCondition, layer, canTransitonToSelf);
 
-    // MakeAnyTransition �Լ��� Command ���ڰ� ���� ����
-    // NullCommand�� �־ �ֻ���� MakeTransition �Լ��� ȣ����
     public void MakeAnyTransition<ToStateType>(Func<State<EntityType>, bool> transitionCondition,
         int layer = 0, bool canTransitonToSelf = false)
         where ToStateType : State<EntityType>
         => MakeAnyTransition<ToStateType>(StateTransition<EntityType>.kNullCommand, transitionCondition, layer, canTransitonToSelf);
 
-    // MakeAnyTransiiton�� Condition ���ڰ� ���� ����
-    // Condition���� null�� �־ �ֻ���� MakeTransition �Լ��� ȣ���� 
     public void MakeAnyTransition<ToStateType>(int transitionCommand, int layer = 0, bool canTransitonToSelf = false)
     where ToStateType : State<EntityType>
         => MakeAnyTransition<ToStateType>(transitionCommand, null, layer, canTransitonToSelf);
 
-    // �� �Լ��� Enum ����(Command ���ڰ� Enum���̰� Condition ���ڰ� ����)
-    // ���� ���ǵ� Enum���� MakeAnyTransition �Լ��� ȣ����
     public void MakeAnyTransition<ToStateType>(Enum transitionCommand, int layer = 0, bool canTransitonToSelf = false)
         where ToStateType : State<EntityType>
         => MakeAnyTransition<ToStateType>(transitionCommand, null, layer, canTransitonToSelf);
 
-    // Command�� �޾Ƽ� Transition�� �����ϴ� �Լ�
     public bool ExecuteCommand(int transitionCommand, int layer)
     {
-        // AnyTransition���� Command�� ��ġ�ϰ�, ���� ������ �����ϴ� Transiton�� ã�ƿ�
         var transition = anyTransitionsByLayer[layer].Find(x =>
         x.TransitionCommand == transitionCommand && x.IsTransferable);
 
-        // AnyTransition���� Transtion�� �� ã�ƿԴٸ� ���� �������� CurrentStateData�� Transitions����
-        // Command�� ��ġ�ϰ�, ���� ������ �����ϴ� Transition�� ã�ƿ�
         transition ??= currentStateDatasByLayer[layer].Transitions.Find(x =>
         x.TransitionCommand == transitionCommand && x.IsTransferable);
 
-        // ������ Transtion�� ã�ƿ��� ���ߴٸ� ���� ������ ����
         if (transition == null)
             return false;
 
-        // ������ Transiton�� ã�ƿԴٸ� �ش� Transition�� ToState�� ����
         ChangeState(transition.ToState, layer);
         return true;
     }
 
-    // ExecuteCommand�� Enum Command ����
     public bool ExecuteCommand(Enum transitionCommand, int layer)
         => ExecuteCommand(Convert.ToInt32(transitionCommand), layer);
 
-    // ��� Layer�� ������� ExecuteCommand �Լ��� �����ϴ� �Լ�
-    // �ϳ��� Layer�� ���̿� �����ϸ� true�� ��ȯ 
     public bool ExecuteCommand(int transitionCommand)
     {
         bool isSuccess = false;
@@ -242,20 +219,15 @@ public class StateMachine<EntityType>
         return isSuccess;
     }
 
-    // �� ExecuteCommand �Լ��� Enum Command ����
     public bool ExecuteCommand(Enum transitionCommand)
         => ExecuteCommand(Convert.ToInt32(transitionCommand));
 
-    // ���� �������� CurrentStateData�� Message�� ������ �Լ�
     public bool SendMessage(int message, int layer, object extraData = null)
         => currentStateDatasByLayer[layer].State.OnReceiveMessage(message, extraData);
 
-    // SendMessage �Լ��� Enum Message ����
     public bool SendMessage(Enum message, int layer, object extraData = null)
         => SendMessage(Convert.ToInt32(message), layer, extraData);
 
-    // ��� Layer�� ���� �������� CurrentStateData�� ������� SendMessage �Լ��� �����ϴ� �Լ�
-    // �ϳ��� CurrentStateData�� ������ Message�� �����ߴٸ� true�� ��ȯ
     public bool SendMessage(int message, object extraData = null)
     {
         bool isSuccess = false;
@@ -267,12 +239,9 @@ public class StateMachine<EntityType>
         return isSuccess;
     }
 
-    // �� SendMessage �Լ��� Enum Message ����
     public bool SendMessage(Enum message, object extraData = null)
         => SendMessage(Convert.ToInt32(message), extraData);
 
-    // ��� Layer�� ���� �������� CurrentState�� Ȯ���Ͽ�, ���� State�� T Type�� State���� Ȯ���ϴ� �Լ�
-    // CurrentState�� T Type�ΰ� Ȯ�εǸ� ��� true�� ��ȯ��
     public bool IsInState<T>() where T : State<EntityType>
     {
         foreach ((_, StateData data) in currentStateDatasByLayer)
@@ -283,20 +252,13 @@ public class StateMachine<EntityType>
         return false;
     }
 
-    // Ư�� Layer�� ������� �������� CurrentState�� T Type���� Ȯ���ϴ� �Լ�
     public bool IsInState<T>(int layer) where T : State<EntityType>
         => currentStateDatasByLayer[layer].State.GetType() == typeof(T);
 
-    // Layer�� ���� �������� State�� ������
     public State<EntityType> GetCurrentState(int layer = 0) => currentStateDatasByLayer[layer].State;
 
-    // Layer�� ���� �������� State�� Type�� ������
     public Type GetCurrentStateType(int layer = 0) => GetCurrentState(layer).GetType();
 
-    // �ڽ� class���� ������ State �߰� �Լ�
-    // �� �Լ����� AddState �Լ��� ����� State�� �߰����ָ��
     protected virtual void AddStates() { }
-    // �ڽ� class���� ������ Transition ���� �Լ�
-    // �� �Լ����� MakeTransition �Լ��� ����� Transition�� ������ָ� ��
     protected virtual void MakeTransitions() { }
 }

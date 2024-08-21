@@ -58,6 +58,6 @@ public class EntityStateMachine : MonoStateMachine<Entity>
         MakeTransition<DeadState, EntityDefaultState>(state => !Owner.IsDead);
     }
 
-    private bool IsSkillInState<T>(State<Entity> state) where T : State<Skill>
+    public bool IsSkillInState<T>(State<Entity> state) where T : State<Skill>
     => (state as EntitySkillState).RunningSkill.IsInState<T>();
 }

@@ -17,11 +17,11 @@ public class InGameManager : SceneBase
 
         SceneType = SceneType.InGame;
 
-        enemySpawnActionController = GetComponent<EnemySpawnActionController>();
-        enemySpawnActionController.Play();
-
         playerSpawnActionController = GetComponent<PlayerSpawnActionController>();
-        playerSpawnActionController.Play();
+        playerSpawnActionController.Play(Vector3.zero);
+
+        enemySpawnActionController = GetComponent<EnemySpawnActionController>();
+        enemySpawnActionController.Play(playerSpawnActionController.Player);
 
         CameraController cameraController = FindObjectOfType<CinemachineVirtualCamera>().GetOrAddComponent<CameraController>();
         cameraController.SetTarget(playerSpawnActionController.Player.transform);

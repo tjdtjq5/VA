@@ -16,10 +16,11 @@ public class EnemyController : Character
     private MonoStateMachine<Entity> stateMachine;
     public bool IsDead => entity.IsDead;
     Vector3 spawnPos;
-    float attackTime = 1f;
-    float attackTimer = 0;
     float traceTargetRadius = 7f;
     float traceTargetRadiusMul;
+    private SearchResultMessage reserveSearchMessage;
+    private Skill defaultSkill;
+    private PlayerController player;
 
     protected override void Start()
     {
@@ -31,17 +32,14 @@ public class EnemyController : Character
         moveController = entity.Movement.MoveController;
         stateMachine = entity.StateMachine;
 
-        skillSystem.onSkillStateChanged += (s, ss, newstate, prevstate, sssss) =>
-        {
-            if (ss.StateMachine.IsInState<ReadyState>())
-            {
-                UseSkill(ss);
-            }
-        };
-        skillSystem.onSkillTargetSelectionCompleted += ReserveSkill;
+        var ownSkills = skillSystem.OwnSkills;
+        defaultSkill = ownSkills[0];
 
-        if (skillSystem.DefaultSkills.Length > 0)
-            UseSkill(skillSystem.DefaultSkills[0]);
+        skillSystem.onSkillTargetSelectionCompleted += ReserveSkill;
+    }
+    public void Setup(PlayerController player)
+    {
+        this.player = player;
     }
     public override void Play()
     {
@@ -65,19 +63,32 @@ public class EnemyController : Character
         }
         else if (result.resultMessage == SearchResultMessage.Fail)
         {
-            entity.Movement.Destination = spawnPos;
+            if (reserveSearchMessage != result.resultMessage)
+                entity.Movement.Destination = spawnPos;
         }
+
+        reserveSearchMessage = result.resultMessage;
+    }
+    private void FixedUpdate()
+    {
+        if (defaultSkill == null || player == null)
+            return;
+
+        if (Vector3.SqrMagnitude(player.transform.position - this.transform.position) > traceTargetRadiusMul)
+            return;
+
+        if (defaultSkill.IsInState<ReadyState>() && defaultSkill.IsUseable)
+        {
+            defaultSkill.Owner.SkillSystem.CancelTargetSearching();
+            defaultSkill.Use();
+        }
+
     }
     public override void Stop()
     {
 
     }
     public override void Clear() { }
-
-    void UseSkill(Skill skill)
-    {
-        skillSystem.Use(skill);
-    }
 }
 public enum EnemyMoveType
 {

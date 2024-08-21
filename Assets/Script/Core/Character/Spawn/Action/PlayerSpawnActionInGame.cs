@@ -12,9 +12,9 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
     private PlayerController player;
     public override PlayerController Player => player;
 
-    public override void Play()
+    public override void Play(Vector3 pos)
     {
-        PlayerSpawn();
+        PlayerSpawn(pos);
         Player.Play();
     }
 
@@ -28,9 +28,9 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
         playerSpawn.Clear();
     }
 
-    PlayerController PlayerSpawn()
+    PlayerController PlayerSpawn(Vector3 pos)
     {
-        Character playerCharacter = playerSpawn.Spawn(playerPrefab);
+        Character playerCharacter = playerSpawn.Spawn(playerPrefab, pos);
         player = playerCharacter.GetComponent<PlayerController>();
         return player;
     }

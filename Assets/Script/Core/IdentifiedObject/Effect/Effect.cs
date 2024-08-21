@@ -119,39 +119,24 @@ public class Effect : IdentifiedObject
 
             if (currentStack != prevStack)
             {
-                // Action�� ���� Stack ���� �ٲ���ٰ� �˷��༭, Stack�� ���� ��ġ�� Update �� �� �ְ���
                 Action?.OnEffectStackChanged(this, User, Target, level, currentStack, Scale);
 
-                // �ٲ� Stack�� ���� ������ ����� Stack ȿ���� Release�ϰ�, ���� Stack�� �´� ���ο� Stack ȿ������ Apply��
                 TryApplyStackActions();
 
-                // Stack ���� �ٲ������ Event�� ���� �ܺο� �˷���
                 onStackChanged?.Invoke(this, currentStack, prevStack);
             }
         }
     }
 
     public int ApplyCount => currentData.applyCount;
-    // ApplyCount�� 0�̸� ���� ����(= �� �����Ӹ��� ����)
     public bool IsInfinitelyApplicable => ApplyCount == kInfinity;
     public int CurrentApplyCount
     {
         get => currentApplyCount;
         set => currentApplyCount = IsInfinitelyApplicable ? value : Mathf.Clamp(value, 0, ApplyCount);
     }
-    // ApplyCycle�� 0�̰� ApplyCount�� 1���� ũ�� Effect�� ���ӽð��� Duration�� ������ ApplyCycle�� �����
-    // ������� Duration�� 10�ʰ� ApplyCount�� 11���̸�, ó�� Effect�� ����� �� Apply�� 1�� �̷�����
-    // ���� ApplyCount = 10, Duration / ApplyCount = 10 / 10 = 1, ApplyCycle = 1��
     public float ApplyCycle => Mathf.Approximately(currentData.applyCycle, 0f) && ApplyCount > 1 ?
         (Duration / (ApplyCount - 1)) : currentData.applyCycle;
-    // ApplyCycle�� Ȯ���ϱ� ���� �ð� ����.
-    // CurrentDuration�� �̿��ؼ� Ȯ������ �ʰ� CurrentApplyCycle�� ���� ���� ������
-    // CurrentDuration�� Effecf�� Stack�� ���̸� 0���� �ʱ�ȭ�Ǳ� ����.
-    // ���� ���, ApplyCycle�� 1���̰� CurrentDuration�� 0.9999���� ��,
-    // ������ ���� Frame�� CurrentDuration�� 1�ʰ� �Ǹ鼭 Effect�� Apply�Ǿ��ϴµ�,
-    // Stack�� �׿��� CurrentDuration�� 0�ʷ� �ʱ�ȭ�ǹ�����, 1�ʸ� �ٽ� ��ٷ��� Apply�� �Ǵ� ��Ȳ�� ��.
-    // �׷��� ���� Apply ���� Ȯ���ϴ� CurrentApplyCycle�� ������ CurrentDuration�� �߰��� 0�̵ǵ�
-    // CurrentApplyCycle�� ��� �ð��� ���̰� ������ ���� Apply�� �� ����.
     public float CurrentApplyCycle
     {
         get => currentApplyCycle;
@@ -165,24 +150,16 @@ public class Effect : IdentifiedObject
     public object Owner { get; private set; }
     public Entity User { get; private set; }
     public Entity Target { get; private set; }
-    // Scale ������ ���� Effect�� ������ ������ �� ����
-    // Chargeó�� Casting �ð��� ���� ������ �޶����� Skill�� Ȱ���� �� ����
     public float Scale { get; set; }
     public override string Description => BuildDescription(base.Description, 0);
 
     private bool IsApplyAllWhenDurationExpires => currentData.isApplyAllWhenDurationExpires;
     private bool IsDurationEnded => !IsTimeless && Mathf.Approximately(Duration, CurrentDuration);
     private bool IsApplyCompleted => !IsInfinitelyApplicable && CurrentApplyCount == ApplyCount;
-    // Effect�� �Ϸ� ����
-    // ���� �ð��� �����ų�, RunningFinishOption�� ApplyCompleted�� ��, Apply Ƚ���� �ִ� Ƚ����� True
     public bool IsFinished => IsDurationEnded ||
         (currentData.runningFinishOption == EffectRunningFinishOption.FinishWhenApplyCompleted && IsApplyCompleted);
-    // Effect�� Release �Լ��� ����Ǹ�(= Effect�� ����Ǹ�) True�� ��
-    // IsFinished Property�� Effect�� ������ �Ϸ�Ǿ�߸� True�ιݸ�, IsReleased�� ���𰡿� ���� Effect�� ���ŵǾ True��.
-    // �Ϸ� ���ο� ������� ������ Effect�� ����Ǿ����� Ȯ���ϱ� ���� Property
     public bool IsReleased { get; private set; }
 
-    // Effect�� ������ �� �ִ°�?
     public bool IsApplicable => Action != null &&
         (CurrentApplyCount < ApplyCount || ApplyCount == kInfinity) &&
         CurrentApplyCycle >= ApplyCycle;
@@ -203,7 +180,6 @@ public class Effect : IdentifiedObject
 
     public void SetTarget(Entity target) => Target = target;
 
-    // ���� ����� ��� StackAction���� Release��
     private void ReleaseStackActionsAll()
     {
         aplliedStackActions.ForEach(x => x.Release(this, level, User, Target, Scale));
@@ -221,39 +197,23 @@ public class Effect : IdentifiedObject
         }
     }
 
-    // ���� ����� StackAction�� �� �� �̻� ���ǿ� ���� �ʴ� StackAction���� Release�ϰ�,
-    // ���Ӱ� ���ǿ� �´� StackAction���� �����ϴ� �Լ�
     private void TryApplyStackActions()
     {
-        // ����� StackAction�� �� ���� Stack���� �� ū Stack�� �䱸�ϴ� StackAction���� Release��.
-        // � ������ ���� Stack ���� �������� ���� ���� ó��.
         ReleaseStackActions(x => x.Stack > currentStack);
 
-        // ���� ������ StackAction ���
-        // StackAction�� �߿��� �ʿ��� Stack ���� �����ǰ�, ���� ���������� �ʰ�, ���� ������ �����ϴ� StackAction���� ã�ƿ�
         var stackActions = StackActions.Where(x => x.Stack <= currentStack && !aplliedStackActions.Contains(x) && x.IsApplicable);
 
-        // ���� ����� StackAction��� ã�ƿ� StackAction�� �� ���� ���� Stack ���� ã�ƿ�
         int aplliedStackHighestStack = aplliedStackActions.Any() ? aplliedStackActions.Max(x => x.Stack) : 0;
         int stackActionsHighestStack = stackActions.Any() ? stackActions.Max(x => x.Stack) : 0;
         var highestStack = Mathf.Max(aplliedStackHighestStack, stackActionsHighestStack);
         if (highestStack > 0)
         {
-            // ã�ƿ� StackAction�� �� Stack�� highestStack ���� ����, IsReleaseOnNextApply�� true�� StackAction���� ã�ƿ�
             var except = stackActions.Where(x => x.Stack < highestStack && x.IsReleaseOnNextApply);
-            // �ٷ� ������ ã�ƿ� stackAction���� stackActions ��Ͽ��� ������
-            // => IsReleaseOnNextApply�� true�� StackAction�� �� ���� Stack�� ���� StackAction�� �����Ѵٸ�
-            //    Release�Ǿ��ϹǷ� ���ʿ� ���� ��� ��Ͽ��� ������
             stackActions = stackActions.Except(except);
         }
 
         if (stackActions.Any())
         {
-            // ����� StackAction�� �߿��� IsReleaseOnNextApply�� true�� StackAction���� Release��
-            // ��, �ʿ� Stack�� ���� Stack�� ������ StackAction���� ����.
-            // �ֳ��ϸ� ���� ���, Stack ���� 5 �ʿ��� StackAction�� ���� ���̰�, ���� Effect Stack�� 6�̿��ٰ� 5�� �������� ���
-            // ���� ���� StackAction�� �ʿ� Stack �� 5�� ���� Effect Stack �� 5�� ��ġ�ϹǷ� ���� ���θ� �Ǵµ�,
-            // x.Stack < currentStack��� ������ ������, ���� Effect Stack ���� ��ġ�ϴ� StackAction����� Release ������� ���Ե�
             ReleaseStackActions(x => x.Stack < currentStack && x.IsReleaseOnNextApply);
 
             foreach (var stackAction in stackActions)
@@ -277,10 +237,10 @@ public class Effect : IdentifiedObject
         onStarted?.Invoke(this);
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
-        CurrentDuration += Managers.Time.DeltaTime;
-        currentApplyCycle += Managers.Time.DeltaTime;
+        CurrentDuration += Managers.Time.FixedDeltaTime;
+        currentApplyCycle += Managers.Time.FixedDeltaTime;
 
         if (IsApplicable)
             Apply();

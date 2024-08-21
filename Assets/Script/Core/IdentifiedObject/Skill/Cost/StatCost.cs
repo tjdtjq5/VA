@@ -19,7 +19,7 @@ public class StatCost : Cost
         => entity.Stats.IncreaseDefaultValue(stat, -value.GetValue(entity.Stats));
 
     public override void UseDeltaCost(Entity entity)
-        => entity.Stats.IncreaseDefaultValue(stat, -value.GetValue(entity.Stats) * Time.deltaTime);
+        => entity.Stats.IncreaseDefaultValue(stat, -value.GetValue(entity.Stats) * Managers.Time.FixedDeltaTime);
 
     public override BBNumber GetValue(Entity entity) => value.GetValue(entity.Stats);
 

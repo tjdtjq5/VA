@@ -360,6 +360,7 @@ public class Skill : IdentifiedObject
             StateMachine = new InstantSkillStateMachine();
 
         StateMachine.Setup(this);
+
         StateMachine.onStateChanged += (_, newState, prevState, layer)
             => onStateChanged?.Invoke(this, newState, prevState, layer);
     }
@@ -374,7 +375,7 @@ public class Skill : IdentifiedObject
         CurrentApplyCount = 0;
     }
 
-    public void Update() => StateMachine.Update();
+    public void FixedUpdate() { StateMachine.FixedUpdate(); }
 
     private void UpdateCustomActions()
     {

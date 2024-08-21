@@ -21,7 +21,7 @@ public class TimeManager
 
     private void SetServerTime()
     {
-        Managers.Web.SendGetRequest<string>("Time/CurrentDate", (res) => 
+        Managers.Web.SendGetRequest<string>("Time/CurrentDate", (res) =>
         {
             DateTime serverTime = res.ToDateTime(true);
             Current = serverTime;
@@ -47,23 +47,7 @@ public class TimeManager
         }
     }
 
-    public void TimeMultiple(float value)
-    {
-        Magnification = value;
-    }
-
-    public float FixedDeltaTime
-    {
-        get 
-        {
-            return Time.fixedDeltaTime * Magnification;
-        }
-    }
-    public float DeltaTime
-    {
-        get
-        {
-            return Time.deltaTime * Magnification;
-        }
-    }
+    public void TimeMultiple(float value) => Magnification = value;
+    public float FixedDeltaTime => Time.fixedDeltaTime * Magnification;
+    public float DeltaTime => Time.deltaTime * Magnification;
 }

@@ -31,9 +31,7 @@ public class EntityMovement : MonoBehaviour
             traceTarget = value;
             if (traceTarget)
             {
-                if (TraceUpdateCoroutine == null)
-                    TraceUpdateCoroutine = TraceUpdate();
-
+                TraceUpdateCoroutine = TraceUpdate();
                 StartCoroutine(TraceUpdateCoroutine);
             }
         }
@@ -44,9 +42,6 @@ public class EntityMovement : MonoBehaviour
         get => moveController.Destination;
         set
         {
-            // if (moveController.Destination == value)
-            //     return;
-
             TraceTarget = null;
             SetDestination(value);
         }
@@ -66,6 +61,21 @@ public class EntityMovement : MonoBehaviour
             moveController.Speed = entityMoveSpeedStat.Value.Float();
             entityMoveSpeedStat.onValueChanged += OnMoveSpeedChanged;
         }
+
+        moveController.onStop -= OnStop;
+        moveController.onStop += OnStop;
+
+        moveController.onMove -= OnMove;
+        moveController.onMove += OnMove;
+    }
+
+    void OnStop()
+    {
+        Owner.Animator.AniController.SetBool(Owner.Animator.kRunHash, false);
+    }
+    void OnMove()
+    {
+        Owner.Animator.AniController.SetBool(Owner.Animator.kRunHash, true);
     }
 
     private void OnDisable() => Stop();
@@ -115,6 +125,7 @@ public class EntityMovement : MonoBehaviour
         Stop();
 
         IsDashing = true;
+        Owner.Animator.AniController.SetBool(Owner.Animator.kDashHash, true);
 
         if (_dashUpdateCoroutine != null)
             StopCoroutine(_dashUpdateCoroutine);
@@ -126,9 +137,7 @@ public class EntityMovement : MonoBehaviour
     IEnumerator _dashUpdateCoroutine;
     private IEnumerator DashUpdate(float distance, Vector3 direction)
     {
-        // ������� ���� �ð�
         float currentDashTime = 0f;
-        // ���� Frame�� �̵��� �Ÿ�
         float prevDashDistance = 0f;
 
         while (true)
@@ -148,6 +157,8 @@ public class EntityMovement : MonoBehaviour
             else
                 yield return null;
         }
+
+        Owner.Animator.AniController.SetBool(Owner.Animator.kDashHash, false);
 
         IsDashing = false;
     }

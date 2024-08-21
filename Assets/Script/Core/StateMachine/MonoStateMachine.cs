@@ -18,10 +18,10 @@ public abstract class MonoStateMachine<EntityType> : MonoBehaviour
 
     public EntityType Owner => stateMachine.Owner;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (Owner != null)
-            stateMachine.Update();
+            stateMachine.FixedUpdate();
     }
 
     public void Setup(EntityType owner)

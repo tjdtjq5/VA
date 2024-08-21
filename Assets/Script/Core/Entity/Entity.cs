@@ -39,7 +39,8 @@ public class Entity : MonoBehaviour
     }
 
     public Stats Stats { get; private set; }
-    public bool IsDead => Stats.HPStat != null && BBNumber.Approximately(Stats.HPStat.DefaultValue, 0f);
+    bool isDead = false;
+    public bool IsDead => isDead;
 
     public EntityMovement Movement { get; private set; }
     public MonoStateMachine<Entity> StateMachine { get; private set; }
@@ -73,6 +74,8 @@ public class Entity : MonoBehaviour
         ObjectAnglePositionSetting oaps = UnityHelper.FindChild<ObjectAnglePositionSetting>(this.gameObject, true);
         if (Collider && oaps)
             oaps.PositionSetting(Collider.size.z);
+
+        Allive(false);
     }
 
     public void TakeDamage(Entity instigator, object causer, BBNumber damage)
@@ -89,12 +92,32 @@ public class Entity : MonoBehaviour
             OnDead();
     }
 
+    public void Allive(bool isStatSetup)
+    {
+        if (isStatSetup)
+        {
+            Stats = UnityHelper.FindChild<Stats>(this.gameObject, true);
+            Stats.Setup(this);
+        }
+
+        if (Movement)
+            Movement.enabled = true;
+
+        Animator.AniController.SetBool(Animator.kDeadHash, false);
+
+        isDead = false;
+    }
+
     private void OnDead()
     {
         if (Movement)
             Movement.enabled = false;
 
+        Animator.AniController.SetBool(Animator.kDeadHash, true);
+
         onDead?.Invoke(this);
+
+        isDead = true;
     }
 
     private Transform GetTransformSocket(Transform root, string socketName)

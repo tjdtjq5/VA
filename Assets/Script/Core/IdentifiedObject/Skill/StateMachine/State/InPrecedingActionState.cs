@@ -16,7 +16,7 @@ public class InPrecedingActionState : SkillState
         Entity.StartPrecedingAction();
     }
 
-    public override void Update()
+    public override void FixedUpdate()
     {
         IsPrecedingActionEnded = Entity.RunPrecedingAction();
     }

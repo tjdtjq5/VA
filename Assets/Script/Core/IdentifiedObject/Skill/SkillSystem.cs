@@ -65,7 +65,7 @@ public class SkillSystem : MonoBehaviour
             Destroy(effect);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         UpdateSkills();
         UpdateRunningEffects();
@@ -142,8 +142,9 @@ public class SkillSystem : MonoBehaviour
 
     private void UpdateSkills()
     {
-        foreach (var skill in ownSkills)
-            skill.Update();
+        for (int i = 0; i < ownSkills.Count; i++)
+            ownSkills[i].FixedUpdate();
+
     }
 
     private void UpdateRunningEffects()
@@ -155,7 +156,7 @@ public class SkillSystem : MonoBehaviour
             if (effect.IsReleased)
                 continue;
 
-            effect.Update();
+            effect.FixedUpdate();
 
             if (effect.IsFinished)
                 RemoveEffect(effect);

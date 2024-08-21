@@ -39,6 +39,9 @@ public class PlayerController : Character
     }
     private void ReserveSkill(SkillSystem skillSystem, Skill skill, TargetSearcher targetSearcher, TargetSelectionResult result)
     {
+        if (!skill.IsInState<SearchingTargetState>())
+            return;
+
         if (result.resultMessage != SearchResultMessage.OutOfRange)
             return;
 

@@ -12,9 +12,9 @@ public class CastingState : SkillState
         TrySendCommandToOwner(Entity, EntityStateCommand.ToCastingSkillState, Entity.CastAnimationParameter);
     }
 
-    public override void Update()
+    public override void FixedUpdate()
     {
-        Entity.CurrentCastTime += Time.deltaTime;
+        Entity.CurrentCastTime += Managers.Time.FixedDeltaTime;
         Entity.RunCustomActions(SkillCustomActionType.Cast);
     }
 
