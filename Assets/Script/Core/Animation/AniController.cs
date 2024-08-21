@@ -7,29 +7,38 @@ public class AniController : MonoBehaviour
 {
     public Animator anim;
 
-    public Action<string> OnAnimationStart;
-    public Action<string> OnAnimationComplete;
+    Dictionary<string, Action<string>> OnAnimationCompleteDics = new();
 
     public void Initialize(Animator ani)
     {
         anim = ani;
+    }
 
-        for (int i = 0; i < anim.runtimeAnimatorController.animationClips.Length; i++)
+    public void SetEndFunc(string clipName, Action<string> callback)
+    {
+        if (OnAnimationCompleteDics.ContainsKey(clipName))
         {
-            AnimationClip clip = anim.runtimeAnimatorController.animationClips[i];
+            OnAnimationCompleteDics[clipName] -= callback;
+            OnAnimationCompleteDics[clipName] += callback;
+        }
+        else
+        {
+            OnAnimationCompleteDics.Add(clipName, callback);
 
-            AnimationEvent animationStartEvent = new AnimationEvent();
-            animationStartEvent.time = 0;
-            animationStartEvent.functionName = "AnimationStartHandler";
-            animationStartEvent.stringParameter = clip.name;
+            for (int i = 0; i < anim.runtimeAnimatorController.animationClips.Length; i++)
+            {
+                AnimationClip clip = anim.runtimeAnimatorController.animationClips[i];
 
-            AnimationEvent animationEndEvent = new AnimationEvent();
-            animationEndEvent.time = clip.length;
-            animationEndEvent.functionName = "AnimationCompleteHandler";
-            animationEndEvent.stringParameter = clip.name;
+                if (!clip.name.Equals(clipName))
+                    continue;
 
-            clip.AddEvent(animationStartEvent);
-            clip.AddEvent(animationEndEvent);
+                AnimationEvent animationEndEvent = new AnimationEvent();
+                animationEndEvent.time = clip.length;
+                animationEndEvent.functionName = "AnimationCompleteHandler";
+                animationEndEvent.stringParameter = clip.name;
+
+                clip.AddEvent(animationEndEvent);
+            }
         }
     }
 
@@ -49,13 +58,9 @@ public class AniController : MonoBehaviour
     {
         anim.SetFloat(hashCode, value);
     }
-    public void AnimationStartHandler(string name)
+    public void AnimationCompleteHandler(string clipName)
     {
-        OnAnimationStart?.Invoke(name);
-    }
-    public void AnimationCompleteHandler(string name)
-    {
-        OnAnimationComplete?.Invoke(name);
+        OnAnimationCompleteDics[clipName]?.Invoke(clipName);
     }
     public bool GetBool(int hashCode)
     {

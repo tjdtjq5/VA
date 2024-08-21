@@ -8,6 +8,7 @@ public class EntityAnimator : MonoBehaviour
     public AniController AniController { get; private set; }
     private Entity entity;
 
+    public readonly string deadClipName = "Dead";
     public readonly int kRunHash = UnityEngine.Animator.StringToHash("isRun");
     public readonly int kDeadHash = UnityEngine.Animator.StringToHash("isDead");
     public readonly int kDashHash = UnityEngine.Animator.StringToHash("isDash");
@@ -21,15 +22,12 @@ public class EntityAnimator : MonoBehaviour
 
         this.entity = entity;
 
-        AniController.OnAnimationComplete = OnAniEnd;
-        AniController.OnAnimationComplete += OnAniEnd;
-
-        entity.onDead += (entity) => AniController.SetBool(kDeadHash, entity.IsDead);
+        AniController.SetEndFunc(deadClipName, OnDead);
     }
 
-    public void OnAniEnd(string aniName)
+    public void OnDead(string aniName)
     {
-        if (aniName.Equals("Dead"))
+        if (aniName.Equals(deadClipName))
             entity.Destroy();
     }
 }

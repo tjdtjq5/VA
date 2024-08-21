@@ -56,8 +56,7 @@ public class Poolable : MonoBehaviour
             case PoolObjectType.Animator:
                 animator = this.GetOrAddComponent<Animator>();
                 aniController = animator.Initialize();
-                aniController.OnAnimationComplete -= OnStateEnd;
-                aniController.OnAnimationComplete += OnStateEnd;
+                aniController.SetEndFunc(endAniName, OnResourcesDestroy);
                 break;
             case PoolObjectType.Time:
                 destoryTime = 0;
@@ -82,7 +81,7 @@ public class Poolable : MonoBehaviour
         isDestroy = true;
     }
 
-    public void OnStateEnd(string aniName)
+    public void OnResourcesDestroy(string aniName)
     {
         if (aniName.Equals(endAniName))
             Managers.Resources.Destroy(this.gameObject);

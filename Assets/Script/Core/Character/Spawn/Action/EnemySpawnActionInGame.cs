@@ -91,7 +91,9 @@ public class EnemySpawnActionInGame : EnemySpawnAction
         Vector3 pos = new Vector3(posX, 0, posZ) + groupPosition;
 
         Character enemy = enemySpawn[groupX, groupY].Spawn(enemyPrefabs[random], pos);
-        enemy.GetComponent<EnemyController>().Setup(player);
+        EnemyController ec = enemy.GetComponent<EnemyController>();
+        ec.Allive();
+        ec.Setup(player);
 
         enemy.onTakeDamage -= OnTakeDamage;
         enemy.onTakeDamage += OnTakeDamage;

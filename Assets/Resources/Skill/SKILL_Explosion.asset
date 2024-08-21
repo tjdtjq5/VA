@@ -55,7 +55,7 @@ MonoBehaviour:
       scaleStat: {fileID: 0}
     targetSearcher:
       selectionAction:
-        rid: 4300027599516598274
+        rid: 4300027740820340736
       searchAction:
         rid: 4300027602707677195
     costs: []
@@ -128,17 +128,17 @@ MonoBehaviour:
     - rid: 4300027582026612771
       type: {class: CameraShakeAction, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 4300027599516598274
-      type: {class: SelectFarestEntity, ns: , asm: Assembly-CSharp}
+    - rid: 4300027602707677195
+      type: {class: SearchArea, ns: , asm: Assembly-CSharp}
       data:
         indicatorViewAction:
-          rid: 4300027599516598275
-        isUseScale: 1
+          rid: 4300027602707677196
+        isUseScale: 0
         range: 8
         angle: 360
-        isSelectSameCategory: 0
-        castRadius: 8
-    - rid: 4300027599516598275
+        isIncludeSelf: 0
+        isSearchSameCategory: 0
+    - rid: 4300027602707677196
       type: {class: CircleIndicatorViewAction, ns: , asm: Assembly-CSharp}
       data:
         indicatorPrefab: {fileID: 7545020625849464054, guid: 88ac463087731ca4198b3020e39675d7, type: 3}
@@ -146,17 +146,17 @@ MonoBehaviour:
         indicatorAngleOverride: 0
         isUseIndicatorFillAmount: 1
         isAttachIndicatorToRequester: 1
-    - rid: 4300027602707677195
-      type: {class: SearchArea, ns: , asm: Assembly-CSharp}
+    - rid: 4300027740820340736
+      type: {class: SelectNearestEntity, ns: , asm: Assembly-CSharp}
       data:
         indicatorViewAction:
-          rid: 4300027602707677196
-        isUseScale: 0
-        range: 10
+          rid: 4300027740820340737
+        isUseScale: 1
+        range: 8
         angle: 360
-        isIncludeSelf: 0
-        isSearchSameCategory: 0
-    - rid: 4300027602707677196
+        isSelectSameCategory: 0
+        castRadius: 8
+    - rid: 4300027740820340737
       type: {class: CircleIndicatorViewAction, ns: , asm: Assembly-CSharp}
       data:
         indicatorPrefab: {fileID: 7545020625849464054, guid: 88ac463087731ca4198b3020e39675d7, type: 3}

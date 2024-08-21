@@ -21,10 +21,11 @@ public class EnemyController : Character
     private SearchResultMessage reserveSearchMessage;
     private Skill defaultSkill;
     private PlayerController player;
+    private Transform target;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         traceTargetRadiusMul = traceTargetRadius * traceTargetRadius;
 
@@ -40,7 +41,15 @@ public class EnemyController : Character
     public void Setup(PlayerController player)
     {
         this.player = player;
+        target = player.transform;
+
+        this.player.onDead -= OnPlayerDead;
+        this.player.onDead += OnPlayerDead;
+
+        this.player.onAllive -= OnPlayerAllive;
+        this.player.onAllive += OnPlayerAllive;
     }
+    public void Allive() => entity.Allive(true);
     public override void Play()
     {
         spawnPos = this.transform.position;
@@ -52,8 +61,6 @@ public class EnemyController : Character
 
         if (result.resultMessage == SearchResultMessage.OutOfRange)
         {
-            //  skillSystem.ReserveSkill(skill);
-
             Vector3 targetPos = result.selectedTarget ? result.selectedTarget.transform.position : result.selectedPosition;
 
             if (Vector3.SqrMagnitude(targetPos - this.transform.position) > traceTargetRadiusMul)
@@ -71,10 +78,10 @@ public class EnemyController : Character
     }
     private void FixedUpdate()
     {
-        if (defaultSkill == null || player == null)
+        if (defaultSkill == null || target == null)
             return;
 
-        if (Vector3.SqrMagnitude(player.transform.position - this.transform.position) > traceTargetRadiusMul)
+        if (Vector3.SqrMagnitude(target.transform.position - this.transform.position) > traceTargetRadiusMul)
             return;
 
         if (defaultSkill.IsInState<ReadyState>() && defaultSkill.IsUseable)
@@ -89,6 +96,15 @@ public class EnemyController : Character
 
     }
     public override void Clear() { }
+
+    private void OnPlayerAllive(Entity playerEntity)
+    {
+        target = playerEntity.transform;
+    }
+    private void OnPlayerDead(Entity playerEntity)
+    {
+        target = null;
+    }
 }
 public enum EnemyMoveType
 {

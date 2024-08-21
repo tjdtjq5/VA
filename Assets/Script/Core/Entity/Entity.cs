@@ -14,6 +14,7 @@ public class Entity : MonoBehaviour
 {
     public delegate void TakeDamageHandler(Entity entity, Entity instigator, object causer, BBNumber damage);
     public delegate void DeadHandler(Entity entity);
+    public delegate void AlliaveHandler(Entity entity);
 
     [SerializeField]
     private Category[] categories;
@@ -52,6 +53,7 @@ public class Entity : MonoBehaviour
 
     public event TakeDamageHandler onTakeDamage;
     public event DeadHandler onDead;
+    public event AlliaveHandler onAlliave;
 
     private void Awake()
     {
@@ -104,6 +106,8 @@ public class Entity : MonoBehaviour
             Movement.enabled = true;
 
         Animator.AniController.SetBool(Animator.kDeadHash, false);
+
+        onAlliave?.Invoke(this);
 
         isDead = false;
     }

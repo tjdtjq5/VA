@@ -9,9 +9,9 @@ public class PlayerController : Character
     [SerializeField]
     private Skill basicAttackSkill;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         entity = UnityHelper.FindChild<Entity>(this.gameObject, true);
 
