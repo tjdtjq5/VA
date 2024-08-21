@@ -52,7 +52,7 @@ public class EnemyController : Character
 
         if (result.resultMessage == SearchResultMessage.OutOfRange)
         {
-            skillSystem.ReserveSkill(skill);
+            //  skillSystem.ReserveSkill(skill);
 
             Vector3 targetPos = result.selectedTarget ? result.selectedTarget.transform.position : result.selectedPosition;
 
