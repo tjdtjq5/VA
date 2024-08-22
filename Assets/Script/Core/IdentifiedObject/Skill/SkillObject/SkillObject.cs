@@ -6,12 +6,8 @@ using UnityEngine;
 
 public class SkillObject : MonoBehaviour
 {
-    // Skill의 첫 적용에 ApplyCycle 시간만큼 Delay를 줄 것인가?
-    // EX. ApplyCycle = 0.5, 0.5초 뒤부터 Skill 적용 시작 
     [SerializeField]
     private bool isDelayFirstApplyByCycle;
-    // SkillObject가 Destroy되는 시간에 ApplyCycle만큼 지연을 줄 것인가?
-    // EX. ApplyCycle = 0.5, 원래라면 3초에 Skill을 다 적용하고 Destroy 해야하지만 3.5초에 Destroy함
     [SerializeField]
     private bool isDelayDestroyByCycle;
 
@@ -21,18 +17,13 @@ public class SkillObject : MonoBehaviour
 
     private TargetSearcher targetSearcher;
 
-    // Skill의 소유주
     public Entity Owner { get; private set; }
-    // 이 SkillObject를 Spawn한 Skill
     public Skill Spawner { get; private set; }
-    // SkillObject가 Skill을 적용할 Target을 찾기위한 TargetSearcher
     public TargetSearcher TargetSearcher => targetSearcher;
-    // SkillObject의 Transform Scale
     public Vector3 ObjectScale { get; private set; }
     public float Duration { get; private set; }
     public int ApplyCount { get; private set; }
     public float ApplyCycle { get; private set; }
-    // SkillObject가 Destroy되는 시간.
     public float DestroyTime { get; private set; }
 
     private bool IsApplicable => (ApplyCount == 0 || currentApplyCount < ApplyCount) &&
@@ -52,7 +43,6 @@ public class SkillObject : MonoBehaviour
         currentDuration = 0;
         currentApplyCycle = 0;
 
-        // SkillObject에 여러 설정을 적용하기위해 만들어진 SkillObjectComponent Script를 가져와서 Callback 함수를 호출해줌
         foreach (var component in GetComponents<ISkillObjectComponent>())
             component.OnSetupSkillObject(this);
 

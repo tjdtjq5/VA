@@ -7,35 +7,39 @@ public class EnemyController : Character
     [SerializeField]
     private EnemyGradeType gradeType;
     public EnemyGradeType GradeType => gradeType;
-    private EnemyMoveType moveType;
-    public EnemyMoveType MoveType => moveType;
-    private EnemyAttackType attackType;
-    public EnemyAttackType AttackType => attackType;
-    private SkillSystem skillSystem;
-    private MoveController moveController;
-    private MonoStateMachine<Entity> stateMachine;
-    public bool IsDead => entity.IsDead;
-    Vector3 spawnPos;
+
+    float defaultIdleTime = 2.2f; float defaultIdleTimeRange = 0.5f; float idleTime = 2.2f; float idleTimer;
+    float randomMoveRange = 5f;
     float traceTargetRadius = 7f;
     float traceTargetRadiusMul;
-    private SearchResultMessage reserveSearchMessage;
+
+    private SkillSystem skillSystem;
+    private EntityAnimator animator;
+    private MoveController moveController;
     private Skill defaultSkill;
     private PlayerController player;
     private Transform target;
 
-    protected override void Awake()
+    public bool IsDead => entity.IsDead;
+    Vector3 spawnPos;
+    private SearchResultMessage reserveSearchMessage;
+
+    protected override void Initialize()
     {
-        base.Awake();
+        base.Initialize();
 
         traceTargetRadiusMul = traceTargetRadius * traceTargetRadius;
+        idleTime = Random.Range(-defaultIdleTimeRange, defaultIdleTimeRange);
+        idleTime += defaultIdleTime;
 
         skillSystem = entity.SkillSystem;
+        animator = entity.Animator;
         moveController = entity.Movement.MoveController;
-        stateMachine = entity.StateMachine;
 
         var ownSkills = skillSystem.OwnSkills;
         defaultSkill = ownSkills[0];
 
+        skillSystem.onSkillTargetSelectionCompleted -= ReserveSkill;
         skillSystem.onSkillTargetSelectionCompleted += ReserveSkill;
     }
     public void Setup(PlayerController player)
@@ -53,6 +57,8 @@ public class EnemyController : Character
     public override void Play()
     {
         spawnPos = this.transform.position;
+
+        Initialize();
     }
     private void ReserveSkill(SkillSystem skillSystem, Skill skill, TargetSearcher targetSearcher, TargetSelectionResult result)
     {
@@ -82,20 +88,46 @@ public class EnemyController : Character
             return;
 
         if (Vector3.SqrMagnitude(target.transform.position - this.transform.position) > traceTargetRadiusMul)
-            return;
-
-        if (defaultSkill.IsInState<ReadyState>() && defaultSkill.IsUseable)
         {
-            defaultSkill.Owner.SkillSystem.CancelTargetSearching();
-            defaultSkill.Use();
-        }
+            // patroll
 
+            if (!moveController.IsMove)
+            {
+                idleTimer += Managers.Time.FixedDeltaTime;
+                if (idleTimer > idleTime)
+                {
+                    idleTimer = 0;
+                    RandomMove();
+                }
+            }
+        }
+        else
+        {
+            // trace 
+
+            if (defaultSkill.IsInState<ReadyState>() && defaultSkill.IsUseable)
+            {
+                defaultSkill.Owner.SkillSystem.CancelTargetSearching();
+                defaultSkill.Use();
+            }
+        }
     }
     public override void Stop()
     {
 
     }
     public override void Clear() { }
+
+    public void RandomMove()
+    {
+        float rx = Random.Range(-randomMoveRange, randomMoveRange);
+        float rz = Random.Range(-randomMoveRange, randomMoveRange);
+        Vector3 rPos = spawnPos;
+        rPos.x += rx;
+        rPos.z += rz;
+
+        entity.Movement.Destination = rPos;
+    }
 
     private void OnPlayerAllive(Entity playerEntity)
     {
@@ -105,16 +137,12 @@ public class EnemyController : Character
     {
         target = null;
     }
-}
-public enum EnemyMoveType
-{
-    Patrol,
-    Trace,
-}
-public enum EnemyAttackType
-{
-    Melee,
-    Range,
+    public override void OnTakeDamage(Entity entity, Entity instigator, object causer, BBNumber damage)
+    {
+        base.OnTakeDamage(entity, instigator, causer, damage);
+
+        animator.SetTrigger(animator.kHitHash);
+    }
 }
 public enum EnemyGradeType
 {

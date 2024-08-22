@@ -90,7 +90,7 @@ public class SkillSystem : MonoBehaviour
 
     public Skill RegisterWithoutCost(Skill skill, int level = 0)
     {
-        UnityHelper.Assert_H(!ownSkills.Exists(x => x.ID == skill.ID), "SkillSystem::Register - �̹� �����ϴ� Skill�Դϴ�.");
+        //  UnityHelper.Assert_H(!ownSkills.Exists(x => x.ID == skill.ID), "SkillSystem::Register - �̹� �����ϴ� Skill�Դϴ�.");
 
         var clone = skill.Clone() as Skill;
         if (level > 0)
@@ -115,7 +115,7 @@ public class SkillSystem : MonoBehaviour
 
     public Skill Register(Skill skill, int level = 0)
     {
-        UnityHelper.Assert_H(!ownSkills.Exists(x => x.ID == skill.ID), "SkillSystem::Register - �̹� �����ϴ� Skill�Դϴ�.");
+        // UnityHelper.Assert_H(!ownSkills.Exists(x => x.ID == skill.ID), "SkillSystem::Register - �̹� �����ϴ� Skill�Դϴ�.");
         UnityHelper.Assert_H(skill.HasEnoughAcquisitionCost(Owner), "SkillSystem::Register - ������ ���� Cost�� �����մϴ�.");
 
         skill.UseAcquisitionCost(Owner);

@@ -10,6 +10,7 @@ public class EntityAnimator : MonoBehaviour
 
     public readonly string deadClipName = "Dead";
     public readonly int kRunHash = UnityEngine.Animator.StringToHash("isRun");
+    public readonly int kHitHash = UnityEngine.Animator.StringToHash("hit");
     public readonly int kDeadHash = UnityEngine.Animator.StringToHash("isDead");
     public readonly int kDashHash = UnityEngine.Animator.StringToHash("isDash");
     public readonly int kIsStunningHash = UnityEngine.Animator.StringToHash("isStunning");
@@ -30,4 +31,10 @@ public class EntityAnimator : MonoBehaviour
         if (aniName.Equals(deadClipName))
             entity.Destroy();
     }
+
+    public void AniSpeed(float speed) => AniController.AniSpeed(speed);
+    public void SetTrigger(int hashCode) => AniController.SetTrigger(hashCode);
+    public void SetBool(int hashCode, bool value) => AniController.SetBool(hashCode, value);
+    public void SetFloat(int hashCode, float value) => AniController.SetFloat(hashCode, value);
+    public bool GetBool(int hashCode) => AniController.GetBool(hashCode);
 }

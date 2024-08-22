@@ -14,7 +14,7 @@ public abstract class Character : MonoBehaviour
     public Action<Entity> onAllive;
     public Action<Entity, Entity, object, BBNumber> onTakeDamage;
 
-    protected virtual void Awake()
+    protected virtual void Initialize()
     {
         entity = GetComponent<Entity>();
 
@@ -29,7 +29,7 @@ public abstract class Character : MonoBehaviour
     }
     void OnDead(Entity entity) => onDead?.Invoke(entity);
     void OnAllive(Entity entity) => onAllive?.Invoke(entity);
-    void OnTakeDamage(Entity entity, Entity instigator, object causer, BBNumber damage) => onTakeDamage?.Invoke(entity, instigator, causer, damage);
+    public virtual void OnTakeDamage(Entity entity, Entity instigator, object causer, BBNumber damage) => onTakeDamage?.Invoke(entity, instigator, causer, damage);
     public abstract void Play();
     public abstract void Stop();
     public abstract void Clear();
