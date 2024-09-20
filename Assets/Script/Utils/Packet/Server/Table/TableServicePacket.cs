@@ -41,6 +41,9 @@ public class TableServicePacket
         string updateF = CSharpHelper.Format_H(updateFormat, tableName, LowerTableName(tableName), KeyValueName(tableData));
         text += $"\t{updateF}\n";
 
+        string getsF = CSharpHelper.Format_H(getsFormat, tableName);
+        text += $"\t{getsF}\n";
+
         string dbDataF = CSharpHelper.Format_H(getDbDataByTableDataFormat, tableName);
         text += $"\t{dbDataF}\n";
 
@@ -250,6 +253,15 @@ public class TableServicePacket
 
         return changeDatas;
     }}";
+
+    // {0} Table Name
+    static string getsFormat =
+@"public List<{0}Db> Gets()
+    {{
+        var Datas = _context.{0}s;
+        return Datas.ToList();
+    }}
+";
 
     // {0} Table Name
     static string getDbDataByTableDataFormat =

@@ -7,7 +7,7 @@ public class GameOptionManager
 
     public static bool IsRelease { get; } = false;
 
-	public static ServerUrlType ServerUrlType { get; } = ServerUrlType.LocalhostUrl;
+	public static ServerUrlType ServerUrlType { get; } = ServerUrlType.DebugUrl;
 	public static string GetCurrentServerUrl
 	{
 		get

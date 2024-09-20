@@ -11,10 +11,10 @@ public class UI_Login : UIPopup
     Action _callback;
 
     protected override void Initialize()
-	{
-		base.Initialize();
-		Bind<UIImage>(typeof(UIImageE));
-	}
+    {
+        base.Initialize();
+        Bind<UIImage>(typeof(UIImageE));
+    }
 
     protected override void UISet()
     {
@@ -43,7 +43,7 @@ public class UI_Login : UIPopup
 
     public enum UIImageE
     {
-		BG,
+        BG,
     }
 
     List<ProviderType> GetProviderTypeList()
@@ -53,13 +53,12 @@ public class UI_Login : UIPopup
         if (Application.platform == RuntimePlatform.Android)
         {
             result.Add(ProviderType.Guest);
-            result.Add(ProviderType.GooglePlayGames);
+            result.Add(ProviderType.Apple);
             result.Add(ProviderType.Google);
         }
         else if (Application.platform == RuntimePlatform.IPhonePlayer)
         {
             result.Add(ProviderType.Guest);
-            result.Add(ProviderType.GameCenter);
             result.Add(ProviderType.Apple);
             result.Add(ProviderType.Google);
         }
@@ -70,7 +69,7 @@ public class UI_Login : UIPopup
         else
         {
             int len = CSharpHelper.GetEnumLength<ProviderType>();
-            for (int i = 0; i < len; i++) 
+            for (int i = 0; i < len; i++)
             {
                 result.Add((ProviderType)i);
             }

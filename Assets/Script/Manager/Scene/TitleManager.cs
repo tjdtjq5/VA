@@ -12,17 +12,15 @@ public class TitleManager : SceneBase
 
         SceneType = SceneType.Title;
 
-        Managers.Resources.Instantiate("Prefab/UI/EventSystem");
+        UI_Login UI_Login = Managers.Resources.Instantiate<UI_Login>("Prefab/UI/Popup/UILogin");
 
-        // Managers.Resources.Instantiate("Prefab/UI/Popup/UILogin");
+        // UILoginTest ult = Managers.Resources.Instantiate<UILoginTest>("Prefab/UI/Popup/UILoginTest");
+        UI_Login.LoginAfterJob(() =>
+        {
+            Managers.Resources.Destroy(UI_Login.gameObject);
 
-        //UILoginTest ult = Managers.Resources.Instantiate<UILoginTest>("Prefab/UI/Popup/UILoginTest");
-        //ult.LoginAfterJob(() =>
-        //{
-        //    Managers.Resources.Destroy(ult.gameObject);
-
-        //    UILoginFuncTest ulft = Managers.Resources.Instantiate<UILoginFuncTest>("Prefab/UI/Popup/UILoginFuncTest");
-        //});
+            UILoginFuncTest ulft = Managers.Resources.Instantiate<UILoginFuncTest>("Prefab/UI/Popup/UILoginFuncTest");
+        });
     }
 
     public override void Clear()
