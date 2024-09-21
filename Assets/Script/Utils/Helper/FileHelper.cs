@@ -58,9 +58,14 @@ public class FileHelper
     {
         return Directory.Exists(directory);
     }
-    public static void FileDelete(string file)
+    public static void FileDelete(string file, bool isRefreash)
     {
         File.Delete(file);
+
+#if UNITY_EDITOR
+        if (isRefreash)
+            AssetDatabase.Refresh();
+#endif
     }
     public static string SelectFilePath(string fileSrc)
     {
@@ -97,6 +102,10 @@ public class FileHelper
     }
     public static string GetScriptPath(Type type)
     {
+        return GetScriptPath(type.Name);
+    }
+    public static string GetScriptPath(string type)
+    {
 #if UNITY_EDITOR
         var g = AssetDatabase.FindAssets($"t:Script {type}");
 
@@ -106,7 +115,7 @@ public class FileHelper
             string[] ps = path.Split('/');
             string result = ps[ps.Length - 1].Replace(".cs", "");
 
-            if (type.Name.Equals(result))
+            if (type.Equals(result))
             {
                 return path;
             }

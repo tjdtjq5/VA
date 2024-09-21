@@ -36,6 +36,333 @@ public class SimpleFormat
         FileHelper.Write(file, text, true);
     }
 
+    public static void InnerTypeUpperAdd(Type scriptType, string format)
+    {
+        string file = $"{FileHelper.GetScriptPath(scriptType)}";
+
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat InnerClassUpperAdd Not Found File Error\nscriptType : {scriptType.Name}");
+            return;
+        }
+
+        string className = scriptType.Name;
+        InnerTypeUpperAdd(file, className, format);
+    }
+    public static void InnerTypeUpperAdd(string file, string className, string format)
+    {
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat InnerClassUpperAdd Not Found File Error\nfile : {file}");
+            return;
+        }
+
+        string checkClassFormat = $"public class {className}";
+
+        InnerUpperAdd(file, checkClassFormat, format);
+    }
+    public static void InnerTypeUnderAdd(Type scriptType, string format)
+    {
+        string file = $"{FileHelper.GetScriptPath(scriptType)}";
+
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat InnerClassUnderAdd Not Found File Error\nscriptType : {scriptType.Name}");
+            return;
+        }
+
+        string className = scriptType.Name;
+        InnerTypeUnderAdd(file, className, format);
+    }
+    public static void InnerTypeUnderAdd(string file, string className, string format)
+    {
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat InnerClassUpperAdd Not Found File Error\nfile : {file}");
+            return;
+        }
+
+        string checkClassFormat = $"public class {className}";
+
+        InnerUnderAdd(file, checkClassFormat, format);
+    }
+
+    public static void InnerEnumUpperAdd(Type scriptType, string enumName, string format)
+    {
+        string file = $"{FileHelper.GetScriptPath(scriptType)}";
+
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat InnerEnumUpperAdd Not Found File Error\nscriptType : {scriptType.Name}");
+            return;
+        }
+
+        InnerEnumUpperAdd(file, enumName, format);
+    }
+    public static void InnerEnumUpperAdd(string file, string enumName, string format)
+    {
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat InnerEnumUpperAdd Not Found File Error\nfile : {file}");
+            return;
+        }
+
+        string checkEnumFormat = $"public enum {enumName}";
+
+        InnerUpperAdd(file, checkEnumFormat, format);
+    }
+    public static void InnerEnumUnderAdd(Type scriptType, string enumName, string format)
+    {
+        string file = $"{FileHelper.GetScriptPath(scriptType)}";
+
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat InnerEnumUnderAdd Not Found File Error\nscriptType : {scriptType.Name}");
+            return;
+        }
+
+        InnerEnumUnderAdd(file, enumName, format);
+    }
+    public static void InnerEnumUnderAdd(string file, string enumName, string format)
+    {
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat InnerEnumUnderAdd Not Found File Error\nfile : {file}");
+            return;
+        }
+
+        string checkEnumFormat = $"public enum {enumName}";
+
+        InnerUnderAdd(file, checkEnumFormat, format);
+    }
+
+    public static void InnerUpperAdd(string file, string checkFormat, string format)
+    {
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat InnerUpperAdd Not Found File Error\nfile : {file}");
+            return;
+        }
+
+        string text = "";
+        int leftBracketCount = 0;
+        int rightBracketCount = 0;
+        bool readCheck = false;
+        bool isWrite = false;
+
+        foreach (var line in FileHelper.ReadLines(file))
+        {
+            if (line.Contains(checkFormat))
+            {
+                readCheck = true;
+            }
+
+            text += $"{line}\n";
+
+            if (readCheck && !isWrite)
+            {
+                if (line.Contains("{"))
+                {
+                    text += $"{format}" + "\n";
+                    isWrite = true;
+                }
+            }
+
+            if (readCheck)
+            {
+                if (line.Contains('{'))
+                    leftBracketCount++;
+
+                if (line.Contains('}'))
+                    rightBracketCount++;
+
+                if (leftBracketCount != 0 && leftBracketCount == rightBracketCount)
+                {
+                    readCheck = false;
+                }
+            }
+        }
+
+        text = text.Substring(0, text.Length - 1);
+        FileHelper.Write(file, text, true);
+    }
+    public static void InnerUnderAdd(string file, string checkFormat, string format)
+    {
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat InnerClassUpperAdd Not Found File Error\nfile : {file}");
+            return;
+        }
+
+        string text = "";
+        int leftBracketCount = 0;
+        int rightBracketCount = 0;
+        bool readCheck = false;
+
+        foreach (var line in FileHelper.ReadLines(file))
+        {
+            if (line.Contains(checkFormat))
+            {
+                readCheck = true;
+            }
+
+            if (readCheck)
+            {
+                if (line.Contains('{'))
+                    leftBracketCount++;
+
+                if (line.Contains('}'))
+                    rightBracketCount++;
+
+                if (leftBracketCount != 0 && leftBracketCount == rightBracketCount)
+                {
+                    readCheck = false;
+
+                    if (line.Contains("}"))
+                    {
+                        text += $"{format}" + "\n";
+                    }
+                }
+            }
+
+            text += $"{line}\n";
+        }
+
+        text = text.Substring(0, text.Length - 1);
+        FileHelper.Write(file, text, true);
+    }
+
+    public static void InnerTypeDataRemove(Type scriptType, string format)
+    {
+        string file = $"{FileHelper.GetScriptPath(scriptType)}";
+
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat InnerTypeDataRemove Not Found File Error\nscriptType : {scriptType.Name}");
+            return;
+        }
+
+        string className = scriptType.Name;
+        string checkClassFormat = $"public class {className}";
+
+        InnerRemove(file, checkClassFormat, format);
+    }
+    public static void InnerEnumDataRemove(string file, string enumName, string enumData)
+    {
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat InnerEnumDataRemove Not Found File Error\nfile : {file}");
+            return;
+        }
+
+        string checkEnumFormat = $"public enum {enumName}";
+
+        InnerRemove(file, checkEnumFormat, $" {enumData}");
+    }
+
+    static void InnerRemove(string file, string checkFormat, string format)
+    {
+        if(string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat InnerRemove Not Found File Error\nfile : {file}");
+            return;
+        }
+
+        string text = "";
+        int leftBracketCount = 0;
+        int rightBracketCount = 0;
+        bool readCheck = false;
+
+        foreach (var line in FileHelper.ReadLines(file))
+        {
+            if (line.Contains(checkFormat))
+            {
+                readCheck = true;
+            }
+
+            if (readCheck)
+            {
+                if (!line.Contains(format))
+                {
+                    text += $"{line}\n";
+                }
+
+                if (line.Contains('{'))
+                    leftBracketCount++;
+
+                if (line.Contains('}'))
+                    rightBracketCount++;
+
+                if (leftBracketCount != 0 && leftBracketCount == rightBracketCount)
+                {
+                    readCheck = false;
+                }
+            }
+            else
+            {
+                text += $"{line}\n";
+            }
+        }
+
+        text = text.Substring(0, text.Length - 1);
+        FileHelper.Write(file, text, true);
+    }
+
+    public static bool InnerEnumDataExist(string file, string enumName, string enumData)
+    {
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat InnerEnumDataExist Not Found File Error\nfile : {file}");
+            return false;
+        }
+
+        string checkEnumFormat = $"public enum {enumName}";
+
+        return InnerExist(file, checkEnumFormat, $" {enumData}");
+    }
+
+    static bool InnerExist(string file, string checkFormat, string format)
+    {
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat InnerRemove Not Found File Error\nfile : {file}");
+            return false;
+        }
+
+        int leftBracketCount = 0;
+        int rightBracketCount = 0;
+        bool readCheck = false;
+
+        foreach (var line in FileHelper.ReadLines(file))
+        {
+            if (line.Contains(checkFormat))
+            {
+                readCheck = true;
+            }
+
+            if (readCheck)
+            {
+                if (line.Contains(format))
+                {
+                    return true;
+                }
+
+                if (line.Contains('{'))
+                    leftBracketCount++;
+
+                if (line.Contains('}'))
+                    rightBracketCount++;
+
+                if (leftBracketCount != 0 && leftBracketCount == rightBracketCount)
+                {
+                    readCheck = false;
+                }
+            }
+        }
+
+        return false;
+    }
+
     public static bool Exist(Type scriptType, string format)
     {
         string file = $"{FileHelper.GetScriptPath(scriptType)}";

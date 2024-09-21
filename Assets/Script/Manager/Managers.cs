@@ -19,6 +19,7 @@ public class Managers : MonoBehaviour
     SseManager _sse = new SseManager();
     ChatManager _chat = new ChatManager();
     FloatingTextManager _floatingText = new FloatingTextManager();
+    TableManager _table = new TableManager();
 
     public static WebManager Web { get { return Instance._web; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
@@ -32,6 +33,7 @@ public class Managers : MonoBehaviour
     public static SseManager Sse { get { return Instance._sse; } }
     public static ChatManager Chat { get { return Instance._chat; } }
     public static FloatingTextManager FloatingText { get { return Instance._floatingText; } }
+    public static TableManager Table { get { return Instance._table; } }
 
     void Start()
     {

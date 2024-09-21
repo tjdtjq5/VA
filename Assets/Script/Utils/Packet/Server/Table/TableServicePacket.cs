@@ -258,8 +258,12 @@ public class TableServicePacket
     static string getsFormat =
 @"public List<{0}Db> Gets()
     {{
-        var Datas = _context.{0}s;
-        return Datas.ToList();
+        List<{0}TableData> results = new List<{0}TableData>();
+        var datas = _context.{0}s;
+
+        results.SetCopyValue(datas.ToList());
+
+        return results;
     }}
 ";
 

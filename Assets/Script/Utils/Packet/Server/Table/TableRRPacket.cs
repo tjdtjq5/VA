@@ -131,7 +131,7 @@ public class TableRRPacket
 @"public class {0}TableGetsResponse
 {{
     public string tableName {{ get; set; }}
-    public List<{0}Db> datas {{ get; set; }}
+    public List<{0}TableData> datas {{ get; set; }}
 }}";
 
     #endregion

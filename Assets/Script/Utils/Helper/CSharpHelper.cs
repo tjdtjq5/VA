@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
@@ -212,6 +213,26 @@ public static class CSharpHelper
 
                 fieldInfos[i].SetValue(copied, value);
             }
+        }
+
+        return isDeferenceCheck;
+    }
+    public static bool SetCopyValue<T1, T2>(this List<T1> copied, List<T2> original) where T1 : new()
+    {
+        bool isDeferenceCheck = true;
+
+        copied.Clear();
+        for (int i = 0; i < original.Count; i++)
+        {
+            copied.Add(new T1());
+        }
+
+        for (int i = 0; i < copied.Count; i++)
+        {
+            bool flag = copied[i].SetCopyValue(original[i]);
+
+            if (isDeferenceCheck)
+                isDeferenceCheck = flag;
         }
 
         return isDeferenceCheck;

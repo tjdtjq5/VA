@@ -1,4 +1,9 @@
-﻿public enum ItemType
+﻿public enum TableCollection
+{
+    Item,
+    Skill
+}
+public enum ItemType
 {
     Basic = 0,
     Ticket = 1,

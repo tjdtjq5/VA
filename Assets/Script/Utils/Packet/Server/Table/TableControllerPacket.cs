@@ -122,15 +122,16 @@ public class {0}TableController : ControllerBase
     }}
 
     [Route(""gets"")]
-    [ServiceFilter(typeof(IpListenerActionFilter))]
     public string TableGets()
     {{
         {0}TableGetsResponse res = new {0}TableGetsResponse();
 
-        List<{0}Db>? datas = _service.Gets();
+        List<{0}TableData>? datas = _service.Gets();
 
         res.tableName = ""{0}"";
         res.datas = datas;
+
+        _cache.SetValue_H(RadisKey.GetTableKey(res.tableName), CSharpHelper.SerializeObject(datas), _logger);
 
         return CSharpHelper.SerializeObject(res, _logger);
     }}

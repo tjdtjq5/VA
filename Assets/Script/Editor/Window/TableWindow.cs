@@ -288,6 +288,18 @@ public class TableWindow : EditorWindow
             TableServicePacket.Create(tableName, tableData);
         }
 
+        if (!TableCollectionPacket.Exist(tableName))
+        {
+            TableCollectionPacket.Add(tableName);
+        }
+
+        if (!TableManagerPacket.Exist(tableName))
+        {
+            TableManagerPacket.Add(tableName);
+        }
+
+        TablePacket.Add(tableName);
+
         //ItemTableService
         string addScopedName = $"{tableName}TableService";
         if (!ServerProgramPacket.ExistScoped(addScopedName))

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using EasyButtons;
 using UnityEngine;
@@ -6,31 +6,41 @@ using UnityEngine;
 public class Test : MonoBehaviour
 {
     [Button]
-    public void T(BBNumber bBNumber)
+    public void MasterGets()
     {
-        UnityHelper.Log_H($"s = {bBNumber.significand} e : {bBNumber.exponent} alphabet : {bBNumber.Alphabet()}");
+        Managers.Table.DbGets();
+    }
+    [Button]
+    public void ItemGets()
+    {
+    
     }
 
-    string tableName = "Item";
+    public class TestA
+    {
+        public int x;
+        public int y;
+    }
+    public class TestB
+    {
+        public int x;
+        public int y;
+    }
 
     [Button]
     public void SimpleFormatTest_Exist()
     {
-        UnityHelper.Log_H(TableControllerPacket.Exist(tableName));
+        UnityHelper.Log_H(TableManagerPacket.Exist("Item"));
     }
-    [Button]
-    public void SimpleFormatTest_Modify()
-    {
-       // TableRRPacket.Modify(tableName);
-    }
+ 
     [Button]
     public void SimpleFormatTest_Remove()
     {
-        TableControllerPacket.Remove(tableName);
+        TableManagerPacket.Remove("Item");
     }
     [Button]
     public void SimpleFormatTest_Create()
     {
-        TableControllerPacket.Create(tableName);
+        TableManagerPacket.Add("Item");
     }
 }
