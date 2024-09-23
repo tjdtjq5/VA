@@ -30,17 +30,12 @@ public class Test : MonoBehaviour
     [Button]
     public void SimpleFormatTest_Exist()
     {
-        UnityHelper.Log_H(TableManagerPacket.Exist("Item"));
+        UnityHelper.Log_H(MasterTableServicePacket.Exist("TestT"));
     }
  
     [Button]
     public void SimpleFormatTest_Remove()
     {
-        TableManagerPacket.Remove("Item");
-    }
-    [Button]
-    public void SimpleFormatTest_Create()
-    {
-        TableManagerPacket.Add("Item");
+        MasterTableServicePacket.Remove("TestT");
     }
 }

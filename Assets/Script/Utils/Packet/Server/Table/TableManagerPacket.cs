@@ -46,15 +46,17 @@ public class TableManagerPacket
     {
         string lower = tableName.FirstCharacterToLower();
 
+        string check = "public class TableManager";
+
         string variF = CSharpHelper.Format_H(variFormat, tableName, lower);
         string funcF = CSharpHelper.Format_H(funcFormat, tableName, lower);
         string dbF = CSharpHelper.Format_H(dbGetsFormat, tableName, lower);
 
-        bool variExist = SimpleFormat.Exist(typeof(TableManager), variF);
-        bool funcExist = SimpleFormat.Exist(typeof(TableManager), funcF);
-        bool dbExist = SimpleFormat.Exist(typeof(TableManager), dbF);
+        bool variExist = SimpleFormat.InnerExist(typeof(TableManager), check, variF);
+        bool funcExist = SimpleFormat.InnerExist(typeof(TableManager), check, funcF);
+        bool dbExist = SimpleFormat.InnerExist(typeof(TableManager), check, dbF);
 
-        return variExist && funcExist;
+        return variExist && funcExist && dbExist;
     }
 
     #region Format

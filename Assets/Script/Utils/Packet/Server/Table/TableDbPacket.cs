@@ -304,6 +304,6 @@ public class TableDbPacket
 @"[Key]";
 
     static string maxLengthFormat =
-@"[MaxLength(20)]";
+@"[MaxLength(40)]";
     #endregion
 }

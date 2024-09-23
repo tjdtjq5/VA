@@ -51,7 +51,7 @@ public class TableControllerPacket
         }
 
         string tableCheckF = CSharpHelper.Format_H(routeFormat, LowerTableName(tableName));
-        SimpleFormat.Remove(file, tableCheckF);
+        SimpleFormat.RemoveStruct(file, tableCheckF);
     }
     public static bool Exist(string tableName)
     {

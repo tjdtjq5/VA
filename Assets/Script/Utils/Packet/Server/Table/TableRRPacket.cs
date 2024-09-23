@@ -46,10 +46,10 @@ public class TableRRPacket
         }
 
         string tableCheckUpdateF = CSharpHelper.Format_H(tableCheckUpdateFormat, tableName);
-        SimpleFormat.Remove(file, tableCheckUpdateF);
+        SimpleFormat.RemoveStruct(file, tableCheckUpdateF);
 
         string tableCheckGetsF = CSharpHelper.Format_H(tableCheckGetsFormat, tableName);
-        SimpleFormat.Remove(file, tableCheckGetsF);
+        SimpleFormat.RemoveStruct(file, tableCheckGetsF);
     }
     public static void Modify(string tableName)
     {

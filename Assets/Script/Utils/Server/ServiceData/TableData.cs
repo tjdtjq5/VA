@@ -7,11 +7,3 @@ public class ItemTableData
 	public int itemType { get; set; }
 	public string tipName { get; set; }
 }
-
-[Serializable] // SkillTable
-public class SkillTableData
-{
-	public string skillCode { get; set; }
-	public int skillType { get; set; }
-	public string tipName { get; set; }
-}

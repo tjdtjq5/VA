@@ -10,12 +10,6 @@ public class MasterTableGetsData
     public string tableDatas { get; set; }
 }
 
-public class SkillTableUpdateResponse
-{
-    public string tableName { get; set; }
-    public List<string> changeDatas { get; set; }
-}
-
 public class ItemTableGetsResponse
 {
     public string tableName { get; set; }
@@ -27,3 +21,8 @@ public class ItemTableUpdateResponse
     public string tableName { get; set; }
     public List<string> changeDatas { get; set; }
 }
+
+
+
+
+

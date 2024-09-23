@@ -1,10 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TableFunction
 {
-	public static string GetUpdateTableName { get => "Item"; }
+	public static string GetUpdateTableName { get => "TestT"; }
 
     public static async void UpdateTable(string tableName, string tableData)
 	{

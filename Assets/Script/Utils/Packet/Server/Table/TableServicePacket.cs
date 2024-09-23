@@ -256,7 +256,7 @@ public class TableServicePacket
 
     // {0} Table Name
     static string getsFormat =
-@"public List<{0}Db> Gets()
+@"	public List<{0}TableData> Gets()
     {{
         List<{0}TableData> results = new List<{0}TableData>();
         var datas = _context.{0}s;

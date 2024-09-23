@@ -1,7 +1,6 @@
 ﻿public enum TableCollection
 {
     Item,
-    Skill
 }
 public enum ItemType
 {
