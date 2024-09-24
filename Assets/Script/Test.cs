@@ -8,7 +8,7 @@ public class Test : MonoBehaviour
     [Button]
     public void MasterGets()
     {
-        Managers.Table.DbGets();
+        Managers.Table.DbGets(); 
     }
     [Button]
     public void ItemGets()

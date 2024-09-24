@@ -65,6 +65,8 @@ public class UI_Login : UIPopup
         else if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.OSXEditor)
         {
             result.Add(ProviderType.Guest);
+            result.Add(ProviderType.Apple);
+            result.Add(ProviderType.Google);
         }
         else
         {
