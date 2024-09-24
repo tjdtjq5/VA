@@ -11,9 +11,6 @@ public class UILoginBtn : UIButton
     }
 
     ProviderType _providerType;
-    [SerializeField] GoogleLogin _googleLogin;
-    [SerializeField] AppleLogin _appleLogin;
-    [SerializeField] GuestLogin _guestLogin;
 
     public void Set(ProviderType providerType, Action callback)
     {
@@ -72,18 +69,15 @@ public class UILoginBtn : UIButton
 
     void GuestLogin(Action callback)
     {
-        UnityHelper.Log_H("GuestLogin");
-        _guestLogin.Login(() => { UnityHelper.Log_H($"Success! GuestLogin"); callback.Invoke(); });
+        LoginService.Login(ProviderType.Guest, () => { UnityHelper.Log_H($"Success! GuestLogin"); callback.Invoke(); });
     }
     void GoogleLogin(Action callback)
     {
-        _googleLogin.Initialize();
-        _googleLogin.Login(() => { UnityHelper.Log_H($"Success! GoogleLogin"); callback.Invoke(); });
+        LoginService.Login(ProviderType.Google, () => { UnityHelper.Log_H($"Success! GoogleLogin"); callback.Invoke(); });
     }
     void AppleLogin(Action callback)
     {
-        _appleLogin.Initialize();
-        _appleLogin.Login(() => { UnityHelper.Log_H($"Success! AppleLogin"); callback.Invoke(); });
+        LoginService.Login(ProviderType.Apple, () => { UnityHelper.Log_H($"Success! AppleLogin"); callback.Invoke(); });
     }
 
     public enum UIImageE

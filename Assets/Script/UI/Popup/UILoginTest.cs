@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class UILoginTest : UIPopup
 {
-    [SerializeField] GuestLogin _guestLogin;
-
     Action _callback;
     
 	protected override void Initialize()
@@ -39,7 +34,7 @@ public class UILoginTest : UIPopup
 			return;
 		}
 
-		_guestLogin.Login(id, () => 
+        LoginService.TestLogin(id, () => 
 		{
 			this._callback.Invoke();
         });

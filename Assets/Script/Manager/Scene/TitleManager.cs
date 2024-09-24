@@ -12,14 +12,21 @@ public class TitleManager : SceneBase
 
         SceneType = SceneType.Title;
 
-        UI_Login UI_Login = Managers.Resources.Instantiate<UI_Login>("Prefab/UI/Popup/UILogin");
-
-        // UILoginTest ult = Managers.Resources.Instantiate<UILoginTest>("Prefab/UI/Popup/UILoginTest");
-        UI_Login.LoginAfterJob(() =>
+        LoginService.AtLogin(() => 
         {
-            Managers.Resources.Destroy(UI_Login.gameObject);
-
             UILoginFuncTest ulft = Managers.Resources.Instantiate<UILoginFuncTest>("Prefab/UI/Popup/UILoginFuncTest");
+
+        }, () => 
+        {
+            UI_Login UI_Login = Managers.Resources.Instantiate<UI_Login>("Prefab/UI/Popup/UILogin");
+
+            // UILoginTest ult = Managers.Resources.Instantiate<UILoginTest>("Prefab/UI/Popup/UILoginTest");
+            UI_Login.LoginAfterJob(() =>
+            {
+                Managers.Resources.Destroy(UI_Login.gameObject);
+
+                UILoginFuncTest ulft = Managers.Resources.Instantiate<UILoginFuncTest>("Prefab/UI/Popup/UILoginFuncTest");
+            });
         });
     }
 

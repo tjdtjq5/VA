@@ -37,6 +37,7 @@ public enum HttpResponceMessageType
     FailCacheAddJwtToken = 1503, // 레디스에 jwt 정보 넣기 실패
     DuplicationAccount, // 중복 로그인
     NotAdmin, // 어드민 계정이 아닙니다
+    AutoLoginExpire, // 자동 로그인 만료
 
     // 플레이어 데이터 - 아이템
     FailedPushPlayerDataItem = 1600,

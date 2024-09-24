@@ -29,7 +29,7 @@ public class WebManager
             _jobSerializer.Push(Post, true, url, obj, res, errorJob);
         else
         {
-            Post(true, url, obj, res);
+            Post(true, url, obj, res, errorJob);
             _isWorking = true;
         }
     }
@@ -39,7 +39,7 @@ public class WebManager
             _jobSerializer.Push(Get, true, url, res, errorJob);
         else
         {
-            Get(true, url, res);
+            Get(true, url, res, errorJob);
             _isWorking = true;
         }
     }
@@ -49,7 +49,7 @@ public class WebManager
             _jobSerializer.Push(Post, isMyServer, url, obj, res, errorJob);
         else
         {
-            Post(isMyServer, url, obj, res);
+            Post(isMyServer, url, obj, res, errorJob);
             _isWorking = true;
         }
     }
@@ -59,7 +59,7 @@ public class WebManager
             _jobSerializer.Push(Get, isMyServer, url, res, errorJob);
         else
         {
-            Get(isMyServer, url, res);
+            Get(isMyServer, url, res, errorJob);
             _isWorking = true;
         }
     }
@@ -121,10 +121,10 @@ public class WebManager
             {
                 UnityHelper.LogError_H($"Server sent an error: {response.StatusCode}-{response.DataAsText}\nRequest Url : {request.Uri}");
 
-
                 ErrorResponse errorResponse = CSharpHelper.DeserializeObject<ErrorResponse>(response.DataAsText);
                 if (errorResponse == null)
                 {
+                    UnityHelper.LogError_H($"ErrorResponse DeserializeObject Error");
                     return;
                 }
 
@@ -133,10 +133,13 @@ public class WebManager
                 bool isJopWork = false;
                 for (int i = 0; i < errorJob.Length; i++)
                 {
+                    UnityHelper.Log_H(errorJob[i]._messageType);
                     if (errorJob[i]._messageType == errorMsgType)
                     {
+                        UnityHelper.Log_H($"{errorJob[i]._messageType} Success");
                         if (errorJob[i]._job != null)
                         {
+                            UnityHelper.Log_H($"{errorJob[i]._messageType} Job");
                             isJopWork = true;
                             errorJob[i]._job.Execute();
                             break;
@@ -146,6 +149,7 @@ public class WebManager
 
                 if (!isJopWork)
                     ErrorResponseMessage(errorMsgType);
+
             }
         }
         catch (AsyncHTTPException e)

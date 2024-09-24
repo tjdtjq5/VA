@@ -44,6 +44,23 @@ public static class CSharpHelper
     {
         return Enum.GetValues(typeof(T)).Length;
     }
+    public static int EnumClamp<T>(int value, bool isDebug) where T : Enum
+    {
+        try
+        {
+            int len = GetEnumLength<T>();
+            value = Math.Clamp(value, 0, len - 1);
+
+            return value;
+        }
+        catch
+        {
+            if (isDebug)
+                UnityHelper.Log_H($"CSharpHelper Parse Error\nvalue : {value}");
+
+            return 0;
+        }
+    }
     public static int IntParse(string value, bool isDebug)
     {
         try

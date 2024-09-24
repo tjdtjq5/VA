@@ -1,21 +1,51 @@
 using System;
 using UnityEngine;
 
-public class GuestLogin : MonoBehaviour, ILoginService
+public class GuestLogin
 {
-    public void Initialize()
+    static string AutoJwtToken
     {
-
+        get
+        {
+            return PlayerPrefsHelper.GetString_H(PlayerPrefsKey.auto_login_jwt_token);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_jwt_token, value);
+        }
+    }
+    static ProviderType AutoProviderType
+    {
+        get
+        {
+            int value = PlayerPrefsHelper.GetInt_H(PlayerPrefsKey.auto_login_provider);
+            return (ProviderType)CSharpHelper.EnumClamp<ProviderType>(value, true);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_provider, (int)value);
+        }
+    }
+    static int AutoAccountId
+    {
+        get
+        {
+            return PlayerPrefsHelper.GetInt_H(PlayerPrefsKey.auto_login_account_id);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_account_id, value);
+        }
     }
 
-    public void Login(Action callback)
+    public static void Login(Action callback)
     {
         string userId = SystemInfo.deviceUniqueIdentifier;
 
         Login(userId, callback);
     }
 
-    public void Login(string id, Action callback)
+    public static void Login(string id, Action callback)
     {
         AccountLoginRequest req = new AccountLoginRequest()
         {
@@ -28,12 +58,12 @@ public class GuestLogin : MonoBehaviour, ILoginService
             Managers.Web.JwtToken = res.JwtAccessToken;
             Managers.Web.AccountId = res.AccountId;
 
-            UnityHelper.Log_H($"Id : {res.AccountId}\nToken : {res.JwtAccessToken}");
+            AutoJwtToken = res.JwtAccessToken;
+            AutoProviderType = ProviderType.Guest;
+            AutoAccountId = res.AccountId;
 
             if (callback != null)
-            {
                 callback.Invoke();
-            }
         });
     }
 }

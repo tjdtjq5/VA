@@ -1,19 +1,54 @@
 using System;
 using UnityEngine;
 
-public class AppleLogin : MonoBehaviour, ILoginService
+public class AppleLogin
 {
-    string _url = "https://appleid.apple.com/auth/authorize";
-    string _clientId = "com.Slitz.Villager";
-    string _redirect_uri = "https://slitz95.com";
-    string _response_type = "code";
-    string _response_mode = "query";
+    static string _url = "https://appleid.apple.com/auth/authorize";
+    static string _clientId = "com.Slitz.Villager";
+    static string _redirect_uri = "https://slitz95.com";
+    static string _response_type = "code";
+    static string _response_mode = "query";
 
-    Action _callback;
+    static Action _callback;
 
-    bool isInit = false;
+    static string AutoJwtToken
+    {
+        get
+        {
+            return PlayerPrefsHelper.GetString_H(PlayerPrefsKey.auto_login_jwt_token);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_jwt_token, value);
+        }
+    }
+    static ProviderType AutoProviderType
+    {
+        get
+        {
+            int value = PlayerPrefsHelper.GetInt_H(PlayerPrefsKey.auto_login_provider);
+            return (ProviderType)CSharpHelper.EnumClamp<ProviderType>(value, true);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_provider, (int)value);
+        }
+    }
+    static int AutoAccountId
+    {
+        get
+        {
+            return PlayerPrefsHelper.GetInt_H(PlayerPrefsKey.auto_login_account_id);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_account_id, value);
+        }
+    }
 
-    public void Initialize()
+    static bool isInit = false;
+
+    public static void Initialize()
     {
         if (isInit)
         {
@@ -24,24 +59,21 @@ public class AppleLogin : MonoBehaviour, ILoginService
         Managers.DeepLink.AddAction(DeepLinkResponse);
     }
 
-    public void Login(Action callback)
+    public static void Login(Action callback)
     {
+        Initialize();
+
         _callback = callback;
 
+        LinkUrlLogin();
+    }
+    static void LinkUrlLogin()
+    {
         string url = $"{_url}?client_id={_clientId}&redirect_uri={_redirect_uri}&response_type={_response_type}&response_mode={_response_mode}";
-
         Application.OpenURL(url);
     }
-
-    private void DeepLinkResponse(ImaginationOverflow.UniversalDeepLinking.LinkActivation s)
+    static void CodeLoginAction(string code)
     {
-        string url = s.Uri;
-
-        if (!url.Contains(_redirect_uri))
-            return;
-
-        string code = s.QueryString["code"];
-
         AccountLoginRequest req = new AccountLoginRequest()
         {
             ProviderType = ProviderType.Apple,
@@ -52,10 +84,28 @@ public class AppleLogin : MonoBehaviour, ILoginService
         {
             UnityHelper.LogSerialize(res);
 
+            Managers.Web.JwtToken = res.JwtAccessToken;
+            Managers.Web.AccountId = res.AccountId;
+
+            AutoJwtToken = res.JwtAccessToken;
+            AutoProviderType = ProviderType.Apple;
+            AutoAccountId = res.AccountId;
+
             if (_callback != null)
             {
                 _callback.Invoke();
             }
         });
+    }
+    private static void DeepLinkResponse(ImaginationOverflow.UniversalDeepLinking.LinkActivation s)
+    {
+        string url = s.Uri;
+
+        if (!url.Contains(_redirect_uri))
+            return;
+
+        string code = s.QueryString["code"];
+
+        CodeLoginAction(code);
     }
 }
