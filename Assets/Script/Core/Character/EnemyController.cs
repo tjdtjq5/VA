@@ -141,7 +141,18 @@ public class EnemyController : Character
     {
         base.OnTakeDamage(entity, instigator, causer, damage);
 
-        animator.SetTrigger(animator.kHitHash);
+        animator.Play(animator.hitClipName, false , 1);
+    }
+    public override void MoveDirection(Vector3 direction)
+    {
+        direction.z = direction.y;
+        direction.y = 0;
+
+        entity.Movement.Destination = this.transform.position + direction;
+    }
+    public override void MoveDestination(Vector3 destination)
+    {
+        entity.Movement.Destination = destination;
     }
 }
 public enum EnemyGradeType

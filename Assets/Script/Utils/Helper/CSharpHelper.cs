@@ -396,6 +396,70 @@ public static class CSharpHelper
 
         return result;
     }
+    public static bool TryAdd_H<T1, T2>(this Dictionary<T1, T2> dics, T1 key, T2 value, bool force)
+    {
+        if (force)
+        {
+            if (dics.ContainsKey(key))
+            {
+                dics[key] = value;
+                return true;
+            }
+            else
+            {
+                dics.Add(key, value);
+                return true;
+            }
+        }
+        else
+        {
+            return dics.TryAdd(key, value);
+        }
+    }
+    public static T2 TryGet_H<T1, T2>(this Dictionary<T1, T2> dics, T1 key)
+    {
+        if (dics.ContainsKey(key))
+        {
+            return dics[key];
+        }
+        else
+        {
+            return default;
+        }
+    }
+    public static int TryGet_H<T1>(this Dictionary<T1, int> dics, T1 key)
+    {
+        if (dics.ContainsKey(key))
+        {
+            return dics[key];
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    public static float TryGet_H<T1>(this Dictionary<T1, float> dics, T1 key)
+    {
+        if (dics.ContainsKey(key))
+        {
+            return dics[key];
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    public static string TryGet_H<T1>(this Dictionary<T1, string> dics, T1 key)
+    {
+        if (dics.ContainsKey(key))
+        {
+            return dics[key];
+        }
+        else
+        {
+            return "";
+        }
+    }
     #endregion
 
     #region List

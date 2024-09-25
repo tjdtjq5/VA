@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class EnemySpawn : CharacterSpawn
 {
@@ -22,5 +23,25 @@ public class EnemySpawn : CharacterSpawn
         return enemy;
     }
 
-    public override void Clear() => currentSpawnEnemies.Clear();
+    public override void Clear()
+    {
+        for (int i = 0; i < currentSpawnEnemies.Count; i++)
+            currentSpawnEnemies[i].Clear();
+
+        currentSpawnEnemies.Clear();
+    }
+
+    public override void Clear(Character character)
+    {
+        if (!character)
+            return;
+
+        int findIndex = currentSpawnEnemies.FindIndex(p => p == character);
+
+        if (findIndex < 0)
+            return;
+
+        currentSpawnEnemies[findIndex].Clear();
+        currentSpawnEnemies.RemoveAt(findIndex);
+    }
 }

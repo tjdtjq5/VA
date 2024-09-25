@@ -5,7 +5,7 @@ using UnityEngine;
 public class EntitySkillState : State<Entity>
 {
     public Skill RunningSkill { get; private set; }
-    protected int AnimatorParameterHash { get; private set; }
+    protected string AnimatorParameterClipName { get; private set; }
 
     public override void Enter()
     {
@@ -18,7 +18,7 @@ public class EntitySkillState : State<Entity>
 
     public override void Exit()
     {
-        Entity.Animator?.AniController?.SetBool(AnimatorParameterHash, false);
+        Entity.Animator?.AniController?.Play(AnimatorParameterClipName, false);
 
         RunningSkill = null;
 
@@ -32,10 +32,10 @@ public class EntitySkillState : State<Entity>
         if ((EntityStateMessage)message != EntityStateMessage.UsingSkill)
             return false;
 
-        var tupleData = ((Skill, AnimatorParameter))data;
+        var tupleData = ((Skill, string))data;
 
         RunningSkill = tupleData.Item1;
-        AnimatorParameterHash = tupleData.Item2.Hash;
+        AnimatorParameterClipName = tupleData.Item2;
 
         UnityHelper.Assert_H(RunningSkill != null,
             $"CastingSkillState({message})::OnReceiveMessage - �߸��� data�� ���޵Ǿ����ϴ�.");
@@ -46,7 +46,7 @@ public class EntitySkillState : State<Entity>
             if (selectionResult.selectedTarget != Entity.gameObject)
                 Entity.Movement.MoveController.LookAtImmediate(selectionResult.selectedPosition);
         }
-        Entity.Animator?.AniController?.SetBool(AnimatorParameterHash, true);
+        Entity.Animator?.AniController?.Play(AnimatorParameterClipName, false);
 
         return true;
     }

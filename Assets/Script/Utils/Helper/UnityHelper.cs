@@ -1,3 +1,4 @@
+using Spine.Unity;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -269,6 +270,12 @@ public static class UnityHelper
     public static AniController Initialize(this Animator animator)
     {
         AniController ac = animator.GetOrAddComponent<AniController>();
+        ac.Initialize(animator);
+        return ac;
+    }
+    public static SpineAniController Initialize(this SkeletonAnimation animator)
+    {
+        SpineAniController ac = animator.GetOrAddComponent<SpineAniController>();
         ac.Initialize(animator);
         return ac;
     }

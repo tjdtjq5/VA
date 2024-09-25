@@ -5,7 +5,7 @@ using UnityEngine;
 public class UIManager
 {
     const string rootName = "======UI======";
-    int _order = 10;
+    int _order = 100;
 
     GameObject rootGo = null;
 
@@ -28,7 +28,7 @@ public class UIManager
         }
     } 
 
-    public void SetCanvas(GameObject go, bool sort = true)
+    public void SetPopupCanvas(GameObject go, bool sort = true)
     {
         Canvas canvas = UnityHelper.GetOrAddComponent<Canvas>(go);
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;

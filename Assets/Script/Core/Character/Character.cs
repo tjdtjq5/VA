@@ -33,4 +33,6 @@ public abstract class Character : MonoBehaviour
     public abstract void Play();
     public abstract void Stop();
     public abstract void Clear();
+    public abstract void MoveDirection(Vector3 direction);
+    public abstract void MoveDestination(Vector3 destination);
 }

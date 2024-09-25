@@ -105,7 +105,7 @@ public class Entity : MonoBehaviour
         if (Movement)
             Movement.enabled = true;
 
-        Animator.AniController.SetBool(Animator.kDeadHash, false);
+        Animator.AniController.Play(Animator.waitClipName, true);
 
         onAlliave?.Invoke(this);
 
@@ -117,7 +117,7 @@ public class Entity : MonoBehaviour
         if (Movement)
             Movement.enabled = false;
 
-        Animator.AniController.SetBool(Animator.kDeadHash, true);
+        Animator.AniController.Play(Animator.deadClipName, false);
 
         onDead?.Invoke(this);
 
@@ -129,10 +129,8 @@ public class Entity : MonoBehaviour
         if (root.name == socketName || string.IsNullOrEmpty(socketName))
             return root;
 
-        // root transform�� �ڽ� transform���� ��ȸ
         foreach (Transform child in root)
         {
-            // ����Լ��� ���� �ڽĵ� �߿� socketName�� �ִ��� �˻���
             var socket = GetTransformSocket(child, socketName);
             if (socket)
                 return socket;
@@ -143,13 +141,10 @@ public class Entity : MonoBehaviour
 
     public Transform GetTransformSocket(string socketName)
     {
-        // dictionary���� socketName�� �˻��Ͽ� �ִٸ� return
         if (socketsByName.TryGetValue(socketName, out var socket))
             return socket;
 
-        // dictionary�� �����Ƿ� ��ȸ �˻�
         socket = GetTransformSocket(transform, socketName);
-        // socket�� ã���� dictionary�� �����Ͽ� ���Ŀ� �ٽ� �˻��� �ʿ䰡 ������ ��
         if (socket)
             socketsByName[socketName] = socket;
 

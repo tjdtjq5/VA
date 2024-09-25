@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerSpawn : CharacterSpawn
 {
@@ -19,5 +20,24 @@ public class PlayerSpawn : CharacterSpawn
 
         return player;
     }
-    public override void Clear() => players.Clear();
+    public override void Clear()
+    {
+        for (int i = 0; i < players.Count; i++)
+            players[i].Clear();
+
+        players.Clear();
+    }
+    public override void Clear(Character character)
+    {
+        if (!character)
+            return;
+
+        int findIndex = players.FindIndex(p => p == character);
+
+        if (findIndex < 0)
+            return;
+
+        players[findIndex].Clear();
+        players.RemoveAt(findIndex);
+    }
 }

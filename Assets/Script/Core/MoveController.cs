@@ -27,7 +27,7 @@ public class MoveController : MonoBehaviour
     public bool IsMove { get; private set; } = false;
 
     bool isLeft = false;
-    bool IsLeft
+    public bool IsLeft
     {
         get
         {
@@ -39,10 +39,23 @@ public class MoveController : MonoBehaviour
             return isLeft;
         }
     }
+    bool isDown = false;
+    public bool IsDown
+    {
+        get
+        {
+            if (Destination.z < this.transform.position.z)
+                isDown = true;
+            else if (Destination.z > this.transform.position.z)
+                isDown = false;
+
+            return isDown;
+        }
+    }
 
     Vector3 _scaleRight = new Vector3(1, 1, 1);
     Vector3 _scaleLeft = new Vector3(-1, 1, 1);
-
+    int stopTickMaxCount = 10; int stopTickCount = 0;
 
     public void Stop() { IsMove = false; onStop?.Invoke(); }
 
@@ -56,12 +69,18 @@ public class MoveController : MonoBehaviour
 
             if (DistinationSqrMagnitude < 0.1f)
             {
-                Stop();
+                stopTickCount++;
+
+                if (stopTickCount > stopTickMaxCount)
+                {
+                    stopTickCount = 0;
+                    Stop();
+                }
             }
         }
     }
     public void LookAtImmediate(Transform target) => SetFlipScale(this.transform.position.x > target.position.x);
     public void LookAtImmediate(Vector3 target) => SetFlipScale(this.transform.position.x > target.x);
     public void LookAtImmediateDirection(Vector3 direction) => SetFlipScale(direction.x < 0);
-    void SetFlipScale(bool isLeft) => this.transform.localScale = isLeft ? _scaleLeft : _scaleRight;
+    void SetFlipScale(bool isLeft) => this.transform.localScale = isLeft ? _scaleRight : _scaleLeft;
 }

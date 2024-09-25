@@ -16,8 +16,8 @@ public class EntityDefaultState : State<Entity>
         if ((EntityStateMessage)message != EntityStateMessage.UsingSkill)
             return false;
 
-        var tupleData = ((Skill skill, AnimatorParameter animatorParameter))data;
-        Entity.Animator?.AniController?.SetTrigger(tupleData.Item2.Hash);
+        var tupleData = ((Skill skill, string animatorParameter))data;
+        Entity.Animator?.AniController?.Play(tupleData.Item2, true);
 
         return true;
     }

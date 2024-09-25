@@ -1,21 +1,20 @@
+using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EntityAnimator : MonoBehaviour
 {
-    [SerializeField] Animator _animator;
-    public AniController AniController { get; private set; }
+    [SerializeField] SkeletonAnimation _animator;
+    public SpineAniController AniController { get; private set; }
     private Entity entity;
 
-    public readonly string deadClipName = "Dead";
-    public readonly int kRunHash = UnityEngine.Animator.StringToHash("isRun");
-    public readonly int kHitHash = UnityEngine.Animator.StringToHash("hit");
-    public readonly int kDeadHash = UnityEngine.Animator.StringToHash("isDead");
-    public readonly int kDashHash = UnityEngine.Animator.StringToHash("isDash");
-    public readonly int kIsStunningHash = UnityEngine.Animator.StringToHash("isStunning");
-    public readonly int kIsSleepingHash = UnityEngine.Animator.StringToHash("isSleeping");
-
+    public readonly string attackClipName = "attack";
+    public readonly string deadClipName = "dead";
+    public readonly string skillClipName = "skill";
+    public readonly string waitClipName = "wait";
+    public readonly string walkClipName = "walk";
+    public readonly string hitClipName = "hit";
 
     public void Setup(Entity entity)
     {
@@ -33,8 +32,6 @@ public class EntityAnimator : MonoBehaviour
     }
 
     public void AniSpeed(float speed) => AniController.AniSpeed(speed);
-    public void SetTrigger(int hashCode) => AniController.SetTrigger(hashCode);
-    public void SetBool(int hashCode, bool value) => AniController.SetBool(hashCode, value);
-    public void SetFloat(int hashCode, float value) => AniController.SetFloat(hashCode, value);
-    public bool GetBool(int hashCode) => AniController.GetBool(hashCode);
+    public void Play(string aniName, bool isLoop, int index = 0) => AniController.Play(aniName, isLoop , index);
+    public bool IsPlay(string aniName, int index = 0) => AniController.IsPlay(aniName, index);
 }

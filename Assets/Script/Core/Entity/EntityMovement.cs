@@ -71,11 +71,11 @@ public class EntityMovement : MonoBehaviour
 
     void OnStop()
     {
-        Owner.Animator.AniController.SetBool(Owner.Animator.kRunHash, false);
+        Owner.Animator.AniController.Play(Owner.Animator.waitClipName, true);
     }
     void OnMove()
     {
-        Owner.Animator.AniController.SetBool(Owner.Animator.kRunHash, true);
+        Owner.Animator.AniController.Play(Owner.Animator.walkClipName, true);
     }
 
     private void OnDisable() => Stop();
@@ -125,7 +125,7 @@ public class EntityMovement : MonoBehaviour
         Stop();
 
         IsDashing = true;
-        Owner.Animator.AniController.SetBool(Owner.Animator.kDashHash, true);
+        Owner.Animator.AniController.Play(Owner.Animator.walkClipName, true);
 
         if (_dashUpdateCoroutine != null)
             StopCoroutine(_dashUpdateCoroutine);
@@ -158,7 +158,7 @@ public class EntityMovement : MonoBehaviour
                 yield return null;
         }
 
-        Owner.Animator.AniController.SetBool(Owner.Animator.kDashHash, false);
+        Owner.Animator.AniController.Play(Owner.Animator.walkClipName, false);
 
         IsDashing = false;
     }

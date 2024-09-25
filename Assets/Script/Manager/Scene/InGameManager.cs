@@ -18,21 +18,21 @@ public class InGameManager : SceneBase
         SceneType = SceneType.InGame;
 
         playerSpawnActionController = GetComponent<PlayerSpawnActionController>();
-        playerSpawnActionController.Play(Vector3.zero);
+        playerSpawnActionController.Play();
 
-        enemySpawnActionController = GetComponent<EnemySpawnActionController>();
-        enemySpawnActionController.Play(playerSpawnActionController.Player);
+        //enemySpawnActionController = GetComponent<EnemySpawnActionController>();
+        //enemySpawnActionController.Play(playerSpawnActionController.Player);
 
         CameraController cameraController = FindObjectOfType<CinemachineVirtualCamera>().GetOrAddComponent<CameraController>();
         cameraController.SetTarget(playerSpawnActionController.Player.transform);
     }
     public override void Clear()
     {
-        enemySpawnActionController.Clear();
+        //enemySpawnActionController.Clear();
         playerSpawnActionController.Clear();
     }
     void FixedUpdate()
     {
-        enemySpawnActionController.FixedUpdate();
+       // enemySpawnActionController.FixedUpdate();
     }
 }

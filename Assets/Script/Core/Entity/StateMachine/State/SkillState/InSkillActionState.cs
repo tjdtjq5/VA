@@ -9,7 +9,7 @@ public class InSkillActionState : EntitySkillState
     public override void FixedUpdate()
     {
         if (RunningSkill.InSkillActionFinishOption == InSkillActionFinishOption.FinishWhenAnimationEnded)
-            IsStateEnded = !Entity.Animator.AniController.GetBool(AnimatorParameterHash);
+            IsStateEnded = !Entity.Animator.AniController.IsPlay(AnimatorParameterClipName);
     }
 
     public override bool OnReceiveMessage(int message, object data)
