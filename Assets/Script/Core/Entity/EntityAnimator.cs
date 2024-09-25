@@ -14,7 +14,6 @@ public class EntityAnimator : MonoBehaviour
     public readonly string skillClipName = "skill";
     public readonly string waitClipName = "wait";
     public readonly string walkClipName = "walk";
-    public readonly string hitClipName = "hit";
 
     public void Setup(Entity entity)
     {
@@ -32,6 +31,12 @@ public class EntityAnimator : MonoBehaviour
     }
 
     public void AniSpeed(float speed) => AniController.AniSpeed(speed);
-    public void Play(string aniName, bool isLoop, int index = 0) => AniController.Play(aniName, isLoop , index);
+    public void Play(string aniName, bool isLoop, int index = 0)
+    {
+        if (entity.IsDead)
+            return;
+
+        AniController.Play(aniName, isLoop, index);
+    }
     public bool IsPlay(string aniName, int index = 0) => AniController.IsPlay(aniName, index);
 }

@@ -25,7 +25,7 @@ public class ChargingState : SkillState
         Entity.ShowIndicator();
         Entity.StartCustomActions(SkillCustomActionType.Charge);
 
-        TrySendCommandToOwner(Entity, EntityStateCommand.ToChargingSkillState, Entity.ChargeAnimationParameter);
+        TrySendCommandToOwner(Entity, EntityStateCommand.ToChargingSkillState, Entity.ChargeAnimationClipName);
     }
 
     public override void FixedUpdate()

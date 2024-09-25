@@ -23,9 +23,15 @@ public class SpineAniController : MonoBehaviour
         if (IsPlay(aniName, index))
             return;
 
-        sa.AnimationState.SetAnimation(index, aniName, isLoop);
-
-        PlayAniClipName.TryAdd_H(index, aniName, true);
+        try
+        {
+            sa.AnimationState.SetAnimation(index, aniName, isLoop);
+            PlayAniClipName.TryAdd_H(index, aniName, true);
+        }
+        catch
+        {
+            UnityHelper.LogError_H($"SpineAniController Play Error\naniName : {aniName}");
+        }
     }
     public void AniSpeed(float _speed)
     {

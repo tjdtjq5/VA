@@ -9,7 +9,7 @@ public class CastingState : SkillState
         Entity.Activate();
         Entity.StartCustomActions(SkillCustomActionType.Cast);
 
-        TrySendCommandToOwner(Entity, EntityStateCommand.ToCastingSkillState, Entity.CastAnimationParameter);
+        TrySendCommandToOwner(Entity, EntityStateCommand.ToCastingSkillState, Entity.CastAnimationClipName);
     }
 
     public override void FixedUpdate()

@@ -45,7 +45,7 @@ MonoBehaviour:
     applyCount: 1
     applyCycle: 0
     cooldown:
-      defaultValue: 1
+      defaultValue: 0.6
       scaleStat: {fileID: 0}
     targetSearcher:
       selectionAction:
@@ -66,19 +66,11 @@ MonoBehaviour:
     effectSelectors:
     - level: 1
       effect: {fileID: 11400000, guid: f44f197e27c2e364c859bebac99f3624, type: 2}
-    inSkillActionFinishOption: 2
-    castAnimatorParamter:
-      type: 0
-      name: 
-    chargeAnimatorParameter:
-      type: 0
-      name: 
-    precedingActionAnimatorParameter:
-      type: 0
-      name: 
-    actionAnimatorParameter:
-      type: 1
-      name: attack
+    inSkillActionFinishOption: 0
+    castAnimatorClipName: 
+    chargeAnimatorClipName: 
+    precedingActionAnimatorClipName: 
+    actionAnimatorClipName: attack
     customActionsOnCast: []
     customActionsOnCharge: []
     customActionsOnPrecedingAction: []
@@ -106,7 +98,7 @@ MonoBehaviour:
         indicatorViewAction:
           rid: -2
         isUseScale: 0
-        range: 2
+        range: 5.5
         angle: 360
         isSelectSameCategory: 0
         castRadius: 100

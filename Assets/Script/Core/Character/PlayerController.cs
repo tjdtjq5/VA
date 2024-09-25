@@ -42,8 +42,6 @@ public class PlayerController : Character
         if (result.resultMessage != SearchResultMessage.OutOfRange)
             return;
 
-        // entity.SkillSystem.ReserveSkill(skill);
-
         if (result.selectedTarget)
             entity.Movement.TraceTarget = result.selectedTarget.transform;
         else

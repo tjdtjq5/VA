@@ -140,8 +140,6 @@ public class EnemyController : Character
     public override void OnTakeDamage(Entity entity, Entity instigator, object causer, BBNumber damage)
     {
         base.OnTakeDamage(entity, instigator, causer, damage);
-
-        animator.Play(animator.hitClipName, false , 1);
     }
     public override void MoveDirection(Vector3 direction)
     {

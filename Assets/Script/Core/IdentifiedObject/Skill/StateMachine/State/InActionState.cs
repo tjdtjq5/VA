@@ -65,7 +65,7 @@ public class InActionState : SkillState
 
     private void Apply()
     {
-        TrySendCommandToOwner(Entity, EntityStateCommand.ToInSkillActionState, Entity.ActionAnimationParameter);
+        TrySendCommandToOwner(Entity, EntityStateCommand.ToInSkillActionState, Entity.ActionAnimationClipName);
 
         if (isInstantApplyType)
             Entity.Apply();

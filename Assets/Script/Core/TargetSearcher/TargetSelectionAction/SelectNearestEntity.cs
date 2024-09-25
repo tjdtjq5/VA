@@ -39,10 +39,14 @@ public class SelectNearestEntity : SelectTarget
         for (int i = 0; i < castTargets.Count; i++)
         {
             Entity castTarget = castTargets[i].transform.GetComponent<Entity>();
+
             if (!castTarget)
                 continue;
 
-            if (castTarget.transform.position != requesterObject.transform.position)
+            if (castTarget.IsDead)
+                continue;
+
+            if (castTarget.gameObject != requesterObject.gameObject)
             {
                 var hasCategory = requesterEntity.Categories.Any(x => castTarget.HasCategory(x));
 

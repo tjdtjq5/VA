@@ -119,35 +119,35 @@ public class Skill : IdentifiedObject
     public bool HasPrecedingAction => PrecedingAction != null;
 
     public InSkillActionFinishOption InSkillActionFinishOption => currentData.inSkillActionFinishOption;
-    public AnimatorParameter CastAnimationParameter
+    public string CastAnimationClipName
     {
         get
         {
-            var constValue = currentData.castAnimatorParamter;
+            var constValue = currentData.castAnimatorClipName;
             return constValue;
         }
     }
-    public AnimatorParameter ChargeAnimationParameter
+    public string ChargeAnimationClipName
     {
         get
         {
-            var constValue = currentData.chargeAnimatorParameter;
+            var constValue = currentData.chargeAnimatorClipName;
             return constValue;
         }
     }
-    public AnimatorParameter PrecedingActionAnimationParameter
+    public string PrecedingActionAnimationClipName
     {
         get
         {
-            var constValue = currentData.precedingActionAnimatorParameter;
+            var constValue = currentData.precedingActionAnimatorClipName;
             return constValue;
         }
     }
-    public AnimatorParameter ActionAnimationParameter
+    public string ActionAnimationClipName
     {
         get
         {
-            var constValue = currentData.actionAnimatorParameter;
+            var constValue = currentData.actionAnimatorClipName;
             return constValue;
         }
     }

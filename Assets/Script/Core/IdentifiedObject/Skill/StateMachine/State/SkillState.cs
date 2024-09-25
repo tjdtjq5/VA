@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class SkillState : State<Skill>
 {
-    protected void TrySendCommandToOwner(Skill skill, EntityStateCommand command, AnimatorParameter animatorParameter)
+    protected void TrySendCommandToOwner(Skill skill, EntityStateCommand command, string animatorClipName)
     {
+
         var ownerStateMachine = Entity.Owner.StateMachine;
-        if (ownerStateMachine != null && animatorParameter.IsValid)
+        if (ownerStateMachine != null && !string.IsNullOrEmpty(animatorClipName))
         {
-            if (animatorParameter.type == AnimatorParameterType.Bool && ownerStateMachine.ExecuteCommand(command))
-                ownerStateMachine.SendMessage(EntityStateMessage.UsingSkill, (skill, animatorParameter));
-            else if (animatorParameter.type == AnimatorParameterType.Trigger)
+            if (ownerStateMachine.ExecuteCommand(command))
+            {
+                ownerStateMachine.SendMessage(EntityStateMessage.UsingSkill, (skill, animatorClipName));
+            }
+            else
             {
                 ownerStateMachine.ExecuteCommand(EntityStateCommand.ToDefaultState);
-                ownerStateMachine.SendMessage(EntityStateMessage.UsingSkill, (skill, animatorParameter));
+                ownerStateMachine.SendMessage(EntityStateMessage.UsingSkill, (skill, animatorClipName));
             }
         }
     }

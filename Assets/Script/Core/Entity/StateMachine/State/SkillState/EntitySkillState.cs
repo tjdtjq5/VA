@@ -38,7 +38,7 @@ public class EntitySkillState : State<Entity>
         AnimatorParameterClipName = tupleData.Item2;
 
         UnityHelper.Assert_H(RunningSkill != null,
-            $"CastingSkillState({message})::OnReceiveMessage - �߸��� data�� ���޵Ǿ����ϴ�.");
+            $"CastingSkillState({message})::OnReceiveMessage");
 
         if (RunningSkill.IsTargetSelectSuccessful)
         {

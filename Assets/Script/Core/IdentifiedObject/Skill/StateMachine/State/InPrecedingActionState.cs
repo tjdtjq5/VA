@@ -11,7 +11,7 @@ public class InPrecedingActionState : SkillState
         if (!Entity.IsActivated)
             Entity.Activate();
 
-        TrySendCommandToOwner(Entity, EntityStateCommand.ToInSkillPrecedingActionState, Entity.PrecedingActionAnimationParameter);
+        TrySendCommandToOwner(Entity, EntityStateCommand.ToInSkillPrecedingActionState, Entity.PrecedingActionAnimationClipName);
 
         Entity.StartPrecedingAction();
     }
