@@ -66,8 +66,8 @@ GameObject requesterObject);
     {
         var requesterTransform = requesterObject.transform;
 
-        if (!isSelectSameCategory && requesterTransform.position == targetPosition)
-            return false;
+        //if (!isSelectSameCategory && requesterTransform.position == targetPosition)
+        //    return false;
 
         targetPosition.y = requesterTransform.position.y;
 

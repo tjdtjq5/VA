@@ -447,7 +447,9 @@ public class Skill : IdentifiedObject
                 HideIndicator();
 
             if (IsTargetSelectSuccessful && targetSearchTimingOption == TargetSearchTimingOption.TargetSelectionCompleted)
+            {
                 SearchTargets();
+            }
 
             onSelectCompletedOrNull?.Invoke(this, targetSearcher, result);
             onTargetSelectionCompleted?.Invoke(this, targetSearcher, result);

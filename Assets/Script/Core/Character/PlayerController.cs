@@ -1,3 +1,4 @@
+using EasyButtons;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -66,7 +67,6 @@ public class PlayerController : Character
 
         if (RegisterBasicSkill && RegisterBasicSkill.IsInState<ReadyState>() && RegisterBasicSkill.IsUseable)
         {
-            RegisterBasicSkill.Owner.SkillSystem.CancelTargetSearching();
             RegisterBasicSkill.Use();
         }
     }
@@ -85,5 +85,11 @@ public class PlayerController : Character
     public override void MoveDestination(Vector3 destination)
     {
         entity.Movement.Destination = destination;
+    }
+
+    [Button]
+    public void DebugBasicSkillState()
+    {
+        UnityHelper.Log_H(RegisterBasicSkill.GetCurrentStateType());
     }
 }

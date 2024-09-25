@@ -1,3 +1,4 @@
+using EasyButtons;
 using System;
 using UnityEngine;
 
@@ -35,4 +36,10 @@ public abstract class Character : MonoBehaviour
     public abstract void Clear();
     public abstract void MoveDirection(Vector3 direction);
     public abstract void MoveDestination(Vector3 destination);
+
+    [Button]
+    public void DebugEntityState()
+    {
+        UnityHelper.Log_H(entity.StateMachine.GetCurrentState());
+    }
 }
