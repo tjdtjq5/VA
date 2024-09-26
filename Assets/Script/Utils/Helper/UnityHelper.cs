@@ -259,11 +259,19 @@ public static class UnityHelper
     }
     #endregion
 
-    #region Direction
+    #region Vector3
     public static Vector3 GetDirection(this Vector3 originPos, Vector3 targetPos)
     {
         targetPos = targetPos - originPos;
         return targetPos.normalized;
+    }
+    public static float GetDistance(this Vector3 originPos, Vector3 targetPos)
+    {
+        return Vector3.Distance(originPos, targetPos);
+    }
+    public static float GetSqrMagnitude(this Vector3 originPos, Vector3 targetPos)
+    {
+        return Vector3.SqrMagnitude(originPos - targetPos);
     }
     #endregion
     #region  Animation

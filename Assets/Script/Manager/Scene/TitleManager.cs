@@ -42,4 +42,9 @@ public class TitleManager : SceneBase
             Managers.Resources.Instantiate("Prefab/UI/Popup/Monitor/Monitor");
         }
     }
+
+    public override PlayerController GetPlayer()
+    {
+        return null;
+    }
 }

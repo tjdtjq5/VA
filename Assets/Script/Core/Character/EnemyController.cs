@@ -9,6 +9,7 @@ public class EnemyController : Character
     public EnemyGradeType GradeType => gradeType;
 
     float defaultIdleTime = 2.2f; float defaultIdleTimeRange = 0.5f; float idleTime = 2.2f; float idleTimer;
+    float deadMaxTime = 3f; float deadMaxTimer = 0;
     float randomMoveRange = 5f;
     float traceTargetRadius = 7f;
     float traceTargetRadiusMul;
@@ -17,8 +18,6 @@ public class EnemyController : Character
     private EntityAnimator animator;
     private MoveController moveController;
     private Skill defaultSkill;
-    private PlayerController player;
-    private Transform target;
 
     public bool IsDead => entity.IsDead;
     Vector3 spawnPos;
@@ -42,24 +41,13 @@ public class EnemyController : Character
         skillSystem.onSkillTargetSelectionCompleted -= ReserveSkill;
         skillSystem.onSkillTargetSelectionCompleted += ReserveSkill;
     }
-    public void Setup(PlayerController player)
-    {
-        this.player = player;
-        target = player.transform;
-
-        this.player.onDead -= OnPlayerDead;
-        this.player.onDead += OnPlayerDead;
-
-        this.player.onAllive -= OnPlayerAllive;
-        this.player.onAllive += OnPlayerAllive;
-    }
-    public void Allive() => entity.Allive(true);
     public override void Play()
     {
         spawnPos = this.transform.position;
 
         Initialize();
     }
+    public void Allive() => entity.Allive(true);
     private void ReserveSkill(SkillSystem skillSystem, Skill skill, TargetSearcher targetSearcher, TargetSelectionResult result)
     {
         if (!skill.IsInState<SearchingTargetState>())
@@ -69,10 +57,11 @@ public class EnemyController : Character
         {
             Vector3 targetPos = result.selectedTarget ? result.selectedTarget.transform.position : result.selectedPosition;
 
-            if (Vector3.SqrMagnitude(targetPos - this.transform.position) > traceTargetRadiusMul)
-                entity.Movement.Destination = spawnPos;
-            else
+            if (spawnPos.GetSqrMagnitude(targetPos) < traceTargetRadiusMul)
                 entity.Movement.Destination = targetPos;
+            else
+                entity.Movement.Destination = spawnPos;
+
         }
         else if (result.resultMessage == SearchResultMessage.Fail)
         {
@@ -84,31 +73,41 @@ public class EnemyController : Character
     }
     private void FixedUpdate()
     {
-        if (defaultSkill == null || target == null)
+        if (IsDead)
+        {
+            deadMaxTimer += Managers.Time.FixedDeltaTime;
+            if (deadMaxTimer > deadMaxTime)
+            {
+                deadMaxTimer = 0;
+                entity.Destroy();
+            }
+        }
+
+        fuTickCount++;
+        if (fuTickCount < fuTickMaxCount)
+            return;
+        fuTickCount = 0;
+
+        if (defaultSkill == null)
             return;
 
-        if (Vector3.SqrMagnitude(target.transform.position - this.transform.position) > traceTargetRadiusMul)
+        if (entity.IsInState<EntityDefaultState>())
         {
-            // patroll
-
             if (!moveController.IsMove)
             {
+                // patroll
                 idleTimer += Managers.Time.FixedDeltaTime;
                 if (idleTimer > idleTime)
                 {
                     idleTimer = 0;
                     RandomMove();
                 }
-            }
-        }
-        else
-        {
-            // trace 
 
-            if (defaultSkill.IsInState<ReadyState>() && defaultSkill.IsUseable)
-            {
-                defaultSkill.Owner.SkillSystem.CancelTargetSearching();
-                defaultSkill.Use();
+                // trace 
+                if (defaultSkill.IsInState<ReadyState>() && defaultSkill.IsUseable)
+                {
+                    defaultSkill.Use();
+                }
             }
         }
     }
@@ -117,6 +116,11 @@ public class EnemyController : Character
 
     }
     public override void Clear() { }
+    public override void OnDead(Entity entity)
+    {
+        base.OnDead(entity);
+        deadMaxTimer = 0;
+    }
 
     public void RandomMove()
     {
@@ -128,15 +132,6 @@ public class EnemyController : Character
 
         entity.Movement.Destination = rPos;
     }
-
-    private void OnPlayerAllive(Entity playerEntity)
-    {
-        target = playerEntity.transform;
-    }
-    private void OnPlayerDead(Entity playerEntity)
-    {
-        target = null;
-    }
     public override void OnTakeDamage(Entity entity, Entity instigator, object causer, BBNumber damage)
     {
         base.OnTakeDamage(entity, instigator, causer, damage);
@@ -146,11 +141,15 @@ public class EnemyController : Character
         direction.z = direction.y;
         direction.y = 0;
 
-        entity.Movement.Destination = this.transform.position + direction;
+        entity.Movement.Destination = this.transform.position + (direction);
     }
     public override void MoveDestination(Vector3 destination)
     {
         entity.Movement.Destination = destination;
+    }
+    public override void MoveTrance(Transform target, Vector3 offset)
+    {
+        entity.Movement.SetTraceTarget(target, offset);
     }
 }
 public enum EnemyGradeType

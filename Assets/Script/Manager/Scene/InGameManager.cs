@@ -35,4 +35,9 @@ public class InGameManager : SceneBase
     {
         enemySpawnActionController.FixedUpdate();
     }
+
+    public override PlayerController GetPlayer()
+    {
+        return playerSpawnActionController.Player;
+    }
 }

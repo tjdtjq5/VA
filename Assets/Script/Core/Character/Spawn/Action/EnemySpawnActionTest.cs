@@ -30,10 +30,9 @@ public class EnemySpawnActionTest : EnemySpawnAction
         for (int i = 0; i < enemyPrefabs.Count; i++)
         {
             Vector3 pos = new Vector3(UnityEngine.Random.Range(mapSizeMin.x, mapSizeMax.x), 0, UnityEngine.Random.Range(mapSizeMin.y, mapSizeMax.y));
-            Character enemy = enemySpawn.Spawn(enemyPrefabs[i], pos);
+            Character enemy = enemySpawn.Spawn(enemyPrefabs[i], pos, 0);
             EnemyController ec = enemy.GetComponent<EnemyController>();
             ec.Allive();
-            ec.Setup(player);
 
             enemy.transform.position = pos;
 

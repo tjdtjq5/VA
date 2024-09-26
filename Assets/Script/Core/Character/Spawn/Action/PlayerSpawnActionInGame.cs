@@ -36,8 +36,6 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
         }
     }
 
-    int VerticalCount => 4;
-    float Spacing = 7f;
     const int MaxCharacterCount = 12;
 
     public void TestSet()
@@ -99,10 +97,8 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
         playerCharacters[index] = null;
 
         PlayerController masterPlayer = Player;
-        bool isLeft = masterPlayer == null || masterPlayer.IsLeft;
-        bool isDown = masterPlayer == null || masterPlayer.IsDown;
 
-        Character playerCharacter = playerSpawn.Spawn(pcPrefabs, GetIndexWorldPos(index, isLeft, isDown));
+        Character playerCharacter = playerSpawn.Spawn(pcPrefabs, GameController.GetIndexWorldPos(masterPlayer, index), index);
         playerCharacters[index] = playerCharacter.GetComponent<PlayerController>();
         return playerCharacters[index];
     }
@@ -116,27 +112,6 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
 
         playerSpawn.Clear(playerCharacters[index]);
         playerCharacters[index] = null;
-    }
-
-   
-    Vector3 GetIndexWorldPos(int index, bool isLeft, bool isDown)
-    {
-        PlayerController masterPlayer = Player;
-        Vector3 masterPos = masterPlayer == null ? Vector3.zero : masterPlayer.transform.position;
-
-        return masterPos + GetIndexLocalPos(index, isLeft, isDown);
-    }
-    Vector3 GetIndexLocalPos(int index, bool isLeft, bool isDown)
-    {
-        Vector3 stPos = Vector3.zero;
-
-        int x = index / VerticalCount;
-        int z = index % VerticalCount;
-
-        x = isLeft ? x : -x;
-        z = isDown ? z : -z;
-
-        return stPos + new Vector3(x * Spacing, 0, z * Spacing);
     }
 
     void JoysticMove(Vector3 direction)
@@ -163,7 +138,7 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
             if (playerCharacters[i] == masterPlayer )
                 continue;
 
-            playerCharacters[i].MoveDestination(GetIndexWorldPos(i, isLeft, isDown));
+            playerCharacters[i].MoveDestination(GameController.GetIndexWorldPos(masterPlayer, i));
         }
     }
 }

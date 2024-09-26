@@ -90,10 +90,9 @@ public class EnemySpawnActionInGame : EnemySpawnAction
         float posZ = UnityEngine.Random.Range(0, 100) % 2 == 0 ? UnityEngine.Random.Range(groupSpawnPosRangeMin, groupSpawnPosRangeMax) : UnityEngine.Random.Range(-groupSpawnPosRangeMax, -groupSpawnPosRangeMin);
         Vector3 pos = new Vector3(posX, 0, posZ) + groupPosition;
 
-        Character enemy = enemySpawn[groupX, groupY].Spawn(enemyPrefabs[random], pos);
+        Character enemy = enemySpawn[groupX, groupY].Spawn(enemyPrefabs[random], pos, GetIndexByGrid(groupX, groupY));
         EnemyController ec = enemy.GetComponent<EnemyController>();
         ec.Allive();
-        ec.Setup(player);
 
         enemy.onTakeDamage -= OnTakeDamage;
         enemy.onTakeDamage += OnTakeDamage;
@@ -134,5 +133,24 @@ public class EnemySpawnActionInGame : EnemySpawnAction
     public void OnDead(Entity entity)
     {
         onDead?.Invoke(entity);
+        
+        EnemyController enemy = entity.GetComponent<EnemyController>();
+        if (enemy == null) return;
+
+        int index = enemy.Index;
+        Vector2Int group = GetGroupByIndex(index);
+        enemySpawn[group.x, group.y].Clear(enemy);
+    }
+
+    int GetIndexByGrid(int groupX, int groupY)
+    {
+        return groupY * groupCell.x + groupX;
+    }
+    Vector2Int GetGroupByIndex(int index)
+    {
+        int x = index % groupCell.x;
+        int y = index / groupCell.y;
+
+        return new Vector2Int(x, y);
     }
 }

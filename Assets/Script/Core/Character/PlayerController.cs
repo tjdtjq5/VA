@@ -43,10 +43,19 @@ public class PlayerController : Character
         if (result.resultMessage != SearchResultMessage.OutOfRange)
             return;
 
-        if (result.selectedTarget)
-            entity.Movement.TraceTarget = result.selectedTarget.transform;
+        Vector3 dest = result.selectedTarget ? result.selectedTarget.transform.position : result.selectedPosition;
+
+        if (Managers.Scene.CurrentScene.IsOutDest(this, Index, dest))
+        {
+            PlayerController masterPlayer = Managers.Scene.CurrentScene.GetPlayer();
+            MoveTrance(masterPlayer.transform, GameController.GetIndexLocalPos(masterPlayer, Index));
+        }
         else
-            entity.Movement.Destination = result.selectedPosition;
+        {
+            MoveDestination(dest);
+        }
+
+        skillSystem.CancelTargetSearching();
     }
 
     public override void Play() { Initialize(); }
@@ -62,11 +71,18 @@ public class PlayerController : Character
 
     void FixedUpdate()
     {
-        if (moveController && moveController.IsMove)
+        fuTickCount++;
+        if (fuTickCount < fuTickMaxCount)
+            return;
+        fuTickCount = 0;
+
+
+        if (!moveController)
             return;
 
         if (RegisterBasicSkill && RegisterBasicSkill.IsInState<ReadyState>() && RegisterBasicSkill.IsUseable)
         {
+            skillSystem.CancelTargetSearching();
             RegisterBasicSkill.Use();
         }
     }
@@ -80,16 +96,26 @@ public class PlayerController : Character
         direction.z = direction.y;
         direction.y = 0;
 
-        entity.Movement.Destination = this.transform.position + (direction * 100);
+        entity.Movement.Destination = this.transform.position + (direction * 10);
     }
     public override void MoveDestination(Vector3 destination)
     {
         entity.Movement.Destination = destination;
+    }
+    public override void MoveTrance(Transform target, Vector3 offset)
+    {
+        entity.Movement.SetTraceTarget(target,offset);
     }
 
     [Button]
     public void DebugBasicSkillState()
     {
         UnityHelper.Log_H(RegisterBasicSkill.GetCurrentStateType());
+    }
+
+    [Button]
+    public void DebugBasicSkillIsMove()
+    {
+        UnityHelper.Log_H(moveController.IsMove);
     }
 }

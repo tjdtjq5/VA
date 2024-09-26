@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 [RequireComponent(typeof(MoveController))]
 public class EntityMovement : MonoBehaviour
@@ -31,7 +32,7 @@ public class EntityMovement : MonoBehaviour
             traceTarget = value;
             if (traceTarget)
             {
-                TraceUpdateCoroutine = TraceUpdate();
+                TraceUpdateCoroutine = TraceUpdate(Vector3.zero);
                 StartCoroutine(TraceUpdateCoroutine);
             }
         }
@@ -91,6 +92,20 @@ public class EntityMovement : MonoBehaviour
         moveController.Destination = destination;
         onSetDestination?.Invoke(this, destination);
     }
+    public void SetTraceTarget(Transform target, Vector3 offset)
+    {
+        if (traceTarget == target)
+            return;
+
+        Stop();
+
+        traceTarget = target;
+        if (traceTarget)
+        {
+            TraceUpdateCoroutine = TraceUpdate(offset);
+            StartCoroutine(TraceUpdateCoroutine);
+        }
+    }
 
     public void Stop()
     {
@@ -103,18 +118,20 @@ public class EntityMovement : MonoBehaviour
     }
 
     IEnumerator TraceUpdateCoroutine;
-    private IEnumerator TraceUpdate()
+    private IEnumerator TraceUpdate(Vector3 offPos)
     {
         while (true)
         {
-            if (Vector3.SqrMagnitude(TraceTarget.position - transform.position) > 1.0f)
+            if (Vector3.SqrMagnitude((TraceTarget.position + offPos) - transform.position) > 1.0f)
             {
-                SetDestination(TraceTarget.position);
+                SetDestination(TraceTarget.position + offPos);
                 yield return null;
             }
             else
                 break;
         }
+
+        traceTarget = null;
     }
 
     private void OnMoveSpeedChanged(Stat stat, BBNumber currentValue, BBNumber prevValue)

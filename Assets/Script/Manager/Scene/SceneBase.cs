@@ -19,4 +19,34 @@ public abstract class SceneBase : MonoBehaviour
             Managers.Resources.Instantiate("Prefab/UI/EventSystem").name = "@EventSystem";
     }
     public abstract void Clear();
+    public abstract PlayerController GetPlayer();
+    public bool IsOutDest(PlayerController player, int index, Vector3 destination)
+    {
+        PlayerController masterPlayer = GetPlayer();
+        if (!masterPlayer || masterPlayer == player)
+            return false;
+
+        if (masterPlayer.transform.position.GetSqrMagnitude(destination) > GameController.PlayersMaxSqrDistance
+            || masterPlayer.transform.position.GetSqrMagnitude(destination) < GameController.PlayersMinSqrDistance
+            && player.transform.position.GetSqrMagnitude(destination) > GameController.PlayersMaxSqrDistance)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public virtual Vector3 GetPlayerMovePos(PlayerController player, int index, Vector3 destination)
+    {
+        if (IsOutDest(player, index, destination))
+        {
+            PlayerController masterPlayer = GetPlayer();
+            return GameController.GetIndexWorldPos(masterPlayer, index);
+        }
+        else
+        {
+            return destination;
+        }
+    }
 }

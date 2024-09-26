@@ -10,10 +10,14 @@ using UnityEngine;
 [RequireComponent(typeof(EntityStateMachine))]
 public abstract class Character : MonoBehaviour
 {
+    public int Index { get; set; }
+
     protected Entity entity;
     public Action<Entity> onDead;
     public Action<Entity> onAllive;
     public Action<Entity, Entity, object, BBNumber> onTakeDamage;
+
+    protected int fuTickMaxCount = 10; protected int fuTickCount = 0;
 
     protected virtual void Initialize()
     {
@@ -28,14 +32,21 @@ public abstract class Character : MonoBehaviour
         entity.onDead -= OnDead;
         entity.onDead += OnDead;
     }
-    void OnDead(Entity entity) => onDead?.Invoke(entity);
-    void OnAllive(Entity entity) => onAllive?.Invoke(entity);
+    public virtual void OnDead(Entity entity) => onDead?.Invoke(entity);
+    public virtual void OnAllive(Entity entity) => onAllive?.Invoke(entity);
     public virtual void OnTakeDamage(Entity entity, Entity instigator, object causer, BBNumber damage) => onTakeDamage?.Invoke(entity, instigator, causer, damage);
     public abstract void Play();
     public abstract void Stop();
     public abstract void Clear();
     public abstract void MoveDirection(Vector3 direction);
     public abstract void MoveDestination(Vector3 destination);
+    public abstract void MoveTrance(Transform target, Vector3 offset);
+
+    [Button]
+    public void DebugIsDead()
+    {
+        UnityHelper.Log_H($"IsDead : {entity.IsDead}");
+    }
 
     [Button]
     public void DebugEntityState()

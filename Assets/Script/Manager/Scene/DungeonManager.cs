@@ -12,6 +12,10 @@ public class DungeonManager : SceneBase
     }
     public override void Clear()
     {
-        throw new System.NotImplementedException();
+    }
+
+    public override PlayerController GetPlayer()
+    {
+        return null;
     }
 }
