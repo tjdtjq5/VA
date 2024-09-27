@@ -105,7 +105,7 @@ public class Entity : MonoBehaviour
         if (Movement)
             Movement.enabled = true;
 
-        Animator.AniController.Play(Animator.waitClipName, true);
+        Animator.Play(Animator.waitClipName, true);
 
         onAlliave?.Invoke(this);
 
@@ -117,7 +117,7 @@ public class Entity : MonoBehaviour
         if (Movement)
             Movement.enabled = false;
 
-        Animator.AniController.Play(Animator.deadClipName, false);
+        Animator.Play(Animator.deadClipName, false);
 
         onDead?.Invoke(this);
 

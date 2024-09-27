@@ -8,20 +8,16 @@ public class DashingAction : SkillPrecedingAction
     [SerializeField]
     private float distance;
 
-    [UnderlineTitle("Target Searcher")]
-    public TargetSearcher targetSearcher;
+    [SerializeField]
+    private string clipName;
 
     public override void Start(Skill skill)
     {
-        targetSearcher.SelectTarget(skill.Owner, skill.Owner.gameObject, (targetSearcher, result) =>
+        skill.TargetSearcher.SelectTarget(skill.Owner, skill.Owner.gameObject, (targetSearcher, result) =>
         {
-            if (result.resultMessage == SearchResultMessage.OutOfRange || result.resultMessage == SearchResultMessage.FindTarget)
+            if (result.resultMessage == SearchResultMessage.FindTarget)
             {
-                skill.Owner.Movement.Dash(distance, skill.Owner.transform.position.GetDirection(result.selectedTarget.transform.position));
-            }
-            else
-            {
-                UnityHelper.Log_H($"None Target");
+                skill.Owner.Movement.Dash(distance, skill.Owner.transform.position.GetDirection(result.selectedTarget.transform.position), clipName);
             }
         });
     }

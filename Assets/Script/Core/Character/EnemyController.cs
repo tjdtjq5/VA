@@ -83,6 +83,20 @@ public class EnemyController : Character
             }
         }
 
+        if (entity.IsInState<EntityDefaultState>())
+        {
+            if (!moveController.IsMove)
+            {
+                // patroll
+                idleTimer += Managers.Time.FixedDeltaTime;
+                if (idleTimer > idleTime)
+                {
+                    idleTimer = 0;
+                    RandomMove();
+                }
+            }
+        }
+
         fuTickCount++;
         if (fuTickCount < fuTickMaxCount)
             return;
@@ -95,14 +109,6 @@ public class EnemyController : Character
         {
             if (!moveController.IsMove)
             {
-                // patroll
-                idleTimer += Managers.Time.FixedDeltaTime;
-                if (idleTimer > idleTime)
-                {
-                    idleTimer = 0;
-                    RandomMove();
-                }
-
                 // trace 
                 if (defaultSkill.IsInState<ReadyState>() && defaultSkill.IsUseable)
                 {

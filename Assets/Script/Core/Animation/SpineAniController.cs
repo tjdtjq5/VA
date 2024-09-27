@@ -22,7 +22,7 @@ public class SpineAniController : MonoBehaviour
     {
         if (IsPlay(aniName, index))
             return;
-
+        
         try
         {
             sa.AnimationState.SetAnimation(index, aniName, isLoop);

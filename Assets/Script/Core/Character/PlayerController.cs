@@ -11,9 +11,10 @@ public class PlayerController : Character
 
     public bool IsLeft => moveController.IsLeft;
     public bool IsDown => moveController.IsDown;
+    private Vector3 JoysticDir { get; set; } = Vector3.zero;
 
-    [SerializeField]
-    private Skill basicSkill; private Skill RegisterBasicSkill;
+    [SerializeField] private Skill basicSkill; private Skill RegisterBasicSkill;
+    [SerializeField] private Skill activeSkill; [SerializeField] private Skill activeUpgradeSkill; private Skill RegisterActiveSkill;
 
     protected override void Initialize()
     {
@@ -25,15 +26,15 @@ public class PlayerController : Character
         moveController = entity.Movement.MoveController;
         animator = entity.Animator;
 
+        skillSystem.onSkillTargetSelectionCompleted -= ReserveSkill;
         skillSystem.onSkillTargetSelectionCompleted += ReserveSkill;
+
+        Managers.Observer.OnJoystic -= JoysticDirection;
+        Managers.Observer.OnJoystic += JoysticDirection;
 
         // SkillRegister
         RegisterBasicSkill = skillSystem.Register(basicSkill);
-
-        if (!GameOptionManager.IsRelease)
-        {
-  
-        }
+        RegisterActiveSkill = skillSystem.Register(activeUpgradeSkill);
     }
     private void ReserveSkill(SkillSystem skillSystem, Skill skill, TargetSearcher targetSearcher, TargetSelectionResult result)
     {
@@ -76,11 +77,20 @@ public class PlayerController : Character
             return;
         fuTickCount = 0;
 
-
         if (!moveController)
             return;
 
-        if (RegisterBasicSkill && RegisterBasicSkill.IsInState<ReadyState>() && RegisterBasicSkill.IsUseable)
+        if (JoysticDir != Vector3.zero)
+            return;
+        
+        // Attack
+
+        if (RegisterActiveSkill && RegisterActiveSkill.IsInState<ReadyState>() && RegisterActiveSkill.IsUseable)
+        {
+            skillSystem.CancelTargetSearching();
+            RegisterActiveSkill.Use();
+        }
+        else if (RegisterBasicSkill && RegisterBasicSkill.IsInState<ReadyState>() && RegisterBasicSkill.IsUseable)
         {
             skillSystem.CancelTargetSearching();
             RegisterBasicSkill.Use();
@@ -106,15 +116,24 @@ public class PlayerController : Character
     {
         entity.Movement.SetTraceTarget(target,offset);
     }
+    public void JoysticDirection(Vector3 direction)
+    {
+        JoysticDir = direction;
+    }
 
     [Button]
     public void DebugBasicSkillState()
     {
         UnityHelper.Log_H(RegisterBasicSkill.GetCurrentStateType());
     }
+    [Button]
+    public void DebugActiveSkillState()
+    {
+        UnityHelper.Log_H(RegisterActiveSkill.GetCurrentStateType());
+    }
 
     [Button]
-    public void DebugBasicSkillIsMove()
+    public void DebugIsMove()
     {
         UnityHelper.Log_H(moveController.IsMove);
     }

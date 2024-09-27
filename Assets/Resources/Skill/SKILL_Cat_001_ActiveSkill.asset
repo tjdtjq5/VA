@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c43c11f085e0424fbf995787e42221d, type: 3}
-  m_Name: SKILL_EnemyMeleeAttack
+  m_Name: SKILL_Cat_001_ActiveSkill
   m_EditorClassIdentifier: 
   categories: []
   icon: {fileID: 0}
-  id: 7
-  codeName: EnemyMeleeAttack
-  displayName: EnemyMeleeAttack
-  description: 
+  id: 8
+  codeName: Cat_001_ActiveSkill
+  displayName: Cat_001_ActiveSkill
+  description: Cat_001_ActiveSkill
   type: 0
   useType: 0
   executionType: 0
@@ -27,8 +27,7 @@ MonoBehaviour:
   targetSearchTimingOption: 0
   acquisitionConditions: []
   acquisitionCosts: []
-  useConditions:
-  - rid: 4300027678793400323
+  useConditions: []
   isAllowLevelExceedDatas: 0
   maxLevel: 1
   defaultLevel: 1
@@ -37,21 +36,21 @@ MonoBehaviour:
     levelUpConditions: []
     levelUpCosts: []
     precedingAction:
-      rid: -2
+      rid: 5444726123996119040
     action:
-      rid: 4300027678793400324
+      rid: 5444726123996119041
     runningFinishOption: 0
     duration: 0
     applyCount: 1
     applyCycle: 0
     cooldown:
-      defaultValue: 0.6
+      defaultValue: 5
       scaleStat: {fileID: 0}
     targetSearcher:
       selectionAction:
-        rid: 4300027678793400325
+        rid: 5444726123996119042
       searchAction:
-        rid: 4300027678793400326
+        rid: 5444726123996119043
     costs: []
     isUseCast: 0
     castTime:
@@ -70,7 +69,7 @@ MonoBehaviour:
     castAnimatorClipName: 
     chargeAnimatorClipName: 
     precedingActionAnimatorClipName: 
-    actionAnimatorClipName: attack
+    actionAnimatorClipName: 
     customActionsOnCast: []
     customActionsOnCharge: []
     customActionsOnPrecedingAction: []
@@ -80,23 +79,25 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 4300027678793400323
-      type: {class: IsEntityReadyCondition, ns: , asm: Assembly-CSharp}
-      data: 
-    - rid: 4300027678793400324
+    - rid: 5444726123996119040
+      type: {class: DashingAction, ns: , asm: Assembly-CSharp}
+      data:
+        distance: 7.5
+        clipName: skill
+    - rid: 5444726123996119041
       type: {class: InstantApplyAction, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 4300027678793400325
+    - rid: 5444726123996119042
       type: {class: SelectNearestEntity, ns: , asm: Assembly-CSharp}
       data:
         indicatorViewAction:
           rid: -2
         isUseScale: 0
-        range: 5.5
+        range: 7.5
         angle: 360
         isSelectSameCategory: 0
-        castRadius: 5.5
-    - rid: 4300027678793400326
+        castRadius: 1000
+    - rid: 5444726123996119043
       type: {class: SelectedTarget, ns: , asm: Assembly-CSharp}
       data:
         indicatorViewAction:

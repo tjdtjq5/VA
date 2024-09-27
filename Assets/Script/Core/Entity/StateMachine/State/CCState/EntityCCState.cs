@@ -9,7 +9,7 @@ public abstract class EntityCCState : State<Entity>
 
     public override void Enter()
     {
-        Entity.Animator?.AniController?.Play(AnimationClipName, true);
+        Entity.Animator?.Play(AnimationClipName, true);
         Entity.Movement?.Stop();
         Entity.SkillSystem.CancelAll();
 
@@ -20,7 +20,7 @@ public abstract class EntityCCState : State<Entity>
 
     public override void Exit()
     {
-        Entity.Animator?.AniController?.Play(AnimationClipName, false);
+        Entity.Animator?.Play(AnimationClipName, false);
 
         var playerController = Entity.GetComponent<PlayerController>();
         if (playerController)

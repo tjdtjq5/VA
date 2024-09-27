@@ -18,7 +18,7 @@ public class EntitySkillState : State<Entity>
 
     public override void Exit()
     {
-        Entity.Animator?.AniController?.Play(AnimatorParameterClipName, false);
+        Entity.Animator?.Play(AnimatorParameterClipName, false);
 
         RunningSkill = null;
 
@@ -46,7 +46,7 @@ public class EntitySkillState : State<Entity>
             if (selectionResult.selectedTarget != Entity.gameObject)
                 Entity.Movement.MoveController.LookAtImmediate(selectionResult.selectedPosition);
         }
-        Entity.Animator?.AniController?.Play(AnimatorParameterClipName, false);
+        Entity.Animator?.Play(AnimatorParameterClipName, false);
 
         return true;
     }

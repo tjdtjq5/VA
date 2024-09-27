@@ -1,6 +1,6 @@
+using System;
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 [RequireComponent(typeof(MoveController))]
 public class EntityMovement : MonoBehaviour
@@ -72,11 +72,11 @@ public class EntityMovement : MonoBehaviour
 
     void OnStop()
     {
-        Owner.Animator.AniController.Play(Owner.Animator.waitClipName, true);
+        Owner.Animator.Play(Owner.Animator.waitClipName, true);
     }
     void OnMove()
     {
-        Owner.Animator.AniController.Play(Owner.Animator.walkClipName, true);
+        Owner.Animator.Play(Owner.Animator.walkClipName, true);
     }
 
     private void OnDisable() => Stop();
@@ -89,11 +89,17 @@ public class EntityMovement : MonoBehaviour
 
     private void SetDestination(Vector3 destination)
     {
+        if (IsDashing)
+            return;
+
         moveController.Destination = destination;
         onSetDestination?.Invoke(this, destination);
     }
     public void SetTraceTarget(Transform target, Vector3 offset)
     {
+        if (IsDashing)
+            return;
+
         if (traceTarget == target)
             return;
 
@@ -137,46 +143,58 @@ public class EntityMovement : MonoBehaviour
     private void OnMoveSpeedChanged(Stat stat, BBNumber currentValue, BBNumber prevValue)
         => moveController.Speed = currentValue.Float();
 
-    public void Dash(float distance, Vector3 direction)
+    public void Dash(float distance, Vector3 direction, string clipName, Action callback = null)
     {
         Stop();
 
+        if (!string.IsNullOrEmpty(clipName))
+            Owner.Animator.Play(clipName, true);
+
+        dashDistance = distance;
+        dashDirection = direction;
+        currentDashTime = 0;
+        prevDashDistance = 0;
+        dashCallback = callback;
+
+        MoveController.LookAtImmediateDirection(direction);
+
         IsDashing = true;
-        Owner.Animator.AniController.Play(Owner.Animator.walkClipName, true);
-
-        if (_dashUpdateCoroutine != null)
-            StopCoroutine(_dashUpdateCoroutine);
-
-        _dashUpdateCoroutine = DashUpdate(distance, direction);
-        StartCoroutine(_dashUpdateCoroutine);
     }
 
-    IEnumerator _dashUpdateCoroutine;
-    private IEnumerator DashUpdate(float distance, Vector3 direction)
+    float dashDistance = 0;
+    Vector3 dashDirection = Vector3.zero;
+    float currentDashTime = 0f;
+    float prevDashDistance = 0f;
+    Action dashCallback = null;
+
+    private void FixedUpdate()
     {
-        float currentDashTime = 0f;
-        float prevDashDistance = 0f;
-
-        while (true)
+        if (IsDashing)
         {
-            currentDashTime += Managers.Time.FixedDeltaTime * MoveSpeed / 3;
+            currentDashTime += Managers.Time.FixedDeltaTime * 16;
 
-            float timePoint = currentDashTime / distance;
-            float inOutSine = -(Mathf.Cos(Mathf.PI * timePoint) - 1f) / 2f;
-            float currentDashDistance = Mathf.Lerp(0f, distance, inOutSine);
-            float deltaValue = currentDashDistance - prevDashDistance;
+            DashUpdated(dashDistance, dashDirection);
 
-            transform.position += (direction.normalized * deltaValue);
-            prevDashDistance = currentDashDistance;
+            if (currentDashTime >= dashDistance)
+            {
+                IsDashing = false;
 
-            if (currentDashTime >= distance)
-                break;
-            else
-                yield return null;
+                Owner.Animator.Play(Owner.Animator.waitClipName, true);
+
+                if (dashCallback != null)
+                    dashCallback.Invoke();
+            }
         }
+    }
 
-        Owner.Animator.AniController.Play(Owner.Animator.walkClipName, false);
+    void DashUpdated(float distance, Vector3 direction)
+    {
+        float timePoint = currentDashTime / distance;
+        float inOutSine = -(Mathf.Cos(Mathf.PI * timePoint) - 1f) / 2f;
+        float currentDashDistance = Mathf.Lerp(0f, distance, inOutSine);
+        float deltaValue = currentDashDistance - prevDashDistance;
 
-        IsDashing = false;
+        transform.position += (direction.normalized * deltaValue);
+        prevDashDistance = currentDashDistance;
     }
 }
