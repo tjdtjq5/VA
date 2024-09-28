@@ -218,6 +218,8 @@ public class EntityMovement : MonoBehaviour
 
         precedingTime = time;
         precedingTimer = 0f;
+
+        IsPreceding = true;
     }
     #endregion
 }
