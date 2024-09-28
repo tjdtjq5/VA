@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class StarSpawnPrecedingAction : SkillPrecedingAction
 {
-    float precedingTime = 0.2f;
+    float precedingTime = 0.5f;
     string prefabPath = "Prefab/Effect/SkillStarEffect";
 
     public override void Start(Skill skill)

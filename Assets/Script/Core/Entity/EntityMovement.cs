@@ -166,6 +166,8 @@ public class EntityMovement : MonoBehaviour
             precedingTimer += Managers.Time.FixedDeltaTime;
             if (precedingTimer > precedingTime)
             {
+                Owner.Animator.Play(Owner.Animator.waitClipName, true);
+
                 precedingTimer = 0;
                 IsPreceding = false;
             }
@@ -215,6 +217,8 @@ public class EntityMovement : MonoBehaviour
     public void Preceding(float time)
     {
         Stop();
+
+        Owner.Animator.Play(Owner.Animator.precedingClipName, true);
 
         precedingTime = time;
         precedingTimer = 0f;

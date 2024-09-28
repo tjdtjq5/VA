@@ -14,6 +14,7 @@ public class EntityAnimator : MonoBehaviour
     public readonly string skillClipName = "skill";
     public readonly string waitClipName = "wait";
     public readonly string walkClipName = "walk";
+    public readonly string precedingClipName = "skill_casting";
 
     public void Setup(Entity entity)
     {
