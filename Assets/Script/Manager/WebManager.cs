@@ -133,13 +133,10 @@ public class WebManager
                 bool isJopWork = false;
                 for (int i = 0; i < errorJob.Length; i++)
                 {
-                    UnityHelper.Log_H(errorJob[i]._messageType);
                     if (errorJob[i]._messageType == errorMsgType)
                     {
-                        UnityHelper.Log_H($"{errorJob[i]._messageType} Success");
                         if (errorJob[i]._job != null)
                         {
-                            UnityHelper.Log_H($"{errorJob[i]._messageType} Job");
                             isJopWork = true;
                             errorJob[i]._job.Execute();
                             break;

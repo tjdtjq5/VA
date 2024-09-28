@@ -5,7 +5,7 @@ using UnityEngine;
 public static class GameController
 {
     public static int DeckVerticalCount => 4;
-    public static float DeckSpacing = 7f;
+    public static float DeckSpacing = 3f;
     public static Vector3 GetIndexWorldPos(PlayerController masterPlayer, int index)
     {
         bool isLeft = masterPlayer == null || masterPlayer.IsLeft;
@@ -30,6 +30,6 @@ public static class GameController
         return stPos + new Vector3(x * DeckSpacing, 0, z * DeckSpacing);
     }
 
-    public static float PlayersMaxSqrDistance => 225f; // -> 15f
-    public static float PlayersMinSqrDistance => 16f; // -> 4f
+    public static float PlayersMaxSqrDistance => 64f; // -> 15f
+    public static float PlayersMinSqrDistance => 2.25f; // -> 4f
 }

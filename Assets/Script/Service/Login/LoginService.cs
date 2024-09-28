@@ -4,11 +4,7 @@ public class LoginService
 {
     public static void AtLogin(Action callback, Action expireCallback)
     {
-        AutoLogin.Login(callback, () =>
-        {
-            if(expireCallback != null)
-                expireCallback.Invoke();
-        });
+        AutoLogin.Login(callback, expireCallback);
     }
     public static void Login(ProviderType providerType, Action callback)
     {

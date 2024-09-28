@@ -14,18 +14,16 @@ public class TitleManager : SceneBase
 
         LoginService.AtLogin(() => 
         {
-            UILoginFuncTest ulft = Managers.Resources.Instantiate<UILoginFuncTest>("Prefab/UI/Popup/UILoginFuncTest");
+            UIItemTest ulft = Managers.UI.ShopPopupUI<UIItemTest>("Test/UIItemTest");
 
         }, () => 
         {
-            UI_Login UI_Login = Managers.Resources.Instantiate<UI_Login>("Prefab/UI/Popup/UILogin");
+            UI_Login UI_Login = Managers.UI.ShopPopupUI<UI_Login>("UILogin");
 
-            // UILoginTest ult = Managers.Resources.Instantiate<UILoginTest>("Prefab/UI/Popup/UILoginTest");
             UI_Login.LoginAfterJob(() =>
             {
-                Managers.Resources.Destroy(UI_Login.gameObject);
-
-                UILoginFuncTest ulft = Managers.Resources.Instantiate<UILoginFuncTest>("Prefab/UI/Popup/UILoginFuncTest");
+                UIItemTest ulft = Managers.UI.ShopPopupUI<UIItemTest>("Test/UIItemTest");
+                UI_Login.ClosePopupUI();
             });
         });
     }

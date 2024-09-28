@@ -55,11 +55,6 @@ public class AutoLogin
         _callback = callback;
         _expireCallback = expireCallback;
 
-        if (!IsAuto)
-        {
-            LoginExpireAction();
-        }
-
         AccountAutoLoginRequest req = new AccountAutoLoginRequest()
         {
             ProviderType = AutoProviderType,
