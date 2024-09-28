@@ -24,7 +24,7 @@ MonoBehaviour:
   applyType: 0
   needSelectionResultType: 0
   targetSelectionTimingOption: 0
-  targetSearchTimingOption: 0
+  targetSearchTimingOption: 1
   acquisitionConditions: []
   acquisitionCosts: []
   useConditions: []
@@ -36,7 +36,7 @@ MonoBehaviour:
     levelUpConditions: []
     levelUpCosts: []
     precedingAction:
-      rid: -2
+      rid: 5444726140417867779
     action:
       rid: 5444726123996119049
     runningFinishOption: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
       scaleStat: {fileID: 0}
     targetSearcher:
       selectionAction:
-        rid: 5444726123996119046
+        rid: 5444726140417867776
       searchAction:
         rid: 5444726123996119047
     costs: []
@@ -79,16 +79,6 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5444726123996119046
-      type: {class: SelectNearestEntity, ns: , asm: Assembly-CSharp}
-      data:
-        indicatorViewAction:
-          rid: -2
-        isUseScale: 0
-        range: 7.5
-        angle: 360
-        isSelectSameCategory: 0
-        castRadius: 1000
     - rid: 5444726123996119047
       type: {class: SelectedTarget, ns: , asm: Assembly-CSharp}
       data:
@@ -98,5 +88,21 @@ MonoBehaviour:
     - rid: 5444726123996119049
       type: {class: ApplyDashingAction, ns: , asm: Assembly-CSharp}
       data:
+        dashActionType: 1
         distance: 7.5
+        speed: 7
         clipName: skill
+        isTargetDuplicateAllow: 0
+    - rid: 5444726140417867776
+      type: {class: SelectFarestEntity, ns: , asm: Assembly-CSharp}
+      data:
+        indicatorViewAction:
+          rid: -2
+        isUseScale: 0
+        range: 7.5
+        angle: 360
+        isSelectSameCategory: 0
+        castRadius: 1000
+    - rid: 5444726140417867779
+      type: {class: StarSpawnPrecedingAction, ns: , asm: Assembly-CSharp}
+      data: 

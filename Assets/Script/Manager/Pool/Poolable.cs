@@ -1,3 +1,4 @@
+using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,6 +10,7 @@ public enum PoolObjectType
     Time,
     Particle,
     Animator,
+    SpineAni,
 }
 
 public class Poolable : MonoBehaviour
@@ -22,10 +24,17 @@ public class Poolable : MonoBehaviour
 
     ParticleSystem particle;
 
+    [SerializeField, ShowWhen("poolObjectType", PoolObjectType.Animator)]
     Animator animator;
-    AniController aniController;
     [SerializeField, ShowWhen("poolObjectType", PoolObjectType.Animator)]
     string endAniName;
+    AniController aniController;
+
+    [SerializeField, ShowWhen("poolObjectType", PoolObjectType.SpineAni)]
+    SkeletonAnimation spineAnimation;
+    [SerializeField, ShowWhen("poolObjectType", PoolObjectType.SpineAni)]
+    string spineEndAniName;
+    SpineAniController spineAniController;
 
     bool isDestroy = false;
     float destoryTime;
@@ -54,13 +63,16 @@ public class Poolable : MonoBehaviour
                 particle = GetComponent<ParticleSystem>();
                 break;
             case PoolObjectType.Animator:
-                animator = this.GetOrAddComponent<Animator>();
                 aniController = animator.Initialize();
                 aniController.SetEndFunc(endAniName, OnResourcesDestroy);
                 break;
             case PoolObjectType.Time:
                 destoryTime = 0;
                 destoryTimer = 0;
+                break;
+            case PoolObjectType.SpineAni:
+                spineAniController = spineAnimation.Initialize();
+                spineAniController.SetEndFunc(spineEndAniName, OnResourcesDestroy);
                 break;
         }
 

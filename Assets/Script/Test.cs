@@ -13,7 +13,7 @@ public class Test : MonoBehaviour
     [Button]
     public void ItemGets()
     {
-    
+        Managers.Resources.Instantiate("Prefab/Effect/SkillStarEffect");
     }
 
     public class TestA

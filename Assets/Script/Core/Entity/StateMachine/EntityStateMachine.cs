@@ -7,6 +7,7 @@ public class EntityStateMachine : MonoStateMachine<Entity>
         AddState<EntityDefaultState>();
         AddState<DeadState>();
         AddState<DashState>();
+        AddState<PrecedingState>();
         AddState<CastingSkillState>();
         AddState<ChargingSkillState>();
         AddState<InSkillPrecedingActionState>();
@@ -19,6 +20,7 @@ public class EntityStateMachine : MonoStateMachine<Entity>
     {
         // Default State
         MakeTransition<EntityDefaultState, DashState>(state => Owner.Movement?.IsDashing ?? false);
+        MakeTransition<EntityDefaultState, PrecedingState>(state => Owner.Movement?.IsPreceding ?? false);
         MakeTransition<EntityDefaultState, CastingSkillState>(EntityStateCommand.ToCastingSkillState);
         MakeTransition<EntityDefaultState, ChargingSkillState>(EntityStateCommand.ToChargingSkillState);
         MakeTransition<EntityDefaultState, InSkillPrecedingActionState>(EntityStateCommand.ToInSkillPrecedingActionState);
@@ -26,6 +28,9 @@ public class EntityStateMachine : MonoStateMachine<Entity>
 
         // DashState
         MakeTransition<DashState, EntityDefaultState>(state => !Owner.Movement.IsDashing);
+
+        // PrecedingState
+        MakeTransition<PrecedingState, EntityDefaultState>(state => !Owner.Movement.IsPreceding);
 
         // Skill State
         // Casting State

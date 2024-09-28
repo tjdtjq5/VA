@@ -8,7 +8,7 @@ public class FloatingTextManager
     Color critialDamageColor = Color.yellow;
 
     Dictionary<GameObject, JobSerializer> jobSerializerDics = new Dictionary<GameObject, JobSerializer>();
-    float jobTime = 0.2f;
+    float jobTime = 0.05f;
     float jobTimer = 0;
     bool isJobPlay = false;
     bool isJobCountCheck = false;

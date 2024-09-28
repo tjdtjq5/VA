@@ -86,7 +86,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &3685926034705510651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,7 +132,10 @@ MonoBehaviour:
   IsUsing: 0
   poolObjectType: 3
   time: 0
+  animator: {fileID: 4625425995720539930}
   endAniName: Floating
+  spineAnimation: {fileID: 0}
+  spineEndAniName: 
 --- !u!95 &4625425995720539930
 Animator:
   serializedVersion: 5
@@ -247,8 +250,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 180
-  m_fontSizeBase: 180
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

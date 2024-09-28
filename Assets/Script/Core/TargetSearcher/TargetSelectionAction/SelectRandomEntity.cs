@@ -1,17 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
-public class SelectFarestEntity : SelectTarget
+public class SelectRandomEntity : SelectTarget
 {
     [SerializeField]
     private float castRadius;
 
-    public SelectFarestEntity() { }
+    public SelectRandomEntity() { }
 
-    public SelectFarestEntity(SelectFarestEntity copy)
+    public SelectRandomEntity(SelectRandomEntity copy)
         : base(copy)
     {
         castRadius = copy.castRadius;
@@ -20,16 +19,16 @@ public class SelectFarestEntity : SelectTarget
     protected override TargetSelectionResult SelectImmediateByPlayer(TargetSearcher targetSearcher, Entity requesterEntity,
         GameObject requesterObject)
     {
-        return FarestSelect(targetSearcher, requesterEntity, requesterObject);
+        return RandomSelect(targetSearcher, requesterEntity, requesterObject);
     }
 
     protected override TargetSelectionResult SelectImmediateByAI(TargetSearcher targetSearcher, Entity requesterEntity,
         GameObject requesterObject)
     {
-        return FarestSelect(targetSearcher, requesterEntity, requesterObject);
+        return RandomSelect(targetSearcher, requesterEntity, requesterObject);
     }
 
-    TargetSelectionResult FarestSelect(TargetSearcher targetSearcher, Entity requesterEntity,
+    TargetSelectionResult RandomSelect(TargetSearcher targetSearcher, Entity requesterEntity,
         GameObject requesterObject)
     {
         Vector3 requesterPos = requesterObject.transform.position;
@@ -61,8 +60,7 @@ public class SelectFarestEntity : SelectTarget
 
         if (rangeInTargets.Count > 0)
         {
-            rangeInTargets = rangeInTargets.OrderBy(t => Vector3.SqrMagnitude(t.transform.position - requesterPos)).ToList();
-            var rangeInFarTarget = rangeInTargets.LastOrDefault();
+            var rangeInFarTarget = rangeInTargets[Random.Range(0, rangeInTargets.Count)];
 
             if (!rangeInFarTarget)
                 return new TargetSelectionResult(requesterPos, SearchResultMessage.Fail);
@@ -81,5 +79,5 @@ public class SelectFarestEntity : SelectTarget
         }
     }
 
-    public override object Clone() => new SelectFarestEntity(this);
+    public override object Clone() => new SelectRandomEntity(this);
 }

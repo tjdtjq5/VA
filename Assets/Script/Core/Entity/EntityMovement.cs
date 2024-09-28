@@ -17,6 +17,7 @@ public class EntityMovement : MonoBehaviour
     public Entity Owner { get; private set; }
     public float MoveSpeed => moveController.Speed;
     public bool IsDashing { get; private set; }
+    public bool IsPreceding { get; private set; }
 
     public MoveController MoveController { get { return moveController; } }
     public Transform TraceTarget
@@ -89,17 +90,11 @@ public class EntityMovement : MonoBehaviour
 
     private void SetDestination(Vector3 destination)
     {
-        if (IsDashing)
-            return;
-
         moveController.Destination = destination;
         onSetDestination?.Invoke(this, destination);
     }
     public void SetTraceTarget(Transform target, Vector3 offset)
     {
-        if (IsDashing)
-            return;
-
         if (traceTarget == target)
             return;
 
@@ -121,6 +116,8 @@ public class EntityMovement : MonoBehaviour
             StopCoroutine(TraceUpdateCoroutine);
 
         moveController.Stop();
+
+        IsDashing = false;
     }
 
     IEnumerator TraceUpdateCoroutine;
@@ -143,35 +140,13 @@ public class EntityMovement : MonoBehaviour
     private void OnMoveSpeedChanged(Stat stat, BBNumber currentValue, BBNumber prevValue)
         => moveController.Speed = currentValue.Float();
 
-    public void Dash(float distance, Vector3 direction, string clipName, Action callback = null)
-    {
-        Stop();
 
-        if (!string.IsNullOrEmpty(clipName))
-            Owner.Animator.Play(clipName, true);
-
-        dashDistance = distance;
-        dashDirection = direction;
-        currentDashTime = 0;
-        prevDashDistance = 0;
-        dashCallback = callback;
-
-        MoveController.LookAtImmediateDirection(direction);
-
-        IsDashing = true;
-    }
-
-    float dashDistance = 0;
-    Vector3 dashDirection = Vector3.zero;
-    float currentDashTime = 0f;
-    float prevDashDistance = 0f;
-    Action dashCallback = null;
 
     private void FixedUpdate()
     {
         if (IsDashing)
         {
-            currentDashTime += Managers.Time.FixedDeltaTime * 16;
+            currentDashTime += Managers.Time.FixedDeltaTime * dashSpeed;
 
             DashUpdated(dashDistance, dashDirection);
 
@@ -185,8 +160,43 @@ public class EntityMovement : MonoBehaviour
                     dashCallback.Invoke();
             }
         }
+
+        if (IsPreceding)
+        {
+            precedingTimer += Managers.Time.FixedDeltaTime;
+            if (precedingTimer > precedingTime)
+            {
+                precedingTimer = 0;
+                IsPreceding = false;
+            }
+        }
     }
 
+    #region Dash
+    float dashDistance = 0;
+    Vector3 dashDirection = Vector3.zero;
+    float currentDashTime = 0f;
+    float prevDashDistance = 0f;
+    float dashSpeed = 0f;
+    Action dashCallback = null;
+    public void Dash(float distance, Vector3 direction, float speedValue, string clipName, Action callback = null)
+    {
+        Stop();
+
+        if (!string.IsNullOrEmpty(clipName))
+            Owner.Animator.Play(clipName, true);
+
+        dashDistance = distance;
+        dashDirection = direction;
+        currentDashTime = 0;
+        prevDashDistance = 0;
+        dashCallback = callback;
+        dashSpeed = MoveSpeed / 3f * speedValue;
+
+        MoveController.LookAtImmediateDirection(direction);
+
+        IsDashing = true;
+    }
     void DashUpdated(float distance, Vector3 direction)
     {
         float timePoint = currentDashTime / distance;
@@ -197,4 +207,17 @@ public class EntityMovement : MonoBehaviour
         transform.position += (direction.normalized * deltaValue);
         prevDashDistance = currentDashDistance;
     }
+    #endregion
+
+    #region Preceding
+    float precedingTime;
+    float precedingTimer;
+    public void Preceding(float time)
+    {
+        Stop();
+
+        precedingTime = time;
+        precedingTimer = 0f;
+    }
+    #endregion
 }

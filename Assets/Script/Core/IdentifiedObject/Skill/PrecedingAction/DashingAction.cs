@@ -5,8 +5,12 @@ using UnityEngine;
 [System.Serializable]
 public class DashingAction : SkillPrecedingAction
 {
-    [SerializeField]
-    private float distance;
+    public DashActionType dashActionType;
+
+    public float distance;
+
+    [SerializeField, Min(0.1f)]
+    float speed;
 
     [SerializeField]
     private string clipName;
@@ -17,7 +21,9 @@ public class DashingAction : SkillPrecedingAction
         {
             if (result.resultMessage == SearchResultMessage.FindTarget)
             {
-                skill.Owner.Movement.Dash(distance, skill.Owner.transform.position.GetDirection(result.selectedTarget.transform.position), clipName);
+                float dist = dashActionType == DashActionType.Distance ? distance : skill.Owner.transform.position.GetDistance(result.selectedTarget.transform.position);
+
+                skill.Owner.Movement.Dash(dist, skill.Owner.transform.position.GetDirection(result.selectedTarget.transform.position), speed, clipName);
             }
         });
     }

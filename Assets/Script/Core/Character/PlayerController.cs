@@ -118,6 +118,9 @@ public class PlayerController : Character
     }
     public void JoysticDirection(Vector3 direction)
     {
+        if (entity.Movement.IsDashing || entity.Movement.IsPreceding)
+            return;
+
         JoysticDir = direction;
     }
 
