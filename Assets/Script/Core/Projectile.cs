@@ -52,8 +52,11 @@ public class Projectile : MonoBehaviour
         if (other.GetComponent<Entity>() == owner)
             return;
 
-        var impact = Managers.Resources.Instantiate(impactPrefab);
-        impact.transform.position = transform.position;
+        if (impactPrefab)
+        {
+            var impact = Managers.Resources.Instantiate(impactPrefab);
+            impact.transform.position = transform.position;
+        }
 
         var entity = other.GetComponent<Entity>();
         if (entity)

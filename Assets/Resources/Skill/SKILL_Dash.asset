@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   categories: []
   icon: {fileID: 0}
-  id: 1
+  id: 4
   codeName: Dash
   displayName: Dash
   description: "\uCE90\uB9AD\uD130\uAC00 \uBC14\uB77C\uBCF4\uACE0 \uC788\uB294 \uC804\uBC29\uC73C\uB85C
@@ -69,18 +69,10 @@ MonoBehaviour:
     - level: 1
       effect: {fileID: 11400000, guid: 47d3740fe17e4bc4ea66e7481bba0929, type: 2}
     inSkillActionFinishOption: 0
-    castAnimatorParamter:
-      type: 0
-      name: 
-    chargeAnimatorParameter:
-      type: 0
-      name: 
-    precedingActionAnimatorParameter:
-      type: 0
-      name: 
-    actionAnimatorParameter:
-      type: 0
-      name: 
+    castAnimatorClipName: 
+    chargeAnimatorClipName: 
+    precedingActionAnimatorClipName: 
+    actionAnimatorClipName: 
     customActionsOnCast: []
     customActionsOnCharge: []
     customActionsOnPrecedingAction: []
@@ -96,12 +88,10 @@ MonoBehaviour:
     - rid: 4300027570744983554
       type: {class: DashingAction, ns: , asm: Assembly-CSharp}
       data:
+        dashActionType: 0
         distance: 5
-        targetSearcher:
-          selectionAction:
-            rid: 4300027582026612744
-          searchAction:
-            rid: 4300027582026612745
+        speed: 0
+        clipName: 
     - rid: 4300027582026612741
       type: {class: InstantApplyAction, ns: , asm: Assembly-CSharp}
       data: 
@@ -112,22 +102,6 @@ MonoBehaviour:
           rid: -2
         isUseScale: 0
     - rid: 4300027582026612743
-      type: {class: SelectedTarget, ns: , asm: Assembly-CSharp}
-      data:
-        indicatorViewAction:
-          rid: -2
-        isUseScale: 0
-    - rid: 4300027582026612744
-      type: {class: SelectNearestEntity, ns: , asm: Assembly-CSharp}
-      data:
-        indicatorViewAction:
-          rid: -2
-        isUseScale: 0
-        range: 0
-        angle: 360
-        castRadius: 1000
-        isSelectSameCategory: 0
-    - rid: 4300027582026612745
       type: {class: SelectedTarget, ns: , asm: Assembly-CSharp}
       data:
         indicatorViewAction:

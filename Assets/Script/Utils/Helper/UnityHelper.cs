@@ -258,7 +258,18 @@ public static class UnityHelper
         return path;
     }
     #endregion
-
+    #region Transform
+    public static void LookAt_H(this Transform tr, Transform target)
+    {
+        var angle = tr.position.GetAngle(target.position);
+        tr.localRotation = Quaternion.Euler(57f, tr.localRotation.y, angle);
+    }
+    public static float GetAngle(this UnityEngine.Vector3 start, UnityEngine.Vector3 end)
+    {
+        UnityEngine.Vector3 v2 = end - start;
+        return Mathf.Atan2(v2.z, v2.x) * Mathf.Rad2Deg;
+    }
+    #endregion
     #region Vector3
     public static Vector3 GetDirection(this Vector3 originPos, Vector3 targetPos)
     {

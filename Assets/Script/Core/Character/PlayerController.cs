@@ -33,8 +33,16 @@ public class PlayerController : Character
         Managers.Observer.OnJoystic += JoysticDirection;
 
         // SkillRegister
-        RegisterBasicSkill = skillSystem.Register(basicSkill);
-        RegisterActiveSkill = skillSystem.Register(activeUpgradeSkill);
+        if(basicSkill)
+            RegisterBasicSkill = skillSystem.Register(basicSkill);
+
+        if (activeUpgradeSkill)
+            RegisterActiveSkill = skillSystem.Register(activeUpgradeSkill);
+        else
+        {
+            if (activeSkill)
+                RegisterActiveSkill = skillSystem.Register(activeSkill);
+        }
     }
     private void ReserveSkill(SkillSystem skillSystem, Skill skill, TargetSearcher targetSearcher, TargetSelectionResult result)
     {

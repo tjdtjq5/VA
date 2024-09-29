@@ -95,8 +95,17 @@ public class Poolable : MonoBehaviour
 
     public void OnResourcesDestroy(string aniName)
     {
-        if (aniName.Equals(endAniName))
-            Managers.Resources.Destroy(this.gameObject);
+        switch (poolObjectType)
+        {
+            case PoolObjectType.Animator:
+                if (aniName.Equals(endAniName))
+                    Managers.Resources.Destroy(this.gameObject);
+                break;
+            case PoolObjectType.SpineAni:
+                if (aniName.Equals(spineEndAniName))
+                    Managers.Resources.Destroy(this.gameObject);
+                break;
+        }
     }
     private void FixedUpdate()
     {
