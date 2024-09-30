@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : Character
@@ -18,6 +19,7 @@ public class EnemyController : Character
     private EntityAnimator animator;
     private MoveController moveController;
     private Skill defaultSkill;
+    private SpineMaterialBlink spineMaterialBlink;
 
     public bool IsDead => entity.IsDead;
     Vector3 spawnPos;
@@ -34,6 +36,7 @@ public class EnemyController : Character
         skillSystem = entity.SkillSystem;
         animator = entity.Animator;
         moveController = entity.Movement.MoveController;
+        spineMaterialBlink = animator.AniController.GetOrAddComponent<SpineMaterialBlink>();
 
         var ownSkills = skillSystem.OwnSkills;
         defaultSkill = ownSkills[0];
@@ -122,6 +125,13 @@ public class EnemyController : Character
 
     }
     public override void Clear() { }
+
+    public override void OnTakeDamage(Entity entity, Entity instigator, object causer, BBNumber damage)
+    {
+        base.OnTakeDamage(entity, instigator, causer, damage);
+
+        spineMaterialBlink.Blink();
+    }
     public override void OnDead(Entity entity)
     {
         base.OnDead(entity);
@@ -137,10 +147,6 @@ public class EnemyController : Character
         rPos.z += rz;
 
         entity.Movement.Destination = rPos;
-    }
-    public override void OnTakeDamage(Entity entity, Entity instigator, object causer, BBNumber damage)
-    {
-        base.OnTakeDamage(entity, instigator, causer, damage);
     }
     public override void MoveDirection(Vector3 direction)
     {
