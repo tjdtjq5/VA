@@ -10,16 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c43c11f085e0424fbf995787e42221d, type: 3}
-  m_Name: SKILL_Poison
+  m_Name: SKILL_Druid001ActiveSkill
   m_EditorClassIdentifier: 
   categories: []
   icon: {fileID: 0}
-  id: 13
-  codeName: Poison
-  displayName: Poison
-  description: "\uBC14\uB2E5\uC5D0 \uB3C5 \uB2AA\uC744 $[skillAction.duration]\uCD08
-    \uB3D9\uC548 \uC18C\uD658\uD558\uC5EC \uBC94\uC704 \uC548\uC5D0 \uC788\uB294
-    \uC801\uC5D0\uAC8C <color=purple>\uC911\uB3C5</color> \uC0C1\uD0DC\uB97C \uC77C\uC73C\uD0B5\uB2C8\uB2E4."
+  id: 6
+  codeName: Druid001ActiveSkill
+  displayName: Druid001ActiveSkill
+  description: Druid001ActiveSkill
   type: 0
   useType: 0
   executionType: 0
@@ -29,8 +27,7 @@ MonoBehaviour:
   targetSearchTimingOption: 0
   acquisitionConditions: []
   acquisitionCosts: []
-  useConditions:
-  - rid: 4300027608536449026
+  useConditions: []
   isAllowLevelExceedDatas: 0
   maxLevel: 1
   defaultLevel: 1
@@ -39,9 +36,9 @@ MonoBehaviour:
     levelUpConditions: []
     levelUpCosts: []
     precedingAction:
-      rid: -2
+      rid: 8010792167299612677
     action:
-      rid: 4300027608536449027
+      rid: 8010792167299612678
     runningFinishOption: 0
     duration: 0
     applyCount: 1
@@ -51,13 +48,13 @@ MonoBehaviour:
       scaleStat: {fileID: 0}
     targetSearcher:
       selectionAction:
-        rid: 4300027608536449030
+        rid: 8010792167299612679
       searchAction:
-        rid: 4300027608536449031
+        rid: 8010792167299612680
     costs: []
-    isUseCast: 1
+    isUseCast: 0
     castTime:
-      defaultValue: 3
+      defaultValue: 0
       scaleStat: {fileID: 0}
     isUseCharge: 0
     chargeFinishActionOption: 0
@@ -67,12 +64,12 @@ MonoBehaviour:
     startChargePower: 0
     effectSelectors:
     - level: 1
-      effect: {fileID: 11400000, guid: 84c3e014ffd0c144fa4b78b9098f54f9, type: 2}
-    inSkillActionFinishOption: 2
+      effect: {fileID: 11400000, guid: f44f197e27c2e364c859bebac99f3624, type: 2}
+    inSkillActionFinishOption: 0
     castAnimatorClipName: 
     chargeAnimatorClipName: 
     precedingActionAnimatorClipName: 
-    actionAnimatorClipName: 
+    actionAnimatorClipName: skill
     customActionsOnCast: []
     customActionsOnCharge: []
     customActionsOnPrecedingAction: []
@@ -82,44 +79,27 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 4300027608536449026
-      type: {class: IsEntityReadyCondition, ns: , asm: Assembly-CSharp}
+    - rid: 8010792167299612677
+      type: {class: StarSpawnPrecedingAction, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 4300027608536449027
-      type: {class: SpawnSkillObjectAction, ns: , asm: Assembly-CSharp}
+    - rid: 8010792167299612678
+      type: {class: InstantApplyEffectSpawnAction, ns: , asm: Assembly-CSharp}
       data:
-        skillObjectPrefab: {fileID: 5906646297588873775, guid: e8072587566962546832fa5a089df564, type: 3}
-        targetSearcherForSkillObject:
-          selectionAction:
-            rid: 4300027608536449028
-          searchAction:
-            rid: 4300027608536449029
-        duration: 5
-        applyCount: 21
-        objectScale: {x: 2, y: 2, z: 2}
-    - rid: 4300027608536449028
-      type: {class: SelectSelf, ns: , asm: Assembly-CSharp}
+        effectObj: {fileID: 4218160674387114083, guid: 23af91714dc5cda409db69dca9e8e38b, type: 3}
+        spawnTarget: 1
+        isRotation: 0
+        isOneEffect: 0
+    - rid: 8010792167299612679
+      type: {class: SelectNearestEntity, ns: , asm: Assembly-CSharp}
       data:
         indicatorViewAction:
           rid: -2
         isUseScale: 0
-    - rid: 4300027608536449029
-      type: {class: SearchArea, ns: , asm: Assembly-CSharp}
-      data:
-        indicatorViewAction:
-          rid: -2
-        isUseScale: 0
-        range: 5
+        range: 10
         angle: 360
-        isIncludeSelf: 0
-        isSearchSameCategory: 0
-    - rid: 4300027608536449030
-      type: {class: SelectSelf, ns: , asm: Assembly-CSharp}
-      data:
-        indicatorViewAction:
-          rid: -2
-        isUseScale: 0
-    - rid: 4300027608536449031
+        isSelectSameCategory: 0
+        castRadius: 1000
+    - rid: 8010792167299612680
       type: {class: SelectedTarget, ns: , asm: Assembly-CSharp}
       data:
         indicatorViewAction:

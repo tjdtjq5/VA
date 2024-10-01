@@ -11,6 +11,7 @@ public class SpineMaterialBlink : MonoBehaviour
 
     string meterialBlockBlackID = "_Black";
     string meterialBlockColorID = "_Color";
+    Color darkBlinkColor = new Color(1f, 0.38f, 0.38f, 0);
 
     float blinkTime = 0.15f;
     float blinkTimer;
@@ -45,7 +46,7 @@ public class SpineMaterialBlink : MonoBehaviour
 
     public void Blink()
     {
-        SetBlack(Color.white);
+        SetBlack(darkBlinkColor);
 
         blinkTimer = 0;
         isBlink = true;

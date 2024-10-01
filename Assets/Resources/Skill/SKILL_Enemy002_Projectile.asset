@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c43c11f085e0424fbf995787e42221d, type: 3}
-  m_Name: SKILL_Hast
+  m_Name: SKILL_Enemy002_Projectile
   m_EditorClassIdentifier: 
   categories: []
   icon: {fileID: 0}
-  id: 11
-  codeName: Hast
-  displayName: Hast
-  description: "\uBC14\uB78C\uC758 \uCD95\uBCF5\uC744 \uBC1B\uC544 \uC774\uB3D9 \uC18D\uB3C4\uB97C
-    $[effectAction.totalValue.0] \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
-  type: 1
+  id: 8
+  codeName: Enemy002_Projectile
+  displayName: Enemy002_Projectile
+  description: Enemy002_Projectile
+  type: 0
   useType: 0
   executionType: 0
   applyType: 0
@@ -39,19 +38,19 @@ MonoBehaviour:
     precedingAction:
       rid: -2
     action:
-      rid: 4300027582026612746
+      rid: 8010792167299612673
     runningFinishOption: 0
     duration: 0
     applyCount: 1
     applyCycle: 0
     cooldown:
-      defaultValue: 5
+      defaultValue: 0.6
       scaleStat: {fileID: 0}
     targetSearcher:
       selectionAction:
-        rid: 4300027582026612747
+        rid: 8010792167299612675
       searchAction:
-        rid: 4300027582026612748
+        rid: 8010792167299612676
     costs: []
     isUseCast: 0
     castTime:
@@ -65,12 +64,12 @@ MonoBehaviour:
     startChargePower: 0
     effectSelectors:
     - level: 1
-      effect: {fileID: 11400000, guid: 6d323cefc68ba18499db805732335402, type: 2}
+      effect: {fileID: 11400000, guid: f44f197e27c2e364c859bebac99f3624, type: 2}
     inSkillActionFinishOption: 0
     castAnimatorClipName: 
     chargeAnimatorClipName: 
     precedingActionAnimatorClipName: 
-    actionAnimatorClipName: 
+    actionAnimatorClipName: attack
     customActionsOnCast: []
     customActionsOnCharge: []
     customActionsOnPrecedingAction: []
@@ -80,16 +79,23 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 4300027582026612746
-      type: {class: InstantApplyAction, ns: , asm: Assembly-CSharp}
-      data: 
-    - rid: 4300027582026612747
-      type: {class: SelectSelf, ns: , asm: Assembly-CSharp}
+    - rid: 8010792167299612673
+      type: {class: SpawnProjectileAction, ns: , asm: Assembly-CSharp}
+      data:
+        projectilePrefab: {fileID: 625016301910501048, guid: fc40873431a29244c80de2bc3094d1ee, type: 3}
+        spawnPointSocketName: 
+        speed: 22
+    - rid: 8010792167299612675
+      type: {class: SelectRandomEntity, ns: , asm: Assembly-CSharp}
       data:
         indicatorViewAction:
           rid: -2
         isUseScale: 0
-    - rid: 4300027582026612748
+        range: 7.5
+        angle: 360
+        isSelectSameCategory: 0
+        castRadius: 7.5
+    - rid: 8010792167299612676
       type: {class: SelectedTarget, ns: , asm: Assembly-CSharp}
       data:
         indicatorViewAction:
