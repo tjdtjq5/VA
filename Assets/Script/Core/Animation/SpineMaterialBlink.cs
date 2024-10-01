@@ -11,9 +11,9 @@ public class SpineMaterialBlink : MonoBehaviour
 
     string meterialBlockBlackID = "_Black";
     string meterialBlockColorID = "_Color";
-    Color darkBlinkColor = new Color(1f, 0.38f, 0.38f, 0);
+    Color darkBlinkColor = new Color(1f, 1f, 1f, 0);
 
-    float blinkTime = 0.15f;
+    float blinkTime = 0.1f;
     float blinkTimer;
     bool isBlink = false;
 
@@ -30,7 +30,7 @@ public class SpineMaterialBlink : MonoBehaviour
         isBlink = false;
 
         SetBlack(Color.clear);
-        //  SetColor(Color.white);
+        // SetColor(Color.white);
     }
 
     void SetBlack(Color color)
@@ -40,7 +40,7 @@ public class SpineMaterialBlink : MonoBehaviour
     }
     void SetColor(Color color)
     {
-        meterialBlock.SetColor(Shader.PropertyToID(meterialBlockBlackID), color);
+        meterialBlock.SetColor(Shader.PropertyToID(meterialBlockColorID), color);
         mr.SetPropertyBlock(meterialBlock);
     }
 
@@ -61,6 +61,7 @@ public class SpineMaterialBlink : MonoBehaviour
             {
                 isBlink = false;
                 SetBlack(Color.clear);
+               //  SetColor(Color.white);
             }
         }
     }
