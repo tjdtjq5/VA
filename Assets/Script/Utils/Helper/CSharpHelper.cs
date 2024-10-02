@@ -158,12 +158,24 @@ public static class CSharpHelper
         FieldInfo[] fieldInfos = arg.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.GetField);
         return fieldInfos;
     }
-    public static FieldInfo GetFieldInfo<T>(this T arg, string name)
+    public static FieldInfo GetFieldInfoByVariableName<T>(this T arg, string name)
     {
         FieldInfo[] fieldInfos = arg.GetFieldInfos();
         for (int i = 0; i < fieldInfos.Length; i++) 
         {
             if (fieldInfos[i].GetVariableNameByField().Equals(name))
+            {
+                return fieldInfos[i];
+            }
+        }
+        return null;
+    }
+    public static FieldInfo GetFieldInfoByValue<T>(this T arg, object value)
+    {
+        FieldInfo[] fieldInfos = arg.GetFieldInfos();
+        for (int i = 0; i < fieldInfos.Length; i++)
+        {
+            if (fieldInfos[i].GetValue(arg) == value)
             {
                 return fieldInfos[i];
             }
@@ -214,7 +226,7 @@ public static class CSharpHelper
         for (int i = 0; i < fieldInfos.Length; i++)
         {
             string fieldName = fieldInfos[i].GetVariableNameByField();
-            FieldInfo originField = original.GetFieldInfo(fieldName);
+            FieldInfo originField = original.GetFieldInfoByVariableName(fieldName);
 
             if (originField != null)
             {
@@ -466,6 +478,24 @@ public static class CSharpHelper
     public static string ToString_H<T>(this List<T> list)
     {
         return SerializeObject(list);
+    }
+    public static string ToString_H<T>(this IEnumerable<T> list)
+    {
+        return SerializeObject(list);
+    }
+    public static void ForceAdd_H<T>(this List<T> list, T value, object keyColumn)
+    {
+        FieldInfo fi = value.GetFieldInfoByValue(keyColumn);
+        string columnName = fi.GetVariableNameByField();
+        int findIndex = list.FindIndex(d =>
+        (
+            d.GetFieldInfoByVariableName(columnName).GetValue(d) == value.GetFieldInfoByVariableName(columnName).GetValue(value)
+        ));
+
+        if (findIndex < 0)
+            list.Add(value);
+        else
+            list[findIndex] = value;
     }
     #endregion
 

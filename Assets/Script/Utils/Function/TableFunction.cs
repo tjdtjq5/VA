@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TableFunction
 {
-	public static string GetUpdateTableName { get => "TestT"; }
+	public static string GetUpdateTableName { get => "Character"; }
 
     public static async void UpdateTable(string tableName, string tableData)
 	{
@@ -14,10 +14,10 @@ public class TableFunction
             return;
         }
 
-        List<ItemTableData> tableDatas = GoogleSpreadSheetUtils.GetListTableDatas<ItemTableData>(tableName, tableData);
+        List<CharacterTableData> tableDatas = GoogleSpreadSheetUtils.GetListTableDatas<CharacterTableData>(tableName, tableData);
 
         string addUrl = $"{CSharpHelper.StartCharToLower(tableName)}Table/update";
-        var result = await WebTaskCall.Post<ItemTableUpdateResponse>(true, addUrl, tableDatas);
+        var result = await WebTaskCall.Post<CharacterTableUpdateResponse>(true, addUrl, tableDatas);
 
         string resultSeri = CSharpHelper.SerializeObject(result);
         UnityHelper.Log_H(resultSeri);

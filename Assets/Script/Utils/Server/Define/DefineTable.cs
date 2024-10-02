@@ -1,6 +1,7 @@
 ﻿public enum TableCollection
 {
     Item,
+    Character,
 }
 public enum ItemType
 {

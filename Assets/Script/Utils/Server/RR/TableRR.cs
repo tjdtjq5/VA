@@ -26,3 +26,15 @@ public class ItemTableUpdateResponse
 
 
 
+
+public class CharacterTableUpdateResponse
+{
+    public string tableName { get; set; }
+    public List<string> changeDatas { get; set; }
+}
+
+public class CharacterTableGetsResponse
+{
+    public string tableName { get; set; }
+    public List<CharacterTableData> datas { get; set; }
+}
