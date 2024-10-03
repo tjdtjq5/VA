@@ -2,6 +2,7 @@
 
 public class TableManager
 {
+    FormulaTable _formulaTable = new FormulaTable();
     CharacterTable _characterTable = new CharacterTable();
     ItemTable _itemTable = new ItemTable();
     public void DbGets()
@@ -14,6 +15,7 @@ public class TableManager
             {
                 switch (res.datas[i].tableName)
                 {
+                    case "Formula": _formulaTable.Push(CSharpHelper.DeserializeObject<List<FormulaTableData>>(res.datas[i].tableDatas)); break;
                     case "Character": _characterTable.Push(CSharpHelper.DeserializeObject<List<CharacterTableData>>(res.datas[i].tableDatas)); break;
                     case "Item": _itemTable.Push(CSharpHelper.DeserializeObject<List<ItemTableData>>(res.datas[i].tableDatas)); break;
                 }
@@ -22,4 +24,5 @@ public class TableManager
     }
     public ItemTable ItemTable => _itemTable;
     public CharacterTable CharacterTable => _characterTable;
+    public FormulaTable FormulaTable => _formulaTable;
 }

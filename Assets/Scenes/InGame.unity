@@ -198,7 +198,7 @@ MonoBehaviour:
         mapSizeMax: {x: 50, y: 50}
         mapOffset: {x: 0, y: 0}
         groupCell: {x: 5, y: 5}
-        groupEnemyCount: 5
+        groupEnemyCount: 2
         groupSpawnPosRangeMin: 0
         groupSpawnPosRangeMax: 6.12
 --- !u!114 &50361047
@@ -234,10 +234,9 @@ MonoBehaviour:
       type: {class: PlayerSpawnActionInGame, ns: , asm: Assembly-CSharp}
       data:
         testPcPrefabs:
+        - {fileID: 5023957387681045831, guid: 9d7ad5eebe7f5ab44bd05159ef21b340, type: 3}
+        - {fileID: 5023957387681045831, guid: 15d135b242c4dc649b4181b2a243cab7, type: 3}
         - {fileID: 5023957387681045831, guid: 4bf13e64490318e4c80515b345bf1293, type: 3}
-        - {fileID: 5023957387681045831, guid: e3daf60c7c61cd649ab18e2013d8a6ce, type: 3}
-        - {fileID: 5023957387681045831, guid: e90838ca1c7f5d943b6a7b6718be02ea, type: 3}
-        - {fileID: 5023957387681045831, guid: 367ce6ff3490da2439c5a16396e9c0ad, type: 3}
 --- !u!1 &354705502
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,6 +428,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2327010cb37dda439453ed89e0ccf2f, type: 3}
+--- !u!1 &1013552351
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1013552353}
+  - component: {fileID: 1013552352}
+  m_Layer: 0
+  m_Name: '@Managers'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1013552352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013552351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28866931c2a60ab44b378f59c19a5a07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1013552353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013552351}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1153527463
 PrefabInstance:
   m_ObjectHideFlags: 0

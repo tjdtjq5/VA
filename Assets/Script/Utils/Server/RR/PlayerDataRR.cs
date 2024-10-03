@@ -30,7 +30,8 @@ public class PCDAwakeAllResponse
 
 public class PCDPotentialChangeRequest
 {
-    // None
+    public string Code { get; set; }
+    public int LockCount { get; set; }
 }
 public class PCDPotentialChangeResponse
 {

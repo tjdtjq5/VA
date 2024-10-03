@@ -2,6 +2,7 @@
 {
     Item,
     Character,
+    Formula,
 }
 public enum ItemType
 {

@@ -14,13 +14,18 @@ public static class UnityHelper
     }
     public static void Log_H<T1, T2>(Dictionary<T1, T2> dics) where T1 : new() where T2 : new()
     {
-        if (!GameOptionManager.IsRelease)
-            Log_H(dics.ToString());
+        Log_H(dics.ToString());
     }
     public static void Log_H<T>(List<T> list)
     {
-        if (!GameOptionManager.IsRelease)
-            Log_H(list.ToString());
+        string datas = "";
+
+        for (int i = 0; i < list.Count; i++)
+            datas += CSharpHelper.SerializeObject(list[i]) + "\n";
+
+        datas = datas.Substring(0, datas.Length - 1);
+
+        Log_H(datas);
     }
     public static void LogError_H(object message)
     {
@@ -32,8 +37,7 @@ public static class UnityHelper
     }
     public static void LogSerialize(object message)
     {
-        if (!GameOptionManager.IsRelease)
-            Log_H($"<color=#006AFF>{CSharpHelper.SerializeObject(message)}</color>");
+        Log_H($"<color=#006AFF>{CSharpHelper.SerializeObject(message)}</color>");
     }
     public static void Assert_H(bool condition, string message)
     {

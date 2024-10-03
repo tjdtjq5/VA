@@ -61,6 +61,7 @@ public class SpineAniController : MonoBehaviour
     void EndListener(TrackEntry trackEntry)
     {
         string clipName = trackEntry.Animation.Name;
+        PlayAniClipName.TryAdd_H(trackEntry.TrackIndex, "", true);
 
         if (OnAnimationCompleteDics.ContainsKey(clipName))
             OnAnimationCompleteDics[clipName]?.Invoke(clipName);

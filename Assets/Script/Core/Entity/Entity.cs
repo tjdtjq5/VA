@@ -105,11 +105,11 @@ public class Entity : MonoBehaviour
         if (Movement)
             Movement.enabled = true;
 
+        isDead = false;
+
         Animator.Play(Animator.waitClipName, true);
 
         onAlliave?.Invoke(this);
-
-        isDead = false;
     }
 
     private void OnDead()

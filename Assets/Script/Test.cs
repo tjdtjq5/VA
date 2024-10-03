@@ -1,35 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Best.HTTP.Shared.Logger;
-using System.Collections.ObjectModel;
-using EasyButtons;
-using Unity.VisualScripting;
+﻿using EasyButtons;
+using System;
+using System.Text.RegularExpressions;
 using UnityEngine;
-using System.Reflection;
 
 public class Test : MonoBehaviour
 {
     [Button]
     public void TT()
     {
-        ItemTableData a = new ItemTableData();
-        a.itemCode = "code_002";
-        a.itemType = 1;
-        a.tipName = "tipName";
+        string expr = "(1050+6636)+1*(100-100)-5000+((35*53+555.5) + 0.5 + 5000) ^ 15";
 
-        List<ItemTableData> datas = new List<ItemTableData>();
-        datas.Add(a);
-
-        UnityHelper.LogSerialize(datas);
-
-        ItemTableData b = new ItemTableData();
-        b.itemCode = "code_002";
-        b.itemType = 2;
-        b.tipName = "tipName2";
-
-        datas.ForceAdd_H(b, b.itemCode);
-
-        UnityHelper.LogSerialize(datas);
+        UnityHelper.Log_H(FomulaCompute.Compute(expr).ToCountString());
     }
     [Button]
     public void MasterGets()

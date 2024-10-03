@@ -16,3 +16,11 @@ public class CharacterTableData
 	public int grade { get; set; }
 	public string tipName { get; set; }
 }
+
+[Serializable] // FormulaTable
+public class FormulaTableData
+{
+	public string formulaCode { get; set; }
+	public string fM { get; set; }
+	public string tipName { get; set; }
+}

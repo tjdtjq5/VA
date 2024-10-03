@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -59,9 +60,21 @@ public class Projectile : MonoBehaviour
         }
 
         var entity = other.GetComponent<Entity>();
-        if (entity)
-            entity.SkillSystem.Apply(skill);
 
-        Managers.Resources.Destroy(gameObject);
+        if (!entity)
+            return;
+
+        if (entity.IsDead)
+            return;
+
+        var hasCategory = owner.Categories.Any(x => entity.HasCategory(x));
+        if (hasCategory)
+            return;
+
+        if (entity)
+        {
+            entity.SkillSystem.Apply(skill);
+            Managers.Resources.Destroy(gameObject);
+        }
     }
 }
