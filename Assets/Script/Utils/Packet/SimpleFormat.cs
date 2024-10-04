@@ -377,6 +377,19 @@ public class SimpleFormat
         return false;
     }
 
+    public static void EnumRemove(string file, string enumName)
+    {
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat InnerEnumRemove Not Found File Error\nfile : {file}");
+            return;
+        }
+
+        string checkEnumFormat = $"public enum {enumName}";
+
+        RemoveStruct(file, checkEnumFormat);
+    }
+
     public static bool Exist(Type scriptType, string format)
     {
         string file = $"{FileHelper.GetScriptPath(scriptType)}";

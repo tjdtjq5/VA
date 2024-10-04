@@ -45,3 +45,15 @@ public class FormulaTableGetsResponse
     public string tableName { get; set; }
     public List<FormulaTableData> datas { get; set; }
 }
+
+public class GameDefineTableUpdateResponse
+{
+    public string tableName { get; set; }
+    public List<string> changeDatas { get; set; }
+}
+
+public class GameDefineTableGetsResponse
+{
+    public string tableName { get; set; }
+    public List<GameDefineTableData> datas { get; set; }
+}

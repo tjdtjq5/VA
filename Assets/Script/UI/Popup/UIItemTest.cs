@@ -42,10 +42,10 @@ public class UIItemTest : UIPopup
 		PlayerItemData item = new PlayerItemData()
 		{
 			ItemCode = itemCode,
-			Count = 1
 		};
+		item.Set(300);
 
-		PlayerItemPushRequest req = new PlayerItemPushRequest();
+        PlayerItemPushRequest req = new PlayerItemPushRequest();
 		req.Push(item);
 
         Managers.Web.SendPostRequest<PlayerItemPushResponse>("playerItem/push", req, (res) =>

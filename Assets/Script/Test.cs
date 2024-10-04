@@ -1,6 +1,6 @@
 ﻿using EasyButtons;
 using System;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Test : MonoBehaviour
@@ -8,9 +8,15 @@ public class Test : MonoBehaviour
     [Button]
     public void TT()
     {
-        string expr = "(1050+6636)+1*(100-100)-5000+((35*53+555.5) + 0.5 + 5000) ^ 15";
+        PlayerItemData item = new PlayerItemData()
+        {
+            ItemCode = "aa",
+        };
+        item.Set(1);
 
-        UnityHelper.Log_H(FomulaCompute.Compute(expr).ToCountString());
+        item.Add(3);;
+
+        UnityHelper.Log_H(item.Count());
     }
     [Button]
     public void MasterGets()
@@ -22,16 +28,22 @@ public class Test : MonoBehaviour
     {
         Managers.Resources.Instantiate("Prefab/Effect/SkillStarEffect");
     }
+    [Button]
+    public void SimpleFormatTest_Update()
+    {
+        TableDefineCodePacket.Update("TestT", new List<string>() { "ABB", "A_B", "AFEFV" });
+    }
 
     [Button]
     public void SimpleFormatTest_Exist()
     {
-        UnityHelper.Log_H(MasterTableServicePacket.Exist("TestT"));
+        UnityHelper.Log_H(CSharpHelper.ExistEnumData<DefineTableCodeType>("Item"));
+        UnityHelper.Log_H(CSharpHelper.ExistEnumData<DefineTableCodeType>("Item2"));
     }
  
     [Button]
     public void SimpleFormatTest_Remove()
     {
-        MasterTableServicePacket.Remove("TestT");
+        TableDefineCodePacket.Remove("TestT");
     }
 }

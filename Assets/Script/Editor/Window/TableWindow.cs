@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -313,9 +314,7 @@ public class TableWindow : EditorWindow
             ServerProgramPacket.AddScoped(addScopedName);
         }
 
-        // 복사하기 DefineCopyPath
-        string defineCopyPath = secretFileTxt.Read("DefineCopyPath");
-        FileHelper.ProcessStart(defineCopyPath);
+        DefineCopy();
 
         bool isDialogMsg = EditorMessageUtils.DialogMessage("CreateTableDB", "Do It\n1. Add-Migration [Message]\n2. Update-Database\n3. Build");
         if (isDialogMsg)
@@ -334,6 +333,9 @@ public class TableWindow : EditorWindow
         else
         {
             TableFunction.UpdateTable(tableName, tableData);
+
+            TableCodeDefine(tableName, tableData);
+            DefineCopy();
         }
     }
     void OnClickTableDelete(string tableName)
@@ -542,5 +544,20 @@ public class TableWindow : EditorWindow
         _connectTableName = "";
         _connectSheetId = "";
         _connectRange = "";
+    }
+
+    void DefineCopy()
+    {
+        string defineCopyPath = secretFileTxt.Read("DefineCopyPath");
+        FileHelper.ProcessStart(defineCopyPath);
+    }
+    void TableCodeDefine(string tableName, string tableData)
+    {
+        bool isExistDefineEnum = CSharpHelper.ExistEnumData<DefineTableCodeType>(tableName);
+        if (isExistDefineEnum) 
+        {
+            List<string> tableKeys = GoogleSpreadSheetUtils.GetKeyDatas(tableName, tableData);
+            TableDefineCodePacket.Update(tableName, tableKeys);
+        }
     }
 }

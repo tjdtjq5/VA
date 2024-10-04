@@ -14,7 +14,7 @@ public class TitleManager : SceneBase
 
         LoginService.AtLogin(() => 
         {
-            UIItemTest ulft = Managers.UI.ShopPopupUI<UIItemTest>("Test/UIItemTest");
+            AfterLogin();
 
         }, () => 
         {
@@ -22,8 +22,8 @@ public class TitleManager : SceneBase
 
             UI_Login.LoginAfterJob(() =>
             {
-                UIItemTest ulft = Managers.UI.ShopPopupUI<UIItemTest>("Test/UIItemTest");
                 UI_Login.ClosePopupUI();
+                AfterLogin();
             });
         });
     }
@@ -39,6 +39,13 @@ public class TitleManager : SceneBase
         {
             Managers.Resources.Instantiate("Prefab/UI/Popup/Monitor/Monitor");
         }
+    }
+    void AfterLogin()
+    {
+        Managers.Table.DbGets(() => 
+        {
+            UIItemTest ulft = Managers.UI.ShopPopupUI<UIItemTest>("Test/UIItemTest");
+        });
     }
 
     public override PlayerController GetPlayer()

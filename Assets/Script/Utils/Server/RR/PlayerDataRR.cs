@@ -2,7 +2,7 @@
 public class PCDLevelUpRequest
 {
     public string Code { get; set; }
-    public string PlusLevel { get; set; }
+    public int PlusLevel { get; set; }
 }
 public class PCDLevelUpResponse
 {
@@ -41,7 +41,7 @@ public class PCDPotentialChangeResponse
 public class PCDSpecialWeaponLevelUpRequest
 {
     public string Code { get; set; }
-    public string PlusLevel { get; set; }
+    public int PlusLevel { get; set; }
 }
 public class PCDSpecialWeaponLevelUpResponse
 {

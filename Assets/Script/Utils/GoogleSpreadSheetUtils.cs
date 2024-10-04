@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 
 public class GoogleSpreadSheetUtils
@@ -37,7 +38,7 @@ public class GoogleSpreadSheetUtils
             {
                 string variable = variables[j];
                 string data = datas[j];
-                data = CSharpHelper.GetReplaceRegex(data);
+                data = CSharpHelper.GetReplaceRNT(data);
                 object dataObj = CSharpHelper.AutoParse(data);
 
                 FieldInfo fieldInfo = fieldInfos.Find(f => f.Name.ToLower().Contains(variable));
@@ -51,5 +52,30 @@ public class GoogleSpreadSheetUtils
         }
 
         return updateDatas;
+    }
+    public static List<string> GetKeyDatas(string tableName, string tableData)
+    {
+        List<string> resultDatas = new List<string>();
+
+        string[] lineDatas = tableData.Split('\n');
+        string variableNameLine = lineDatas[0];
+
+        string[] variables = variableNameLine.Split('\t');
+        for (int i = 0; i < variables.Length; i++)
+        {
+            variables[i] = variables[i].Trim().ToLower();
+        }
+
+        for (int i = 1; i < lineDatas.Length; i++)
+        {
+            string[] datas = lineDatas[i].Split("\t");
+
+            string variable = variables[0];
+            string data = datas[0];
+            data = CSharpHelper.GetReplaceRNT(data);
+            resultDatas.Add(data);
+        }
+
+        return resultDatas;
     }
 }

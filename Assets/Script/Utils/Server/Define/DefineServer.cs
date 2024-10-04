@@ -29,6 +29,11 @@ public enum HttpResponceMessageType
     IpFilter = 1402,
     NotSetRadisTableData, // 레디스에 테이블 데이터 셋팅 전
     NotFoundTableData, // 테이블에서 찾을수 없는 데이터 전송
+    FomulaComputeError, // 문자열 계산 에러
+    FomulaExprsCalculateError, // 문자열 계산 에러
+    FormulaTableServiceHGetValueByKeyword, // Formula Keyword 관련 에러
+    InvalidRequest, // 잘못된 리퀘스트
+    FailSaveChaged, // DB저장 에러
 
     // 로그인 관련 에러 : 1500 ~ 1599  
     InvalidJwtToken = 1500, // 잘못된 유형의 Jwt Token
@@ -41,6 +46,12 @@ public enum HttpResponceMessageType
 
     // 플레이어 데이터 - 아이템
     FailedPushPlayerDataItem = 1600,
+    FailedConsumePlayerDataItem,
+
+    // 플레이어 데이터
+    NotFoundAccount, // 존재하지 않는 계정
+    NotFoundPlayerData, // 존재하지 않는 플레이어 데이터
+    NotFoundPlayerCharacterData, // 존재하지 않는 플레이어 캐릭터 데이터
 }
 public enum SseEvent
 {

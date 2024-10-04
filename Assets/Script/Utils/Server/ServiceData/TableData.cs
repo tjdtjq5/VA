@@ -24,3 +24,11 @@ public class FormulaTableData
 	public string fM { get; set; }
 	public string tipName { get; set; }
 }
+
+[Serializable] // GameDefineTable
+public class GameDefineTableData
+{
+	public string gameDefineCode { get; set; }
+	public string value { get; set; }
+	public string tipName { get; set; }
+}

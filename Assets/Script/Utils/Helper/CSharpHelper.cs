@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Numerics;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using static UnityEngine.Rendering.DebugUI;
 
 public static class CSharpHelper
 {
@@ -26,6 +27,17 @@ public static class CSharpHelper
     #endregion
 
     #region Parse
+    public static bool ExistEnumData<T>(string enumData) where T : Enum
+    {
+        try
+        {
+            return (T)Enum.Parse(typeof(T), enumData) != null;
+        }
+        catch
+        {
+            return false;
+        }
+    }
     public static T EnumParse<T>(string value, bool isDebug) where T : Enum
     {
         try
@@ -338,6 +350,23 @@ public static class CSharpHelper
         catch
         {
             UnityHelper.LogError_H($"GetReplaceRegex Error\nvalue : {value}");
+            return value;
+        }
+    }
+    public static string GetReplaceRNT(string value)
+    {
+        try
+        {
+            string result = value;
+            result = result.Replace("\r", "");
+            result = result.Replace("\n", "");
+            result = result.Replace("\t", "");
+            result = result.Replace(" ", "");
+            return result;
+        }
+        catch
+        {
+            UnityHelper.LogError_H($"GetReplaceRNT Error\nvalue : {value}");
             return value;
         }
     }
