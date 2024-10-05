@@ -38,7 +38,7 @@ MonoBehaviour:
     precedingAction:
       rid: 8010792213731606543
     action:
-      rid: 8010792213731606544
+      rid: 8010792255208554501
     runningFinishOption: 0
     duration: 0
     applyCount: 1
@@ -82,9 +82,6 @@ MonoBehaviour:
     - rid: 8010792213731606543
       type: {class: StarSpawnPrecedingAction, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 8010792213731606544
-      type: {class: InstantApplyAction, ns: , asm: Assembly-CSharp}
-      data: 
     - rid: 8010792213731606545
       type: {class: SelectNearestEntity, ns: , asm: Assembly-CSharp}
       data:
@@ -105,3 +102,10 @@ MonoBehaviour:
         angle: 360
         isIncludeSelf: 0
         isSearchSameCategory: 0
+    - rid: 8010792255208554501
+      type: {class: InstantApplyEffectSpawnAction, ns: , asm: Assembly-CSharp}
+      data:
+        effectObj: {fileID: 4218160674387114083, guid: 95bd9e621569c7c4d94b390de7584fde, type: 3}
+        spawnTarget: 1
+        isRotation: 0
+        isOneEffect: 0

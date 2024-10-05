@@ -1,6 +1,3 @@
-using UnityEngine;
-using static InstantApplyEffectSpawnAction;
-
 [System.Serializable]
 public class InstantApplyAction : SkillAction
 {

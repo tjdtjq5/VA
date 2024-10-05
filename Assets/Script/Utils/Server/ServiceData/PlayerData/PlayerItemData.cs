@@ -1,16 +1,16 @@
 ﻿public class PlayerItemData
 {
     public string ItemCode { get; set; }
-    public decimal SignValue { get; set; }
-    public decimal ExpValue { get; set; }
+    public double SignValue { get; set; }
+    public double ExpValue { get; set; }
     public BBNumber Count()
     {
-        return new BBNumber((double)SignValue, (double)ExpValue);
+        return new BBNumber(SignValue, ExpValue);
     }
     public void Set(BBNumber value)
     {
-        SignValue = (decimal)value.significand;
-        ExpValue = (decimal)value.exponent;
+        SignValue = value.significand;
+        ExpValue = value.exponent;
     }
     public void Add(BBNumber value)
     {

@@ -97,6 +97,19 @@ public enum ItemTableCodeDefine
     Earthworm,
 }
 
+public enum FormulaKeyword
+{
+    LEVEL,
+    STAGE,
+    C_LEVEL,
+    C_AWAKE,
+}
+
+public enum GameDefineTableCodeDefine
+{
+    GN_C_Level_UP,
+}
+
 public enum FormulaTableCodeDefine
 {
     Stage_Get_Gesso,
@@ -111,16 +124,4 @@ public enum FormulaTableCodeDefine
     Stage_Get_StarCandy,
     Stage_Get_LC,
     Character_Level_Up,
-}
-public enum FormulaKeyword
-{
-    LEVEL,
-    STAGE,
-    C_LEVEL,
-    C_AWAKE,
-}
-
-public enum GameDefineTableCodeDefine
-{
-    GN_C_Level_UP,
 }

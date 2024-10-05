@@ -41,16 +41,16 @@ MonoBehaviour:
       rid: 5444726173243277328
     runningFinishOption: 0
     duration: 0
-    applyCount: 5
-    applyCycle: 0.2
+    applyCount: 1
+    applyCycle: 0
     cooldown:
       defaultValue: 5
       scaleStat: {fileID: 0}
     targetSearcher:
       selectionAction:
-        rid: 5444726173243277331
+        rid: 8010792255208554496
       searchAction:
-        rid: 5444726178622472192
+        rid: 8010792255208554499
     costs: []
     isUseCast: 0
     castTime:
@@ -85,27 +85,23 @@ MonoBehaviour:
     - rid: 5444726173243277328
       type: {class: InstantApplyEffectSpawnAction, ns: , asm: Assembly-CSharp}
       data:
-        effectObj: {fileID: 3300052248721055012, guid: 11f6794fafbfd0d4cb60c26a3000cedc, type: 3}
-        spawnTarget: 0
-        isRotation: 1
-        isOneEffect: 1
-    - rid: 5444726173243277331
-      type: {class: SelectNearestEntity, ns: , asm: Assembly-CSharp}
+        effectObj: {fileID: 4218160674387114083, guid: bc450e11c3d1f304eb6c165bd6d12075, type: 3}
+        spawnTarget: 1
+        isRotation: 0
+        isOneEffect: 0
+    - rid: 8010792255208554496
+      type: {class: SelectRandomEntity, ns: , asm: Assembly-CSharp}
       data:
         indicatorViewAction:
           rid: -2
         isUseScale: 0
-        range: 5.5
+        range: 7
         angle: 360
         isSelectSameCategory: 0
         castRadius: 1000
-    - rid: 5444726178622472192
-      type: {class: SearchArea, ns: , asm: Assembly-CSharp}
+    - rid: 8010792255208554499
+      type: {class: SelectedTarget, ns: , asm: Assembly-CSharp}
       data:
         indicatorViewAction:
           rid: -2
         isUseScale: 0
-        range: 3
-        angle: 360
-        isIncludeSelf: 0
-        isSearchSameCategory: 0

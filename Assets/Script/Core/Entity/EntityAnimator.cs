@@ -32,12 +32,12 @@ public class EntityAnimator : MonoBehaviour
     }
 
     public void AniSpeed(float speed) => AniController.AniSpeed(speed);
-    public void Play(string aniName, bool isLoop, int index = 0)
+    public void Play(string aniName, bool isLoop, bool isDupli = false, int index = 0)
     {
         if (entity.IsDead)
             return;
 
-        AniController.Play(aniName, isLoop, index);
+        AniController.Play(aniName, isLoop, isDupli, index);
     }
     public bool IsPlay(string aniName, int index = 0) => AniController.IsPlay(aniName, index);
 }

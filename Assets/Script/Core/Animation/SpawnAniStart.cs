@@ -26,7 +26,7 @@ public class SpawnAniStart : MonoBehaviour
         else if (sa)
         {
             SpineAniController spineAniController = sa.Initialize();
-            spineAniController.Play(startAniName,isLoop);
+            spineAniController.Play(startAniName,isLoop, true);
         }
     }
 }

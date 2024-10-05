@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsUsing: 0
-  poolObjectType: 4
-  time: 0.2
+  poolObjectType: 1
+  time: 0.8
   animator: {fileID: 0}
   endAniName: 
   spineAnimation: {fileID: 9120815978335086033}
@@ -64,6 +64,7 @@ GameObject:
   - component: {fileID: 9120815978335086035}
   - component: {fileID: 9120815978335086032}
   - component: {fileID: 9120815978335086033}
+  - component: {fileID: 5289854247575377372}
   m_Layer: 0
   m_Name: Spine
   m_TagString: Untagged
@@ -179,3 +180,17 @@ MonoBehaviour:
   _animationName: effect
   loop: 0
   timeScale: 1
+--- !u!114 &5289854247575377372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9120815978335086039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2175e804999b2c4f9c8154886f08650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startAniName: effect
+  isLoop: 0

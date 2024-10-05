@@ -517,9 +517,9 @@ public static class CSharpHelper
         FieldInfo fi = value.GetFieldInfoByValue(keyColumn);
         string columnName = fi.GetVariableNameByField();
         int findIndex = list.FindIndex(d =>
-        (
-            d.GetFieldInfoByVariableName(columnName).GetValue(d) == value.GetFieldInfoByVariableName(columnName).GetValue(value)
-        ));
+          (
+              d.GetFieldInfoByVariableName(columnName).GetValue(d).ToString().Equals(value.GetFieldInfoByVariableName(columnName).GetValue(value))
+          ));
 
         if (findIndex < 0)
             list.Add(value);

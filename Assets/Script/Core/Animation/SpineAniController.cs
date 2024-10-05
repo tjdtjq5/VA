@@ -10,17 +10,19 @@ public class SpineAniController : MonoBehaviour
     SkeletonAnimation sa;
 
     Dictionary<string, Action<string>> OnAnimationCompleteDics = new();
+    Dictionary<string, Action> OnAnimationEventDics = new();
     Dictionary<int, string> PlayAniClipName = new();
 
     public void Initialize(SkeletonAnimation sa)
     {
         this.sa = sa;
         sa.AnimationState.Complete += EndListener;
+        sa.AnimationState.Event += EventListener;
     }
 
-    public void Play(string aniName, bool isLoop, int index = 0)
+    public void Play(string aniName, bool isLoop, bool isDupli = false ,int index = 0)
     {
-        if (IsPlay(aniName, index))
+        if (!isDupli && IsPlay(aniName, index))
             return;
         
         try
@@ -65,6 +67,25 @@ public class SpineAniController : MonoBehaviour
 
         if (OnAnimationCompleteDics.ContainsKey(clipName))
             OnAnimationCompleteDics[clipName]?.Invoke(clipName);
+    }
+    public void SetEventFunc(string clipName, Action callback)
+    {
+        if (OnAnimationEventDics.ContainsKey(clipName))
+        {
+            OnAnimationEventDics[clipName] -= callback;
+            OnAnimationEventDics[clipName] += callback;
+        }
+        else
+        {
+            OnAnimationEventDics.Add(clipName, callback);
+        }
+    }
+    void EventListener(TrackEntry trackEntry, Spine.Event e)
+    {
+        string eName = e.Data.Name;
+
+        if (OnAnimationEventDics.ContainsKey(eName))
+            OnAnimationEventDics[eName]?.Invoke();
     }
     public void Clear()
     {

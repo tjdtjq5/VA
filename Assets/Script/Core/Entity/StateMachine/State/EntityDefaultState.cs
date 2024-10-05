@@ -18,7 +18,7 @@ public class EntityDefaultState : State<Entity>
 
         var tupleData = ((Skill skill, string animatorParameter))data;
 
-        Entity.Animator?.Play(tupleData.Item2, true);
+        Entity.Animator?.Play(tupleData.Item2, false);
 
         return true;
     }

@@ -11,10 +11,11 @@ public class StarSpawnPrecedingAction : SkillPrecedingAction
     public override void Start(Skill skill)
     {
         skill.Owner.Movement.Preceding(precedingTime);
-        Managers.Resources.Instantiate(prefabPath).transform.position = skill.Owner.transform.position;
+        GameObject startObj = Managers.Resources.Instantiate(prefabPath);
+        startObj.transform.position  = skill.Owner.transform.position;
     }
 
     public override bool Run(Skill skill) => !skill.Owner.Movement.IsPreceding;
 
-    public override object Clone() => new StarSpawnPrecedingAction();
+    public override object Clone() => new StarSpawnPrecedingAction() { precedingTime = this.precedingTime };
 }
