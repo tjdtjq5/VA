@@ -44,7 +44,11 @@ public class TitleManager : SceneBase
     {
         Managers.Table.DbGets(() => 
         {
-            UIItemTest ulft = Managers.UI.ShopPopupUI<UIItemTest>("Test/UIItemTest");
+            Managers.PlayerData.DbGets(() => 
+            {
+              //  UnityHelper.LogSerialize(Managers.PlayerData.Character.Gets());
+                UIItemTest ulft = Managers.UI.ShopPopupUI<UIItemTest>("Test/UIItemTest");
+            });
         });
     }
 

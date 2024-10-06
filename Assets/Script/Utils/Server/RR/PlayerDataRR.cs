@@ -1,50 +1,54 @@
 ﻿using System.Collections.Generic;
-public class PCDLevelUpRequest
+public class PlayerDataGetsResponse
+{
+    public List<CharacterPlayerData> Characters { get; set; }
+}
+public class CPDLevelUpRequest
 {
     public string Code { get; set; }
     public int PlusLevel { get; set; }
 }
-public class PCDLevelUpResponse
+public class CPDLevelUpResponse
 {
-    public PlayerCharacterData LevelUpCharacterData { get; set; }
+    public CharacterPlayerData LevelUpCharacterData { get; set; }
     public PlayerItemData RemainItems { get; set; }
 }
-public class PCDAwakeUpRequest
+public class CPDAwakeUpRequest
 {
     public string Code { get; set; }
 }
-public class PCDAwakeUpResponse
+public class CPDAwakeUpResponse
 {
-    public PlayerCharacterData LevelUpCharacterData { get; set; }
+    public CharacterPlayerData LevelUpCharacterData { get; set; }
     public PlayerItemData RemainItem { get; set; }
 }
 public class PCDAwakeAllRequest
 {
     // None
 }
-public class PCDAwakeAllResponse
+public class CPDAwakeAllResponse
 {
-    public List<PlayerCharacterData> LevelUpCharacterDatas { get; set; } = new();
+    public List<CharacterPlayerData> LevelUpCharacterDatas { get; set; } = new();
     public List<PlayerItemData> RemainItems { get; set; } = new();
 }
 
-public class PCDPotentialChangeRequest
+public class CPDPotentialChangeRequest
 {
     public string Code { get; set; }
     public int LockCount { get; set; }
 }
-public class PCDPotentialChangeResponse
+public class CPDPotentialChangeResponse
 {
     public List<string> PotentialKeys { get; set; } = new();
     public PlayerItemData RemainItem { get; set; }
 }
-public class PCDSpecialWeaponLevelUpRequest
+public class CPDSpecialWeaponLevelUpRequest
 {
     public string Code { get; set; }
     public int PlusLevel { get; set; }
 }
-public class PCDSpecialWeaponLevelUpResponse
+public class CPDSpecialWeaponLevelUpResponse
 {
-    public PlayerCharacterData LevelUpCharacterData { get; set; }
+    public CharacterPlayerData LevelUpCharacterData { get; set; }
     public PlayerItemData RemainItems { get; set; }
 }

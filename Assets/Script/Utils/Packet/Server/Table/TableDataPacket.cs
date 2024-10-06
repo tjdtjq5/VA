@@ -258,7 +258,7 @@ public class TableDataPacket
         {
             Type tp = types[i];
             string tpStr = CSharpHelper.GetTypeString(tp);
-            string variName = CSharpHelper.StartCharToLower(variables[i].Trim());
+            string variName = CSharpHelper.ToLower_H(variables[i].Trim());
 
             string fieldF = CSharpHelper.Format_H(fieldFormat, tpStr, variName);
 

@@ -233,6 +233,51 @@ public class SimpleFormat
         text = text.Substring(0, text.Length - 1);
         FileHelper.Write(file, text, true);
     }
+    public static void InnerUnderAdd(string file, string checkFormat, string checkEndFormat, string format)
+    {
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat InnerClassUpperAdd Not Found File Error\nfile : {file}");
+            return;
+        }
+
+        string text = "";
+        int leftBracketCount = 0;
+        int rightBracketCount = 0;
+        bool readCheck = false;
+
+        foreach (var line in FileHelper.ReadLines(file))
+        {
+            if (line.Contains(checkFormat))
+            {
+                readCheck = true;
+            }
+
+            if (readCheck)
+            {
+                if (line.Contains('{'))
+                    leftBracketCount++;
+
+                if (line.Contains(checkEndFormat))
+                    rightBracketCount++;
+
+                if (leftBracketCount != 0 && leftBracketCount == rightBracketCount)
+                {
+                    readCheck = false;
+
+                    if (line.Contains(checkEndFormat))
+                    {
+                        text += $"{format}" + "\n";
+                    }
+                }
+            }
+
+            text += $"{line}\n";
+        }
+
+        text = text.Substring(0, text.Length - 1);
+        FileHelper.Write(file, text, true);
+    }
 
     public static void InnerTypeDataRemove(Type scriptType, string format)
     {
@@ -262,7 +307,7 @@ public class SimpleFormat
         InnerRemove(file, checkEnumFormat, $" {enumData}");
     }
 
-    static void InnerRemove(string file, string checkFormat, string formatLine)
+    public static void InnerRemove(string file, string checkFormat, string formatLine)
     {
         if(string.IsNullOrEmpty(file))
         {

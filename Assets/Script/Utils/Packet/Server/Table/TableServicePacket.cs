@@ -143,14 +143,14 @@ public class TableServicePacket
     }
     static string LowerTableName(string tableName)
     {
-        return CSharpHelper.StartCharToLower(tableName);
+        return CSharpHelper.ToLower_H(tableName);
     }
     static string KeyValueName(string tableData)
     {
         List<string> variableNames = VariableNames(tableData);
         if (variableNames.Count >= 1)
         {
-            return CSharpHelper.StartCharToLower(variableNames[0]);
+            return CSharpHelper.ToLower_H(variableNames[0]);
         }
         else
         {

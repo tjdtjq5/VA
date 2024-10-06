@@ -82,7 +82,7 @@ public class TableControllerPacket
     }
     static string LowerTableName(string tableName)
     {
-        return CSharpHelper.StartCharToLower(tableName);
+        return CSharpHelper.ToLower_H(tableName);
     }
 
     #region Format

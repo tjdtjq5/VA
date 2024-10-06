@@ -7,7 +7,7 @@ public interface IPlayerData
 }
 
 [Serializable]
-public class PlayerCharacterData : IPlayerData
+public class CharacterPlayerData : IPlayerData
 {
     public string Code { get; set; }
     public int Level { get; set; } = 1;

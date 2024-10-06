@@ -323,12 +323,26 @@ public static class CSharpHelper
     #endregion
 
     #region String 
-    public static string StartCharToLower(string value, int lowerLen = 1)
+    public static string ToLower_H(this string value, int lowerLen = 1)
     {
         try
         {
             string result = value;
             string startLowerResult = result.Substring(0, lowerLen).ToLower();
+            result = $"{startLowerResult}{result.Substring(lowerLen, result.Length - 1)}";
+            return result;
+        }
+        catch
+        {
+            return value;
+        }
+    }
+    public static string ToUpper_H(this string value, int lowerLen = 1)
+    {
+        try
+        {
+            string result = value;
+            string startLowerResult = result.Substring(0, lowerLen).ToUpper();
             result = $"{startLowerResult}{result.Substring(lowerLen, result.Length - 1)}";
             return result;
         }

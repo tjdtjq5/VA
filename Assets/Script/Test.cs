@@ -8,15 +8,7 @@ public class Test : MonoBehaviour
     [Button]
     public void TT()
     {
-        PlayerItemData item = new PlayerItemData()
-        {
-            ItemCode = "aa",
-        };
-        item.Set(1);
-
-        item.Add(3);;
-
-        UnityHelper.Log_H(item.Count());
+        UnityHelper.Log_H(PlayerDataCPacket.FilePathName("Character"));
     }
     [Button]
     public void MasterGets()
@@ -24,26 +16,25 @@ public class Test : MonoBehaviour
         Managers.Table.DbGets(); 
     }
     [Button]
-    public void ItemGets()
+    public void CharacterGets()
     {
-        Managers.Resources.Instantiate("Prefab/Effect/SkillStarEffect");
+        UnityHelper.LogSerialize(Managers.PlayerData.Character.Gets());
     }
     [Button]
     public void SimpleFormatTest_Update()
     {
-        TableDefineCodePacket.Update("TestT", new List<string>() { "ABB", "A_B", "AFEFV" });
+        PlayerDataCPacket.Create("Character");
     }
 
     [Button]
     public void SimpleFormatTest_Exist()
     {
-        UnityHelper.Log_H(CSharpHelper.ExistEnumData<DefineTableCodeType>("Item"));
-        UnityHelper.Log_H(CSharpHelper.ExistEnumData<DefineTableCodeType>("Item2"));
+        UnityHelper.Log_H(PlayerDataCPacket.Exist("Character"));
     }
  
     [Button]
     public void SimpleFormatTest_Remove()
     {
-        TableDefineCodePacket.Remove("TestT");
+        PlayerDataCPacket.Remove("Character");
     }
 }

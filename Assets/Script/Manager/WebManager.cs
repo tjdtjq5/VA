@@ -119,8 +119,6 @@ public class WebManager
             }
             else
             {
-                UnityHelper.LogError_H($"Server sent an error: {response.StatusCode}-{response.DataAsText}\nRequest Url : {request.Uri}");
-
                 ErrorResponse errorResponse = CSharpHelper.DeserializeObject<ErrorResponse>(response.DataAsText);
                 if (errorResponse == null)
                 {
@@ -145,7 +143,10 @@ public class WebManager
                 }
 
                 if (!isJopWork)
+                {
+                    UnityHelper.LogError_H($"Server sent an error: {response.StatusCode}-{response.DataAsText}\nRequest Url : {request.Uri}");
                     ErrorResponseMessage(errorMsgType);
+                }
 
             }
         }
@@ -164,7 +165,6 @@ public class WebManager
 
     void ErrorResponseMessage(HttpResponceMessageType type)
     {
-
     }
 
     private string GetUrl(bool isMyServer, string url)

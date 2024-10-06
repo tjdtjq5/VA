@@ -55,7 +55,7 @@ public class PlayerDataWindow : EditorWindow
 
             EditorGUILayout.Space(20);
 
-            EditorGUILayout.LabelField("Do This First\nServiceData -> RR -> Service -> Controllers", CustomEditorUtility.GetLabelStyle(15));
+            EditorGUILayout.LabelField("Do This First\nServiceData -> RR -> DB/Data/PlayerDbData -> Service -> Controllers", CustomEditorUtility.GetHelpboxLabelStyle(15));
         }
         GUILayout.EndVertical();
     }
@@ -64,10 +64,36 @@ public class PlayerDataWindow : EditorWindow
     {
         if (!playerDataClassSelecter)
             return;
+
+        if (playerDataClassSelecter.playerDataClass == null)
+        {
+            UnityHelper.LogError_H($"playerDataClassSelecter.playerDataClass Null Error");
+            return;
+        }
+
+        string name = playerDataClassSelecter.playerDataClass.GetType().Name.Replace("PlayerData", string.Empty);
+
+        PlayerDataControllerPacket.Add(name);
+        PlayerDataCPacket.Create(name);
+        PlayerDataManagerPacket.Add(name);
+        PlayerDataRRPacket.Add(name);
     }
     void OnClickDelete()
     {
         if (!playerDataClassSelecter)
             return;
+
+        if (playerDataClassSelecter.playerDataClass == null)
+        {
+            UnityHelper.LogError_H($"playerDataClassSelecter.playerDataClass Null Error");
+            return;
+        }
+
+        string name = playerDataClassSelecter.playerDataClass.GetType().Name.Replace("PlayerData", string.Empty);
+
+        PlayerDataControllerPacket.Remove(name);
+        PlayerDataCPacket.Remove(name);
+        PlayerDataManagerPacket.Remove(name);
+        PlayerDataRRPacket.Remove(name);
     }
 }

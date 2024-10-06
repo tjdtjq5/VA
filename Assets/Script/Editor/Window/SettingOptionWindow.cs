@@ -138,6 +138,14 @@ public class SettingOptionWindow : EditorWindow
                         object value = _txtFiles[i].Read<object>(key);
                         string valueStr = CSharpHelper.SerializeObject(value);
                         valueStr = CSharpHelper.RemoveSemi(valueStr);
+                        Color valueColor = GUI.contentColor;
+                        if (FileHelper.IsPathData(valueStr))
+                        {
+                            if(FileHelper.FileExist(valueStr) || FileHelper.DirectoryExist(valueStr))
+                                valueColor = Color.cyan;
+                            else
+                                valueColor = Color.red;
+                        }
 
                         bool isModify = modifyFlag.ContainsKey(key) ? modifyFlag[key] : false;
 
@@ -146,7 +154,7 @@ public class SettingOptionWindow : EditorWindow
                             if (!isModify)
                             {
                                 EditorGUILayout.LabelField(key, EditorStyles.helpBox, GUILayout.Width(150));
-                                EditorGUILayout.LabelField(valueStr, GUILayout.Width(CustomEditorUtility.GetScreenWidth - 400));
+                                EditorGUILayout.LabelField(valueStr, CustomEditorUtility.GetLabelStyle(13 ,valueColor), GUILayout.Width(CustomEditorUtility.GetScreenWidth - 400));
 
                                 if (GUILayout.Button("M", GUILayout.Width(35)))
                                 {

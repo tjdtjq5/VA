@@ -116,7 +116,25 @@ public static class CustomEditorUtility
     public static GUIStyle GetLeftLabel { get=> new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft }; }
     public static GUIStyle GetLabelStyle(int fontSize)
     {
-        return new GUIStyle(EditorStyles.helpBox) { fontSize = fontSize };
+        return new GUIStyle(GUI.skin.label) { fontSize = fontSize };
+    }
+    public static GUIStyle GetLabelStyle(int fontSize, Color color)
+    {
+        GUIStyle style = GetLabelStyle(fontSize);
+        style.normal.textColor = color;
+        return style;
+    }
+    public static GUIStyle GetHelpboxLabelStyle(int fontSize)
+    {
+        GUIStyle style = EditorStyles.helpBox;
+        style.fontSize = fontSize;
+        return style;
+    }
+    public static GUIStyle GetHelpboxLabelStyle(int fontSize, Color color)
+    {
+        GUIStyle style = GetHelpboxLabelStyle(fontSize);
+        style.normal.textColor = color;
+        return style;
     }
 
     #endregion
@@ -129,6 +147,12 @@ public static class CustomEditorUtility
         {
             return new GUIStyle(GUI.skin.textArea) { };
         }
+    }
+    public static GUIStyle GuiTextAreaColor(Color color)
+    {
+        GUIStyle style = GetTextAreaSeretStyle;
+        style.normal.textColor = color;
+        return style;
     }
 
     #endregion

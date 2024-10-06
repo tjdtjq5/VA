@@ -71,11 +71,11 @@ public class UIItemTest : UIPopup
     }
     void CharacterLevelUp(string code, int plusLevel)
 	{
-		PCDLevelUpRequest req = new PCDLevelUpRequest();
+		CPDLevelUpRequest req = new CPDLevelUpRequest();
         req.Code = code;
 		req.PlusLevel = plusLevel;
 
-        Managers.Web.SendPostRequest<PCDLevelUpResponse>("playerCharacterData/levelup", req, (res) =>
+        Managers.Web.SendPostRequest<CPDLevelUpResponse>("characterPlayerData/levelup", req, (res) =>
         {
             UnityHelper.LogSerialize(res);
         });

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+
 
 #if UNITY_EDITOR
 using System.Windows.Forms;
@@ -53,6 +55,11 @@ public class FileHelper
     public static bool FileExist(string file)
     {
         return File.Exists(file);
+    }
+    public static bool ScriptExist(string type)
+    {
+        string path = GetScriptPath(type);
+        return !string.IsNullOrEmpty(path);
     }
     public static bool DirectoryExist(string directory)
     {
@@ -122,6 +129,27 @@ public class FileHelper
         }
 #endif
         return $"";
+    }
+    public static bool IsPathData(string path)
+    {
+        // 경로 길이 체크
+        if (path.Length < 3)
+            return false;
+
+        // 드라이브 문자열 체크
+        Regex driveCheck = new Regex(@"^[a-zA-Z]:\\$");
+        if (driveCheck.IsMatch(path.Substring(0, 3)) == false)
+            return false;
+
+        // 경로 이름에 사용할 수 없는 문자가 있는지 체크
+        string invalidPathChars = new string(Path.GetInvalidPathChars());
+        invalidPathChars += @":/?*" + "\"";
+
+        Regex regexInvalidPath = new Regex("[" + Regex.Escape(invalidPathChars) + "]");
+        if (regexInvalidPath.IsMatch(path.Substring(3, path.Length - 3)))
+            return false;
+
+        return true;
     }
 
     public static void ProcessStart(string file)
