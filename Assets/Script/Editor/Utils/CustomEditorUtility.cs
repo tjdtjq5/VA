@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEditor;
+using Unity.VisualScripting;
 
 public static class CustomEditorUtility
 {
@@ -126,7 +127,7 @@ public static class CustomEditorUtility
     }
     public static GUIStyle GetHelpboxLabelStyle(int fontSize)
     {
-        GUIStyle style = EditorStyles.helpBox;
+        GUIStyle style = new GUIStyle(EditorStyles.helpBox);
         style.fontSize = fontSize;
         return style;
     }

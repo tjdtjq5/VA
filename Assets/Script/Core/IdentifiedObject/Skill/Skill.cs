@@ -613,7 +613,7 @@ public class Skill : IdentifiedObject
     public void Apply(bool isConsumeApplyCount = true)
     {
         UnityHelper.Assert_H(IsInfinitelyApplicable || !isConsumeApplyCount || (CurrentApplyCount < ApplyCount),
-            $"Skill({CodeName})�� �ִ� ���� Ƚ��({ApplyCount})�� �ʰ��ؼ� ������ �� �����ϴ�.");
+            $"Skill({CodeName}) ApplyCount({ApplyCount}) CurrentApplyCount({CurrentApplyCount}).");
 
         if (targetSearchTimingOption == TargetSearchTimingOption.Apply)
             SearchTargets();

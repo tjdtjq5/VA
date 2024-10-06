@@ -333,12 +333,13 @@ public class SkillSystem : MonoBehaviour
     public void CancelTargetSearching()
         => ownSkills.Find(x => x.IsInState<SearchingTargetState>())?.Cancel();
 
-    private void ApplyCurrentRunningSkill()
+    public void ApplyCurrentRunningSkill()
     {
         if (Owner.StateMachine.GetCurrentState() is InSkillActionState ownerState)
         {
             var runnsingSkill = ownerState.RunningSkill;
             runnsingSkill.Apply(runnsingSkill.ExecutionType != SkillExecutionType.Input);
+            runnsingSkill.CurrentApplyCount++;
         }
     }
 

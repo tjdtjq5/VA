@@ -16,6 +16,8 @@ public class Entity : MonoBehaviour
     public delegate void DeadHandler(Entity entity);
     public delegate void AlliaveHandler(Entity entity);
 
+    string skillActionEventName = "action";
+
     [SerializeField]
     private Category[] categories;
     [SerializeField]
@@ -63,11 +65,11 @@ public class Entity : MonoBehaviour
         Movement = UnityHelper.FindChild<EntityMovement>(this.gameObject, true);
         Movement?.Setup(this);
 
-        SkillSystem = UnityHelper.FindChild<SkillSystem>(this.gameObject, true);
-        SkillSystem?.Setup(this);
-
         Animator = UnityHelper.FindChild<EntityAnimator>(this.gameObject, true);
         Animator?.Setup(this);
+
+        SkillSystem = UnityHelper.FindChild<SkillSystem>(this.gameObject, true);
+        SkillSystem?.Setup(this);
 
         StateMachine = UnityHelper.FindChild<MonoStateMachine<Entity>>(this.gameObject, true);
         StateMachine?.Setup(this);
@@ -76,6 +78,8 @@ public class Entity : MonoBehaviour
         ObjectAnglePositionSetting oaps = UnityHelper.FindChild<ObjectAnglePositionSetting>(this.gameObject, true);
         if (Collider && oaps)
             oaps.PositionSetting(Collider.size.z);
+
+        Animator.AniController.SetEventFunc(skillActionEventName, ApplyCurrentRunningSkill);
 
         Allive(false);
     }
@@ -149,6 +153,10 @@ public class Entity : MonoBehaviour
             socketsByName[socketName] = socket;
 
         return socket;
+    }
+    private void ApplyCurrentRunningSkill()
+    {
+        SkillSystem.ApplyCurrentRunningSkill();
     }
 
     public bool HasCategory(Category category) => categories.Any(x => x.ID == category.ID);

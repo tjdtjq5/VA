@@ -35,8 +35,8 @@ public class EnemyController : Character
 
         skillSystem = entity.SkillSystem;
         animator = entity.Animator;
-        moveController = entity.Movement.MoveController;
         spineMaterialBlink = animator.AniController.GetOrAddComponent<SpineMaterialBlink>();
+        moveController = entity.Movement.MoveController;
 
         var ownSkills = skillSystem.OwnSkills;
         defaultSkill = ownSkills[0];

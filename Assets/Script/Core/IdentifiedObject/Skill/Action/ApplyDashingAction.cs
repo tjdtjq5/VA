@@ -14,14 +14,21 @@ public class ApplyDashingAction : SkillAction
     [SerializeField]
     private string clipName;
 
+    [SerializeField] private GameObject effectObj;
+    [SerializeField] private SpawnTarget spawnTarget;
+    [SerializeField] private bool isRotation;
+    [SerializeField] private bool isOneEffect;
+
     [SerializeField]
     private bool isTargetDuplicateAllow;
 
     List<Transform> dashTargetList = new List<Transform>();
 
+    private bool flag;
     public override void Start(Skill skill)
     {
         dashTargetList.Clear();
+        flag = false;
     }
 
     public override void Apply(Skill skill)
@@ -50,11 +57,32 @@ public class ApplyDashingAction : SkillAction
 
     void DashCallback(Skill skill)
     {
+        skill.SearchTargets();
         foreach (var target in skill.Targets)
+        {
             target.SkillSystem.Apply(skill);
+            Transform st = spawnTarget == SpawnTarget.Target ? target.transform : skill.Owner.transform;
+            EffectSpawn(st, target.transform);
+        }
 
         if (skill.ApplyCount > skill.CurrentApplyCount)
             skill.Apply();
+    }
+    void EffectSpawn(Transform spawnTarget, Transform target)
+    {
+        if (isOneEffect && flag)
+            return;
+
+        flag = true;
+
+        if (effectObj)
+        {
+            Transform spTr = Managers.Resources.Instantiate(effectObj).transform;
+            spTr.position = spawnTarget.transform.position;
+
+            if (isRotation)
+                spTr.LookAt_H(target);
+        }
     }
 }
 public enum DashActionType

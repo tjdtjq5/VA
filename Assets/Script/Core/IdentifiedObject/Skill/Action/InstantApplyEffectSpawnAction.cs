@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -55,11 +53,9 @@ public class InstantApplyEffectSpawnAction : SkillAction
                 spTr.LookAt_H(target);
         }
     }
-    public enum SpawnTarget
-    {
-        Owner,
-        Target
-    }
-
 }
-
+public enum SpawnTarget
+{
+    Owner,
+    Target
+}

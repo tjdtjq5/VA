@@ -20,8 +20,8 @@ MonoBehaviour:
   description: Pirate001_Active
   type: 0
   useType: 0
-  executionType: 0
-  applyType: 0
+  executionType: 1
+  applyType: 1
   needSelectionResultType: 0
   targetSelectionTimingOption: 0
   targetSearchTimingOption: 0
@@ -44,13 +44,13 @@ MonoBehaviour:
     applyCount: 1
     applyCycle: 0
     cooldown:
-      defaultValue: 5
+      defaultValue: 5.1
       scaleStat: {fileID: 0}
     targetSearcher:
       selectionAction:
         rid: 8010792213731606545
       searchAction:
-        rid: 8010792213731606546
+        rid: 8010792279445864448
     costs: []
     isUseCast: 0
     castTime:
@@ -65,7 +65,7 @@ MonoBehaviour:
     effectSelectors:
     - level: 1
       effect: {fileID: 11400000, guid: f44f197e27c2e364c859bebac99f3624, type: 2}
-    inSkillActionFinishOption: 2
+    inSkillActionFinishOption: 0
     castAnimatorClipName: 
     chargeAnimatorClipName: 
     precedingActionAnimatorClipName: 
@@ -92,16 +92,6 @@ MonoBehaviour:
         angle: 360
         isSelectSameCategory: 0
         castRadius: 1000
-    - rid: 8010792213731606546
-      type: {class: SearchArea, ns: , asm: Assembly-CSharp}
-      data:
-        indicatorViewAction:
-          rid: -2
-        isUseScale: 0
-        range: 6
-        angle: 360
-        isIncludeSelf: 0
-        isSearchSameCategory: 0
     - rid: 8010792255208554501
       type: {class: InstantApplyEffectSpawnAction, ns: , asm: Assembly-CSharp}
       data:
@@ -109,3 +99,9 @@ MonoBehaviour:
         spawnTarget: 1
         isRotation: 0
         isOneEffect: 0
+    - rid: 8010792279445864448
+      type: {class: SelectedTarget, ns: , asm: Assembly-CSharp}
+      data:
+        indicatorViewAction:
+          rid: -2
+        isUseScale: 0

@@ -7,15 +7,10 @@ public class InActionState : SkillState
     private bool isAutoExecuteType;
     private bool isInstantApplyType;
 
-    string skillActionEventName = "action";
-
     protected override void Setup()
     {
         isAutoExecuteType = Entity.ExecutionType == SkillExecutionType.Auto;
         isInstantApplyType = Entity.ApplyType == SkillApplyType.Instant;
-
-        if (!isInstantApplyType)
-            Entity.Owner.Animator.AniController.SetEventFunc(skillActionEventName, AniApply);
     }
 
     public override void Enter()
@@ -78,8 +73,6 @@ public class InActionState : SkillState
         else if (!isAutoExecuteType)
             Entity.CurrentApplyCount++;
     }
-    private void AniApply() => Entity.Apply();
-
     private void OnTargetSelectionCompleted(Skill skill, TargetSearcher targetSearcher, TargetSelectionResult result)
     {
         if (skill.HasValidTargetSelectionResult)
