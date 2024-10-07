@@ -59,21 +59,21 @@ public class Projectile : MonoBehaviour
             impact.transform.position = transform.position;
         }
 
-        var entity = other.GetComponent<Entity>();
+        var target = other.GetComponent<Entity>();
 
-        if (!entity)
+        if (!target)
             return;
 
-        if (entity.IsDead)
+        if (target.IsDead)
             return;
 
-        var hasCategory = owner.Categories.Any(x => entity.HasCategory(x));
+        var hasCategory = owner.Categories.Any(x => target.HasCategory(x));
         if (hasCategory)
             return;
 
-        if (entity)
+        if (target)
         {
-            entity.SkillSystem.Apply(skill);
+            target.SkillSystem.Apply(skill);
             Managers.Resources.Destroy(gameObject);
         }
     }

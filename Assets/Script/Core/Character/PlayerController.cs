@@ -1,6 +1,7 @@
 using EasyButtons;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : Character
@@ -8,11 +9,15 @@ public class PlayerController : Character
     private SkillSystem skillSystem;
     private MoveController moveController;
     private EntityAnimator animator;
+    private CharacterJobSkill jobSkill;
 
     public bool IsLeft => moveController.IsLeft;
     public bool IsDown => moveController.IsDown;
+    public CharacterJob Job => job;
     private Vector3 JoysticDir { get; set; } = Vector3.zero;
 
+    [Header("Setting")]
+    [SerializeField] private CharacterJob job;
     [SerializeField] private Skill basicSkill; private Skill RegisterBasicSkill;
     [SerializeField] private Skill activeSkill; [SerializeField] private Skill activeUpgradeSkill; private Skill RegisterActiveSkill;
 
@@ -25,6 +30,7 @@ public class PlayerController : Character
         skillSystem = entity.SkillSystem;
         moveController = entity.Movement.MoveController;
         animator = entity.Animator;
+        jobSkill = this.GetOrAddComponent<CharacterJobSkill>();
 
         skillSystem.onSkillTargetSelectionCompleted -= ReserveSkill;
         skillSystem.onSkillTargetSelectionCompleted += ReserveSkill;
@@ -33,15 +39,27 @@ public class PlayerController : Character
         Managers.Observer.OnJoystic += JoysticDirection;
 
         // SkillRegister
-        if(basicSkill)
+        if (basicSkill)
+        {
             RegisterBasicSkill = skillSystem.Register(basicSkill);
+            RegisterBasicSkill.onStateChanged -= OnSkillStateChanged;
+            RegisterBasicSkill.onStateChanged += OnSkillStateChanged;
+        }
 
         if (activeUpgradeSkill)
+        {
             RegisterActiveSkill = skillSystem.Register(activeUpgradeSkill);
+            RegisterActiveSkill.onStateChanged -= OnSkillStateChanged;
+            RegisterActiveSkill.onStateChanged += OnSkillStateChanged;
+        }
         else
         {
             if (activeSkill)
+            {
                 RegisterActiveSkill = skillSystem.Register(activeSkill);
+                RegisterActiveSkill.onStateChanged -= OnSkillStateChanged;
+                RegisterActiveSkill.onStateChanged += OnSkillStateChanged;
+            }
         }
     }
     private void ReserveSkill(SkillSystem skillSystem, Skill skill, TargetSearcher targetSearcher, TargetSelectionResult result)
@@ -109,6 +127,11 @@ public class PlayerController : Character
     {
         base.OnTakeDamage(entity, instigator, causer, damage);
     }
+    public void OnSkillStateChanged(Skill skill, State<Skill> newState, State<Skill> prevState, int layer)
+    {
+        if (newState is CooldownState && prevState is InActionState && skill.Targets.Count > 0)
+            jobSkill.Apply(skill.Targets[0]);
+    }
     public override void MoveDirection(Vector3 direction)
     {
         direction.z = direction.y;
@@ -130,6 +153,10 @@ public class PlayerController : Character
             return;
 
         JoysticDir = direction;
+    }
+    public void JobSetUp(int jobCount)
+    {
+        jobSkill.SetUp(entity, job, jobCount);
     }
 
     [Button]

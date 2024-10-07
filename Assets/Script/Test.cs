@@ -18,7 +18,7 @@ public class Test : MonoBehaviour
     [Button]
     public void CharacterGets()
     {
-        UnityHelper.LogSerialize(Managers.PlayerData.Character.Gets());
+        UnityHelper.LogSerialize(Managers.PlayerData.Item.Gets());
     }
     [Button]
     public void SimpleFormatTest_Update()

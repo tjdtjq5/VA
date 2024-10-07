@@ -18,4 +18,9 @@ public class DungeonManager : SceneBase
     {
         return null;
     }
+
+    public override int GetPlayerJobCount(CharacterJob job)
+    {
+        throw new System.NotImplementedException();
+    }
 }

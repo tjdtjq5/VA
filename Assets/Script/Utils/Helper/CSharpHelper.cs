@@ -542,5 +542,4 @@ public static class CSharpHelper
     }
     #endregion
 
-
 }

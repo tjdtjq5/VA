@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -39,5 +37,10 @@ public class InGameManager : SceneBase
     public override PlayerController GetPlayer()
     {
         return playerSpawnActionController.Player;
+    }
+
+    public override int GetPlayerJobCount(CharacterJob job)
+    {
+        return playerSpawnActionController.JobCount(job);
     }
 }
