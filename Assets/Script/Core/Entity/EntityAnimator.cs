@@ -1,60 +1,43 @@
+using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EntityAnimator : MonoBehaviour
 {
-    [SerializeField] Animator _animator;
-    private BaseLayerBehaviour _stateMachine;
-    public Animator Animator { get; private set; }
+    [SerializeField] SkeletonAnimation _animator;
+    public SpineAniController AniController { get; private set; }
+    private Entity entity;
 
-    private Entity _entity;
-    private MoveController _moveController;
-    private EntityMovement _entityMovement;
-
-    private readonly static string deadAniName = "Dead";
-    private readonly static int kSpeedHash = Animator.StringToHash("speed");
-    private readonly static int kDeadHash = Animator.StringToHash("isDead");
-    private readonly static int kDashHash = Animator.StringToHash("isDash");
-    private readonly static int kIsStunningHash = Animator.StringToHash("isStunning");
-    private readonly static int kIsSleepingHash = Animator.StringToHash("isSleeping");
-
+    public readonly string attackClipName = "attack";
+    public readonly string deadClipName = "dead";
+    public readonly string skillClipName = "skill";
+    public readonly string waitClipName = "wait";
+    public readonly string walkClipName = "walk";
+    public readonly string precedingClipName = "skill_casting";
 
     public void Setup(Entity entity)
     {
-        Animator = _animator;
-        _stateMachine = _animator.GetBehaviour<BaseLayerBehaviour>();
+        AniController = _animator.Initialize();
 
-        _entity = entity;
+        this.entity = entity;
 
-        _entityMovement = _entity?.Movement;
-        _moveController = _entityMovement?.MoveController;
-
-        _stateMachine.onStateUpdate -= OnStateUpdate;
-        _stateMachine.onStateUpdate += OnStateUpdate;
-
-        _stateMachine.onStateExit -= OnStateEnd;
-        _stateMachine.onStateExit += OnStateEnd;
+        AniController.SetEndFunc(deadClipName, OnDead);
     }
-    public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+
+    public void OnDead(string aniName)
     {
-        Animator?.SetBool(kDeadHash, _entity.IsDead);
-        if (!_entity.IsDead)
-        {
-            if (_entityMovement)
-                Animator?.SetBool(kDashHash, _entityMovement.IsDashing);
-
-            if (_moveController)
-                Animator?.SetFloat(kSpeedHash, _moveController.Weight);
-
-            animator.SetBool(kIsStunningHash, _entity.IsInState<StunningState>());
-            animator.SetBool(kIsSleepingHash, _entity.IsInState<SleepingState>());
-        }
+        if (aniName.Equals(deadClipName))
+            entity.Destroy();
     }
 
-    public void OnStateEnd(string aniName)
+    public void AniSpeed(float speed) => AniController.AniSpeed(speed);
+    public void Play(string aniName, bool isLoop, bool isDupli = false, int index = 0)
     {
-        if (aniName.Equals(deadAniName))
-            _entity.Destroy();
+        if (entity.IsDead)
+            return;
+
+        AniController.Play(aniName, isLoop, isDupli, index);
     }
+    public bool IsPlay(string aniName, int index = 0) => AniController.IsPlay(aniName, index);
 }

@@ -1,13 +1,40 @@
-using System.Collections;
+﻿using EasyButtons;
+using System;
 using System.Collections.Generic;
-using EasyButtons;
 using UnityEngine;
 
 public class Test : MonoBehaviour
 {
     [Button]
-    public void T(BBNumber bBNumber)
+    public void TT()
     {
-        UnityHelper.Log_H($"s = {bBNumber.significand} e : {bBNumber.exponent} alphabet : {bBNumber.Alphabet()}");
+        UnityHelper.Log_H(PlayerDataCPacket.FilePathName("Character"));
+    }
+    [Button]
+    public void MasterGets()
+    {
+        Managers.Table.DbGets(); 
+    }
+    [Button]
+    public void CharacterGets()
+    {
+        UnityHelper.LogSerialize(Managers.PlayerData.Character.Gets());
+    }
+    [Button]
+    public void SimpleFormatTest_Update()
+    {
+        PlayerDataCPacket.Create("Character");
+    }
+
+    [Button]
+    public void SimpleFormatTest_Exist()
+    {
+        UnityHelper.Log_H(PlayerDataCPacket.Exist("Character"));
+    }
+ 
+    [Button]
+    public void SimpleFormatTest_Remove()
+    {
+        PlayerDataCPacket.Remove("Character");
     }
 }

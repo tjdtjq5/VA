@@ -12,17 +12,20 @@ public class TitleManager : SceneBase
 
         SceneType = SceneType.Title;
 
-        Managers.Resources.Instantiate("Prefab/UI/EventSystem");
+        LoginService.AtLogin(() => 
+        {
+            AfterLogin();
 
-        // Managers.Resources.Instantiate("Prefab/UI/Popup/UILogin");
+        }, () => 
+        {
+            UI_Login UI_Login = Managers.UI.ShopPopupUI<UI_Login>("UILogin");
 
-        //UILoginTest ult = Managers.Resources.Instantiate<UILoginTest>("Prefab/UI/Popup/UILoginTest");
-        //ult.LoginAfterJob(() =>
-        //{
-        //    Managers.Resources.Destroy(ult.gameObject);
-
-        //    UILoginFuncTest ulft = Managers.Resources.Instantiate<UILoginFuncTest>("Prefab/UI/Popup/UILoginFuncTest");
-        //});
+            UI_Login.LoginAfterJob(() =>
+            {
+                UI_Login.ClosePopupUI();
+                AfterLogin();
+            });
+        });
     }
 
     public override void Clear()
@@ -36,5 +39,21 @@ public class TitleManager : SceneBase
         {
             Managers.Resources.Instantiate("Prefab/UI/Popup/Monitor/Monitor");
         }
+    }
+    void AfterLogin()
+    {
+        Managers.Table.DbGets(() => 
+        {
+            Managers.PlayerData.DbGets(() => 
+            {
+              //  UnityHelper.LogSerialize(Managers.PlayerData.Character.Gets());
+                UIItemTest ulft = Managers.UI.ShopPopupUI<UIItemTest>("Test/UIItemTest");
+            });
+        });
+    }
+
+    public override PlayerController GetPlayer()
+    {
+        return null;
     }
 }

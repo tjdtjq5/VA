@@ -12,9 +12,7 @@ public class Skill : IdentifiedObject
     public delegate void StateChangedHandler(Skill skill, State<Skill> newState, State<Skill> prevState, int layer);
     public delegate void AppliedHander(Skill skill, int currentApplyCount);
     public delegate void UsedHandler(Skill skill);
-    // Skill�� ���(Use)�� ���� ����Ǵ� Event
     public delegate void ActivatedHandler(Skill skill);
-    // Skill�� ����� ���� ����Ǵ� Event
     public delegate void DeactivatedHandler(Skill skill);
     public delegate void CanceledHandler(Skill skill);
     public delegate void TargetSelectionCompletedHandler(Skill skill, TargetSearcher targetSearcher, TargetSelectionResult result);
@@ -43,7 +41,6 @@ public class Skill : IdentifiedObject
     [SerializeReference, SubclassSelector]
     private Cost[] acquisitionCosts;
 
-    // Skill�� ����ϱ� ���� ���ǵ�
     [SerializeReference, SubclassSelector]
     private SkillCondition[] useConditions;
 
@@ -114,7 +111,6 @@ public class Skill : IdentifiedObject
     }
     public int DataBonusLevel => Mathf.Max(level - currentData.level, 0);
     public bool IsMaxLevel => level == maxLevel;
-    // Skill�� �ִ� Level�� �ƴϰ�, Level Up ������ �����ϰ�, Level Up�� ���� Costs�� ����ϴٸ� True
     public bool IsCanLevelUp => !IsMaxLevel && LevelUpConditions.All(x => x.IsPass(Owner)) &&
         LevelUpCosts.All(x => x.HasEnoughCost(Owner));
 
@@ -123,35 +119,35 @@ public class Skill : IdentifiedObject
     public bool HasPrecedingAction => PrecedingAction != null;
 
     public InSkillActionFinishOption InSkillActionFinishOption => currentData.inSkillActionFinishOption;
-    public AnimatorParameter CastAnimationParameter
+    public string CastAnimationClipName
     {
         get
         {
-            var constValue = currentData.castAnimatorParamter;
+            var constValue = currentData.castAnimatorClipName;
             return constValue;
         }
     }
-    public AnimatorParameter ChargeAnimationParameter
+    public string ChargeAnimationClipName
     {
         get
         {
-            var constValue = currentData.chargeAnimatorParameter;
+            var constValue = currentData.chargeAnimatorClipName;
             return constValue;
         }
     }
-    public AnimatorParameter PrecedingActionAnimationParameter
+    public string PrecedingActionAnimationClipName
     {
         get
         {
-            var constValue = currentData.precedingActionAnimatorParameter;
+            var constValue = currentData.precedingActionAnimatorClipName;
             return constValue;
         }
     }
-    public AnimatorParameter ActionAnimationParameter
+    public string ActionAnimationClipName
     {
         get
         {
-            var constValue = currentData.actionAnimatorParameter;
+            var constValue = currentData.actionAnimatorClipName;
             return constValue;
         }
     }
@@ -160,7 +156,6 @@ public class Skill : IdentifiedObject
     public bool IsSearchingTarget => TargetSearcher.IsSearching;
     public TargetSelectionResult TargetSelectionResult => TargetSearcher.SelectionResult;
     public TargetSearchResult TargetSearchResult => TargetSearcher.SearchResult;
-    // Skill�� �ʿ�� �ϴ� ������ Type�� TargetSearcher�� �˻��� �������� Type�� ��ġ�ϴ°�?
     public bool HasValidTargetSelectionResult
     {
         get
@@ -173,7 +168,6 @@ public class Skill : IdentifiedObject
             };
         }
     }
-    // Skill�� ������ �˻����� �ƴϰ�, �˻��� �������� Skill�� �ʿ�� �ϴ� Type�̶�� True 
     public bool IsTargetSelectSuccessful => !IsSearchingTarget && HasValidTargetSelectionResult;
 
     public IReadOnlyList<Cost> Costs => currentData.costs;
@@ -214,9 +208,6 @@ public class Skill : IdentifiedObject
             onCurrentApplyCountChanged?.Invoke(this, currentApplyCount, prevApplyCount);
         }
     }
-    // currentData�� applyCycle�� 0�̰� applyCount�� 1���� ũ��(������ ���� �����ϸ�)
-    // Skill�� duration�� (ApplyCount - 1)�� ������ ApplyCycle�� ����Ͽ� return ��.
-    // �ƴ϶�� ������ currentData�� applyCycle�� �״�� return ��.
     public float ApplyCycle => Mathf.Approximately(currentData.applyCycle, 0f) && ApplyCount > 1 ?
         Duration / (ApplyCount - 1) : currentData.applyCycle;
     public float CurrentApplyCycle { get; set; }
@@ -251,10 +242,7 @@ public class Skill : IdentifiedObject
                 effect.Scale = currentChargePower;
         }
     }
-    // ������ ���� �ð�
     public float ChargeDuration => currentData.chargeDuration;
-    // IsUseCharge�� false�� 1�� ����,
-    // true��� Lerp�� ���ؼ� StartChargePower���� 1���� currentChargeDuration���� ������
     public float CurrentChargeDuration
     {
         get => currentChargeDuration;
@@ -266,18 +254,14 @@ public class Skill : IdentifiedObject
         }
     }
     public float NeedChargeTimeToUse => currentData.needChargeTimeToUse;
-    // ����� ���� �ʿ��� ChargeTime�� �����ߴ°�?
     public bool IsMinChargeCompleted => currentChargeDuration >= NeedChargeTimeToUse;
-    // �ִ� ������ �����ߴ°�?
     public bool IsMaxChargeCompleted => currentChargeDuration >= ChargeTime;
-    // ������ ���� �ð��� �����°�?
     public bool IsChargeDurationEnded => Mathf.Approximately(ChargeDuration, CurrentChargeDuration);
 
     public bool IsPassive => type == SkillType.Passive;
     public bool IsToggleType => useType == SkillUseType.Toggle;
     public bool IsActivated { get; private set; }
     public bool IsReady => StateMachine.IsInState<ReadyState>();
-    // �ߵ� Ƚ���� ���Ұ�, ApplyCycle��ŭ �ð��� �������� true�� return
     public bool IsApplicable => (CurrentApplyCount < ApplyCount || IsInfinitelyApplicable) &&
     (CurrentApplyCycle >= ApplyCycle);
     public bool IsUseable
@@ -286,10 +270,8 @@ public class Skill : IdentifiedObject
         {
             if (IsReady)
                 return HasEnoughCost && useConditions.All(x => x.IsPass(this));
-            // SkillExecutionType�� Input�� ��, ������� �Է��� ���� �� �ִ� ���¶�� true
             else if (StateMachine.IsInState<InActionState>())
                 return ExecutionType == SkillExecutionType.Input && IsApplicable && useConditions.All(x => x.IsPass(this));
-            // Skill�� Charge ���� �� �ּ� ��� �������� �޼��ϸ� true
             else if (StateMachine.IsInState<ChargingState>())
                 return IsMinChargeCompleted;
             else
@@ -302,7 +284,6 @@ public class Skill : IdentifiedObject
 
     private bool IsDurationEnded => !IsTimeless && Mathf.Approximately(Duration, CurrentDuration);
     private bool IsApplyCompleted => !IsInfinitelyApplicable && CurrentApplyCount == ApplyCount;
-    // Skill�� �ߵ��� ����Ǿ��°�?
     public bool IsFinished => currentData.runningFinishOption == SkillRunningFinishOption.FinishWhenDurationEnded ?
         IsDurationEnded : IsApplyCompleted;
 
@@ -379,6 +360,7 @@ public class Skill : IdentifiedObject
             StateMachine = new InstantSkillStateMachine();
 
         StateMachine.Setup(this);
+
         StateMachine.onStateChanged += (_, newState, prevState, layer)
             => onStateChanged?.Invoke(this, newState, prevState, layer);
     }
@@ -393,7 +375,7 @@ public class Skill : IdentifiedObject
         CurrentApplyCount = 0;
     }
 
-    public void Update() => StateMachine.Update();
+    public void FixedUpdate() { StateMachine.FixedUpdate(); }
 
     private void UpdateCustomActions()
     {
@@ -418,8 +400,6 @@ public class Skill : IdentifiedObject
         currentData = newData;
 
         Effects = currentData.effectSelectors.Select(x => x.CreateEffect(this)).ToArray();
-        // Skill�� ���� Level�� data�� Level���� ũ��, ���� Level ���� Effect�� Bonus Level ��.
-        // ���� Skill�� 2 Level�̰�, data�� 1 level�̶��, effect���� 2-1�ؼ� 1�� Bonus Level�� �ް� ��.
         if (level > currentData.level)
             UpdateCurrentEffectLevels();
 
@@ -466,10 +446,10 @@ public class Skill : IdentifiedObject
             if (isShowIndicator)
                 HideIndicator();
 
-            // Skill�� �ʿ�� �ϴ� Type�� ������ �˻��� �����߰�,
-            // SearchTiming�� ������ �˻� ���Ķ��(TargetSelectionCompleted) Target �˻� ����
             if (IsTargetSelectSuccessful && targetSearchTimingOption == TargetSearchTimingOption.TargetSelectionCompleted)
+            {
                 SearchTargets();
+            }
 
             onSelectCompletedOrNull?.Invoke(this, targetSearcher, result);
             onTargetSelectionCompleted?.Invoke(this, targetSearcher, result);
@@ -512,7 +492,7 @@ public class Skill : IdentifiedObject
 
     public bool Use()
     {
-        UnityHelper.Assert_H(IsUseable, "Skill::Use - ��� ������ �������� ���߽��ϴ�.");
+        UnityHelper.Assert_H(IsUseable, "Skill::Use - IsUseable True.");
 
         bool isUsed = StateMachine.ExecuteCommand(SkillExecuteCommand.Use) || StateMachine.SendMessage(SkillStateMessage.Use);
         if (isUsed)
@@ -523,7 +503,7 @@ public class Skill : IdentifiedObject
 
     public bool UseImmediately(Vector3 position)
     {
-        UnityHelper.Assert_H(IsUseable, "Skill::UseImmediately - ��� ������ �������� ���߽��ϴ�.");
+        UnityHelper.Assert_H(IsUseable, "Skill::UseImmediately - IsUseable True.");
 
         SelectTargetImmediate(position);
 
@@ -536,7 +516,7 @@ public class Skill : IdentifiedObject
 
     public bool Cancel(bool isForce = false)
     {
-        UnityHelper.Assert_H(!IsPassive, "Skill::Cancel - Passive Skill�� Cancel �� �� �����ϴ�.");
+        UnityHelper.Assert_H(!IsPassive, "Skill::Cancel - Not Skill Passive.");
 
         var isCanceled = isForce ? StateMachine.ExecuteCommand(SkillExecuteCommand.CancelImmediately) :
             StateMachine.ExecuteCommand(SkillExecuteCommand.Cancel);
@@ -549,7 +529,7 @@ public class Skill : IdentifiedObject
 
     public void UseCost()
     {
-        UnityHelper.Assert_H(HasEnoughCost, "Skill::UseCost - ����� Cost�� �����մϴ�.");
+        UnityHelper.Assert_H(HasEnoughCost, "Skill::UseCost - Not Enough Cost.");
 
         foreach (var cost in Costs)
             cost.UseCost(Owner);
@@ -557,7 +537,7 @@ public class Skill : IdentifiedObject
 
     public void UseDeltaCost()
     {
-        UnityHelper.Assert_H(HasEnoughCost, "Skill::UseDeltaCost - ����� Cost�� �����մϴ�.");
+        UnityHelper.Assert_H(HasEnoughCost, "Skill::UseDeltaCost - Not Enough Cost.");
 
         foreach (var cost in Costs)
             cost.UseDeltaCost(Owner);
@@ -633,7 +613,7 @@ public class Skill : IdentifiedObject
     public void Apply(bool isConsumeApplyCount = true)
     {
         UnityHelper.Assert_H(IsInfinitelyApplicable || !isConsumeApplyCount || (CurrentApplyCount < ApplyCount),
-            $"Skill({CodeName})�� �ִ� ���� Ƚ��({ApplyCount})�� �ʰ��ؼ� ������ �� �����ϴ�.");
+            $"Skill({CodeName}) ApplyCount({ApplyCount}) CurrentApplyCount({CurrentApplyCount}).");
 
         if (targetSearchTimingOption == TargetSearchTimingOption.Apply)
             SearchTargets();
@@ -642,9 +622,6 @@ public class Skill : IdentifiedObject
 
         Action.Apply(this);
 
-        // Auto�� ���� Duration���� ���� ���� ����� ���� ApplyCycle�� ���� �������� ���� ������
-        // Ex. Duration = 1.001, CurrentApplyCycle = 1.001
-        //     => Duration = 1.001, CurrentApplyCycle = 0.001
         if (executionType == SkillExecutionType.Auto)
             CurrentApplyCycle %= ApplyCycle;
         else

@@ -1,3 +1,5 @@
+using EasyButtons;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,124 +7,145 @@ public class PlayerController : Character
 {
     private SkillSystem skillSystem;
     private MoveController moveController;
+    private EntityAnimator animator;
 
-    [SerializeField]
-    private Skill basicAttackSkill;
+    public bool IsLeft => moveController.IsLeft;
+    public bool IsDown => moveController.IsDown;
+    private Vector3 JoysticDir { get; set; } = Vector3.zero;
 
-    protected override void Start()
+    [SerializeField] private Skill basicSkill; private Skill RegisterBasicSkill;
+    [SerializeField] private Skill activeSkill; [SerializeField] private Skill activeUpgradeSkill; private Skill RegisterActiveSkill;
+
+    protected override void Initialize()
     {
-        base.Start();
+        base.Initialize();
 
         entity = UnityHelper.FindChild<Entity>(this.gameObject, true);
 
         skillSystem = entity.SkillSystem;
         moveController = entity.Movement.MoveController;
+        animator = entity.Animator;
 
+        skillSystem.onSkillTargetSelectionCompleted -= ReserveSkill;
         skillSystem.onSkillTargetSelectionCompleted += ReserveSkill;
 
-        if (!GameOptionManager.IsRelease)
+        Managers.Observer.OnJoystic -= JoysticDirection;
+        Managers.Observer.OnJoystic += JoysticDirection;
+
+        // SkillRegister
+        if(basicSkill)
+            RegisterBasicSkill = skillSystem.Register(basicSkill);
+
+        if (activeUpgradeSkill)
+            RegisterActiveSkill = skillSystem.Register(activeUpgradeSkill);
+        else
         {
-            Managers.Input.AddKeyDownAction(KeyCode.LeftArrow, LeftArrowDown);
-            Managers.Input.AddKeyDownAction(KeyCode.RightArrow, RightArrowDown);
-            Managers.Input.AddKeyDownAction(KeyCode.UpArrow, UpArrowDown);
-            Managers.Input.AddKeyDownAction(KeyCode.DownArrow, DownArrowDown);
-
-            Managers.Input.AddKeyUpAction(KeyCode.LeftArrow, LeftArrowUp);
-            Managers.Input.AddKeyUpAction(KeyCode.RightArrow, RightArrowUp);
-            Managers.Input.AddKeyUpAction(KeyCode.UpArrow, UpArrowUp);
-            Managers.Input.AddKeyUpAction(KeyCode.DownArrow, DownArrowUp);
-
-            Managers.Input.AddKeyDownAction(KeyCode.D, InputKeycodeD);
-            Managers.Input.AddKeyDownAction(KeyCode.C, InputKeycodeC);
-            Managers.Input.AddKeyDownAction(KeyCode.Space, InputSpace);
+            if (activeSkill)
+                RegisterActiveSkill = skillSystem.Register(activeSkill);
         }
     }
     private void ReserveSkill(SkillSystem skillSystem, Skill skill, TargetSearcher targetSearcher, TargetSelectionResult result)
     {
+        if (!skill.IsInState<SearchingTargetState>())
+            return;
+
         if (result.resultMessage != SearchResultMessage.OutOfRange)
             return;
 
-        entity.SkillSystem.ReserveSkill(skill);
+        Vector3 dest = result.selectedTarget ? result.selectedTarget.transform.position : result.selectedPosition;
 
-        if (result.selectedTarget)
-            entity.Movement.TraceTarget = result.selectedTarget.transform;
+        if (Managers.Scene.CurrentScene.IsOutDest(this, Index, dest))
+        {
+            PlayerController masterPlayer = Managers.Scene.CurrentScene.GetPlayer();
+            MoveTrance(masterPlayer.transform, GameController.GetIndexLocalPos(masterPlayer, Index));
+        }
         else
-            entity.Movement.Destination = result.selectedPosition;
-    }
-
-    #region Input
-    Vector3 _inputVector = Vector3.zero;
-    void LeftArrowDown()
-    {
-        _inputVector.x = -moveController.NoneAdjustSpeed;
-    }
-    void LeftArrowUp()
-    {
-        if (_inputVector.x > 0)
-            return;
-
-        _inputVector.x = 0;
-    }
-    void RightArrowDown()
-    {
-        _inputVector.x = moveController.NoneAdjustSpeed;
-    }
-    void RightArrowUp()
-    {
-        if (_inputVector.x < 0)
-            return;
-
-        _inputVector.x = 0;
-    }
-    void UpArrowDown()
-    {
-        _inputVector.z = moveController.NoneAdjustSpeed;
-    }
-    void UpArrowUp()
-    {
-        if (_inputVector.z < 0)
-            return;
-
-        _inputVector.z = 0;
-    }
-    void DownArrowDown()
-    {
-        _inputVector.z = -moveController.NoneAdjustSpeed;
-    }
-    void DownArrowUp()
-    {
-        if (_inputVector.z > 0)
-            return;
-
-        _inputVector.z = 0;
-    }
-    void InputKeycodeD()
-    {
-        entity.Movement.Dash(5f, _inputVector);
-    }
-    void InputKeycodeC()
-    {
-        entity.IsAIMove = !entity.IsAIMove;
-    }
-    void InputSpace()
-    {
-        if (!skillSystem.Register(basicAttackSkill))
-            Debug.LogAssertion($"{basicAttackSkill.CodeName}");
-
-        var skill = skillSystem.Find(basicAttackSkill);
-        UnityHelper.Assert_H(skill != null, $"{skill.CodeName}");
-
-        if (skillSystem.Use(basicAttackSkill))
         {
-            UnityHelper.Log_H($"already use skill");
+            MoveDestination(dest);
+        }
+
+        skillSystem.CancelTargetSearching();
+    }
+
+    public override void Play() { Initialize(); }
+    public override void Stop()
+    {
+        moveController.Stop();
+    }
+    public override void Clear()
+    {
+        onDead = null;
+        onTakeDamage = null;
+    }
+
+    void FixedUpdate()
+    {
+        fuTickCount++;
+        if (fuTickCount < fuTickMaxCount)
+            return;
+        fuTickCount = 0;
+
+        if (!moveController)
+            return;
+
+        if (JoysticDir != Vector3.zero)
+            return;
+        
+        // Attack
+
+        if (RegisterActiveSkill && RegisterActiveSkill.IsInState<ReadyState>() && RegisterActiveSkill.IsUseable)
+        {
+            skillSystem.CancelTargetSearching();
+            RegisterActiveSkill.Use();
+        }
+        else if (RegisterBasicSkill && RegisterBasicSkill.IsInState<ReadyState>() && RegisterBasicSkill.IsUseable)
+        {
+            skillSystem.CancelTargetSearching();
+            RegisterBasicSkill.Use();
         }
     }
-    private void Update()
+
+    public override void OnTakeDamage(Entity entity, Entity instigator, object causer, BBNumber damage)
     {
-        if (_inputVector != Vector3.zero)
-        {
-            entity.Movement.Destination = this.transform.position + _inputVector;
-        }
+        base.OnTakeDamage(entity, instigator, causer, damage);
     }
-    #endregion
+    public override void MoveDirection(Vector3 direction)
+    {
+        direction.z = direction.y;
+        direction.y = 0;
+
+        entity.Movement.Destination = this.transform.position + (direction * 10);
+    }
+    public override void MoveDestination(Vector3 destination)
+    {
+        entity.Movement.Destination = destination;
+    }
+    public override void MoveTrance(Transform target, Vector3 offset)
+    {
+        entity.Movement.SetTraceTarget(target,offset);
+    }
+    public void JoysticDirection(Vector3 direction)
+    {
+        if (entity.Movement.IsDashing || entity.Movement.IsPreceding)
+            return;
+
+        JoysticDir = direction;
+    }
+
+    [Button]
+    public void DebugBasicSkillState()
+    {
+        UnityHelper.Log_H(RegisterBasicSkill.GetCurrentStateType());
+    }
+    [Button]
+    public void DebugActiveSkillState()
+    {
+        UnityHelper.Log_H(RegisterActiveSkill.GetCurrentStateType());
+    }
+
+    [Button]
+    public void DebugIsMove()
+    {
+        UnityHelper.Log_H(moveController.IsMove);
+    }
 }

@@ -8,9 +8,6 @@ public class SelectNearestEntity : SelectTarget
 {
     [SerializeField]
     private float castRadius;
-    // Target이 검색을 요청한 Entity와 같은 Category를 가지고 있어야하는가?
-    [SerializeField]
-    private bool isSelectSameCategory; 
 
     public SelectNearestEntity() { }
 
@@ -18,7 +15,6 @@ public class SelectNearestEntity : SelectTarget
         : base(copy)
     {
         castRadius = copy.castRadius;
-        isSelectSameCategory = copy.isSelectSameCategory;
     }
 
     protected override TargetSelectionResult SelectImmediateByPlayer(TargetSearcher targetSearcher, Entity requesterEntity,
@@ -40,14 +36,17 @@ public class SelectNearestEntity : SelectTarget
         var castTargets = Physics.SphereCastAll(requesterPos, castRadius, Vector3.up, 0f).ToList();
         List<Entity> targets = new List<Entity>();
 
-        for (int i = 0; i < castTargets.Count; i++) 
+        for (int i = 0; i < castTargets.Count; i++)
         {
             Entity castTarget = castTargets[i].transform.GetComponent<Entity>();
+
             if (!castTarget)
                 continue;
 
-            // 요청자 본인일 경우 제외
-            if (castTarget.transform.position != requesterObject.transform.position)
+            if (castTarget.IsDead)
+                continue;
+
+            if (castTarget.gameObject != requesterObject.gameObject)
             {
                 var hasCategory = requesterEntity.Categories.Any(x => castTarget.HasCategory(x));
 

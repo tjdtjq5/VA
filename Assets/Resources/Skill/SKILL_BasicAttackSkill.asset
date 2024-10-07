@@ -45,11 +45,11 @@ MonoBehaviour:
     applyCount: 1
     applyCycle: 0
     cooldown:
-      defaultValue: 0
+      defaultValue: 0.6
       scaleStat: {fileID: 0}
     targetSearcher:
       selectionAction:
-        rid: 4300027582026612740
+        rid: 4300027678793400322
       searchAction:
         rid: 4300027582026612738
     costs: []
@@ -66,19 +66,11 @@ MonoBehaviour:
     effectSelectors:
     - level: 1
       effect: {fileID: 11400000, guid: f44f197e27c2e364c859bebac99f3624, type: 2}
-    inSkillActionFinishOption: 2
-    castAnimatorParamter:
-      type: 0
-      name: 
-    chargeAnimatorParameter:
-      type: 0
-      name: 
-    precedingActionAnimatorParameter:
-      type: 0
-      name: 
-    actionAnimatorParameter:
-      type: 1
-      name: attack
+    inSkillActionFinishOption: 0
+    castAnimatorClipName: 
+    chargeAnimatorClipName: 
+    precedingActionAnimatorClipName: 
+    actionAnimatorClipName: attack
     customActionsOnCast: []
     customActionsOnCharge: []
     customActionsOnPrecedingAction: []
@@ -100,13 +92,13 @@ MonoBehaviour:
         indicatorViewAction:
           rid: -2
         isUseScale: 0
-    - rid: 4300027582026612740
-      type: {class: SelectFarestEntity, ns: , asm: Assembly-CSharp}
+    - rid: 4300027678793400322
+      type: {class: SelectNearestEntity, ns: , asm: Assembly-CSharp}
       data:
         indicatorViewAction:
           rid: -2
         isUseScale: 0
-        range: 2
+        range: 2.2
         angle: 360
-        castRadius: 100
         isSelectSameCategory: 0
+        castRadius: 10000

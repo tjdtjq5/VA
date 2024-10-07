@@ -15,9 +15,6 @@ public class AnimatorParameterDrawer : PropertyDrawer
 
         position = EditorGUI.PrefixLabel(position, label);
 
-        // GUI가 그려지는 위치를 조정하는 값
-        // 여러 Editor가 겹쳐서 그려지다보면 들여쓰기(indent) 좌표가 이상해지는 경우가 있음.
-        // AnimatorParameter가 그런 경우에 해당해서 Test를 통해 가장 보기 좋은 수치를 조정 값으로 사용함
         float adjust = EditorGUI.indentLevel * 15f;
         float leftWidth = (position.width * 0.15f) + adjust;
         float rightWidth = (position.width * 0.85f) + adjust;

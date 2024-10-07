@@ -16,29 +16,10 @@ public class EntityDefaultState : State<Entity>
         if ((EntityStateMessage)message != EntityStateMessage.UsingSkill)
             return false;
 
-        var tupleData = ((Skill skill, AnimatorParameter animatorParameter))data;
-        Entity.Animator?.Animator?.SetTrigger(tupleData.Item2.Hash);
+        var tupleData = ((Skill skill, string animatorParameter))data;
+
+        Entity.Animator?.Play(tupleData.Item2, false);
 
         return true;
     }
-    //public override void Update()
-    //{
-    //    if (!Entity.IsPlayer || !Entity.IsAIMove || !skillSystem)
-    //        return;
-
-    //    bool isUseableSkill = false;
-    //    for (int i = 0; i < skillSystem.OwnSkills.Count; i++) 
-    //    {
-    //        if (skillSystem.OwnSkills[i].IsUseable)
-    //        {
-    //            isUseableSkill = true;
-    //            break;
-    //        }
-    //    }
-
-    //    if (isUseableSkill) 
-    //    {
-    //        UnityHelper.Log_H($"스킬을 사용할 수 있습니다");
-    //    }
-    //}
 }

@@ -18,6 +18,7 @@ public class UIBase : MonoBehaviour
         UISet();
     }
     protected virtual void UISet() { }
+    protected virtual void FuncSet() { }
 
     protected void Bind<T>(Type type) where T : UIBase
     {
@@ -29,7 +30,7 @@ public class UIBase : MonoBehaviour
 
         for (int i = 0; i < names.Length; i++)
         {
-            string path = names[i].Replace('_','/');
+            string path = names[i].Replace('_', '/');
 
             switch (path)
             {

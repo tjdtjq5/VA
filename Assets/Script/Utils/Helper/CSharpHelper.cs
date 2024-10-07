@@ -1,10 +1,12 @@
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using static UnityEngine.Rendering.DebugUI;
 
 public static class CSharpHelper
 {
@@ -25,6 +27,17 @@ public static class CSharpHelper
     #endregion
 
     #region Parse
+    public static bool ExistEnumData<T>(string enumData) where T : Enum
+    {
+        try
+        {
+            return (T)Enum.Parse(typeof(T), enumData) != null;
+        }
+        catch
+        {
+            return false;
+        }
+    }
     public static T EnumParse<T>(string value, bool isDebug) where T : Enum
     {
         try
@@ -42,6 +55,23 @@ public static class CSharpHelper
     public static int GetEnumLength<T>() where T : Enum
     {
         return Enum.GetValues(typeof(T)).Length;
+    }
+    public static int EnumClamp<T>(int value, bool isDebug) where T : Enum
+    {
+        try
+        {
+            int len = GetEnumLength<T>();
+            value = Math.Clamp(value, 0, len - 1);
+
+            return value;
+        }
+        catch
+        {
+            if (isDebug)
+                UnityHelper.Log_H($"CSharpHelper Parse Error\nvalue : {value}");
+
+            return 0;
+        }
     }
     public static int IntParse(string value, bool isDebug)
     {
@@ -140,12 +170,24 @@ public static class CSharpHelper
         FieldInfo[] fieldInfos = arg.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.GetField);
         return fieldInfos;
     }
-    public static FieldInfo GetFieldInfo<T>(this T arg, string name)
+    public static FieldInfo GetFieldInfoByVariableName<T>(this T arg, string name)
     {
         FieldInfo[] fieldInfos = arg.GetFieldInfos();
         for (int i = 0; i < fieldInfos.Length; i++) 
         {
             if (fieldInfos[i].GetVariableNameByField().Equals(name))
+            {
+                return fieldInfos[i];
+            }
+        }
+        return null;
+    }
+    public static FieldInfo GetFieldInfoByValue<T>(this T arg, object value)
+    {
+        FieldInfo[] fieldInfos = arg.GetFieldInfos();
+        for (int i = 0; i < fieldInfos.Length; i++)
+        {
+            if (fieldInfos[i].GetValue(arg) == value)
             {
                 return fieldInfos[i];
             }
@@ -196,7 +238,7 @@ public static class CSharpHelper
         for (int i = 0; i < fieldInfos.Length; i++)
         {
             string fieldName = fieldInfos[i].GetVariableNameByField();
-            FieldInfo originField = original.GetFieldInfo(fieldName);
+            FieldInfo originField = original.GetFieldInfoByVariableName(fieldName);
 
             if (originField != null)
             {
@@ -212,6 +254,26 @@ public static class CSharpHelper
 
                 fieldInfos[i].SetValue(copied, value);
             }
+        }
+
+        return isDeferenceCheck;
+    }
+    public static bool SetCopyValue<T1, T2>(this List<T1> copied, List<T2> original) where T1 : new()
+    {
+        bool isDeferenceCheck = true;
+
+        copied.Clear();
+        for (int i = 0; i < original.Count; i++)
+        {
+            copied.Add(new T1());
+        }
+
+        for (int i = 0; i < copied.Count; i++)
+        {
+            bool flag = copied[i].SetCopyValue(original[i]);
+
+            if (isDeferenceCheck)
+                isDeferenceCheck = flag;
         }
 
         return isDeferenceCheck;
@@ -261,12 +323,26 @@ public static class CSharpHelper
     #endregion
 
     #region String 
-    public static string StartCharToLower(string value, int lowerLen = 1)
+    public static string ToLower_H(this string value, int lowerLen = 1)
     {
         try
         {
             string result = value;
             string startLowerResult = result.Substring(0, lowerLen).ToLower();
+            result = $"{startLowerResult}{result.Substring(lowerLen, result.Length - 1)}";
+            return result;
+        }
+        catch
+        {
+            return value;
+        }
+    }
+    public static string ToUpper_H(this string value, int lowerLen = 1)
+    {
+        try
+        {
+            string result = value;
+            string startLowerResult = result.Substring(0, lowerLen).ToUpper();
             result = $"{startLowerResult}{result.Substring(lowerLen, result.Length - 1)}";
             return result;
         }
@@ -288,6 +364,23 @@ public static class CSharpHelper
         catch
         {
             UnityHelper.LogError_H($"GetReplaceRegex Error\nvalue : {value}");
+            return value;
+        }
+    }
+    public static string GetReplaceRNT(string value)
+    {
+        try
+        {
+            string result = value;
+            result = result.Replace("\r", "");
+            result = result.Replace("\n", "");
+            result = result.Replace("\t", "");
+            result = result.Replace(" ", "");
+            return result;
+        }
+        catch
+        {
+            UnityHelper.LogError_H($"GetReplaceRNT Error\nvalue : {value}");
             return value;
         }
     }
@@ -358,12 +451,94 @@ public static class CSharpHelper
 
         return result;
     }
+    public static bool TryAdd_H<T1, T2>(this Dictionary<T1, T2> dics, T1 key, T2 value, bool force)
+    {
+        if (force)
+        {
+            if (dics.ContainsKey(key))
+            {
+                dics[key] = value;
+                return true;
+            }
+            else
+            {
+                dics.Add(key, value);
+                return true;
+            }
+        }
+        else
+        {
+            return dics.TryAdd(key, value);
+        }
+    }
+    public static T2 TryGet_H<T1, T2>(this Dictionary<T1, T2> dics, T1 key)
+    {
+        if (dics.ContainsKey(key))
+        {
+            return dics[key];
+        }
+        else
+        {
+            return default;
+        }
+    }
+    public static int TryGet_H<T1>(this Dictionary<T1, int> dics, T1 key)
+    {
+        if (dics.ContainsKey(key))
+        {
+            return dics[key];
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    public static float TryGet_H<T1>(this Dictionary<T1, float> dics, T1 key)
+    {
+        if (dics.ContainsKey(key))
+        {
+            return dics[key];
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    public static string TryGet_H<T1>(this Dictionary<T1, string> dics, T1 key)
+    {
+        if (dics.ContainsKey(key))
+        {
+            return dics[key];
+        }
+        else
+        {
+            return "";
+        }
+    }
     #endregion
 
     #region List
     public static string ToString_H<T>(this List<T> list)
     {
         return SerializeObject(list);
+    }
+    public static string ToString_H<T>(this IEnumerable<T> list)
+    {
+        return SerializeObject(list);
+    }
+    public static void ForceAdd_H<T>(this List<T> list, T value, object keyColumn)
+    {
+        FieldInfo fi = value.GetFieldInfoByValue(keyColumn);
+        string columnName = fi.GetVariableNameByField();
+        int findIndex = list.FindIndex(d =>
+          (
+              d.GetFieldInfoByVariableName(columnName).GetValue(d).ToString().Equals(value.GetFieldInfoByVariableName(columnName).GetValue(value))
+          ));
+
+        if (findIndex < 0)
+            list.Add(value);
+        else
+            list[findIndex] = value;
     }
     #endregion
 

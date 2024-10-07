@@ -22,6 +22,7 @@ public class SleepAction : EffectAction
     {
         target.SkillSystem.RemoveEffectAll(x => x != effect && x.HasCategory(removeTargetCategory));
         target.StateMachine.ExecuteCommand(EntityStateCommand.ToSleepingState);
+        Managers.FloatingText.TextSpawn(target, "Sleep", Color.yellow);
         return true;
     }
 

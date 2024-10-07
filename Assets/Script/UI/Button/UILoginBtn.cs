@@ -3,40 +3,29 @@ using UnityEngine;
 
 public class UILoginBtn : UIButton
 {
-	protected override void Initialize()
-	{
-		base.Initialize();
-		Bind<UIImage>(typeof(UIImageE));
-		Bind<UIText>(typeof(UITextE));
-	}
+    protected override void Initialize()
+    {
+        base.Initialize();
+        Bind<UIImage>(typeof(UIImageE));
+        Bind<UIText>(typeof(UITextE));
+    }
 
     ProviderType _providerType;
-	[SerializeField] GPGSLogin _gpgsLogin;
-	[SerializeField] GameCenterLogin _gameCenterLogin;
-	[SerializeField] GoogleLogin _googleLogin;
-	[SerializeField] AppleLogin _appleLogin;
-	[SerializeField] GuestLogin _guestLogin;
 
     public void Set(ProviderType providerType, Action callback)
-	{
+    {
         _providerType = providerType;
 
         ClickEventSet(callback);
         IconSet();
         TextSet();
     }
-	void ClickEventSet(Action callback)
-	{
+    void ClickEventSet(Action callback)
+    {
         switch (_providerType)
         {
             case ProviderType.Guest:
                 AddClickEvent((e) => GuestLogin(callback));
-                break;
-            case ProviderType.GooglePlayGames:
-                AddClickEvent((e) => GPGSLogin(callback));
-                break;
-            case ProviderType.GameCenter:
-                AddClickEvent((e) => GameCenterLogin(callback));
                 break;
             case ProviderType.Google:
                 AddClickEvent((e) => GoogleLogin(callback));
@@ -45,7 +34,7 @@ public class UILoginBtn : UIButton
                 AddClickEvent((e) => AppleLogin(callback));
                 break;
         }
-    } 
+    }
     void IconSet()
     {
 
@@ -80,38 +69,23 @@ public class UILoginBtn : UIButton
 
     void GuestLogin(Action callback)
     {
-        _guestLogin.Login(() => { UnityHelper.Log_H($"Success! GuestLogin"); callback.Invoke(); });
-    }
-    void GPGSLogin(Action callback)
-	{
-        _gpgsLogin.Initialize();
-        _gpgsLogin.Login(() => { UnityHelper.Log_H($"GPGSLogin Succss!"); callback.Invoke(); });
-    }
-	void GameCenterLogin(Action callback)
-	{
-        _gameCenterLogin.Login(() => 
-        {
-            UnityHelper.Log_H($"GameCenterLogin Succss!");
-            callback.Invoke();
-        });
+        LoginService.Login(ProviderType.Guest, () => { UnityHelper.Log_H($"Success! GuestLogin"); callback.Invoke(); });
     }
     void GoogleLogin(Action callback)
     {
-        _googleLogin.Initialize();
-        _googleLogin.Login(() => { UnityHelper.Log_H($"Success! GoogleLogin"); callback.Invoke(); });
+        LoginService.Login(ProviderType.Google, () => { UnityHelper.Log_H($"Success! GoogleLogin"); callback.Invoke(); });
     }
     void AppleLogin(Action callback)
     {
-        _appleLogin.Initialize();
-        _appleLogin.Login(() => { UnityHelper.Log_H($"Success! AppleLogin"); callback.Invoke(); });
+        LoginService.Login(ProviderType.Apple, () => { UnityHelper.Log_H($"Success! AppleLogin"); callback.Invoke(); });
     }
 
-	public enum UIImageE
+    public enum UIImageE
     {
-		Icon,
+        Icon,
     }
-	public enum UITextE
+    public enum UITextE
     {
-		Text,
+        Text,
     }
 }

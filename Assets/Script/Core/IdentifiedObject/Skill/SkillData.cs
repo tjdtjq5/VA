@@ -77,10 +77,10 @@ public struct SkillData
 
     [UnderlineTitle("Animation")]
     public InSkillActionFinishOption inSkillActionFinishOption;
-    public AnimatorParameter castAnimatorParamter;
-    public AnimatorParameter chargeAnimatorParameter;
-    public AnimatorParameter precedingActionAnimatorParameter;
-    public AnimatorParameter actionAnimatorParameter;
+    public string castAnimatorClipName;
+    public string chargeAnimatorClipName;
+    public string precedingActionAnimatorClipName;
+    public string actionAnimatorClipName;
 
     [SerializeReference, SubclassSelector]
     public CustomAction[] customActionsOnCast;

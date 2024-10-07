@@ -14,6 +14,9 @@ public class Entity : MonoBehaviour
 {
     public delegate void TakeDamageHandler(Entity entity, Entity instigator, object causer, BBNumber damage);
     public delegate void DeadHandler(Entity entity);
+    public delegate void AlliaveHandler(Entity entity);
+
+    string skillActionEventName = "action";
 
     [SerializeField]
     private Category[] categories;
@@ -39,7 +42,8 @@ public class Entity : MonoBehaviour
     }
 
     public Stats Stats { get; private set; }
-    public bool IsDead => Stats.HPStat != null && BBNumber.Approximately(Stats.HPStat.DefaultValue, 0f);
+    bool isDead = false;
+    public bool IsDead => isDead;
 
     public EntityMovement Movement { get; private set; }
     public MonoStateMachine<Entity> StateMachine { get; private set; }
@@ -51,6 +55,7 @@ public class Entity : MonoBehaviour
 
     public event TakeDamageHandler onTakeDamage;
     public event DeadHandler onDead;
+    public event AlliaveHandler onAlliave;
 
     private void Awake()
     {
@@ -60,11 +65,11 @@ public class Entity : MonoBehaviour
         Movement = UnityHelper.FindChild<EntityMovement>(this.gameObject, true);
         Movement?.Setup(this);
 
-        SkillSystem = UnityHelper.FindChild<SkillSystem>(this.gameObject, true);
-        SkillSystem?.Setup(this);
-
         Animator = UnityHelper.FindChild<EntityAnimator>(this.gameObject, true);
         Animator?.Setup(this);
+
+        SkillSystem = UnityHelper.FindChild<SkillSystem>(this.gameObject, true);
+        SkillSystem?.Setup(this);
 
         StateMachine = UnityHelper.FindChild<MonoStateMachine<Entity>>(this.gameObject, true);
         StateMachine?.Setup(this);
@@ -73,6 +78,10 @@ public class Entity : MonoBehaviour
         ObjectAnglePositionSetting oaps = UnityHelper.FindChild<ObjectAnglePositionSetting>(this.gameObject, true);
         if (Collider && oaps)
             oaps.PositionSetting(Collider.size.z);
+
+        Animator.AniController.SetEventFunc(skillActionEventName, ApplyCurrentRunningSkill);
+
+        Allive(false);
     }
 
     public void TakeDamage(Entity instigator, object causer, BBNumber damage)
@@ -89,12 +98,34 @@ public class Entity : MonoBehaviour
             OnDead();
     }
 
+    public void Allive(bool isStatSetup)
+    {
+        if (isStatSetup)
+        {
+            Stats = UnityHelper.FindChild<Stats>(this.gameObject, true);
+            Stats.Setup(this);
+        }
+
+        if (Movement)
+            Movement.enabled = true;
+
+        isDead = false;
+
+        Animator.Play(Animator.waitClipName, true);
+
+        onAlliave?.Invoke(this);
+    }
+
     private void OnDead()
     {
         if (Movement)
             Movement.enabled = false;
 
+        Animator.Play(Animator.deadClipName, false);
+
         onDead?.Invoke(this);
+
+        isDead = true;
     }
 
     private Transform GetTransformSocket(Transform root, string socketName)
@@ -102,10 +133,8 @@ public class Entity : MonoBehaviour
         if (root.name == socketName || string.IsNullOrEmpty(socketName))
             return root;
 
-        // root transform�� �ڽ� transform���� ��ȸ
         foreach (Transform child in root)
         {
-            // ����Լ��� ���� �ڽĵ� �߿� socketName�� �ִ��� �˻���
             var socket = GetTransformSocket(child, socketName);
             if (socket)
                 return socket;
@@ -116,17 +145,18 @@ public class Entity : MonoBehaviour
 
     public Transform GetTransformSocket(string socketName)
     {
-        // dictionary���� socketName�� �˻��Ͽ� �ִٸ� return
         if (socketsByName.TryGetValue(socketName, out var socket))
             return socket;
 
-        // dictionary�� �����Ƿ� ��ȸ �˻�
         socket = GetTransformSocket(transform, socketName);
-        // socket�� ã���� dictionary�� �����Ͽ� ���Ŀ� �ٽ� �˻��� �ʿ䰡 ������ ��
         if (socket)
             socketsByName[socketName] = socket;
 
         return socket;
+    }
+    private void ApplyCurrentRunningSkill()
+    {
+        SkillSystem.ApplyCurrentRunningSkill();
     }
 
     public bool HasCategory(Category category) => categories.Any(x => x.ID == category.ID);

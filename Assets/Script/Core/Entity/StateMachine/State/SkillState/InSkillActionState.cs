@@ -6,16 +6,14 @@ public class InSkillActionState : EntitySkillState
 {
     public bool IsStateEnded { get; private set; }
 
-    public override void Update()
+    public override void FixedUpdate()
     {
-        // AnimatorParameter가 false라면 State를 종료
         if (RunningSkill.InSkillActionFinishOption == InSkillActionFinishOption.FinishWhenAnimationEnded)
-            IsStateEnded = !Entity.Animator.Animator.GetBool(AnimatorParameterHash);
+            IsStateEnded = !Entity.Animator.AniController.IsPlay(AnimatorParameterClipName);
     }
 
     public override bool OnReceiveMessage(int message, object data)
     {
-        // 올바른 Message가 아니라면 false를 return
         if (!base.OnReceiveMessage(message, data))
             return false;
 
@@ -37,12 +35,10 @@ public class InSkillActionState : EntitySkillState
     {
         switch (skill.InSkillActionFinishOption)
         {
-            // Skill이 한번이라도 적용되었다면 State를 종료
             case InSkillActionFinishOption.FinishOnceApplied:
                 IsStateEnded = true;
                 break;
 
-            // Skill이 모두 적용되었다면 State를 종료
             case InSkillActionFinishOption.FinishWhenFullyApplied:
                 IsStateEnded = skill.IsFinished;
                 break;

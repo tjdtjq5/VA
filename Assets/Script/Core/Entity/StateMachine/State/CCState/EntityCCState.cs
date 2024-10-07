@@ -5,11 +5,11 @@ using UnityEngine;
 public abstract class EntityCCState : State<Entity>
 {
     public abstract string Description { get; }
-    protected abstract int AnimationHash { get; }
+    protected abstract string AnimationClipName { get; }
 
     public override void Enter()
     {
-        Entity.Animator?.Animator?.SetBool(AnimationHash, true);
+        Entity.Animator?.Play(AnimationClipName, true);
         Entity.Movement?.Stop();
         Entity.SkillSystem.CancelAll();
 
@@ -20,7 +20,7 @@ public abstract class EntityCCState : State<Entity>
 
     public override void Exit()
     {
-        Entity.Animator?.Animator?.SetBool(AnimationHash, false);
+        Entity.Animator?.Play(AnimationClipName, false);
 
         var playerController = Entity.GetComponent<PlayerController>();
         if (playerController)

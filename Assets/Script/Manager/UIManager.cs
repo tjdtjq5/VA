@@ -5,11 +5,11 @@ using UnityEngine;
 public class UIManager
 {
     const string rootName = "======UI======";
-    int _order = 10;
+    int _order = 100;
 
     GameObject rootGo = null;
 
-    Stack<UIPopup> _popupStack = new Stack<UIPopup>(); 
+    List<UIPopup> _popupStack = new List<UIPopup>(); 
     GameObject RootGo
     {
         get
@@ -27,8 +27,10 @@ public class UIManager
             return rootGo;
         }
     } 
+    int Count => _popupStack.Count;
+    int LastIndex => Count - 1;
 
-    public void SetCanvas(GameObject go, bool sort = true)
+    public void SetPopupCanvas(GameObject go, bool sort = true)
     {
         Canvas canvas = UnityHelper.GetOrAddComponent<Canvas>(go);
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
@@ -52,9 +54,9 @@ public class UIManager
             name = typeof(T).Name;
         }
 
-        GameObject go = Managers.Resources.Instantiate($"Prepab/UI/Popup/{name}");
+        GameObject go = Managers.Resources.Instantiate($"Prefab/UI/Popup/{name}");
         T popup = UnityHelper.GetOrAddComponent<T>(go);
-        _popupStack.Push(popup);
+        _popupStack.Add(popup);
 
         go.transform.SetParent(RootGo.transform);
 
@@ -65,26 +67,28 @@ public class UIManager
         if (_popupStack.Count == 0)
             return;
 
-        UIPopup popup = _popupStack.Pop();
+        UIPopup popup = _popupStack[LastIndex];
+        _popupStack.RemoveAt(LastIndex);
 
         Managers.Resources.Destroy(popup.gameObject);
 
         popup = null;
-
-        _order--;
     }
     public void ClosePopupUI(UIPopup popup)
     {
-        if (_popupStack.Count == 0)
-            return;
-
-        if (_popupStack.Peek() != popup)
+        int findIndex = _popupStack.FindIndex(p => p.Equals(popup));
+        if (findIndex < 0)
         {
             UnityHelper.LogError_H($"UIManager ClosePopupUI Failed");
             return;
         }
 
-        ClosePopupUI();
+        UIPopup find = _popupStack[findIndex];
+        _popupStack.RemoveAt(findIndex);
+
+        Managers.Resources.Destroy(find.gameObject);
+
+        find = null;
     }
     public void CloseAllPopupUI()
     {

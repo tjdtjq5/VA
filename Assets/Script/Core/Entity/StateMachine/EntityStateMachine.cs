@@ -7,17 +7,12 @@ public class EntityStateMachine : MonoStateMachine<Entity>
         AddState<EntityDefaultState>();
         AddState<DeadState>();
         AddState<DashState>();
-        // Skill이 Casting 중일 때 Entity의 상태
+        AddState<PrecedingState>();
         AddState<CastingSkillState>();
-        // Skill이 Charging 중일 때 Entity의 상태
         AddState<ChargingSkillState>();
-        // Skill이 Preceding Action 중일 때 Entity의 상태
         AddState<InSkillPrecedingActionState>();
-        // Skill이 발동 중일 때 Entity의 상태
         AddState<InSkillActionState>();
-        // Entity가 Stun CC기를 맞았을 때의 상태
         AddState<StunningState>();
-        // Entity가 Sleep CC기를 맞았을 때의 상태
         AddState<SleepingState>();
     }
 
@@ -25,6 +20,7 @@ public class EntityStateMachine : MonoStateMachine<Entity>
     {
         // Default State
         MakeTransition<EntityDefaultState, DashState>(state => Owner.Movement?.IsDashing ?? false);
+        MakeTransition<EntityDefaultState, PrecedingState>(state => Owner.Movement?.IsPreceding ?? false);
         MakeTransition<EntityDefaultState, CastingSkillState>(EntityStateCommand.ToCastingSkillState);
         MakeTransition<EntityDefaultState, ChargingSkillState>(EntityStateCommand.ToChargingSkillState);
         MakeTransition<EntityDefaultState, InSkillPrecedingActionState>(EntityStateCommand.ToInSkillPrecedingActionState);
@@ -32,6 +28,9 @@ public class EntityStateMachine : MonoStateMachine<Entity>
 
         // DashState
         MakeTransition<DashState, EntityDefaultState>(state => !Owner.Movement.IsDashing);
+
+        // PrecedingState
+        MakeTransition<PrecedingState, EntityDefaultState>(state => !Owner.Movement.IsPreceding);
 
         // Skill State
         // Casting State
@@ -64,6 +63,6 @@ public class EntityStateMachine : MonoStateMachine<Entity>
         MakeTransition<DeadState, EntityDefaultState>(state => !Owner.IsDead);
     }
 
-    private bool IsSkillInState<T>(State<Entity> state) where T : State<Skill>
+    public bool IsSkillInState<T>(State<Entity> state) where T : State<Skill>
     => (state as EntitySkillState).RunningSkill.IsInState<T>();
 }

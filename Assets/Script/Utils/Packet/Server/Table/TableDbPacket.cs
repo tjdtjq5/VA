@@ -261,7 +261,7 @@ public class TableDbPacket
         {
             Type tp = types[i];
             string tpStr = CSharpHelper.GetTypeString(tp);
-            string variName = CSharpHelper.StartCharToLower(variables[i].Trim());
+            string variName = CSharpHelper.ToLower_H(variables[i].Trim());
 
             string fieldF = CSharpHelper.Format_H(fieldFormat, tpStr, variName);
 
@@ -304,6 +304,6 @@ public class TableDbPacket
 @"[Key]";
 
     static string maxLengthFormat =
-@"[MaxLength(20)]";
+@"[MaxLength(40)]";
     #endregion
 }

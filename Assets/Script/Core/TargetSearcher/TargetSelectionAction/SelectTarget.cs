@@ -7,13 +7,14 @@ using UnityEngine;
 public abstract class SelectTarget : TargetSelectionAction
 {
     [Header("Data")]
-    // 검색 범위, 0일 경우 무한대를 의미함.
     [Min(0f)]
     [SerializeField]
     private float range;
     [Range(0f, 360f)]
     [SerializeField]
     private float angle;
+    [SerializeField]
+    protected bool isSelectSameCategory;
 
     private TargetSearcher targetSearcher;
     private Entity requesterEntity;
@@ -30,6 +31,7 @@ public abstract class SelectTarget : TargetSelectionAction
         : base(copy)
     {
         range = copy.range;
+        isSelectSameCategory = copy.isSelectSameCategory;
     }
 
     protected abstract TargetSelectionResult SelectImmediateByPlayer(TargetSearcher targetSearcher, Entity requesterEntity,
@@ -63,6 +65,10 @@ GameObject requesterObject);
     public override bool IsInRange(TargetSearcher targetSearcher, Entity requesterEntity, GameObject requesterObject, Vector3 targetPosition)
     {
         var requesterTransform = requesterObject.transform;
+
+        //if (!isSelectSameCategory && requesterTransform.position == targetPosition)
+        //    return false;
+
         targetPosition.y = requesterTransform.position.y;
 
         float sqrRange = range * range * (IsUseScale ? Scale : 1f);
@@ -70,7 +76,7 @@ GameObject requesterObject);
         float angle = Vector3.Angle(relativePosition, requesterTransform.forward);
         bool IsInAngle = angle <= (Angle / 2f);
 
-        // 검색 범위가 무한이거나, target이 Range와 Angle안에 있다면 true
+
         return Mathf.Approximately(0f, range) ||
             (Vector3.SqrMagnitude(relativePosition) <= sqrRange && IsInAngle);
     }

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ChargingState : SkillState
 {
-    // Charge »óÅÂ°¡ Á¾·áµÇ¾ú´Â°¡? true¶ó¸é ´Ù¸¥ State·Î ÀüÀÌµÊ
+    // Charge ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½Â°ï¿½? trueï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ Stateï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
     public bool IsChargeEnded { get; private set; }
-    // Charge°¡ ÃÖ¼Ò ÃæÀü·®À» Ã¤¿ü°í, SkillÀÌ ±âÁØÁ¡ °Ë»ö¿¡ ¼º°øÇß´Â°¡?(=Charge¸¦ ¸¶Ä¡°í SkillÀÌ »ç¿ëµÇ¾ú´Â°¡?)
-    // À§¿Í ¸¶Âù°¡Áö·Î true¶ó¸é ´Ù¸¥ State·Î ÀüÀÌµÊ
+    // Chargeï¿½ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½, Skillï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´Â°ï¿½?(=Chargeï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ Skillï¿½ï¿½ ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½Â°ï¿½?)
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ trueï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ Stateï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
     public bool IsChargeSuccessed { get; private set; }
 
     public override void Enter()
@@ -25,12 +25,12 @@ public class ChargingState : SkillState
         Entity.ShowIndicator();
         Entity.StartCustomActions(SkillCustomActionType.Charge);
 
-        TrySendCommandToOwner(Entity, EntityStateCommand.ToChargingSkillState, Entity.ChargeAnimationParameter);
+        TrySendCommandToOwner(Entity, EntityStateCommand.ToChargingSkillState, Entity.ChargeAnimationClipName);
     }
 
-    public override void Update()
+    public override void FixedUpdate()
     {
-        Entity.CurrentChargeDuration += Time.deltaTime;
+        Entity.CurrentChargeDuration += Managers.Time.FixedDeltaTime;
 
         if (!Entity.Owner.IsPlayer && Entity.IsMaxChargeCompleted)
         {

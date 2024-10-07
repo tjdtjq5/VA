@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Managers : MonoBehaviour
 {
@@ -19,6 +17,9 @@ public class Managers : MonoBehaviour
     SseManager _sse = new SseManager();
     ChatManager _chat = new ChatManager();
     FloatingTextManager _floatingText = new FloatingTextManager();
+    TableManager _table = new TableManager();
+    ObserverManager _observer = new ObserverManager();
+    PlayerDataManager _playerData = new PlayerDataManager();
 
     public static WebManager Web { get { return Instance._web; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
@@ -32,6 +33,9 @@ public class Managers : MonoBehaviour
     public static SseManager Sse { get { return Instance._sse; } }
     public static ChatManager Chat { get { return Instance._chat; } }
     public static FloatingTextManager FloatingText { get { return Instance._floatingText; } }
+    public static TableManager Table { get { return Instance._table; } }
+    public static ObserverManager Observer { get { return Instance._observer; } }
+    public static PlayerDataManager PlayerData { get { return Instance._playerData; } }
 
     void Start()
     {
@@ -67,6 +71,7 @@ public class Managers : MonoBehaviour
     {
         _time.OnFixedUpdate();
         _chat.OnFixedUpdate();
+        _floatingText.OnFixedUpdate();
     }
 
     public void Clean()

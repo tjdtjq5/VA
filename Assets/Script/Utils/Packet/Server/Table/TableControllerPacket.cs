@@ -21,13 +21,6 @@ public class TableControllerPacket
 
         string text = "";
 
-        foreach (var line in FileHelper.ReadLines(file))
-        {
-            text += $"{line}\n";
-        }
-
-        text += '\n';
-
         string routeF = CSharpHelper.Format_H(routeFormat, LowerTableName(tableName));
         text += $"{routeF}\n";
 
@@ -38,7 +31,7 @@ public class TableControllerPacket
 
         text += $"{classF}";
 
-        FileHelper.Write(file, text, false);
+        SimpleFormat.OuterCreate(file, text);
     }
     public static void Remove(string tableName)
     {
@@ -57,41 +50,8 @@ public class TableControllerPacket
             return;
         }
 
-        string text = "";
-        int leftBracketCount = 0;
-        int rightBracketCount = 0;
-        bool readCheck = false;
         string tableCheckF = CSharpHelper.Format_H(routeFormat, LowerTableName(tableName));
-
-        foreach (var line in FileHelper.ReadLines(file))
-        {
-            if (line.Contains(tableCheckF))
-            {
-                readCheck = true;
-            }
-
-            if (!readCheck)
-            {
-                text += $"{line}\n";
-            }
-
-            if (readCheck)
-            {
-                if (line.Contains('{'))
-                    leftBracketCount++;
-
-                if (line.Contains('}'))
-                    rightBracketCount++;
-
-                if (leftBracketCount != 0 && leftBracketCount == rightBracketCount)
-                {
-                    readCheck = false;
-                }
-            }
-        }
-
-        text = text.Substring(0, text.Length - 1);
-        FileHelper.Write(file, text, false);
+        SimpleFormat.RemoveStruct(file, tableCheckF);
     }
     public static bool Exist(string tableName)
     {
@@ -103,16 +63,7 @@ public class TableControllerPacket
         }
 
         string tableCheckF = CSharpHelper.Format_H(routeFormat, LowerTableName(tableName));
-
-        foreach (var line in FileHelper.ReadLines(file))
-        {
-            if (line.Trim().Equals(tableCheckF))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return SimpleFormat.Exist(file, tableCheckF);
     }
 
     static string GetFile()
@@ -131,7 +82,7 @@ public class TableControllerPacket
     }
     static string LowerTableName(string tableName)
     {
-        return CSharpHelper.StartCharToLower(tableName);
+        return CSharpHelper.ToLower_H(tableName);
     }
 
     #region Format
@@ -161,11 +112,26 @@ public class {0}TableController : ControllerBase
     [Route(""update"")]
     public string TableUpdate([FromBody] List<{0}TableData> allDatas)
     {{
-        {0}TableResponse res = new {0}TableResponse();
+        {0}TableUpdateResponse res = new {0}TableUpdateResponse();
 
         List<string>? changeDatas = _service.Update(allDatas);
         res.tableName = ""{0}"";
         res.changeDatas = changeDatas;
+
+        return CSharpHelper.SerializeObject(res, _logger);
+    }}
+
+    [Route(""gets"")]
+    public string TableGets()
+    {{
+        {0}TableGetsResponse res = new {0}TableGetsResponse();
+
+        List<{0}TableData>? datas = _service.Gets();
+
+        res.tableName = ""{0}"";
+        res.datas = datas;
+
+        _cache.SetValue_H(RadisKey.GetTableKey(res.tableName), CSharpHelper.SerializeObject(datas), _logger);
 
         return CSharpHelper.SerializeObject(res, _logger);
     }}

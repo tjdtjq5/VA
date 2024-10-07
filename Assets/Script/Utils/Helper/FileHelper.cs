@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+
 
 #if UNITY_EDITOR
 using System.Windows.Forms;
@@ -54,13 +56,23 @@ public class FileHelper
     {
         return File.Exists(file);
     }
+    public static bool ScriptExist(string type)
+    {
+        string path = GetScriptPath(type);
+        return !string.IsNullOrEmpty(path);
+    }
     public static bool DirectoryExist(string directory)
     {
         return Directory.Exists(directory);
     }
-    public static void FileDelete(string file)
+    public static void FileDelete(string file, bool isRefreash)
     {
         File.Delete(file);
+
+#if UNITY_EDITOR
+        if (isRefreash)
+            AssetDatabase.Refresh();
+#endif
     }
     public static string SelectFilePath(string fileSrc)
     {
@@ -97,6 +109,10 @@ public class FileHelper
     }
     public static string GetScriptPath(Type type)
     {
+        return GetScriptPath(type.Name);
+    }
+    public static string GetScriptPath(string type)
+    {
 #if UNITY_EDITOR
         var g = AssetDatabase.FindAssets($"t:Script {type}");
 
@@ -106,13 +122,34 @@ public class FileHelper
             string[] ps = path.Split('/');
             string result = ps[ps.Length - 1].Replace(".cs", "");
 
-            if (type.Name.Equals(result))
+            if (type.Equals(result))
             {
                 return path;
             }
         }
 #endif
         return $"";
+    }
+    public static bool IsPathData(string path)
+    {
+        // 경로 길이 체크
+        if (path.Length < 3)
+            return false;
+
+        // 드라이브 문자열 체크
+        Regex driveCheck = new Regex(@"^[a-zA-Z]:\\$");
+        if (driveCheck.IsMatch(path.Substring(0, 3)) == false)
+            return false;
+
+        // 경로 이름에 사용할 수 없는 문자가 있는지 체크
+        string invalidPathChars = new string(Path.GetInvalidPathChars());
+        invalidPathChars += @":/?*" + "\"";
+
+        Regex regexInvalidPath = new Regex("[" + Regex.Escape(invalidPathChars) + "]");
+        if (regexInvalidPath.IsMatch(path.Substring(3, path.Length - 3)))
+            return false;
+
+        return true;
     }
 
     public static void ProcessStart(string file)

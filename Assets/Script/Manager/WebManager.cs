@@ -29,7 +29,7 @@ public class WebManager
             _jobSerializer.Push(Post, true, url, obj, res, errorJob);
         else
         {
-            Post(true, url, obj, res);
+            Post(true, url, obj, res, errorJob);
             _isWorking = true;
         }
     }
@@ -39,7 +39,7 @@ public class WebManager
             _jobSerializer.Push(Get, true, url, res, errorJob);
         else
         {
-            Get(true, url, res);
+            Get(true, url, res, errorJob);
             _isWorking = true;
         }
     }
@@ -49,7 +49,7 @@ public class WebManager
             _jobSerializer.Push(Post, isMyServer, url, obj, res, errorJob);
         else
         {
-            Post(isMyServer, url, obj, res);
+            Post(isMyServer, url, obj, res, errorJob);
             _isWorking = true;
         }
     }
@@ -59,7 +59,7 @@ public class WebManager
             _jobSerializer.Push(Get, isMyServer, url, res, errorJob);
         else
         {
-            Get(isMyServer, url, res);
+            Get(isMyServer, url, res, errorJob);
             _isWorking = true;
         }
     }
@@ -119,12 +119,10 @@ public class WebManager
             }
             else
             {
-                UnityHelper.LogError_H($"Server sent an error: {response.StatusCode}-{response.DataAsText}\nRequest Url : {request.Uri}");
-
-
                 ErrorResponse errorResponse = CSharpHelper.DeserializeObject<ErrorResponse>(response.DataAsText);
                 if (errorResponse == null)
                 {
+                    UnityHelper.LogError_H($"ErrorResponse DeserializeObject Error");
                     return;
                 }
 
@@ -145,7 +143,11 @@ public class WebManager
                 }
 
                 if (!isJopWork)
+                {
+                    UnityHelper.LogError_H($"Server sent an error: {response.StatusCode}-{response.DataAsText}\nRequest Url : {request.Uri}");
                     ErrorResponseMessage(errorMsgType);
+                }
+
             }
         }
         catch (AsyncHTTPException e)
@@ -163,7 +165,6 @@ public class WebManager
 
     void ErrorResponseMessage(HttpResponceMessageType type)
     {
-
     }
 
     private string GetUrl(bool isMyServer, string url)

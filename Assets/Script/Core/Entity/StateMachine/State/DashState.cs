@@ -18,8 +18,8 @@ public class DashState : State<Entity>
         if (_playerController)
             _playerController.enabled = false;
 
-        if (_moveController)
-            _moveController.Stop();
+        //if (_moveController)
+        //    _moveController.Stop();
     }
 
     public override void Exit()

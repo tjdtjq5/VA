@@ -13,5 +13,8 @@ public class CooldownState : State<Skill>
             Entity.CurrentCooldown = Entity.Cooldown;
     }
 
-    public override void Update() => Entity.CurrentCooldown -= Time.deltaTime;
+    public override void FixedUpdate()
+    {
+        Entity.CurrentCooldown -= Managers.Time.FixedDeltaTime;
+    }
 }

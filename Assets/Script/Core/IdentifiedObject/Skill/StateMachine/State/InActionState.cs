@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+ 
 public class InActionState : SkillState
 {
     private bool isAutoExecuteType;
@@ -23,10 +23,10 @@ public class InActionState : SkillState
         Apply();
     }
 
-    public override void Update()
+    public override void FixedUpdate()
     {
-        Entity.CurrentDuration += Time.deltaTime;
-        Entity.CurrentApplyCycle += Time.deltaTime;
+        Entity.CurrentDuration += Managers.Time.FixedDeltaTime;
+        Entity.CurrentApplyCycle += Managers.Time.FixedDeltaTime;
 
         if (Entity.IsToggleType)
             Entity.UseDeltaCost();
@@ -39,10 +39,9 @@ public class InActionState : SkillState
     {
         Entity.CancelSelectTarget();
         Entity.ReleaseAction();
+
     }
 
-    // Execute Type이 Input일 경우, Skill의 Use 함수를 통해 Use Message가 넘어오면 Apply 함수를 호출함
-    // 즉, Skill의 발동이 Update 함수에서 자동(Auto)으로 되는 것이 아니라, 사용자의 입력(Input)을 통해 이 함수에서 됨
     public override bool OnReceiveMessage(int message, object data)
     {
         var stateMessage = (SkillStateMessage)message;
@@ -53,8 +52,6 @@ public class InActionState : SkillState
         {
             if (Entity.IsTargetSelectionTiming(TargetSelectionTimingOption.UseInAction))
             {
-                // Skill이 Searching중이 아니라면 SelectTarget 함수로 기준점 검색을 실행,
-                // 기준점 검색이 성공하면 OnTargetSelectionCompleted Callback 함수가 호출되어 Apply 함수를 호출함
                 if (!Entity.IsSearchingTarget)
                     Entity.SelectTarget(OnTargetSelectionCompleted);
             }
@@ -69,14 +66,13 @@ public class InActionState : SkillState
 
     private void Apply()
     {
-        TrySendCommandToOwner(Entity, EntityStateCommand.ToInSkillActionState, Entity.ActionAnimationParameter);
+        TrySendCommandToOwner(Entity, EntityStateCommand.ToInSkillActionState, Entity.ActionAnimationClipName);
 
         if (isInstantApplyType)
             Entity.Apply();
         else if (!isAutoExecuteType)
             Entity.CurrentApplyCount++;
     }
-
     private void OnTargetSelectionCompleted(Skill skill, TargetSearcher targetSearcher, TargetSelectionResult result)
     {
         if (skill.HasValidTargetSelectionResult)

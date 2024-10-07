@@ -12,6 +12,9 @@ public class StunAction : EffectAction
     {
         target.SkillSystem.RemoveEffectAll(removeTargetCategory);
         target.StateMachine.ExecuteCommand(EntityStateCommand.ToStunningState);
+
+        Managers.FloatingText.TextSpawn(target, "Stun", Color.yellow);
+
         return true;
     }
 

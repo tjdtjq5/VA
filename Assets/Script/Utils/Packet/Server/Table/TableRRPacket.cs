@@ -22,20 +22,11 @@ public class TableRRPacket
             return;
         }
 
-        string text = "";
+        string classUpdateFormat = CSharpHelper.Format_H(tableClassUpdateFormat, tableName);
+        SimpleFormat.OuterCreate(file, classUpdateFormat);
 
-        foreach (var line in FileHelper.ReadLines(file))
-        {
-            text += $"{line}\n";
-        }
-
-        text += '\n';
-
-        string classFormat = CSharpHelper.Format_H(tableClassFormat, tableName);
-
-        text += $"{classFormat}";
-
-        FileHelper.Write(file, text, false);
+        string classGetsFormat = CSharpHelper.Format_H(tableClassGetsFormat, tableName);
+        SimpleFormat.OuterCreate(file, classGetsFormat);
     }
     public static void Remove(string tableName)
     {
@@ -54,41 +45,11 @@ public class TableRRPacket
             return;
         }
 
-        string text = "";
-        int leftBracketCount = 0;
-        int rightBracketCount = 0;
-        bool readCheck = false;
-        string tableCheckF = CSharpHelper.Format_H(tableCheckFormat, tableName);
+        string tableCheckUpdateF = CSharpHelper.Format_H(tableCheckUpdateFormat, tableName);
+        SimpleFormat.RemoveStruct(file, tableCheckUpdateF);
 
-        foreach (var line in FileHelper.ReadLines(file))
-        {
-            if (line.Contains(tableCheckF))
-            {
-                readCheck = true;
-            }
-
-            if (!readCheck)
-            {
-                text += $"{line}\n";
-            }
-
-            if (readCheck)
-            {
-                if (line.Contains('{'))
-                    leftBracketCount++;
-
-                if (line.Contains('}'))
-                    rightBracketCount++;
-
-                if (leftBracketCount != 0 && leftBracketCount == rightBracketCount)
-                {
-                    readCheck = false;
-                }
-            }
-        }
-
-        text = text.Substring(0, text.Length - 1);
-        FileHelper.Write(file, text, false);
+        string tableCheckGetsF = CSharpHelper.Format_H(tableCheckGetsFormat, tableName);
+        SimpleFormat.RemoveStruct(file, tableCheckGetsF);
     }
     public static void Modify(string tableName)
     {
@@ -107,49 +68,14 @@ public class TableRRPacket
             return;
         }
 
-        string text = "";
-        int leftBracketCount = 0;
-        int rightBracketCount = 0;
-        bool readCheck = false;
-        string tableCheckF = CSharpHelper.Format_H(tableCheckFormat, tableName);
+        string tableUpdateCheckF = CSharpHelper.Format_H(tableCheckUpdateFormat, tableName);
+        string classUpdateFormat = CSharpHelper.Format_H(tableClassUpdateFormat, tableName);
 
-        foreach (var line in FileHelper.ReadLines(file))
-        {
-            if (line.Contains(tableCheckF))
-            {
-                readCheck = true;
+        string tableGetsCheckF = CSharpHelper.Format_H(tableCheckGetsFormat, tableName);
+        string classGetsFormat = CSharpHelper.Format_H(tableClassGetsFormat, tableName);
 
-                string classFormat = CSharpHelper.Format_H(tableClassFormat, tableName);
-                if (string.IsNullOrEmpty(classFormat))
-                {
-                    return;
-                }
-
-                text += $"{classFormat}\n";
-            }
-
-            if (!readCheck)
-            {
-                text += $"{line}\n";
-            }
-
-            if (readCheck)
-            {
-                if (line.Contains('{'))
-                    leftBracketCount++;
-
-                if (line.Contains('}'))
-                    rightBracketCount++;
-
-                if (leftBracketCount != 0 && leftBracketCount == rightBracketCount)
-                {
-                    readCheck = false;
-                }
-            }
-        }
-
-        text = text.Substring(0, text.Length - 1);
-        FileHelper.Write(file, text, false);
+        SimpleFormat.Modify(file, tableUpdateCheckF, classUpdateFormat);
+        SimpleFormat.Modify(file, tableGetsCheckF, classGetsFormat);
     }
     public static bool Exist(string tableName)
     {
@@ -160,17 +86,13 @@ public class TableRRPacket
             return false;
         }
 
-        string tableCheckF = CSharpHelper.Format_H(tableCheckFormat, tableName);
+        string tableUpdateCheckF = CSharpHelper.Format_H(tableCheckUpdateFormat, tableName);
+        bool checkUpdateFlag = SimpleFormat.Exist(file, tableUpdateCheckF);
 
-        foreach (var line in FileHelper.ReadLines(file))
-        {
-            if (line.Trim().Equals(tableCheckF))
-            {
-                return true;
-            }
-        }
+        string tableGetsCheckF = CSharpHelper.Format_H(tableCheckGetsFormat, tableName);
+        bool checkGetsFlag = SimpleFormat.Exist(file, tableGetsCheckF);
 
-        return false;
+        return checkUpdateFlag && checkGetsFlag;
     }
 
     public static string GetTableFile()
@@ -190,15 +112,26 @@ public class TableRRPacket
 
     #region Format
 
-    static string tableCheckFormat =
-@"public class {0}TableResponse";
+    static string tableCheckUpdateFormat =
+@"public class {0}TableUpdateResponse";
 
     // {0} TableName
-    static string tableClassFormat =
-@"public class {0}TableResponse
+    static string tableClassUpdateFormat =
+@"public class {0}TableUpdateResponse
 {{
     public string tableName {{ get; set; }}
     public List<string> changeDatas {{ get; set; }}
+}}";
+
+    static string tableCheckGetsFormat =
+@"public class {0}TableGetsResponse";
+
+    // {0} TableName
+    static string tableClassGetsFormat =
+@"public class {0}TableGetsResponse
+{{
+    public string tableName {{ get; set; }}
+    public List<{0}TableData> datas {{ get; set; }}
 }}";
 
     #endregion

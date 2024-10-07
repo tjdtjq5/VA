@@ -3,9 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 언제 Spawn 시킬 것인가?
 public enum MethodType { Start, Run }
-// 누구를 기준으로 Object를 Spawn할 것인가?
 public enum TargetType { OwnerOrUser, Target }
 
 [System.Serializable]

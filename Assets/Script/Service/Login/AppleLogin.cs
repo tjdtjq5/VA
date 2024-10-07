@@ -1,60 +1,111 @@
-using AppleAuth;
-using AppleAuth.Interfaces;
-using AppleAuth.Native;
 using System;
 using UnityEngine;
 
-public class AppleLogin : MonoBehaviour, ILoginService
+public class AppleLogin
 {
-    private AppleAuthManager appleAuthManager;
+    static string _url = "https://appleid.apple.com/auth/authorize";
+    static string _clientId = "com.Slitz.Villager";
+    static string _redirect_uri = "https://slitz95.com";
+    static string _response_type = "code";
+    static string _response_mode = "query";
 
-    public void Initialize()
+    static Action _callback;
+
+    static string AutoJwtToken
     {
-        var deserializer = new PayloadDeserializer();
-        appleAuthManager = new AppleAuthManager(deserializer);
+        get
+        {
+            return PlayerPrefsHelper.GetString_H(PlayerPrefsKey.auto_login_jwt_token);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_jwt_token, value);
+        }
     }
-    void Update()
+    static ProviderType AutoProviderType
     {
-        if (appleAuthManager != null)
-            appleAuthManager.Update();
+        get
+        {
+            int value = PlayerPrefsHelper.GetInt_H(PlayerPrefsKey.auto_login_provider);
+            return (ProviderType)CSharpHelper.EnumClamp<ProviderType>(value, true);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_provider, (int)value);
+        }
+    }
+    static int AutoAccountId
+    {
+        get
+        {
+            return PlayerPrefsHelper.GetInt_H(PlayerPrefsKey.auto_login_account_id);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_account_id, value);
+        }
     }
 
-    public void Login(Action callback)
+    static bool isInit = false;
+
+    public static void Initialize()
     {
-        var loginArgs = new AppleAuthLoginArgs();
+        if (isInit)
+        {
+            return;
+        }
+        isInit = true;
 
-        appleAuthManager.LoginWithAppleId(
-            loginArgs,
-            credential =>
+        Managers.DeepLink.AddAction(DeepLinkResponse);
+    }
+
+    public static void Login(Action callback)
+    {
+        Initialize();
+
+        _callback = callback;
+
+        LinkUrlLogin();
+    }
+    static void LinkUrlLogin()
+    {
+        string url = $"{_url}?client_id={_clientId}&redirect_uri={_redirect_uri}&response_type={_response_type}&response_mode={_response_mode}";
+        Application.OpenURL(url);
+    }
+    static void CodeLoginAction(string code)
+    {
+        AccountLoginRequest req = new AccountLoginRequest()
+        {
+            ProviderType = ProviderType.Apple,
+            NetworkIdOrCode = code,
+        };
+
+        Managers.Web.SendPostRequest<AccountLoginResponce>("account/login", req, (res) =>
+        {
+            UnityHelper.LogSerialize(res);
+
+            Managers.Web.JwtToken = res.JwtAccessToken;
+            Managers.Web.AccountId = res.AccountId;
+
+            AutoJwtToken = res.JwtAccessToken;
+            AutoProviderType = ProviderType.Apple;
+            AutoAccountId = res.AccountId;
+
+            if (_callback != null)
             {
-                var appleIdCredential = credential as IAppleIDCredential;
-                if (appleIdCredential != null)
-                {
-                    var userId = appleIdCredential.User;
+                _callback.Invoke();
+            }
+        });
+    }
+    private static void DeepLinkResponse(ImaginationOverflow.UniversalDeepLinking.LinkActivation s)
+    {
+        string url = s.Uri;
 
-                    // 로그인처리
+        if (!url.Contains(_redirect_uri))
+            return;
 
-                    AccountLoginRequest req = new AccountLoginRequest()
-                    {
-                        ProviderType = ProviderType.Apple,
-                        NetworkIdOrCode = userId,
-                    };
+        string code = s.QueryString["code"];
 
-                    Managers.Web.SendPostRequest<AccountLoginResponce>("account/login", req, (res) =>
-                    {
-                        Managers.Web.JwtToken = res.JwtAccessToken;
-                        Managers.Web.AccountId = res.AccountId;
-
-                        if (callback != null)
-                        {
-                            callback.Invoke();
-                        }
-                    });
-                }
-            },
-            error =>
-            {
-                UnityHelper.Log_H("Apple Signin Error");
-            });
+        CodeLoginAction(code);
     }
 }

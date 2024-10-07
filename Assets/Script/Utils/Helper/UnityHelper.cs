@@ -1,10 +1,6 @@
-using Newtonsoft.Json;
-using System;
-using System.Collections;
+using Spine.Unity;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -18,13 +14,18 @@ public static class UnityHelper
     }
     public static void Log_H<T1, T2>(Dictionary<T1, T2> dics) where T1 : new() where T2 : new()
     {
-        if (!GameOptionManager.IsRelease)
-            Log_H(dics.ToString());
+        Log_H(dics.ToString());
     }
     public static void Log_H<T>(List<T> list)
     {
-        if (!GameOptionManager.IsRelease)
-            Log_H(list.ToString());
+        string datas = "";
+
+        for (int i = 0; i < list.Count; i++)
+            datas += CSharpHelper.SerializeObject(list[i]) + "\n";
+
+        datas = datas.Substring(0, datas.Length - 1);
+
+        Log_H(datas);
     }
     public static void LogError_H(object message)
     {
@@ -36,8 +37,7 @@ public static class UnityHelper
     }
     public static void LogSerialize(object message)
     {
-        if (!GameOptionManager.IsRelease)
-            Log_H($"<color=#006AFF>{CSharpHelper.SerializeObject(message)}</color>");
+        Log_H($"<color=#006AFF>{CSharpHelper.SerializeObject(message)}</color>");
     }
     public static void Assert_H(bool condition, string message)
     {
@@ -241,7 +241,7 @@ public static class UnityHelper
     {
         string versionCode = "0.0";
 
-        for (int i = 0; i < values.Length; i++) 
+        for (int i = 0; i < values.Length; i++)
         {
             if (i == 0)
             {
@@ -262,12 +262,45 @@ public static class UnityHelper
         return path;
     }
     #endregion
-
-    #region Direction
+    #region Transform
+    public static void LookAt_H(this Transform tr, Transform target)
+    {
+        var angle = tr.position.GetAngle(target.position);
+        tr.localRotation = Quaternion.Euler(57f, tr.localRotation.y, angle);
+    }
+    public static float GetAngle(this UnityEngine.Vector3 start, UnityEngine.Vector3 end)
+    {
+        UnityEngine.Vector3 v2 = end - start;
+        return Mathf.Atan2(v2.z, v2.x) * Mathf.Rad2Deg;
+    }
+    #endregion
+    #region Vector3
     public static Vector3 GetDirection(this Vector3 originPos, Vector3 targetPos)
     {
         targetPos = targetPos - originPos;
         return targetPos.normalized;
+    }
+    public static float GetDistance(this Vector3 originPos, Vector3 targetPos)
+    {
+        return Vector3.Distance(originPos, targetPos);
+    }
+    public static float GetSqrMagnitude(this Vector3 originPos, Vector3 targetPos)
+    {
+        return Vector3.SqrMagnitude(originPos - targetPos);
+    }
+    #endregion
+    #region  Animation
+    public static AniController Initialize(this Animator animator)
+    {
+        AniController ac = animator.GetOrAddComponent<AniController>();
+        ac.Initialize(animator);
+        return ac;
+    }
+    public static SpineAniController Initialize(this SkeletonAnimation animator)
+    {
+        SpineAniController ac = animator.GetOrAddComponent<SpineAniController>();
+        ac.Initialize(animator);
+        return ac;
     }
     #endregion
 }

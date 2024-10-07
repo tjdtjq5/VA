@@ -41,6 +41,9 @@ public class TableServicePacket
         string updateF = CSharpHelper.Format_H(updateFormat, tableName, LowerTableName(tableName), KeyValueName(tableData));
         text += $"\t{updateF}\n";
 
+        string getsF = CSharpHelper.Format_H(getsFormat, tableName);
+        text += $"\t{getsF}\n";
+
         string dbDataF = CSharpHelper.Format_H(getDbDataByTableDataFormat, tableName);
         text += $"\t{dbDataF}\n";
 
@@ -140,14 +143,14 @@ public class TableServicePacket
     }
     static string LowerTableName(string tableName)
     {
-        return CSharpHelper.StartCharToLower(tableName);
+        return CSharpHelper.ToLower_H(tableName);
     }
     static string KeyValueName(string tableData)
     {
         List<string> variableNames = VariableNames(tableData);
         if (variableNames.Count >= 1)
         {
-            return CSharpHelper.StartCharToLower(variableNames[0]);
+            return CSharpHelper.ToLower_H(variableNames[0]);
         }
         else
         {
@@ -250,6 +253,19 @@ public class TableServicePacket
 
         return changeDatas;
     }}";
+
+    // {0} Table Name
+    static string getsFormat =
+@"	public List<{0}TableData> Gets()
+    {{
+        List<{0}TableData> results = new List<{0}TableData>();
+        var datas = _context.{0}s;
+
+        results.SetCopyValue(datas.ToList());
+
+        return results;
+    }}
+";
 
     // {0} Table Name
     static string getDbDataByTableDataFormat =

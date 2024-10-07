@@ -1,10 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TableFunction
 {
-	public static string GetUpdateTableName { get => "Item"; }
+	public static string GetUpdateTableName { get => "Formula"; }
 
     public static async void UpdateTable(string tableName, string tableData)
 	{
@@ -14,10 +14,10 @@ public class TableFunction
             return;
         }
 
-        List<ItemTableData> tableDatas = GoogleSpreadSheetUtils.GetListTableDatas<ItemTableData>(tableName, tableData);
+        List<FormulaTableData> tableDatas = GoogleSpreadSheetUtils.GetListTableDatas<FormulaTableData>(tableName, tableData);
 
-        string addUrl = $"{CSharpHelper.StartCharToLower(tableName)}Table/update";
-        var result = await WebTaskCall.Post<ItemTableResponse>(true, addUrl, tableDatas);
+        string addUrl = $"{CSharpHelper.ToLower_H(tableName)}Table/update";
+        var result = await WebTaskCall.Post<FormulaTableUpdateResponse>(true, addUrl, tableDatas);
 
         string resultSeri = CSharpHelper.SerializeObject(result);
         UnityHelper.Log_H(resultSeri);

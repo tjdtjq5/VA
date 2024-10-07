@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SleepingState : EntityCCState
 {
-    private static readonly int kAnimationHash = Animator.StringToHash("isSleeping");
+    private static readonly string kAnimationClipName = "isSleeping";
 
-    public override string Description => "¼ö¸é";
-    protected override int AnimationHash => kAnimationHash;
+    public override string Description => "Description";
+    protected override string AnimationClipName => kAnimationClipName;
 }
