@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -35,6 +36,17 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
             return null;
         }
     }
+    public override int JobCount(CharacterJob job)
+    {
+        int count = 0;
+        for (int i = 0; i < playerCharacters.Length; i++) 
+        {
+            if (playerCharacters[i] && playerCharacters[i].Job.Equals(job))
+                count++;
+        }
+
+        return count;
+    }
 
     const int MaxCharacterCount = 12;
 
@@ -56,6 +68,12 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
         {
             if (i < pcs.Length)
                 playerCharacters[i] = PlayerSpawn(pcs[i], i);
+        }
+
+        for (int i = 0; i < playerCharacters.Length; i++)
+        {
+            if (i < pcs.Length)
+                playerCharacters[i].JobSetUp(JobCount(playerCharacters[i].Job));
         }
     }
 

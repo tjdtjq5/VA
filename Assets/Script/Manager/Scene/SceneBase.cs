@@ -20,6 +20,7 @@ public abstract class SceneBase : MonoBehaviour
     }
     public abstract void Clear();
     public abstract PlayerController GetPlayer();
+    public abstract int GetPlayerJobCount(CharacterJob job);
     public bool IsOutDest(PlayerController player, int index, Vector3 destination)
     {
         PlayerController masterPlayer = GetPlayer();

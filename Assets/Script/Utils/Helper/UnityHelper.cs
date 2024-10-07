@@ -262,6 +262,7 @@ public static class UnityHelper
         return path;
     }
     #endregion
+
     #region Transform
     public static void LookAt_H(this Transform tr, Transform target)
     {
@@ -274,6 +275,7 @@ public static class UnityHelper
         return Mathf.Atan2(v2.z, v2.x) * Mathf.Rad2Deg;
     }
     #endregion
+
     #region Vector3
     public static Vector3 GetDirection(this Vector3 originPos, Vector3 targetPos)
     {
@@ -289,6 +291,7 @@ public static class UnityHelper
         return Vector3.SqrMagnitude(originPos - targetPos);
     }
     #endregion
+
     #region  Animation
     public static AniController Initialize(this Animator animator)
     {
@@ -301,6 +304,14 @@ public static class UnityHelper
         SpineAniController ac = animator.GetOrAddComponent<SpineAniController>();
         ac.Initialize(animator);
         return ac;
+    }
+    #endregion
+
+    #region Function
+    public static bool IsApplyPercent(float percent)
+    {
+        float r = Random.Range(0.0f, 100.0f);
+        return r < percent;
     }
     #endregion
 }
