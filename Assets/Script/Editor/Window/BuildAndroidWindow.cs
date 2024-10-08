@@ -339,15 +339,6 @@ public class BuildAndroidWindow : EditorWindow
             PlayerSettings.Android.keyaliasPass = buildOptionFile.Read(_keystorePasswardKey).Replace("\"", "");
             PlayerSettings.Android.keystorePass = buildOptionFile.Read(_keystorePasswardKey).Replace("\"", "");
 
-            bool isRelease = GameOptionManager.IsRelease;
-            if (isRelease)
-            {
-                EditorUserBuildSettings.androidBuildType = AndroidBuildType.Release;
-            }
-            else
-            {
-                EditorUserBuildSettings.androidBuildType = AndroidBuildType.Development;
-            }
 
             AutoBuilder.PerformBuildAOS();
         }

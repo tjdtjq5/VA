@@ -74,7 +74,19 @@ public class Projectile : MonoBehaviour
         if (target)
         {
             target.SkillSystem.Apply(skill);
+            JobAction(owner, target);
             Managers.Resources.Destroy(gameObject);
         }
+    }
+    void JobAction(Entity owner, Entity target)
+    {
+        if (target == null)
+            return;
+
+        PlayerController player = owner.GetComponent<PlayerController>();
+        if (!player)
+            return;
+
+        player.JobSkillAction(target);
     }
 }

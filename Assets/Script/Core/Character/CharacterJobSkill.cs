@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class CharacterJobSkill : MonoBehaviour
 {
+    Entity owner;
     CharacterJob job;
     int jobCount;
-    Skill skill;
+    JobSkill skill;
 
     Dictionary<CharacterJob, float> applyP = new Dictionary<CharacterJob, float>() 
     {
@@ -17,19 +18,13 @@ public class CharacterJobSkill : MonoBehaviour
         { CharacterJob.Robot , 100 },
         { CharacterJob.Thief , 100 },
     };
-    string SkillPath => $"Skill/SKILL_JobSkill_{job}";
+    string SkillPath => $"Prefab/Skill/Job/JobSkill_{job}";
 
     public void SetUp(Entity owner, CharacterJob job, int jobCount)
     {
+        this.owner = owner;
         this.job = job;
         this.jobCount = jobCount;
-
-        if (skill == null || !this.job.Equals(job))
-        {
-            this.skill = Managers.Resources.Load<Skill>(SkillPath);
-            skill.UseAcquisitionCost(owner);
-            skill = RegisterWithoutCost(owner, skill, 1);
-        }
     }
     public void Apply(Entity target)
     {
@@ -38,18 +33,8 @@ public class CharacterJobSkill : MonoBehaviour
 
         if (UnityHelper.IsApplyPercent(applyP[job]))
         {
-            target.SkillSystem.Apply(skill);
+            this.skill = Managers.Resources.Instantiate<JobSkill>(SkillPath);
+            skill.Set(owner, target);
         }
-    }
-
-    public Skill RegisterWithoutCost(Entity owner, Skill skill, int level = 0)
-    {
-        var clone = skill.Clone() as Skill;
-        if (level > 0)
-            clone.Setup(owner, level);
-        else
-            clone.Setup(owner);
-
-        return clone;
     }
 }

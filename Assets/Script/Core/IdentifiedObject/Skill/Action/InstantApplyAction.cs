@@ -11,6 +11,7 @@ public class InstantApplyAction : SkillAction
                 foreach (var target in skill.Targets)
                 {
                     target.SkillSystem.Apply(skill);
+                    JobAction(skill.Owner, target);
                 }
             }
             else

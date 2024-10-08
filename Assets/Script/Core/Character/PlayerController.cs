@@ -42,23 +42,17 @@ public class PlayerController : Character
         if (basicSkill)
         {
             RegisterBasicSkill = skillSystem.Register(basicSkill);
-            RegisterBasicSkill.onStateChanged -= OnSkillStateChanged;
-            RegisterBasicSkill.onStateChanged += OnSkillStateChanged;
         }
 
         if (activeUpgradeSkill)
         {
             RegisterActiveSkill = skillSystem.Register(activeUpgradeSkill);
-            RegisterActiveSkill.onStateChanged -= OnSkillStateChanged;
-            RegisterActiveSkill.onStateChanged += OnSkillStateChanged;
         }
         else
         {
             if (activeSkill)
             {
                 RegisterActiveSkill = skillSystem.Register(activeSkill);
-                RegisterActiveSkill.onStateChanged -= OnSkillStateChanged;
-                RegisterActiveSkill.onStateChanged += OnSkillStateChanged;
             }
         }
     }
@@ -127,11 +121,6 @@ public class PlayerController : Character
     {
         base.OnTakeDamage(entity, instigator, causer, damage);
     }
-    public void OnSkillStateChanged(Skill skill, State<Skill> newState, State<Skill> prevState, int layer)
-    {
-        if (newState is CooldownState && prevState is InActionState && skill.Targets.Count > 0)
-            jobSkill.Apply(skill.Targets[0]);
-    }
     public override void MoveDirection(Vector3 direction)
     {
         direction.z = direction.y;
@@ -157,6 +146,10 @@ public class PlayerController : Character
     public void JobSetUp(int jobCount)
     {
         jobSkill.SetUp(entity, job, jobCount);
+    }
+    public void JobSkillAction(Entity target)
+    {
+        jobSkill.Apply(target);
     }
 
     [Button]

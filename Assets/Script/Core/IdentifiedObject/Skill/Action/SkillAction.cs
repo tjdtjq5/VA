@@ -9,6 +9,17 @@ public abstract class SkillAction : ICloneable
     public virtual void Start(Skill skill) { }
     public abstract void Apply(Skill skill);
     public virtual void Release(Skill skill) { }
+    protected virtual void JobAction(Entity owner, Entity target)
+    {
+        if (target == null)
+            return;
+
+        PlayerController player = owner.GetComponent<PlayerController>();
+        if (!player)
+            return;
+
+        player.JobSkillAction(target);
+    }
 
     protected virtual IReadOnlyDictionary<string, string> GetStringsByKeyword() => null;
 

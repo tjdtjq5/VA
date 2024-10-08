@@ -26,6 +26,7 @@ public class InstantApplyEffectSpawnAction : SkillAction
                 foreach (var target in skill.Targets)
                 {
                     target.SkillSystem.Apply(skill);
+                    JobAction(skill.Owner, target);
                     Transform st = spawnTarget == SpawnTarget.Target ? target.transform : skill.Owner.transform;
                     EffectSpawn(st, target.transform);
                 }

@@ -38,7 +38,6 @@ public class DealDamageAction : EffectAction
 
     public override bool Apply(Effect effect, Entity user, Entity target, int level, int stack, float scale)
     {
-
         var totalDamage = GetTotalDamage(effect, user, stack, scale);
         target.TakeDamage(user, effect, totalDamage);
 

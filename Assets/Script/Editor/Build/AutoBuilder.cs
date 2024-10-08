@@ -22,6 +22,8 @@ public class AutoBuilder
         string targetDir = UnityHelper.GetBuildPath(BuildTarget.Android.ToString());
         Directory.CreateDirectory(targetDir);
 
+        UnityHelper.LogSerialize(SCENES);
+
         BuildAndroid(targetDir, SCENES, targetDir + "/" + appName);
     }
 
@@ -31,7 +33,7 @@ public class AutoBuilder
         buildPlayerOptions.scenes = scenes;
         buildPlayerOptions.locationPathName = app_target;
         buildPlayerOptions.target = BuildTarget.Android;
-        buildPlayerOptions.options = BuildOptions.None;
+        buildPlayerOptions.options = BuildOptions.CompressWithLz4;
 
         var report = BuildPipeline.BuildPlayer(buildPlayerOptions);
 

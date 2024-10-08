@@ -27,7 +27,12 @@ MonoBehaviour:
   effectDatas:
   - level: 1
     maxStack: 1
-    stackActions: []
+    stackActions:
+    - stack: 1
+      isReleaseOnNextApply: 0
+      isApplyOnceInLifeTime: 0
+      action:
+        rid: 8010792322021195776
     action:
       rid: 8010792303788032007
     runningFinishOption: 0
@@ -42,6 +47,14 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 8010792303788032007
+      type: {class: DealDamageAction, ns: , asm: Assembly-CSharp}
+      data:
+        defaultDamage: 55
+        bonusDamageStat: {fileID: 11400000, guid: a25236d71c208b445aa86ccd88dd7283, type: 2}
+        bonusDamageStatFactor: 0
+        bonusDamagePerLevel: 0
+        bonusDamagePerStack: 0
+    - rid: 8010792322021195776
       type: {class: DealDamageAction, ns: , asm: Assembly-CSharp}
       data:
         defaultDamage: 55

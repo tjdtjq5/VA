@@ -40,6 +40,15 @@ public class Poolable : MonoBehaviour
     float destoryTime;
     float destoryTimer;
 
+    public void SetTime(float time)
+    {
+        this.time = time;
+        poolObjectType = PoolObjectType.Time;
+
+        Init();
+        TimeDestroy();
+    }
+
     private void OnEnable()
     {
         Init();

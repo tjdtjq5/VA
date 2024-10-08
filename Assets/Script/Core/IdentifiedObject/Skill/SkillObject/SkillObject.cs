@@ -83,9 +83,23 @@ public class SkillObject : MonoBehaviour
         var result = targetSearcher.SearchTargets(Owner, gameObject);
 
         foreach (var target in result.targets)
+        {
             target.GetComponent<SkillSystem>().Apply(Spawner);
+            JobAction(Owner, target.GetComponent<Entity>());
+        }
 
         currentApplyCount++;
         currentApplyCycle %= ApplyCycle;
+    }
+    void JobAction(Entity owner, Entity target)
+    {
+        if (target == null)
+            return;
+
+        PlayerController player = owner.GetComponent<PlayerController>();
+        if (!player)
+            return;
+
+        player.JobSkillAction(target);
     }
 }
