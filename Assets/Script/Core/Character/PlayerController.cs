@@ -144,6 +144,9 @@ public class PlayerController : Character
         if (entity.Movement.IsDashing || entity.Movement.IsPreceding)
             return;
 
+        if (!entity.IsInState<EntityDefaultState>())
+            entity.StateMachine.ExecuteCommand(EntityStateCommand.ToDefaultState);
+
         JoysticDir = direction;
     }
     public void JobSetUp(int jobCount)

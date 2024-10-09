@@ -18,10 +18,12 @@ public class CharacterJobSkill : MonoBehaviour
         { CharacterJob.Robot , 100 },
         { CharacterJob.Thief , 100 },
     };
-    string SkillPath => $"Prefab/Skill/Job/JobSkill_{job}";
 
     public void SetUp(Entity owner, CharacterJob job, int jobCount)
     {
+        skill = this.gameObject.GetOrAddComponent<JobSkill>();
+        skill.Set(job, owner);
+
         this.owner = owner;
         this.job = job;
         this.jobCount = jobCount;
@@ -32,9 +34,6 @@ public class CharacterJobSkill : MonoBehaviour
             return;
 
         if (UnityHelper.IsApplyPercent(applyP[job]))
-        {
-            this.skill = Managers.Resources.Instantiate<JobSkill>(SkillPath);
-            skill.Set(job, owner, target);
-        }
+            skill.Apply(target);
     }
 }

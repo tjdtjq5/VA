@@ -4,9 +4,9 @@ using UnityEngine;
 
 public static class GameFunction
 {
-    public static Entity SearchTarget(Entity requester, float searchRadius)
+    public static Entity SearchTarget(Entity requester, float searchRadius, bool isSameCategory = false)
     {
-        List<Entity> targets = SearchTargets(requester, searchRadius);
+        List<Entity> targets = SearchTargets(requester, searchRadius, isSameCategory);
 
         if (targets.Count <= 0)
             return null;
@@ -15,7 +15,7 @@ public static class GameFunction
         targets = targets.OrderBy(t => Vector3.SqrMagnitude(t.transform.position - requesterPos)).ToList();
         return targets.FirstOrDefault();
     }
-    public static List<Entity> SearchTargets(Entity requester, float searchRadius)
+    public static List<Entity> SearchTargets(Entity requester, float searchRadius, bool isSameCategory = false)
     {
         Vector3 requesterPos = requester.transform.position;
         var castTargets = Physics.SphereCastAll(requesterPos, searchRadius, Vector3.up, 0f).ToList();
@@ -35,7 +35,7 @@ public static class GameFunction
             {
                 var hasCategory = requester.Categories.Any(x => castTarget.HasCategory(x));
 
-                if (!hasCategory)
+                if ((hasCategory && isSameCategory) || (!hasCategory && !isSameCategory))
                     targets.Add(castTarget);
             }
         }

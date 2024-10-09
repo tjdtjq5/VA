@@ -186,7 +186,6 @@ public class Effect : IdentifiedObject
         aplliedStackActions.Clear();
     }
 
-    // ���� ����� StackAction�鿡�� ���ǿ� �´� StackAction���� ã�� Release��
     private void ReleaseStackActions(System.Func<EffectStackAction, bool> predicate)
     {
         var stackActions = aplliedStackActions.Where(predicate).ToList();
