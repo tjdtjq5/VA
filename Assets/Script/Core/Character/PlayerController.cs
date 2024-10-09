@@ -1,6 +1,7 @@
 using EasyButtons;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class PlayerController : Character
     public bool IsDown => moveController.IsDown;
     public CharacterJob Job => job;
     private Vector3 JoysticDir { get; set; } = Vector3.zero;
+    private float searchRadius = 1000f;
 
     [Header("Setting")]
     [SerializeField] private CharacterJob job;
@@ -64,7 +66,8 @@ public class PlayerController : Character
         if (result.resultMessage != SearchResultMessage.OutOfRange)
             return;
 
-        Vector3 dest = result.selectedTarget ? result.selectedTarget.transform.position : result.selectedPosition;
+        Entity target = GameFunction.SearchTarget(entity, searchRadius);
+        Vector3 dest = target == null ? Vector3.zero : target.transform.position;
 
         if (Managers.Scene.CurrentScene.IsOutDest(this, Index, dest))
         {
@@ -152,6 +155,7 @@ public class PlayerController : Character
         jobSkill.Apply(target);
     }
 
+    #region Debug
     [Button]
     public void DebugBasicSkillState()
     {
@@ -162,10 +166,10 @@ public class PlayerController : Character
     {
         UnityHelper.Log_H(RegisterActiveSkill.GetCurrentStateType());
     }
-
     [Button]
     public void DebugIsMove()
     {
         UnityHelper.Log_H(moveController.IsMove);
     }
+    #endregion
 }

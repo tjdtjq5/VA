@@ -34,7 +34,7 @@ public class CharacterJobSkill : MonoBehaviour
         if (UnityHelper.IsApplyPercent(applyP[job]))
         {
             this.skill = Managers.Resources.Instantiate<JobSkill>(SkillPath);
-            skill.Set(owner, target);
+            skill.Set(job, owner, target);
         }
     }
 }

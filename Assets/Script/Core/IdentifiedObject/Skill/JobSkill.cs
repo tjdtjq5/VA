@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class JobSkill : MonoBehaviour
 {
+    CharacterJob job;
     Entity owner;
     Entity target;
 
@@ -12,6 +14,7 @@ public class JobSkill : MonoBehaviour
 
     int applyCount = 0;
     float cooldownTimer = 0;
+    float otherRadius = 2.5f;
     Effect runningEffect;
     bool isApply = false;
 
@@ -27,7 +30,7 @@ public class JobSkill : MonoBehaviour
         this.cooldownTimer = 0;
         isApply = false;
     }
-    public void Set(Entity owner, Entity target)
+    public void Set(CharacterJob job, Entity owner, Entity target)
     {
         if (ApplyCount <= 0)
         {
@@ -35,15 +38,16 @@ public class JobSkill : MonoBehaviour
             return;
         }
 
+        this.job = job;
         this.owner = owner;
         this.target = target;
         isApply = true;
 
-        EffectPrefabSpawn();
+        EffectPrefabSpawn(target);
         StartEffect();
         Apply();
     }
-    void EffectPrefabSpawn()
+    void EffectPrefabSpawn(Entity target)
     {
         if (ApplyCount <= 0 || ApplyCycle <= 0)
             return;
@@ -51,12 +55,8 @@ public class JobSkill : MonoBehaviour
         if (target == null)
             return;
 
-        UnityHelper.Log_H(123213);
-
-        Poolable effectPoolable = Managers.Resources.Instantiate(EffectPrefab, target.transform);
-        effectPoolable.transform.localPosition = Vector3.zero;
-        float time = ApplyCount * ApplyCycle;
-        effectPoolable.SetTime(time);
+        Poolable effectPoolable = Managers.Resources.Instantiate(EffectPrefab);
+        effectPoolable.transform.localPosition = target.transform.position;
     }
     void FixedUpdate()
     {
@@ -67,12 +67,25 @@ public class JobSkill : MonoBehaviour
     }
     void Apply()
     {
-        ApplyEffect();
+        ApplyEffect(target);
+       // OtherApply();
 
         applyCount++;
 
         if (applyCount >= ApplyCount)
             Release();
+    }
+    void OtherApply()
+    {
+        if (job == CharacterJob.Dragon || job == CharacterJob.Robot)
+        {
+            List<Entity> otherTargets = GameFunction.SearchTargets(target, otherRadius);
+            for (int i = 0; i < otherTargets.Count; i++)
+            {
+                ApplyEffect(otherTargets[i]);
+                EffectPrefabSpawn(otherTargets[i]);
+            }
+        }
     }
     void InApply() 
     {
@@ -92,22 +105,23 @@ public class JobSkill : MonoBehaviour
 
     void StartEffect()
     {
+        if (runningEffect != null)
+            ReleaseEffect();
+
         runningEffect = effect.Clone() as Effect;
-        runningEffect.Setup(owner, owner, 1);
-        runningEffect.SetTarget(target);
-        runningEffect.Start();
+        runningEffect.Setup(owner, owner, 1); 
     }
-    void ApplyEffect()
+    void ApplyEffect(Entity target)
     {
+        runningEffect.SetTarget(target);
+     //   runningEffect.Start();
+
         if (runningEffect.IsApplicable)
             runningEffect.Apply();
     }
     void ReleaseEffect()
     {
-        if (runningEffect.IsFinished)
-        {
-            runningEffect.Release();
-            Destroy(runningEffect);
-        }
+        runningEffect.Release();
+        Destroy(runningEffect);
     }
 }

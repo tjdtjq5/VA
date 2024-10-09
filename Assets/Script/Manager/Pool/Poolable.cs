@@ -42,8 +42,10 @@ public class Poolable : MonoBehaviour
 
     public void SetTime(float time)
     {
+        if (poolObjectType != PoolObjectType.Time)
+            return;
+
         this.time = time;
-        poolObjectType = PoolObjectType.Time;
 
         Init();
         TimeDestroy();

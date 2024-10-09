@@ -86,6 +86,8 @@ public class Entity : MonoBehaviour
 
     public void TakeDamage(Entity instigator, object causer, BBNumber damage)
     {
+        UnityHelper.Log_H($"[{damage.ToCountString()}]    : {causer.ToString()}");
+
         if (IsDead)
             return;
 
