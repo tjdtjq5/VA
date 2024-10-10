@@ -39,7 +39,7 @@ public class InGameManager : SceneBase
         return playerSpawnActionController.Player;
     }
 
-    public override int GetPlayerJobCount(CharacterJob job)
+    public override int GetPlayerJobCount(Tribe job)
     {
         return playerSpawnActionController.JobCount(job);
     }

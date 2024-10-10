@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5572046b21b14245abd62fa7d8c6ca9, type: 3}
-  m_Name: EFFECT_Job_Thief
+  m_Name: EFFECT_Tribe_Robot
   m_EditorClassIdentifier: 
   categories: []
   icon: {fileID: 0}
-  id: 6
-  codeName: Job_Thief
-  displayName: Job_Thief
-  description: Job_Thief
+  id: 5
+  codeName: Tribe_Robot
+  displayName: Tribe_Robot
+  description: Tribe_Robot
   type: 0
   isAllowDuplicate: 1
   removeDuplicateTargetOption: 0
@@ -29,33 +29,33 @@ MonoBehaviour:
     maxStack: 1
     stackActions: []
     action:
-      rid: 8010792345591873547
-    runningFinishOption: 1
+      rid: 8010792345591873546
+    runningFinishOption: 0
     isApplyAllWhenDurationExpires: 0
     duration:
       defaultValue: 3
       scaleStat: {fileID: 0}
-    applyCount: 6
+    applyCount: 3
     applyCycle: 0
     customActions:
-    - rid: 8010792345591873542
+    - rid: 8010792345591873541
   references:
     version: 2
     RefIds:
-    - rid: 8010792345591873542
+    - rid: 8010792345591873541
       type: {class: SpawnObjectAction, ns: , asm: Assembly-CSharp}
       data:
         targetType: 1
         methodType: 1
-        prefab: {fileID: 4218160674387114083, guid: 2c1af117e3962634fb090322b3f0d707, type: 3}
+        prefab: {fileID: 4218160674387114083, guid: 49f4c4097dffb7243825ff44b906202b, type: 3}
         offset: {x: 0, y: 0, z: 0}
         scaleFactor: {x: 1, y: 1, z: 1}
         isAttachToTarget: 0
         isDestroyOnRelease: 0
-    - rid: 8010792345591873547
+    - rid: 8010792345591873546
       type: {class: DealDamageAction, ns: , asm: Assembly-CSharp}
       data:
-        defaultDamage: 6
+        defaultDamage: 5
         bonusDamageStat: {fileID: 0}
         bonusDamageStatFactor: 0
         bonusDamagePerLevel: 0

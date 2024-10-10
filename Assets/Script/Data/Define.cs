@@ -66,7 +66,7 @@ public enum ChatFrequencyCycle
     Sometimes,
     Close
 }
-public enum CharacterJob
+public enum Tribe
 {
     Cat,
     Dragon,

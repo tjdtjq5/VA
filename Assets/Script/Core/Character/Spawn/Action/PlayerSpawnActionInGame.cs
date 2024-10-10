@@ -36,7 +36,7 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
             return null;
         }
     }
-    public override int JobCount(CharacterJob job)
+    public override int JobCount(Tribe job)
     {
         int count = 0;
         for (int i = 0; i < playerCharacters.Length; i++) 

@@ -1,22 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JobSkill : MonoBehaviour
+public class TribeSkill : MonoBehaviour
 {
-    CharacterJob job;
+    Tribe tribe;
     Entity owner;
     Entity target;
 
-    string EffectObjectPathFormat = "Effect/EFFECT_Job_{0}";
+    string EffectObjectPathFormat = "Effect/EFFECT_Tribe_{0}";
     string effectObjectPath;
     Effect mainEffect;
     Effect otherEffect;
 
     float otherRadius = 3f;
 
-    public void Set(CharacterJob job, Entity owner)
+    public void Set(Tribe job, Entity owner)
     {
-        this.job = job;
+        this.tribe = job;
         this.owner = owner;
 
         effectObjectPath = CSharpHelper.Format_H(EffectObjectPathFormat, job);

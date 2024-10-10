@@ -57,7 +57,7 @@ public class TitleManager : SceneBase
         return null;
     }
 
-    public override int GetPlayerJobCount(CharacterJob job)
+    public override int GetPlayerJobCount(Tribe job)
     {
         throw new System.NotImplementedException();
     }

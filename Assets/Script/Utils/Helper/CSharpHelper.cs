@@ -73,6 +73,21 @@ public static class CSharpHelper
             return 0;
         }
     }
+    public static int EnumInRemain<T>(int value, bool isDebug) where T : Enum
+    {
+        try
+        {
+            int len = GetEnumLength<T>();
+            return value % len;
+        }
+        catch
+        {
+            if (isDebug)
+                UnityHelper.Log_H($"CSharpHelper Parse Error\nvalue : {value}");
+
+            return 0;
+        }
+    }
     public static int IntParse(string value, bool isDebug)
     {
         try
@@ -539,6 +554,19 @@ public static class CSharpHelper
             list.Add(value);
         else
             list[findIndex] = value;
+    }
+    public static void Shuffle<T>(this IList<T> list)
+    {
+        Random rng = new Random();
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
     }
     #endregion
 

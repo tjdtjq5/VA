@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5572046b21b14245abd62fa7d8c6ca9, type: 3}
-  m_Name: EFFECT_Job_Dragon
+  m_Name: EFFECT_Tribe_Druid
   m_EditorClassIdentifier: 
   categories: []
   icon: {fileID: 0}
-  id: 2
-  codeName: Job_Dragon
-  displayName: 
-  description: 
+  id: 3
+  codeName: Tribe_Druid
+  displayName: Tribe_Druid
+  description: Tribe_Druid
   type: 0
   isAllowDuplicate: 1
   removeDuplicateTargetOption: 0
@@ -29,21 +29,21 @@ MonoBehaviour:
     maxStack: 1
     stackActions: []
     action:
-      rid: 8010792345591873543
+      rid: 8010792345591873544
     runningFinishOption: 0
     isApplyAllWhenDurationExpires: 0
     duration:
-      defaultValue: 0
+      defaultValue: 0.5
       scaleStat: {fileID: 0}
-    applyCount: 1
+    applyCount: 4
     applyCycle: 0
     customActions:
-    - rid: 8010792345591873537
+    - rid: 8010792345591873539
   - level: 2
     maxStack: 1
     stackActions: []
     action:
-      rid: 8010792345591873550
+      rid: 8010792345591873548
     runningFinishOption: 0
     isApplyAllWhenDurationExpires: 0
     duration:
@@ -52,21 +52,21 @@ MonoBehaviour:
     applyCount: 1
     applyCycle: 0
     customActions:
-    - rid: 8010792345591873551
+    - rid: 8010792345591873549
   references:
     version: 2
     RefIds:
-    - rid: 8010792345591873537
+    - rid: 8010792345591873539
       type: {class: SpawnObjectAction, ns: , asm: Assembly-CSharp}
       data:
         targetType: 1
         methodType: 1
-        prefab: {fileID: 4218160674387114083, guid: 57a85b4fb8686fa40b9e1d23b2f2ca48, type: 3}
+        prefab: {fileID: 4218160674387114083, guid: 2e29d91aa7521d34a9759a5ff164aee4, type: 3}
         offset: {x: 0, y: 0, z: 0}
         scaleFactor: {x: 1, y: 1, z: 1}
         isAttachToTarget: 0
         isDestroyOnRelease: 0
-    - rid: 8010792345591873543
+    - rid: 8010792345591873544
       type: {class: DealDamageAction, ns: , asm: Assembly-CSharp}
       data:
         defaultDamage: 5
@@ -74,7 +74,7 @@ MonoBehaviour:
         bonusDamageStatFactor: 0
         bonusDamagePerLevel: 0
         bonusDamagePerStack: 0
-    - rid: 8010792345591873550
+    - rid: 8010792345591873548
       type: {class: DealDamageAction, ns: , asm: Assembly-CSharp}
       data:
         defaultDamage: 5
@@ -82,12 +82,12 @@ MonoBehaviour:
         bonusDamageStatFactor: 0
         bonusDamagePerLevel: 0
         bonusDamagePerStack: 0
-    - rid: 8010792345591873551
+    - rid: 8010792345591873549
       type: {class: SpawnObjectAction, ns: , asm: Assembly-CSharp}
       data:
         targetType: 1
         methodType: 1
-        prefab: {fileID: 4218160674387114083, guid: 57a85b4fb8686fa40b9e1d23b2f2ca48, type: 3}
+        prefab: {fileID: 4218160674387114083, guid: 2e29d91aa7521d34a9759a5ff164aee4, type: 3}
         offset: {x: 0, y: 0, z: 0}
         scaleFactor: {x: 1, y: 1, z: 1}
         isAttachToTarget: 0

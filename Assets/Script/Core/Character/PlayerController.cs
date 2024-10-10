@@ -10,16 +10,16 @@ public class PlayerController : Character
     private SkillSystem skillSystem;
     private MoveController moveController;
     private EntityAnimator animator;
-    private CharacterJobSkill jobSkill;
+    private CharacterTribeSkill jobSkill;
 
     public bool IsLeft => moveController.IsLeft;
     public bool IsDown => moveController.IsDown;
-    public CharacterJob Job => job;
+    public Tribe Job => job;
     private Vector3 JoysticDir { get; set; } = Vector3.zero;
     private float searchRadius = 1000f;
 
     [Header("Setting")]
-    [SerializeField] private CharacterJob job;
+    [SerializeField] private Tribe job;
     [SerializeField] private Skill basicSkill; private Skill RegisterBasicSkill;
     [SerializeField] private Skill activeSkill; [SerializeField] private Skill activeUpgradeSkill; private Skill RegisterActiveSkill;
 
@@ -32,7 +32,7 @@ public class PlayerController : Character
         skillSystem = entity.SkillSystem;
         moveController = entity.Movement.MoveController;
         animator = entity.Animator;
-        jobSkill = this.GetOrAddComponent<CharacterJobSkill>();
+        jobSkill = this.GetOrAddComponent<CharacterTribeSkill>();
 
         skillSystem.onSkillTargetSelectionCompleted -= ReserveSkill;
         skillSystem.onSkillTargetSelectionCompleted += ReserveSkill;
