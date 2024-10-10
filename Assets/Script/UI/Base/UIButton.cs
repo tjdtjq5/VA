@@ -12,10 +12,24 @@ public class UIButton : UIFrame
             return GetComponent<Image>();
         }
     }
+    protected Animator Animator
+    {
+        get
+        {
+            return GetComponent<Animator>();
+        }
+    }
+    protected AniController AniController;
 
     private void Start()
     {
         Image.raycastTarget = true;
+    }
+
+    protected override void Initialize()
+    {
+        if (Animator)
+            AniController = Animator.Initialize();
     }
 
     public void AddClickEvent(Action<PointerEventData> _action)

@@ -18,8 +18,6 @@ public class UIBase : MonoBehaviour
         UISet();
     }
     protected virtual void UISet() { }
-    protected virtual void FuncSet() { }
-
     protected void Bind<T>(Type type) where T : UIBase
     {
         string[] names = type.GetEnumNames();
