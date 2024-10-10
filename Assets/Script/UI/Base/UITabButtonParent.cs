@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class UITabButtonParent : MonoBehaviour
 {
+    int currentIndex = 0;
     List<UITabButton> tabs = new();
+
+    [SerializeField] bool isAllOff;
 
     private void Awake()
     {
         Initialize();
+
+        currentIndex = isAllOff ? -1 : 0;
     }
     void Initialize()
     {
@@ -22,7 +27,12 @@ public class UITabButtonParent : MonoBehaviour
     }
     void SwitchTab(int index)
     {
+        if (isAllOff && index == currentIndex)
+            index = -1;
+
         for (int i = 0; i < tabs.Count; i++)
             tabs[i].SwitchTab(i == index);
+
+        currentIndex = index;
     }
 }

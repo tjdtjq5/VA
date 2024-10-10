@@ -20,6 +20,9 @@ public class UITabButton : UIButton
         else
         {
             AniController.SetBool(switchHash, false);
+
+            UIOffSet();
         }
     }
+    protected virtual void UIOffSet() { }
 }
