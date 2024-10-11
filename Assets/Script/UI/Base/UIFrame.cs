@@ -113,6 +113,12 @@ public class UIFrame : UIBase
                 BindDicsAdd(typeof(UITabButton), key);
                 EnumDicsAdd(key, current);
             }
+            if (child.GetComponent<UITabButtonParent>())
+            {
+                string key = $"{nameof(UITabButtonParent) + "E"}";
+                BindDicsAdd(typeof(UITabButtonParent), key);
+                EnumDicsAdd(key, current);
+            }
             if (child.GetComponent<UIScrollView>())
             {
                 string key = $"{nameof(UIScrollView) + "E"}";

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Animator))]
 public class UITabButton : UIFrame
 {
     public Action<int> SwitchOnHandler {  get; set; }
