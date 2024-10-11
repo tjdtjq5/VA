@@ -1,19 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UITabButtonParent : MonoBehaviour
 {
-    int currentIndex = 0;
     List<UITabButton> tabs = new();
+
+    Dictionary<int, Action<int>> SwitchOnHandler { get; set; }
+    Dictionary<int, Action<int>> SwitchOffHandler { get; set; }
 
     [SerializeField] bool isAllOff;
 
     private void Awake()
     {
         Initialize();
-
-        currentIndex = isAllOff ? -1 : 0;
     }
     void Initialize()
     {
@@ -21,18 +22,21 @@ public class UITabButtonParent : MonoBehaviour
         {
             int index = i;
             UITabButton uITabButton = this.transform.GetChild(i).GetComponent<UITabButton>();
-            uITabButton.AddClickEvent((ped) => { SwitchTab(index); });
+            uITabButton.Set(index, isAllOff);
+            uITabButton.SwitchOnHandler += SwitchOn;
+            uITabButton.SwitchOffHandler += SwitchOff;
             tabs.Add(uITabButton);
         }
     }
-    void SwitchTab(int index)
+    void SwitchOn(int index)
     {
-        if (isAllOff && index == currentIndex)
-            index = -1;
-
-        for (int i = 0; i < tabs.Count; i++)
-            tabs[i].SwitchTab(i == index);
-
-        currentIndex = index;
+        for(int i = 0;i < tabs.Count; i++)
+        {
+            if (tabs[i].Index != index)
+                tabs[i].Switch(false);
+        }
+    }
+    void SwitchOff(int index)
+    {
     }
 }

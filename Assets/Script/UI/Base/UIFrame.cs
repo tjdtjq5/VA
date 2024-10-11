@@ -40,10 +40,6 @@ public class UIFrame : UIBase
             {
                 UnityHelper.GetOrAddComponent<UIText>(child.gameObject);
             }
-            if (child.GetComponent<Button>())
-            {
-                UnityHelper.GetOrAddComponent<UIButton>(child.gameObject);
-            }
             if (child.GetComponent<Slider>())
             {
                 UnityHelper.GetOrAddComponent<UISlider>(child.gameObject);
@@ -109,6 +105,12 @@ public class UIFrame : UIBase
             {
                 string key = $"{nameof(UIButton) + "E"}";
                 BindDicsAdd(typeof(UIButton), key);
+                EnumDicsAdd(key, current);
+            }
+            if (child.GetComponent<UITabButton>())
+            {
+                string key = $"{nameof(UITabButton) + "E"}";
+                BindDicsAdd(typeof(UITabButton), key);
                 EnumDicsAdd(key, current);
             }
             if (child.GetComponent<UIScrollView>())

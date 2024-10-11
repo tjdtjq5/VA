@@ -53,6 +53,9 @@ public class UIBase : MonoBehaviour
                 case nameof(UIButton):
                     objs[i] = gameObject.GetComponent<UIButton>();
                     continue;
+                case nameof(UITabButton):
+                    objs[i] = gameObject.GetComponent<UITabButton>();
+                    continue;
                 case nameof(UIInputField):
                     objs[i] = gameObject.GetComponent<UIInputField>();
                     continue;
@@ -100,6 +103,10 @@ public class UIBase : MonoBehaviour
     protected UIButton GetButton(Enum _enumValue)
     {
         return Get<UIButton>(_enumValue);
+    }
+    protected UITabButton GetTabButton(Enum _enumValue)
+    {
+        return Get<UITabButton>(_enumValue);
     }
     protected UIInputField GetInputField(Enum _enumValue)
     {

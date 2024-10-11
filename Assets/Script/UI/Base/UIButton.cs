@@ -48,21 +48,4 @@ public class UIButton : UIFrame
     {
         BindEvent(Image.gameObject, _action, UIEvent.Drag);
     }
-
-    public void RemoveClickEvent(Action<PointerEventData> _action)
-    {
-        UnBindEvent(Image.gameObject, _action, UIEvent.Click);
-    }
-    public void RemovePointDownEvent(Action<PointerEventData> _action)
-    {
-        UnBindEvent(Image.gameObject, _action, UIEvent.PointDown);
-    }
-    public void RemovePointUpEvent(Action<PointerEventData> _action)
-    {
-        UnBindEvent(Image.gameObject, _action, UIEvent.PointUp);
-    }
-    public void RemoveDragEvent(Action<PointerEventData> _action)
-    {
-        UnBindEvent(Image.gameObject, _action, UIEvent.Drag);
-    }
 }
