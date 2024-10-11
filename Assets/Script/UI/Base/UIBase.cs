@@ -53,6 +53,12 @@ public class UIBase : MonoBehaviour
                 case nameof(UIButton):
                     objs[i] = gameObject.GetComponent<UIButton>();
                     continue;
+                case nameof(UITabButton):
+                    objs[i] = gameObject.GetComponent<UITabButton>();
+                    continue;
+                case nameof(UITabButtonParent):
+                    objs[i] = gameObject.GetComponent<UITabButtonParent>();
+                    continue;
                 case nameof(UIInputField):
                     objs[i] = gameObject.GetComponent<UIInputField>();
                     continue;
@@ -101,9 +107,17 @@ public class UIBase : MonoBehaviour
     {
         return Get<UIButton>(_enumValue);
     }
+    protected UITabButton GetTabButton(Enum _enumValue)
+    {
+        return Get<UITabButton>(_enumValue);
+    }
     protected UIInputField GetInputField(Enum _enumValue)
     {
         return Get<UIInputField>(_enumValue);
+    }
+    protected UITabButtonParent GetTabButtonParent(Enum _enumValue)
+    {
+        return Get<UITabButtonParent>(_enumValue);
     }
 
 
@@ -150,6 +164,24 @@ public class UIBase : MonoBehaviour
                 evt.eventHandlerPointUp -= _action;
                 break;
         }
+    }
+    protected Action<PointerEventData> GetEvent(GameObject _go, UIEvent eventType = UIEvent.Click)
+    {
+        UIEventHandler evt = UnityHelper.GetOrAddComponent<UIEventHandler>(_go);
+
+        switch (eventType)
+        {
+            case UIEvent.Click:
+                return evt.eventHandlerClick;
+            case UIEvent.Drag:
+                return evt.eventHandlerOnDrag;
+            case UIEvent.PointDown:
+                return evt.eventHandlerPointDown;
+            case UIEvent.PointUp:
+                return evt.eventHandlerPointUp;
+        }
+
+        return null;
     }
 
     public RectTransform RectTransform

@@ -1,38 +1,44 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class UITabButtonParent : MonoBehaviour
+public class UITabButtonParent : UIFrame
 {
-    int currentIndex = 0;
     List<UITabButton> tabs = new();
+
+    Dictionary<int, Action<int>> SwitchOnHandler { get; set; } = new();
+    Dictionary<int, Action<int>> SwitchOffHandler { get; set; } = new();
 
     [SerializeField] bool isAllOff;
 
-    private void Awake()
-    {
-        Initialize();
-
-        currentIndex = isAllOff ? -1 : 0;
-    }
-    void Initialize()
+    protected override void Initialize()
     {
         for (int i = 0; i < this.transform.childCount; i++)
         {
             int index = i;
-            UITabButton uITabButton = this.transform.GetChild(i).GetComponent<UITabButton>();
-            uITabButton.AddClickEvent((ped) => { SwitchTab(index); });
+            UITabButton uITabButton = this.transform.GetChild(i).GetOrAddComponent<UITabButton>();
+            uITabButton.Set(index, isAllOff);
+            uITabButton.SwitchOnHandler += SwitchOn;
+            uITabButton.SwitchOffHandler += SwitchOff;
             tabs.Add(uITabButton);
         }
     }
-    void SwitchTab(int index)
+    void SwitchOn(int index)
     {
-        if (isAllOff && index == currentIndex)
-            index = -1;
+        for(int i = 0;i < tabs.Count; i++)
+        {
+            if (tabs[i].Index != index)
+                tabs[i].Switch(false);
+        }
 
-        for (int i = 0; i < tabs.Count; i++)
-            tabs[i].SwitchTab(i == index);
-
-        currentIndex = index;
+        if(SwitchOnHandler.ContainsKey(index))
+            SwitchOnHandler[index]?.Invoke(index);
+    }
+    void SwitchOff(int index)
+    {
+        if (SwitchOffHandler.ContainsKey(index))
+            SwitchOffHandler[index]?.Invoke(index);
     }
 }
