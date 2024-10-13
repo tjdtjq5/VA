@@ -8,9 +8,10 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: TestMaterial
-  m_Shader: {fileID: 4800000, guid: aea75d62413c19a4d84aadc2b372c442, type: 3}
+  m_Shader: {fileID: 4800000, guid: 979f4514fba763942ac0d5a061bef3bf, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
+  - PIXELSNAP_ON
   - _ENVIRONMENTREFLECTIONS_OFF
   - _METALLICSPECGLOSSMAP
   - _NORMALMAP
@@ -33,8 +34,8 @@ Material:
         m_Offset: {x: 9.98, y: 0}
     - _AlphaTex:
         m_Texture: {fileID: 2800000, guid: 8f45f0324b8212c43b271648a857b533, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Scale: {x: 5.78, y: 1}
+        m_Offset: {x: 0.38, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: f1aba3047b4fbfa46b5bfed8c3424ea2, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -107,6 +108,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Time:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -123,12 +128,12 @@ Material:
     - _GridSize: 20
     - _Iterations: 5
     m_Floats:
-    - PixelSnap: 0
+    - PixelSnap: 1
     - _AlphaClip: 0
-    - _Amount: 0.271
-    - _Amount2: 1
+    - _Amount: 0.257
+    - _Amount2: 0.629
     - _Blend: 2
-    - _BlurSize: 0.0004
+    - _BlurSize: 0
     - _BlurX: 0.116
     - _BlurY: 0.254
     - _Brightness: 1
@@ -141,10 +146,10 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _Distance: 1.14
+    - _Distance: 1.33
     - _Distribution: 0
     - _DstBlend: 1
-    - _EffectAmount: 1
+    - _EffectAmount: 0.643
     - _EnableExternalAlpha: 0
     - _EnvironmentReflections: 0
     - _Focus: 0.206
@@ -177,6 +182,9 @@ Material:
     - _StencilWriteMask: 255
     - _Surface: 1
     - _TestFloat: 3
+    - _TimeSpeed: 20
+    - _TimeSpeedX: 0
+    - _TimeSpeedY: 64.3
     - _UseUIAlphaClip: 1
     - _Vibrancy: 0.5
     - _WorkflowMode: 1
@@ -196,6 +204,7 @@ Material:
     - _Size: {r: 64.49, g: 45.7, b: 15.2, a: 0.06}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TestVector: {r: 1, g: 1, b: 1, a: 1}
+    - _Time: {r: 1, g: 1, b: 0, a: 0}
     - _TintColor: {r: 1, g: 1, b: 1, a: 0.2}
     - _UVFO: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
