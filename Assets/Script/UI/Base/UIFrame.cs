@@ -113,6 +113,12 @@ public class UIFrame : UIBase
                 BindDicsAdd(typeof(UITabButton), key);
                 EnumDicsAdd(key, current);
             }
+            if (child.GetComponent<UITabSlider>())
+            {
+                string key = $"{nameof(UITabSlider) + "E"}";
+                BindDicsAdd(typeof(UITabSlider), key);
+                EnumDicsAdd(key, current);
+            }
             if (child.GetComponent<UITabButtonParent>())
             {
                 string key = $"{nameof(UITabButtonParent) + "E"}";

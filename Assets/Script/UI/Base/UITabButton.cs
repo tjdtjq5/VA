@@ -12,13 +12,7 @@ public class UITabButton : UIFrame
     public int Index { get; private set; }
     bool isAllOff;
 
-    Image Image
-    {
-        get
-        {
-            return GetComponent<Image>();
-        }
-    }
+    Image Image => GetComponent<Image>();
     protected Animator Animator
     {
         get
@@ -31,13 +25,11 @@ public class UITabButton : UIFrame
     bool isSwitch = false;
     int switchHash = UnityEngine.Animator.StringToHash("Switch");
 
-    private void Start()
-    {
-        Image.raycastTarget = true;
-    }
     protected override void Initialize()
     {
         base.Initialize();
+
+        Image.raycastTarget = true;
 
         if (Animator)
             AniController = Animator.Initialize();

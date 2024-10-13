@@ -7,5 +7,13 @@ public static class UnityHelperExtention
     {
         return UnityHelper.GetOrAddComponent<T>(_go);
     }
+    public static T FindChild<T>(this GameObject _go, bool _recursive = false) where T : UnityEngine.Object
+    {
+        return UnityHelper.FindChild<T>(_go, _recursive);
+    }
+    public static T FindChild<T>(this GameObject _go, string path) where T : UnityEngine.Object
+    {
+        return UnityHelper.FindChild<T>(_go, path);
+    }
     #endregion
 }
