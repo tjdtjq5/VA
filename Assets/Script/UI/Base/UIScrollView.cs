@@ -2,6 +2,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using EasyButtons;
 
 [RequireComponent(typeof(ScrollRect))]
 public class UIScrollView : UIBase
@@ -20,6 +21,8 @@ public class UIScrollView : UIBase
     ScrollRect _scrollRect;
     List<ICardData> _dataList = new List<ICardData>();
     List<UICard> _cardList = new List<UICard>();
+
+    Image _scrollViewImg;
 
     Scrollbar _scrollbarHorizontal;
     RectTransform _scrollbarHorizontalRectTr;
@@ -69,6 +72,8 @@ public class UIScrollView : UIBase
         base.Initialize();
 
         _scrollRect = UnityHelper.GetOrAddComponent<ScrollRect>(this.gameObject);
+
+        _scrollViewImg = GetComponent<Image>();
 
         _scrollRect.content.anchorMax = new Vector2(0.5f, 1);
         _scrollRect.content.anchorMin = new Vector2(0.5f, 1);
@@ -380,5 +385,14 @@ public class UIScrollView : UIBase
                 _startCornerValue = 0;
                 break;
         }
+    }
+
+    [Button]
+    public void InspectorSetting()
+    {
+        Initialize();
+        ScrollBarHorizontalActive(false);
+        ScrollBarVerticalActive(false);
+        _scrollViewImg.color = Color.clear;
     }
 }
