@@ -7,6 +7,13 @@ public class TableManager
     FormulaTable _formulaTable = new FormulaTable();
     CharacterTable _characterTable = new CharacterTable();
     ItemTable _itemTable = new ItemTable();
+    public void Initialize()
+    {
+        _gameDefineTable.InitialData();
+        _formulaTable.InitialData();
+        _characterTable.InitialData();
+        _itemTable.InitialData();
+    }
     public void DbGets(Action callback = null)
     {
         Managers.Web.SendGetRequest<MasterTableGetsResponse>("masterTable/gets", (res) =>

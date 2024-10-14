@@ -303,7 +303,7 @@ public class TableWindow : EditorWindow
             TableManagerPacket.Add(tableName);
         }
 
-        TablePacket.Add(tableName);
+        TablePacket.Add(tableName, tableData);
 
         MasterTableServicePacket.Create(tableName);
 
@@ -335,6 +335,7 @@ public class TableWindow : EditorWindow
             TableFunction.UpdateTable(tableName, tableData);
 
             TableCodeDefine(tableName, tableData);
+            CreateSOs(tableName, tableData);
             DefineCopy();
         }
     }
@@ -556,8 +557,43 @@ public class TableWindow : EditorWindow
         bool isExistDefineEnum = CSharpHelper.ExistEnumData<DefineTableCodeType>(tableName);
         if (isExistDefineEnum) 
         {
-            List<string> tableKeys = GoogleSpreadSheetUtils.GetKeyDatas(tableName, tableData);
+            List<string> tableKeys = GoogleSpreadSheetUtils.GetKeyDatas(tableData);
             TableDefineCodePacket.Update(tableName, tableKeys);
         }
+    }
+
+    // SO
+    public void CreateSOs(string tableName, string tableData)
+    {
+        bool isExistSOEnum = CSharpHelper.ExistEnumData<SOTableType>(tableName);
+
+        if (isExistSOEnum)
+        {
+            List<string> tableKeys = GoogleSpreadSheetUtils.GetKeyDatas(tableData);
+            for (int i = 0; i < tableKeys.Count; i++)
+            {
+                TableSO soData = CreateSO(tableName, tableKeys[i]);
+            }
+        }
+    }
+    public TableSO CreateSO(string tableName, string code)
+    {
+        string path = DefinePath.TableSODirectory(tableName);
+        if (!FileHelper.DirectoryExist(path))
+            FileHelper.DirectoryCreate(path);
+
+        string soName = DefinePath.TableSOName(tableName, code);
+
+        path = DefinePath.TableSOPath(tableName, code);
+        var so = AssetDatabase.LoadAssetAtPath<TableSO>(path);
+
+        if (so == null)
+        {
+            so = CreateInstance<TableSO>();
+            so.codeName = code;
+            AssetDatabase.CreateAsset(so, path);
+        }
+
+        return so;
     }
 }

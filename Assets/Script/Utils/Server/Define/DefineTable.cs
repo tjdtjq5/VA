@@ -125,3 +125,7 @@ public enum FormulaTableCodeDefine
     Stage_Get_LC,
     Character_Level_Up,
 }
+public enum SOTableType
+{
+    Character,
+}

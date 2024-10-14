@@ -413,6 +413,18 @@ public static class CSharpHelper
 
         return result;
     }
+    public static bool IsNumber(this string value)
+    {
+        try
+        {
+            float data = float.Parse(value);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
     #endregion
 
     #region Encoding

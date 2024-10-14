@@ -4,6 +4,11 @@ public class PlayerDataManager
 {
     ItemPlayerDataC _item = new ItemPlayerDataC(); 
     CharacterPlayerDataC _character = new CharacterPlayerDataC(); 
+    public void Initialize()
+    {
+        _item.InitialData();
+        _character.InitialData();
+    }
     public void DbGets(Action callback = null)
     {
         Managers.Web.SendGetRequest<PlayerDataGetsResponse>("playerData/gets", (_result) =>

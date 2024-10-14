@@ -60,6 +60,8 @@ public class Managers : MonoBehaviour
             s_instance._time.Initialize();
             s_instance._chat.Initialize();
             s_instance._web.Initialize();
+            s_instance._playerData.Initialize();
+            s_instance._table.Initialize();
         }
     }
 

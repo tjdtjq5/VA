@@ -16,4 +16,18 @@ public class ItemPlayerDataC : PlayerDataC<PlayerItemData>
     {
         return null;
     }
+
+    public override void InitialData()
+    {
+        List<PlayerItemData> datas = new List<PlayerItemData>()
+        {
+            new PlayerItemData() { ItemCode = "Elixir", SignValue = 500000 },
+            new PlayerItemData() { ItemCode = "TalentConverter", SignValue = 500000 },
+            new PlayerItemData() { ItemCode = "Cobalt", SignValue = 500000 },
+            new PlayerItemData() { ItemCode = "Gesso", SignValue = 500000 },
+            new PlayerItemData() { ItemCode = "Cubic", SignValue = 500000 },
+            new PlayerItemData() { ItemCode = "MeteoriteDebris", SignValue = 500000 },
+        };
+        Sets(datas);
+    }
 }

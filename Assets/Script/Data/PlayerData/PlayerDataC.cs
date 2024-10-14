@@ -8,4 +8,5 @@ public abstract class PlayerDataC<T>
     public void Sets(List<T> datas) => this.datas = datas;  
     public abstract void DbGets(Action<List<T>> result);
     public abstract List<Stat> GetStats();
+    public virtual void InitialData() { }
 }
