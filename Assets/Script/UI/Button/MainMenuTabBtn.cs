@@ -10,10 +10,6 @@ public class MainMenuTabBtn : UITabButton
 		Bind<UIImage>(typeof(UIImageE));
 	}
 
-    protected override void UISet()
-    {
-        base.UISet();
-    }
     public enum UIImageE
     {
 		Icon,

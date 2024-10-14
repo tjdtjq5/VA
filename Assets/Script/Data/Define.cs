@@ -75,3 +75,13 @@ public enum Tribe
     Robot,
     Thief,
 }
+public enum Grade
+{
+    D,
+    C,
+    B,
+    A,
+    S,
+    SS,
+    SSS,
+}

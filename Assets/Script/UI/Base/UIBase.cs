@@ -65,12 +65,15 @@ public class UIBase : MonoBehaviour
                 case nameof(UIInputField):
                     objs[i] = gameObject.GetComponent<UIInputField>();
                     continue;
+                case nameof(UICheck):
+                    objs[i] = gameObject.GetComponent<UICheck>();
+                    continue;
             }
 
             if (typeof(T) == typeof(GameObject))
-                objs[i] = UnityHelper.FindChildPath<T>(gameObject, path);
+                objs[i] = UnityHelper.FindChildByPath<T>(gameObject, path);
             else
-                objs[i] = UnityHelper.FindChildPath<T>(gameObject, path);
+                objs[i] = UnityHelper.FindChildByPath<T>(gameObject, path);
         }
     }
     protected T Get<T>(Enum _enumValue) where T : UIBase
@@ -125,6 +128,10 @@ public class UIBase : MonoBehaviour
     protected UITabButtonParent GetTabButtonParent(Enum _enumValue)
     {
         return Get<UITabButtonParent>(_enumValue);
+    }
+    protected UICheck GetCheck(Enum _enumValue)
+    {
+        return Get<UICheck>(_enumValue);
     }
 
 

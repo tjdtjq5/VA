@@ -11,9 +11,13 @@ public static class UnityHelperExtention
     {
         return UnityHelper.FindChild<T>(_go, _recursive);
     }
-    public static T FindChild<T>(this GameObject _go, string path) where T : UnityEngine.Object
+    public static T FindChild<T>(this GameObject _go, string name) where T : UnityEngine.Object
     {
-        return UnityHelper.FindChild<T>(_go, path);
+        return UnityHelper.FindChild<T>(_go, name);
+    }
+    public static T FindChildByPath<T>(this GameObject _go, string path) where T : UnityEngine.Object
+    {
+        return UnityHelper.FindChildByPath<T>(_go, path);
     }
     #endregion
 }

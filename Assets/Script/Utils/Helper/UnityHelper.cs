@@ -115,7 +115,7 @@ public static class UnityHelper
 
         return null;
     }
-    public static T FindChildPath<T>(GameObject _go, string path)
+    public static T FindChildByPath<T>(GameObject _go, string path)
     {
         string parentsName = _go.name.Replace("(Clone)", "");
         List<string> objNames = path.Split('/').ToList();
@@ -152,7 +152,7 @@ public static class UnityHelper
             }
             else
             {
-                return FindChildPath<T>(child, path);
+                return FindChildByPath<T>(child, path);
             }
         }
 

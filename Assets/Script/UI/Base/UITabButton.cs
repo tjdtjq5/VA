@@ -23,7 +23,7 @@ public class UITabButton : UIFrame
     protected AniController AniController;
 
     bool isSwitch = false;
-    int switchHash = UnityEngine.Animator.StringToHash("Switch");
+    int switchHash = Animator.StringToHash("Switch");
 
     protected override void Initialize()
     {
@@ -54,6 +54,8 @@ public class UITabButton : UIFrame
 
             if (SwitchOnHandler != null)
                 SwitchOnHandler.Invoke(Index);
+
+            UIOnSet();
         }
         else
         {
@@ -61,6 +63,8 @@ public class UITabButton : UIFrame
 
             if (SwitchOffHandler != null)
                 SwitchOffHandler.Invoke(Index);
+
+            UIOffSet();
         }
     }
     void OnClickEvent(PointerEventData ped)
@@ -70,4 +74,8 @@ public class UITabButton : UIFrame
 
         Switch(!isSwitch);
     }
+
+    protected override sealed void UISet() => base.UISet();
+    protected virtual void UIOnSet() { }
+    protected virtual void UIOffSet() { }
 }

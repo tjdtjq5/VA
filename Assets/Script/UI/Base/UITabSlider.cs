@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UITabSlider : UIFrame
 {
-    protected IReadOnlyList<string> TabNames = new List<string>() { "관리", "편성" };
+    protected virtual IReadOnlyList<string> TabNames { get; set; }
     protected int SelectIndex {  get; set; }
+    public Action<int> tabHandler;
 
 	string tabBtnPrefabName = "Prefab/UI/Tab/TabSliderBtn";
     string selectTrName = "Select";
@@ -53,7 +55,6 @@ public class UITabSlider : UIFrame
         SelectTextSet();
     }
     
-
     protected override void UISet()
     {
         base.UISet();
@@ -61,9 +62,15 @@ public class UITabSlider : UIFrame
 
     public void OnClickTab(int index)
     {
+        if (SelectIndex.Equals(index))
+            return;
+
         SelectIndex = index;
         SelectTextSet();
         SelectMove();
+
+        if (tabHandler != null)
+            tabHandler.Invoke(index);
     }
     void SelectMove()
     {

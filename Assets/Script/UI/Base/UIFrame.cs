@@ -137,6 +137,12 @@ public class UIFrame : UIBase
                 BindDicsAdd(typeof(UIInputField), key);
                 EnumDicsAdd(key, current);
             }
+            if (child.GetComponent<UICheck>())
+            {
+                string key = $"{nameof(UICheck) + "E"}";
+                BindDicsAdd(typeof(UICheck), key);
+                EnumDicsAdd(key, current);
+            }
 
             if (child.GetComponent<UIFrame>())
             {
