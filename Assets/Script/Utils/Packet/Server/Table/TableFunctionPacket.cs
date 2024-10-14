@@ -133,7 +133,7 @@ public class TableFunctionPacket
 
         List<{0}TableData> tableDatas = GoogleSpreadSheetUtils.GetListTableDatas<{0}TableData>(tableName, tableData);
 
-        string addUrl = $""{{CSharpHelper.StartCharToLower(tableName)}}Table/update"";
+        string addUrl = $""{{tableName.ToLower_H()}}Table/update"";
         var result = await WebTaskCall.Post<{0}TableUpdateResponse>(true, addUrl, tableDatas);
 
         string resultSeri = CSharpHelper.SerializeObject(result);

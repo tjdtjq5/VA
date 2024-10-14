@@ -16,7 +16,7 @@ public class TableFunction
 
         List<FormulaTableData> tableDatas = GoogleSpreadSheetUtils.GetListTableDatas<FormulaTableData>(tableName, tableData);
 
-        string addUrl = $"{CSharpHelper.ToLower_H(tableName)}Table/update";
+        string addUrl = $"{tableName.ToLower_H()}Table/update";
         var result = await WebTaskCall.Post<FormulaTableUpdateResponse>(true, addUrl, tableDatas);
 
         string resultSeri = CSharpHelper.SerializeObject(result);

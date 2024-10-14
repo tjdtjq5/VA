@@ -568,7 +568,7 @@ public class SimpleFormat
 
         RemoveStruct(file, lineFormat);
     }
-    public static void RemoveStruct(string file, string format)
+    public static void RemoveStruct(string file, string lineFormat)
     {
         string text = "";
         int leftBracketCount = 0;
@@ -577,7 +577,7 @@ public class SimpleFormat
 
         foreach (var line in FileHelper.ReadLines(file))
         {
-            if (line.Contains(format))
+            if (line.Contains(lineFormat))
             {
                 readCheck = true;
             }
@@ -597,6 +597,62 @@ public class SimpleFormat
 
                 if (leftBracketCount != 0 && leftBracketCount == rightBracketCount)
                 {
+                    readCheck = false;
+                }
+            }
+        }
+
+        text = text.Substring(0, text.Length - 1);
+        FileHelper.Write(file, text, true);
+    }
+
+    public static void RemoveStructInner(Type scriptType, string lineFormat)
+    {
+        string file = $"{FileHelper.GetScriptPath(scriptType)}";
+
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.LogError_H($"SimpleFormat RemoveStructInner Not Found File Error\nscriptType : {scriptType.Name}");
+            return;
+        }
+
+        RemoveStructInner(file, lineFormat);
+    }
+    public static void RemoveStructInner(string file, string lineFormat)
+    {
+        string text = "";
+        int leftBracketCount = 0;
+        int rightBracketCount = 0;
+        bool readCheck = false;
+
+        foreach (var line in FileHelper.ReadLines(file))
+        {
+            if (line.Contains(lineFormat))
+            {
+                text += $"{line}\n";
+                readCheck = true;
+            }
+
+            if (!readCheck)
+            {
+                text += $"{line}\n";
+            }
+
+            if (readCheck)
+            {
+                if (line.Contains('{'))
+                {
+                    if (leftBracketCount == 0)
+                        text += $"{line}\n";
+                    leftBracketCount++;
+                }
+
+                if (line.Contains('}'))
+                    rightBracketCount++;
+
+                if (leftBracketCount != 0 && leftBracketCount == rightBracketCount)
+                {
+                    text += $"{line}\n";
                     readCheck = false;
                 }
             }

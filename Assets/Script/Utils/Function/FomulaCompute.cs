@@ -165,7 +165,7 @@ public static class FomulaCompute
         else if (expr.Contains(Divide))
             return DivideC(a, b);
         else if (expr.Contains(Root))
-            return RootC(a, b.Float());
+            return RootC(a, b.ToFloat());
 
         return 0;
     }

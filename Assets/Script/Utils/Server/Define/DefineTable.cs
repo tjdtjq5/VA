@@ -110,6 +110,11 @@ public enum GameDefineTableCodeDefine
     GN_C_Level_UP,
 }
 
+public enum SOTableType
+{
+    Character,
+}
+
 public enum FormulaTableCodeDefine
 {
     Stage_Get_Gesso,
@@ -124,4 +129,5 @@ public enum FormulaTableCodeDefine
     Stage_Get_StarCandy,
     Stage_Get_LC,
     Character_Level_Up,
+    Need_C_Awake_Card,
 }

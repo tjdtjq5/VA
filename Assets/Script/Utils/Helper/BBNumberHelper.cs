@@ -49,7 +49,7 @@ public static class BBNumberHelper
     {
         return Tuple.Create(endm / UNICODE_ALPHABET_COUNT, endm % UNICODE_ALPHABET_COUNT);
     }
-    public static double Double(this BBNumber bbNumber)
+    public static double ToDouble(this BBNumber bbNumber)
     {
         try
         {
@@ -61,12 +61,13 @@ public static class BBNumberHelper
             double p = Math.Pow(10.0, bbNumber.exponent);
             return bbNumber.significand * p;
         }
-        catch
+        catch (Exception e)
         {
-            return 0;
+            UnityHelper.LogError_H($"BBNumberHelper ToDouble Error\ne : {e.Message}");
+            throw;
         }
     }
-    public static float Float(this BBNumber bbNumber)
+    public static float ToFloat(this BBNumber bbNumber)
     {
         try
         {
@@ -76,9 +77,26 @@ public static class BBNumberHelper
             float p = (float)Math.Pow(10.0, bbNumber.exponent);
             return (float)bbNumber.significand * p;
         }
-        catch
+        catch (Exception e)
         {
-            return 0;
+            UnityHelper.LogError_H($"BBNumberHelper ToFloat Error\ne : {e.Message}");
+            throw;
+        }
+    }
+    public static int ToInt(this BBNumber bbNumber)
+    {
+        try
+        {
+            if (bbNumber.exponent < -5)
+                return 0;
+
+            int p = (int)Math.Pow(10.0, bbNumber.exponent);
+            return (int)bbNumber.significand * p;
+        }
+        catch(Exception e)
+        {
+            UnityHelper.LogError_H($"BBNumberHelper ToInt Error\ne : {e.Message}");
+            throw;
         }
     }
     public static string ToCountString(this BBNumber bbNumber)

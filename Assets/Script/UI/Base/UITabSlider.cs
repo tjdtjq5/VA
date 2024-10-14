@@ -6,7 +6,7 @@ public class UITabSlider : UIFrame
 {
     protected virtual IReadOnlyList<string> TabNames { get; set; }
     protected int SelectIndex {  get; set; }
-    public Action<int> tabHandler;
+    public Action<int> TabHandler;
 
 	string tabBtnPrefabName = "Prefab/UI/Tab/TabSliderBtn";
     string selectTrName = "Select";
@@ -69,8 +69,8 @@ public class UITabSlider : UIFrame
         SelectTextSet();
         SelectMove();
 
-        if (tabHandler != null)
-            tabHandler.Invoke(index);
+        if (TabHandler != null)
+            TabHandler.Invoke(index);
     }
     void SelectMove()
     {

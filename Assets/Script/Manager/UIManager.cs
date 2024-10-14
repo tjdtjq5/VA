@@ -9,7 +9,8 @@ public class UIManager
 
     GameObject rootGo = null;
 
-    List<UIPopup> _popupStack = new List<UIPopup>(); 
+    Dictionary<string, GameObject> _popupDics = new Dictionary<string, GameObject>();
+    List<string> _popupNameStack = new List<string>();
     GameObject RootGo
     {
         get
@@ -27,7 +28,7 @@ public class UIManager
             return rootGo;
         }
     } 
-    int Count => _popupStack.Count;
+    int Count => _popupDics.Count;
     int LastIndex => Count - 1;
 
     public void SetPopupCanvas(GameObject go, bool sort = true)
@@ -54,9 +55,18 @@ public class UIManager
             name = typeof(T).Name;
         }
 
-        GameObject go = Managers.Resources.Instantiate($"Prefab/UI/Popup/{name}");
+        GameObject go = null;
+        if (_popupDics.ContainsKey(name))
+            go = _popupDics[name];
+        else
+        {
+            go = Managers.Resources.Instantiate($"Prefab/UI/Popup/{name}");
+            _popupDics.Add(name, go);
+        }
+
+        _popupNameStack.Add(name);
+
         T popup = UnityHelper.GetOrAddComponent<T>(go);
-        _popupStack.Add(popup);
 
         go.transform.SetParent(RootGo.transform);
 
@@ -64,35 +74,38 @@ public class UIManager
     }
     public void ClosePopupUI()
     {
-        if (_popupStack.Count == 0)
+        if (_popupDics.Count == 0)
             return;
 
-        UIPopup popup = _popupStack[LastIndex];
-        _popupStack.RemoveAt(LastIndex);
+        string popupName = _popupNameStack[LastIndex];
+        ClosePopupUI(popupName);
+        _popupNameStack.RemoveAt(LastIndex);
+    }
+    public void ClosePopupUI(string name)
+    {
+        if (_popupDics.ContainsKey(name))
+        {
+            Managers.Resources.Destroy(_popupDics[name]);
+            _popupDics.Remove(name);
+        }
 
-        Managers.Resources.Destroy(popup.gameObject);
-
-        popup = null;
+        if (_popupNameStack.Contains(name))
+            _popupNameStack.Remove(name);
     }
     public void ClosePopupUI(UIPopup popup)
     {
-        int findIndex = _popupStack.FindIndex(p => p.Equals(popup));
-        if (findIndex < 0)
+        foreach (var go in _popupDics) 
         {
-            UnityHelper.LogError_H($"UIManager ClosePopupUI Failed");
-            return;
+            if (go.Value.gameObject == popup.gameObject)
+            {
+                ClosePopupUI(go.Key);
+                break;
+            }
         }
-
-        UIPopup find = _popupStack[findIndex];
-        _popupStack.RemoveAt(findIndex);
-
-        Managers.Resources.Destroy(find.gameObject);
-
-        find = null;
     }
     public void CloseAllPopupUI()
     {
-        while (_popupStack.Count > 0) 
+        while (_popupDics.Count > 0) 
         {
             ClosePopupUI();
         }

@@ -65,6 +65,10 @@ public class FileHelper
     {
         return Directory.Exists(directory);
     }
+    public static void DirectoryCreate(string path)
+    {
+        Directory.CreateDirectory(path);
+    }
     public static void FileDelete(string file, bool isRefreash)
     {
         File.Delete(file);
