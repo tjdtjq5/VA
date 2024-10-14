@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class FormulaTable : Table<FormulaTableData>
 {
@@ -31,5 +32,53 @@ public class FormulaTable : Table<FormulaTableData>
             new FormulaTableData() { formulaCode = "Character_Level_Up", fM = "10+(10*{C_LEVEL})", tipName = "캐릭터레벨업",  },
         };
         Push(datas);
+    }
+
+    public BBNumber GetValue(FormulaTableCodeDefine code, Dictionary<FormulaKeyword, int> keywordDics)
+    {
+        string formulaData = GetData(code).fM;
+        int keywordLen = CSharpHelper.GetEnumLength<FormulaKeyword>();
+
+        try
+        {
+            for (int i = 0; i < keywordLen; i++)
+            {
+                FormulaKeyword keyword = (FormulaKeyword)i;
+                string keywordStr = $"{{{keyword}}}";
+
+                if (formulaData.Contains(keywordStr))
+                {
+                    if (keywordDics.ContainsKey(keyword))
+                        formulaData = formulaData.Replace(keywordStr, keywordDics[keyword].ToString());
+                    else
+                        throw null;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            UnityHelper.LogError_H($"FormulaTable GetValue Error\ne : {e.Message}");
+            throw;
+        }
+       
+
+        return FomulaCompute.Compute(formulaData);
+    }
+    private FormulaTableData GetData(FormulaTableCodeDefine code)
+    {
+        FormulaTableData data = datas.Where(d => d.formulaCode.Equals(code.ToString())).FirstOrDefault();
+
+        try
+        {
+            if (data == null)
+                throw null;
+        }
+        catch (Exception e)
+        {
+            UnityHelper.LogError_H($"FormulaTable GetValue Error\ne : {e.Message}");
+            throw;
+        }
+
+        return data;
     }
 }

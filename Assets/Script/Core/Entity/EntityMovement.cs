@@ -60,7 +60,7 @@ public class EntityMovement : MonoBehaviour
         entityMoveSpeedStat = moveSpeedStat ? Owner.Stats.GetStat(moveSpeedStat) : null;
         if (entityMoveSpeedStat)
         {
-            moveController.Speed = entityMoveSpeedStat.Value.Float();
+            moveController.Speed = entityMoveSpeedStat.Value.ToFloat();
             entityMoveSpeedStat.onValueChanged += OnMoveSpeedChanged;
         }
 
@@ -138,7 +138,7 @@ public class EntityMovement : MonoBehaviour
     }
 
     private void OnMoveSpeedChanged(Stat stat, BBNumber currentValue, BBNumber prevValue)
-        => moveController.Speed = currentValue.Float();
+        => moveController.Speed = currentValue.ToFloat();
 
 
 

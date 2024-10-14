@@ -36,7 +36,7 @@ public class PoolManager
                 return;
             }
 
-            poolable.transform.parent = Root;
+            poolable.transform.SetParent(Root);
             poolable.gameObject.SetActive(false);
             poolable.IsUsing = false;
 
@@ -54,7 +54,7 @@ public class PoolManager
             if (parent == null)
                 parent = Root;
 
-            poolable.transform.parent = parent;
+            poolable.transform.SetParent(parent);
             poolable.gameObject.SetActive(true);
             poolable.IsUsing = true;
 

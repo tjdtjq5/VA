@@ -94,7 +94,7 @@ public class Effect : IdentifiedObject
     public int DataBonusLevel => Mathf.Max(level - currentData.level, 0);
 
     // Effect�� ���� �ð�
-    public float Duration => currentData.duration.GetValue(User.Stats).Float();
+    public float Duration => currentData.duration.GetValue(User.Stats).ToFloat();
     // Duration�� 0�̸� ���� ����
     public bool IsTimeless => Mathf.Approximately(Duration, kInfinity);
     public float CurrentDuration
