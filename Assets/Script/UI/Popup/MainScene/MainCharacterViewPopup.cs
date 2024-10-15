@@ -50,7 +50,7 @@ public class MainCharacterViewPopup : UIPopup
 	 	var tableDatas = Managers.Table.CharacterTable.Gets().ToList();
 
         if (!isAll)
-            tableDatas = tableDatas.FindAll(t => t.tribeType.Equals(tribe));
+            tableDatas = tableDatas.FindAll(t => t.tribeType.Equals((int)tribe));
 
 		var playerDatas = Managers.PlayerData.Character.Gets();
 

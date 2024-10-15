@@ -20,6 +20,7 @@ public class Managers : MonoBehaviour
     TableManager _table = new TableManager();
     ObserverManager _observer = new ObserverManager();
     PlayerDataManager _playerData = new PlayerDataManager();
+    AtlasManager _atlas = new AtlasManager();
 
     public static WebManager Web { get { return Instance._web; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
@@ -36,6 +37,7 @@ public class Managers : MonoBehaviour
     public static TableManager Table { get { return Instance._table; } }
     public static ObserverManager Observer { get { return Instance._observer; } }
     public static PlayerDataManager PlayerData { get { return Instance._playerData; } }
+    public static AtlasManager Atlas { get { return Instance._atlas; } }
 
     void Start()
     {
@@ -62,6 +64,7 @@ public class Managers : MonoBehaviour
             s_instance._web.Initialize();
             s_instance._playerData.Initialize();
             s_instance._table.Initialize();
+            s_instance._atlas.Initialize();
         }
     }
 
