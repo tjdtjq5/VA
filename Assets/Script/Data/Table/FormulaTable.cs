@@ -57,7 +57,7 @@ public class FormulaTable : Table<FormulaTableData>
         }
         catch (Exception e)
         {
-            UnityHelper.LogError_H($"FormulaTable GetValue Error\ne : {e.Message}");
+            UnityHelper.Error_H($"FormulaTable GetValue Error\ne : {e.Message}");
             throw;
         }
        
@@ -75,7 +75,7 @@ public class FormulaTable : Table<FormulaTableData>
         }
         catch (Exception e)
         {
-            UnityHelper.LogError_H($"FormulaTable GetValue Error\ne : {e.Message}");
+            UnityHelper.Error_H($"FormulaTable GetValue Error\ne : {e.Message}");
             throw;
         }
 

@@ -26,21 +26,21 @@ public class UIItemTest : UIPopup
     {
         Managers.Table.ItemTable.DbGets((res) => 
 		{
-            UnityHelper.LogSerialize(res);
+            UnityHelper.SerializeL(res);
         });
     }
     void OnClickCharacterTable(PointerEventData ped)
     {
         Managers.Table.CharacterTable.DbGets((res) =>
         {
-            UnityHelper.LogSerialize(res);
+            UnityHelper.SerializeL(res);
         });
     }
     void OnClickItemGets(PointerEventData ped)
 	{
 		Managers.Web.SendGetRequest<PlayerItemGetResponse>("playerItem/gets", (res) => 
 		{
-			UnityHelper.LogSerialize(res);
+			UnityHelper.SerializeL(res);
 		});
 	}
     void OnClickItemPush(PointerEventData ped)
@@ -59,7 +59,7 @@ public class UIItemTest : UIPopup
 
         Managers.Web.SendPostRequest<PlayerItemPushResponse>("playerItem/push", req, (res) =>
         {
-            UnityHelper.LogSerialize(res);
+            UnityHelper.SerializeL(res);
         });
     }
     void OnClickCharacterLevelup(PointerEventData ped)
@@ -77,7 +77,7 @@ public class UIItemTest : UIPopup
 
         Managers.Web.SendPostRequest<CPDLevelUpResponse>("characterPlayerData/levelup", req, (res) =>
         {
-            UnityHelper.LogSerialize(res);
+            UnityHelper.SerializeL(res);
         });
     }
 

@@ -1,5 +1,8 @@
+using EasyButtons;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -24,7 +27,16 @@ public class UIBase : MonoBehaviour
 
         UIBase[] objs = new UIBase[names.Length];
 
-        objectDics.Add(typeof(T), objs);
+        if (!objectDics.ContainsKey(typeof(T)))
+        {
+            objectDics.Add(typeof(T), objs);
+        }
+        else
+        {
+            var tempL = objectDics[typeof(T)].ToList();
+            tempL.AddRange(objs);
+            objectDics[typeof(T)] = tempL.ToArray();
+        }
 
         for (int i = 0; i < names.Length; i++)
         {
@@ -81,7 +93,10 @@ public class UIBase : MonoBehaviour
         UIBase[] objs = null;
 
         if (objectDics.TryGetValue(typeof(T), out objs) == false)
+        {
+            UnityHelper.Error_H($"UIBase Get Error\nT : {typeof(T)}");
             return null;
+        }
 
         return objs[_enumValue.GetHashCode()] as T;
     }
@@ -203,6 +218,19 @@ public class UIBase : MonoBehaviour
         get
         {
             return UnityHelper.GetOrAddComponent<RectTransform>(this.gameObject);
+        }
+    }
+
+    [Button]
+    public void Test()
+    {
+        foreach (var t in this.objectDics)
+        {
+            UnityHelper.Log_H($"====={t.Key.Name}=====");
+            for (var i = 0; i < t.Value.Length; i++)
+            {
+                UnityHelper.Log_H($"{t.Value[i].GetType().Name}");
+            }
         }
     }
 

@@ -32,7 +32,7 @@ public class SpineAniController : MonoBehaviour
         }
         catch
         {
-            UnityHelper.LogError_H($"SpineAniController Play Error\naniName : {aniName}");
+            UnityHelper.Error_H($"SpineAniController Play Error\naniName : {aniName}");
         }
     }
     public void AniSpeed(float _speed)

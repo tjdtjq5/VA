@@ -8,8 +8,8 @@ public class UITabButtonParent : UIFrame
 {
     List<UITabButton> tabs = new();
 
-    Dictionary<int, Action<int>> SwitchOnHandler { get; set; } = new();
-    Dictionary<int, Action<int>> SwitchOffHandler { get; set; } = new();
+    public Action<int> SwitchOnHandler;
+    public Action<int> SwitchOffHandler;
 
     [SerializeField] bool isAllOff;
 
@@ -25,20 +25,21 @@ public class UITabButtonParent : UIFrame
             tabs.Add(uITabButton);
         }
     }
+    public void UISet(int index)
+    {
+        SwitchOn(index);
+    }
     void SwitchOn(int index)
     {
         for(int i = 0;i < tabs.Count; i++)
-        {
-            if (tabs[i].Index != index)
-                tabs[i].Switch(false);
-        }
+            tabs[i].Switch(tabs[i].Index == index);
 
-        if(SwitchOnHandler.ContainsKey(index))
-            SwitchOnHandler[index]?.Invoke(index);
+        if (SwitchOnHandler != null)
+            SwitchOnHandler.Invoke(index);
     }
     void SwitchOff(int index)
     {
-        if (SwitchOffHandler.ContainsKey(index))
-            SwitchOffHandler[index]?.Invoke(index);
+        if (SwitchOffHandler != null)
+            SwitchOffHandler.Invoke(index);
     }
 }

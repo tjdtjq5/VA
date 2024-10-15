@@ -10,7 +10,7 @@ public class SimpleFormat
 
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat OuterCreate Not Found File Error\nscriptType : {scriptType.Name}");
+            UnityHelper.Error_H($"SimpleFormat OuterCreate Not Found File Error\nscriptType : {scriptType.Name}");
             return;
         }
 
@@ -20,7 +20,7 @@ public class SimpleFormat
     {
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat OuterCreate Not Found File Error\nfile : {file}");
+            UnityHelper.Error_H($"SimpleFormat OuterCreate Not Found File Error\nfile : {file}");
             return;
         }
 
@@ -44,7 +44,7 @@ public class SimpleFormat
 
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerClassUpperAdd Not Found File Error\nscriptType : {scriptType.Name}");
+            UnityHelper.Error_H($"SimpleFormat InnerClassUpperAdd Not Found File Error\nscriptType : {scriptType.Name}");
             return;
         }
 
@@ -55,7 +55,7 @@ public class SimpleFormat
     {
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerClassUpperAdd Not Found File Error\nfile : {file}");
+            UnityHelper.Error_H($"SimpleFormat InnerClassUpperAdd Not Found File Error\nfile : {file}");
             return;
         }
 
@@ -69,7 +69,7 @@ public class SimpleFormat
 
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerClassUnderAdd Not Found File Error\nscriptType : {scriptType.Name}");
+            UnityHelper.Error_H($"SimpleFormat InnerClassUnderAdd Not Found File Error\nscriptType : {scriptType.Name}");
             return;
         }
 
@@ -80,7 +80,7 @@ public class SimpleFormat
     {
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerClassUpperAdd Not Found File Error\nfile : {file}");
+            UnityHelper.Error_H($"SimpleFormat InnerClassUpperAdd Not Found File Error\nfile : {file}");
             return;
         }
 
@@ -95,7 +95,7 @@ public class SimpleFormat
 
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerEnumUpperAdd Not Found File Error\nscriptType : {scriptType.Name}");
+            UnityHelper.Error_H($"SimpleFormat InnerEnumUpperAdd Not Found File Error\nscriptType : {scriptType.Name}");
             return;
         }
 
@@ -105,7 +105,7 @@ public class SimpleFormat
     {
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerEnumUpperAdd Not Found File Error\nfile : {file}");
+            UnityHelper.Error_H($"SimpleFormat InnerEnumUpperAdd Not Found File Error\nfile : {file}");
             return;
         }
 
@@ -119,7 +119,7 @@ public class SimpleFormat
 
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerEnumUnderAdd Not Found File Error\nscriptType : {scriptType.Name}");
+            UnityHelper.Error_H($"SimpleFormat InnerEnumUnderAdd Not Found File Error\nscriptType : {scriptType.Name}");
             return;
         }
 
@@ -129,7 +129,7 @@ public class SimpleFormat
     {
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerEnumUnderAdd Not Found File Error\nfile : {file}");
+            UnityHelper.Error_H($"SimpleFormat InnerEnumUnderAdd Not Found File Error\nfile : {file}");
             return;
         }
 
@@ -142,7 +142,7 @@ public class SimpleFormat
     {
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerUpperAdd Not Found File Error\nfile : {file}");
+            UnityHelper.Error_H($"SimpleFormat InnerUpperAdd Not Found File Error\nfile : {file}");
             return;
         }
 
@@ -192,7 +192,7 @@ public class SimpleFormat
     {
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerClassUpperAdd Not Found File Error\nfile : {file}");
+            UnityHelper.Error_H($"SimpleFormat InnerClassUpperAdd Not Found File Error\nfile : {file}");
             return;
         }
 
@@ -237,7 +237,7 @@ public class SimpleFormat
     {
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerClassUpperAdd Not Found File Error\nfile : {file}");
+            UnityHelper.Error_H($"SimpleFormat InnerClassUpperAdd Not Found File Error\nfile : {file}");
             return;
         }
 
@@ -285,7 +285,7 @@ public class SimpleFormat
 
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerTypeDataRemove Not Found File Error\nscriptType : {scriptType.Name}");
+            UnityHelper.Error_H($"SimpleFormat InnerTypeDataRemove Not Found File Error\nscriptType : {scriptType.Name}");
             return;
         }
 
@@ -298,7 +298,7 @@ public class SimpleFormat
     {
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerEnumDataRemove Not Found File Error\nfile : {file}");
+            UnityHelper.Error_H($"SimpleFormat InnerEnumDataRemove Not Found File Error\nfile : {file}");
             return;
         }
 
@@ -311,7 +311,7 @@ public class SimpleFormat
     {
         if(string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerRemove Not Found File Error\nfile : {file}");
+            UnityHelper.Error_H($"SimpleFormat InnerRemove Not Found File Error\nfile : {file}");
             return;
         }
 
@@ -359,7 +359,7 @@ public class SimpleFormat
     {
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerEnumDataExist Not Found File Error\nfile : {file}");
+            UnityHelper.Error_H($"SimpleFormat InnerEnumDataExist Not Found File Error\nfile : {file}");
             return false;
         }
 
@@ -374,7 +374,7 @@ public class SimpleFormat
 
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerExist Not Found File Error\nscriptType : {scriptType.Name}");
+            UnityHelper.Error_H($"SimpleFormat InnerExist Not Found File Error\nscriptType : {scriptType.Name}");
             return false;
         }
 
@@ -384,7 +384,7 @@ public class SimpleFormat
     {
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerRemove Not Found File Error\nfile : {file}");
+            UnityHelper.Error_H($"SimpleFormat InnerRemove Not Found File Error\nfile : {file}");
             return false;
         }
 
@@ -426,7 +426,7 @@ public class SimpleFormat
     {
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat InnerEnumRemove Not Found File Error\nfile : {file}");
+            UnityHelper.Error_H($"SimpleFormat InnerEnumRemove Not Found File Error\nfile : {file}");
             return;
         }
 
@@ -441,7 +441,7 @@ public class SimpleFormat
 
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat Exist Not Found File Error\nscriptType : {scriptType.Name}");
+            UnityHelper.Error_H($"SimpleFormat Exist Not Found File Error\nscriptType : {scriptType.Name}");
             return false;
         }
 
@@ -451,7 +451,7 @@ public class SimpleFormat
     {
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat Exist Not Found File Error\nfile : {file}");
+            UnityHelper.Error_H($"SimpleFormat Exist Not Found File Error\nfile : {file}");
             return false;
         }
 
@@ -472,7 +472,7 @@ public class SimpleFormat
 
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat Replace Not Found File Error\nscriptType : {scriptType.Name}");
+            UnityHelper.Error_H($"SimpleFormat Replace Not Found File Error\nscriptType : {scriptType.Name}");
             return;
         }
 
@@ -482,7 +482,7 @@ public class SimpleFormat
     {
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat Replace Not Found File Error\nfile : {file}");
+            UnityHelper.Error_H($"SimpleFormat Replace Not Found File Error\nfile : {file}");
             return;
         }
 
@@ -490,7 +490,7 @@ public class SimpleFormat
 
         if (!readAll.Contains(originFormat))
         {
-            UnityHelper.LogError_H($"SimpleFormat Replace Not Found originFormat Error\noriginFormat : {originFormat}");
+            UnityHelper.Error_H($"SimpleFormat Replace Not Found originFormat Error\noriginFormat : {originFormat}");
             return;
         }
 
@@ -504,7 +504,7 @@ public class SimpleFormat
 
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat Modify Not Found File Error\nscriptType : {scriptType.Name}");
+            UnityHelper.Error_H($"SimpleFormat Modify Not Found File Error\nscriptType : {scriptType.Name}");
             return;
         }
 
@@ -514,7 +514,7 @@ public class SimpleFormat
     {
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat Modify Not Found File Error\nfile : {file}");
+            UnityHelper.Error_H($"SimpleFormat Modify Not Found File Error\nfile : {file}");
             return;
         }
 
@@ -562,7 +562,7 @@ public class SimpleFormat
 
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat Remove Not Found File Error\nscriptType : {scriptType.Name}");
+            UnityHelper.Error_H($"SimpleFormat Remove Not Found File Error\nscriptType : {scriptType.Name}");
             return;
         }
 
@@ -612,7 +612,7 @@ public class SimpleFormat
 
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat RemoveStructInner Not Found File Error\nscriptType : {scriptType.Name}");
+            UnityHelper.Error_H($"SimpleFormat RemoveStructInner Not Found File Error\nscriptType : {scriptType.Name}");
             return;
         }
 
@@ -668,7 +668,7 @@ public class SimpleFormat
 
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"SimpleFormat RemoveLine Not Found File Error\nscriptType : {scriptType.Name}");
+            UnityHelper.Error_H($"SimpleFormat RemoveLine Not Found File Error\nscriptType : {scriptType.Name}");
             return;
         }
 

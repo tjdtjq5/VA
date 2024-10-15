@@ -63,7 +63,7 @@ public static class BBNumberHelper
         }
         catch (Exception e)
         {
-            UnityHelper.LogError_H($"BBNumberHelper ToDouble Error\ne : {e.Message}");
+            UnityHelper.Error_H($"BBNumberHelper ToDouble Error\ne : {e.Message}");
             throw;
         }
     }
@@ -79,7 +79,7 @@ public static class BBNumberHelper
         }
         catch (Exception e)
         {
-            UnityHelper.LogError_H($"BBNumberHelper ToFloat Error\ne : {e.Message}");
+            UnityHelper.Error_H($"BBNumberHelper ToFloat Error\ne : {e.Message}");
             throw;
         }
     }
@@ -95,7 +95,7 @@ public static class BBNumberHelper
         }
         catch(Exception e)
         {
-            UnityHelper.LogError_H($"BBNumberHelper ToInt Error\ne : {e.Message}");
+            UnityHelper.Error_H($"BBNumberHelper ToInt Error\ne : {e.Message}");
             throw;
         }
     }

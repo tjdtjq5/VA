@@ -440,14 +440,14 @@ public class TableWindow : EditorWindow
             {
                 if (string.IsNullOrEmpty(_connectTableName) || string.IsNullOrEmpty(_connectSheetId) || string.IsNullOrEmpty(_connectRange))
                 {
-                    UnityHelper.LogError_H($"TableWindow ConnetModeSetting Null Or Empty Error");
+                    UnityHelper.Error_H($"TableWindow ConnetModeSetting Null Or Empty Error");
                     return;
                 }
 
                 long sheetId = 0;
                 if (!long.TryParse(_connectSheetId, out sheetId))
                 {
-                    UnityHelper.LogError_H($"TableWindow ConnetModeSetting SheetId Parse Error\n_connectSheetId : {_connectSheetId}");
+                    UnityHelper.Error_H($"TableWindow ConnetModeSetting SheetId Parse Error\n_connectSheetId : {_connectSheetId}");
                     return;
                 }
 
@@ -530,7 +530,7 @@ public class TableWindow : EditorWindow
 
         if (notAlready)
         {
-            UnityHelper.LogError_H($"First you need to delete all table data");
+            UnityHelper.Error_H($"First you need to delete all table data");
             return;
         }
 

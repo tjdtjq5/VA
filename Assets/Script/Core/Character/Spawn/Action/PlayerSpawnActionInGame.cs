@@ -107,7 +107,7 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
     {
         if (index < 0 || playerCharacters.Length <= index)
         {
-            UnityHelper.LogError_H($"DeckController Push Error Too Big Index\nindex : {index}");
+            UnityHelper.Error_H($"DeckController Push Error Too Big Index\nindex : {index}");
             return null;
         }
 
@@ -124,7 +124,7 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
     {
         if (index < 0 || playerCharacters.Length <= index)
         {
-            UnityHelper.LogError_H($"DeckController Push Error Too Big Index\nindex : {index}");
+            UnityHelper.Error_H($"DeckController Push Error Too Big Index\nindex : {index}");
             return;
         }
 

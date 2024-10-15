@@ -67,7 +67,7 @@ public class PlayerDataWindow : EditorWindow
 
         if (playerDataClassSelecter.playerDataClass == null)
         {
-            UnityHelper.LogError_H($"playerDataClassSelecter.playerDataClass Null Error");
+            UnityHelper.Error_H($"playerDataClassSelecter.playerDataClass Null Error");
             return;
         }
 
@@ -85,7 +85,7 @@ public class PlayerDataWindow : EditorWindow
 
         if (playerDataClassSelecter.playerDataClass == null)
         {
-            UnityHelper.LogError_H($"playerDataClassSelecter.playerDataClass Null Error");
+            UnityHelper.Error_H($"playerDataClassSelecter.playerDataClass Null Error");
             return;
         }
 

@@ -10,7 +10,7 @@ public class TableFunction
 	{
         if (!tableName.Equals(GetUpdateTableName))
         {
-            UnityHelper.LogError_H($"Error Deference Table Function");
+            UnityHelper.Error_H($"Error Deference Table Function");
             return;
         }
 

@@ -10,7 +10,7 @@ public class TableRRPacket
         string file = GetTableFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"TableRRPacket Create Error Must Link TableDbData.cs");
+            UnityHelper.Error_H($"TableRRPacket Create Error Must Link TableDbData.cs");
             return;
         }
 
@@ -18,7 +18,7 @@ public class TableRRPacket
 
         if (isExist)
         {
-            UnityHelper.LogError_H($"TableRRPacket Create Error Alread Exist Table\nTable : {tableName}");
+            UnityHelper.Error_H($"TableRRPacket Create Error Alread Exist Table\nTable : {tableName}");
             return;
         }
 
@@ -33,7 +33,7 @@ public class TableRRPacket
         string file = GetTableFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableRR.cs");
+            UnityHelper.Error_H($"Must Link TableRR.cs");
             return;
         }
 
@@ -41,7 +41,7 @@ public class TableRRPacket
 
         if (!isExist)
         {
-            UnityHelper.LogError_H($"TableRRPacket Create Error Not Exist Table\nTable : {tableName}");
+            UnityHelper.Error_H($"TableRRPacket Create Error Not Exist Table\nTable : {tableName}");
             return;
         }
 
@@ -56,7 +56,7 @@ public class TableRRPacket
         string file = GetTableFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableRR.cs");
+            UnityHelper.Error_H($"Must Link TableRR.cs");
             return;
         }
 
@@ -64,7 +64,7 @@ public class TableRRPacket
 
         if (!isExist)
         {
-            UnityHelper.LogError_H($"TableRRPacket Create Error Not Exist Table\nTable : {tableName}");
+            UnityHelper.Error_H($"TableRRPacket Create Error Not Exist Table\nTable : {tableName}");
             return;
         }
 
@@ -82,7 +82,7 @@ public class TableRRPacket
         string file = GetTableFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableRR.cs");
+            UnityHelper.Error_H($"Must Link TableRR.cs");
             return false;
         }
 
@@ -105,7 +105,7 @@ public class TableRRPacket
         }
         else
         {
-            UnityHelper.LogError_H($"TableRRPacket GetTableFile No Linked File");
+            UnityHelper.Error_H($"TableRRPacket GetTableFile No Linked File");
             return "";
         }
     }

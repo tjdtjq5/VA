@@ -1,44 +1,48 @@
 ﻿public class CharacterCard : UICard
 {
-	CharacterCardData _data;
+    CharacterCardData _data;
 
 	protected override void Initialize()
 	{
 		base.Initialize();
 		Bind<UIImage>(typeof(UIImageE));
 		Bind<UIText>(typeof(UITextE));
-		Bind<UISlider>(typeof(UISliderE));
+		Bind<CharacterCardSlider>(typeof(CharacterCardSliderE));
 	}
+
     public override void Setting(ICardData data)
     {
         _data = (CharacterCardData)data;
 
-		NameSetting(_data.soData.DisplayName);
-		SliderSetting(1, _data.playerData.Awake);
+        UnityHelper.SerializeL(_data);
+
+       // NameSetting(_data.soData.DisplayName);
+       // SliderSetting(1, _data.playerData.Awake);
     }
-	void NameSetting(string name)
-	{
-		GetText(UITextE.Text_Name).text = name;
-	}
-	void SliderSetting(int cardCount, int awake)
-	{
-		((CharacterCardSlider)GetSlider(UISliderE.CharacterCardSlider)).UISet(cardCount, awake);
-	}
+    void NameSetting(string name)
+    {
+        GetText(UITextE.TextName).text = name;
+    }
+    void SliderSetting(int cardCount, int awake)
+    {
+        Get<CharacterCardSlider>(CharacterCardSliderE.CharacterCardSlider).UISet(cardCount, awake);
+    }
+    
 	public enum UIImageE
     {
-		Bg_Deco_Bg_Deco_1,
-		Bg_Deco_Bg_Deco_2,
-		Bg_Deco_Bg_Deco_3,
-		Bg_Deco_Bg_Deco_4,
+		BgDeco_BgDeco1,
+		BgDeco_BgDeco2,
+		BgDeco_BgDeco3,
+		BgDeco_BgDeco4,
 		Grade,
 		Job,
     }
 	public enum UITextE
     {
-		Text_Lv,
-		Text_Name,
+		TextLv,
+		TextName,
     }
-	public enum UISliderE
+	public enum CharacterCardSliderE
     {
 		CharacterCardSlider,
     }

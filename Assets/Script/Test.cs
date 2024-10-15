@@ -9,9 +9,9 @@ public class Test : MonoBehaviour
     [Button]
     public void TT()
     {
-        var datas = Managers.Table.CharacterTable.Gets();
-        UnityHelper.LogSerialize(datas);
-        UnityHelper.LogSerialize(Managers.Table.CharacterTable.GetTableSO(datas[0].characterCode).codeName);
+        string a = "Test";
+
+        UnityHelper.Log_H(CSharpHelper.GetTypeByString(a));
     }
     [Button]
     public void MasterGets()
@@ -21,7 +21,7 @@ public class Test : MonoBehaviour
     [Button]
     public void CharacterGets()
     {
-        UnityHelper.LogSerialize(Managers.PlayerData.Item.Gets());
+        UnityHelper.SerializeL(Managers.PlayerData.Item.Gets());
     }
     [Button]
     public void SimpleFormatTest_Update()

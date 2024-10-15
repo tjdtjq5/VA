@@ -7,7 +7,7 @@ public class ServerProgramPacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"ServerProgramPacket AddSingleton Error Must Link ServerProgram.cs");
+            UnityHelper.Error_H($"ServerProgramPacket AddSingleton Error Must Link ServerProgram.cs");
             return;
         }
 
@@ -15,7 +15,7 @@ public class ServerProgramPacket
 
         if (isExist)
         {
-            UnityHelper.LogError_H($"ServerProgramPacket AddSingleton Error Alread Exist\nname : {name}");
+            UnityHelper.Error_H($"ServerProgramPacket AddSingleton Error Alread Exist\nname : {name}");
             return;
         }
 
@@ -57,7 +57,7 @@ public class ServerProgramPacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"ServerProgramPacket RemoveSingleton Error Must Link ServerProgram.cs");
+            UnityHelper.Error_H($"ServerProgramPacket RemoveSingleton Error Must Link ServerProgram.cs");
             return;
         }
 
@@ -65,7 +65,7 @@ public class ServerProgramPacket
 
         if (!isExist)
         {
-            UnityHelper.LogError_H($"ServerProgramPacket RemoveSingleton Error Not Exist\nname : {name}");
+            UnityHelper.Error_H($"ServerProgramPacket RemoveSingleton Error Not Exist\nname : {name}");
             return;
         }
 
@@ -92,7 +92,7 @@ public class ServerProgramPacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link ServerProgram.cs");
+            UnityHelper.Error_H($"Must Link ServerProgram.cs");
             return false;
         }
 
@@ -113,7 +113,7 @@ public class ServerProgramPacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"ServerProgramPacket AddScoped Error Must Link ServerProgram.cs");
+            UnityHelper.Error_H($"ServerProgramPacket AddScoped Error Must Link ServerProgram.cs");
             return;
         }
 
@@ -121,7 +121,7 @@ public class ServerProgramPacket
 
         if (isExist)
         {
-            UnityHelper.LogError_H($"ServerProgramPacket AddScoped Error Alread Exist\nname : {name}");
+            UnityHelper.Error_H($"ServerProgramPacket AddScoped Error Alread Exist\nname : {name}");
             return;
         }
 
@@ -163,7 +163,7 @@ public class ServerProgramPacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"ServerProgramPacket RemoveScoped Error Must Link ServerProgram.cs");
+            UnityHelper.Error_H($"ServerProgramPacket RemoveScoped Error Must Link ServerProgram.cs");
             return;
         }
 
@@ -171,7 +171,7 @@ public class ServerProgramPacket
 
         if (!isExist)
         {
-            UnityHelper.LogError_H($"ServerProgramPacket RemoveScoped Error Not Exist\nname : {name}");
+            UnityHelper.Error_H($"ServerProgramPacket RemoveScoped Error Not Exist\nname : {name}");
             return;
         }
 
@@ -198,7 +198,7 @@ public class ServerProgramPacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link ServerProgram.cs");
+            UnityHelper.Error_H($"Must Link ServerProgram.cs");
             return false;
         }
 
@@ -225,7 +225,7 @@ public class ServerProgramPacket
         }
         else
         {
-            UnityHelper.LogError_H($"ServerProgramPacket GetTableFile No Linked File");
+            UnityHelper.Error_H($"ServerProgramPacket GetTableFile No Linked File");
             return "";
         }
     }

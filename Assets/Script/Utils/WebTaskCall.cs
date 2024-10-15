@@ -92,7 +92,7 @@ public class WebTaskCall
             if (uwr.result != UnityWebRequest.Result.Success)
             {
                 var errorResponse = CSharpHelper.DeserializeObject<ErrorResponse>(jsonResonse);
-                UnityHelper.LogError_H($"{jsonResonse}\nFailed: {uwr.error}\nurl : {url}\nsendData : {CSharpHelper.SerializeObject(obj)}");
+                UnityHelper.Error_H($"{jsonResonse}\nFailed: {uwr.error}\nurl : {url}\nsendData : {CSharpHelper.SerializeObject(obj)}");
             }
 
             if (typeof(T) == typeof(string))
@@ -139,7 +139,7 @@ public class WebTaskCall
             if (uwr.result != UnityWebRequest.Result.Success)
             {
                 var errorResponse = CSharpHelper.DeserializeObject<ErrorResponse>(jsonResonse);
-                UnityHelper.LogError_H($"{jsonResonse}\nFailed: {uwr.error}\nurl : {url}\nsendData : {CSharpHelper.SerializeObject(obj)}");
+                UnityHelper.Error_H($"{jsonResonse}\nFailed: {uwr.error}\nurl : {url}\nsendData : {CSharpHelper.SerializeObject(obj)}");
             }
 
             return jsonResonse;

@@ -39,7 +39,7 @@ public class SseManager
         SseMessageResponse sseMessage = CSharpHelper.DeserializeObject<SseMessageResponse>(msg.Data);
         if (sseMessage == null)
         {
-            UnityHelper.LogError_H($"Wrong Data SseMessage\nmsgData : {msg.Data}");
+            UnityHelper.Error_H($"Wrong Data SseMessage\nmsgData : {msg.Data}");
             return;
         }
 

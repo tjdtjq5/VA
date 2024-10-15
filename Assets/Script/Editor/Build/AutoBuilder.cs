@@ -22,7 +22,7 @@ public class AutoBuilder
         string targetDir = UnityHelper.GetBuildPath(BuildTarget.Android.ToString());
         Directory.CreateDirectory(targetDir);
 
-        UnityHelper.LogSerialize(SCENES);
+        UnityHelper.SerializeL(SCENES);
 
         BuildAndroid(targetDir, SCENES, targetDir + "/" + appName);
     }

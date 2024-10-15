@@ -29,7 +29,7 @@ public class TableCollectionPacket
         }
         else
         {
-            UnityHelper.LogError_H($"DefineTable GetTableFile No Linked File");
+            UnityHelper.Error_H($"DefineTable GetTableFile No Linked File");
             return "";
         }
     }

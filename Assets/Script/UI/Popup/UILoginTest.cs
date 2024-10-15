@@ -30,7 +30,7 @@ public class UILoginTest : UIPopup
 
 		if (isNull || !isRa)
 		{
-			UnityHelper.LogError_H($"UILoginTest OnGuestLogin Id is Null or Is Not Regex Error\nid : {id}");
+			UnityHelper.Error_H($"UILoginTest OnGuestLogin Id is Null or Is Not Regex Error\nid : {id}");
 			return;
 		}
 

@@ -7,7 +7,7 @@ public class TableControllerPacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"TableControllerPacket Create Error Must Link TableController.cs");
+            UnityHelper.Error_H($"TableControllerPacket Create Error Must Link TableController.cs");
             return;
         }
 
@@ -15,7 +15,7 @@ public class TableControllerPacket
 
         if (isExist)
         {
-            UnityHelper.LogError_H($"TableControllerPacket Create Error Alread Exist Table\nTable : {tableName}");
+            UnityHelper.Error_H($"TableControllerPacket Create Error Alread Exist Table\nTable : {tableName}");
             return;
         }
 
@@ -38,7 +38,7 @@ public class TableControllerPacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableController.cs");
+            UnityHelper.Error_H($"Must Link TableController.cs");
             return;
         }
 
@@ -46,7 +46,7 @@ public class TableControllerPacket
 
         if (!isExist)
         {
-            UnityHelper.LogError_H($"TableControllerPacket Remove Error Not Exist Table\nTable : {tableName}");
+            UnityHelper.Error_H($"TableControllerPacket Remove Error Not Exist Table\nTable : {tableName}");
             return;
         }
 
@@ -58,7 +58,7 @@ public class TableControllerPacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableController.cs");
+            UnityHelper.Error_H($"Must Link TableController.cs");
             return false;
         }
 
@@ -76,7 +76,7 @@ public class TableControllerPacket
         }
         else
         {
-            UnityHelper.LogError_H($"TableControllerPacket GetTableFile No Linked File");
+            UnityHelper.Error_H($"TableControllerPacket GetTableFile No Linked File");
             return "";
         }
     }

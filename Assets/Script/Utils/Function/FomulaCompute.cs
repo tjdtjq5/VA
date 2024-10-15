@@ -35,7 +35,7 @@ public static class FomulaCompute
             return Calculate(exprs[0]);
         else
         {
-            UnityHelper.LogError_H($"The exprs is incorrect\nlast epxrs : {exprs[exprs.Length - 1]}");
+            UnityHelper.Error_H($"The exprs is incorrect\nlast epxrs : {exprs[exprs.Length - 1]}");
             return 0;
         }
     }
@@ -96,7 +96,7 @@ public static class FomulaCompute
 
         if (exprs.Length % 2 == 0)
         {
-            UnityHelper.LogError_H($"The exprs is incorrect\nlast epxrs : {exprs[exprs.Length - 1]}");
+            UnityHelper.Error_H($"The exprs is incorrect\nlast epxrs : {exprs[exprs.Length - 1]}");
             return exprs;
         }
 

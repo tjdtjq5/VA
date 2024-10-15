@@ -40,7 +40,7 @@ public class SecretFileTxt : IFileTxt
 
         if (string.IsNullOrEmpty(path))
         {
-            UnityHelper.LogError_H($"SecretOptionFile GetSecretFile Null SecretFilePath");
+            UnityHelper.Error_H($"SecretOptionFile GetSecretFile Null SecretFilePath");
             return null;
         }
 

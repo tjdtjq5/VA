@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -42,7 +40,11 @@ public class UICheck : UIFrame
 
         CheckSetting();
     }
-
+    public void UISet(bool flag)
+    {
+        IsChecked = flag;
+        CheckSetting();
+    }
     void OnClickCheck(PointerEventData ped)
     {
         IsChecked = !IsChecked;
@@ -57,11 +59,11 @@ public class UICheck : UIFrame
     {
 		Check,
     }
-	public enum UIButtonE
+    public enum UIButtonE
     {
 		Check,
     }
-	public enum UITextE
+    public enum UITextE
     {
 		Text,
     }

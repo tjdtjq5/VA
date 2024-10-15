@@ -27,7 +27,7 @@ public class ResourcesManager
 
         if (original == null)
         {
-            UnityHelper.LogError_H($"ResourcesManager Instantiate Null Error\npath : {path}");
+            UnityHelper.Error_H($"ResourcesManager Instantiate Null Error\npath : {path}");
             return null;
         }
 
@@ -39,7 +39,7 @@ public class ResourcesManager
 
         if (original == null)
         {
-            UnityHelper.LogError_H($"ResourcesManager Instantiate Null Error\npath : {path}");
+            UnityHelper.Error_H($"ResourcesManager Instantiate Null Error\npath : {path}");
             return null;
         }
 

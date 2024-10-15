@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3383252273627583107}
   - component: {fileID: 3383252273627583105}
   - component: {fileID: 3383252273627583104}
+  - component: {fileID: 316226624893177076}
+  - component: {fileID: 6204349976872731249}
   m_Layer: 5
   m_Name: Filter
   m_TagString: Untagged
@@ -78,6 +80,39 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &316226624893177076
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3383252273627583106}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6204349976872731249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3383252273627583106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 258a56004ec42b54c84f30867b721093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3383252273696006632
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3383252273706120746}
   m_Layer: 5
-  m_Name: Sliding Area
+  m_Name: SlidingArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -451,7 +486,7 @@ GameObject:
   - component: {fileID: 3383252274516001430}
   - component: {fileID: 3383252274516001417}
   m_Layer: 5
-  m_Name: Scrollbar Horizontal
+  m_Name: ScrollbarHorizontal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -598,7 +633,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -476.49982, y: 0.000089634945}
+  m_AnchoredPosition: {x: -476.4994, y: 0.00037799982}
   m_SizeDelta: {x: 953, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &3383252274830745455
@@ -615,7 +650,7 @@ GameObject:
   - component: {fileID: 3383252274830745450}
   - component: {fileID: 3383252274830745453}
   m_Layer: 5
-  m_Name: Scroll View
+  m_Name: ScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -734,7 +769,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3383252274867529887}
   m_Layer: 5
-  m_Name: Sliding Area
+  m_Name: SlidingArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -850,7 +885,7 @@ GameObject:
   - component: {fileID: 3383252275034975199}
   - component: {fileID: 3383252275034975198}
   m_Layer: 5
-  m_Name: Scrollbar Vertical
+  m_Name: ScrollbarVertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1213,7 +1248,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3383252275325137331}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1279,7 +1314,7 @@ GameObject:
   - component: {fileID: 3383252275326486233}
   - component: {fileID: 3383252275326486232}
   m_Layer: 5
-  m_Name: Line_Bott
+  m_Name: LineBott
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

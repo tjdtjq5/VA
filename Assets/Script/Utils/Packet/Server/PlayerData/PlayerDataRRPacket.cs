@@ -42,7 +42,7 @@ public class PlayerDataRRPacket
         }
         else
         {
-            UnityHelper.LogError_H($"PlayerDataRRPacket GetFile No Linked File");
+            UnityHelper.Error_H($"PlayerDataRRPacket GetFile No Linked File");
             return "";
         }
     }

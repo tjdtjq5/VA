@@ -10,7 +10,7 @@ public class TableDataPacket
         string file = GetTableFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"TableDataPacket Create Error Must Link TableDbData.cs");
+            UnityHelper.Error_H($"TableDataPacket Create Error Must Link TableDbData.cs");
             return;
         }
 
@@ -18,7 +18,7 @@ public class TableDataPacket
 
         if (isExist)
         {
-            UnityHelper.LogError_H($"TableDataPacket Create Error Alread Exist Table\nTable : {tableName}");
+            UnityHelper.Error_H($"TableDataPacket Create Error Alread Exist Table\nTable : {tableName}");
             return;
         }
 
@@ -46,7 +46,7 @@ public class TableDataPacket
         string file = GetTableFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableData.cs");
+            UnityHelper.Error_H($"Must Link TableData.cs");
             return;
         }
 
@@ -54,7 +54,7 @@ public class TableDataPacket
 
         if (!isExist)
         {
-            UnityHelper.LogError_H($"TableDataPacket Remove Error Not Exist Table\nTable : {tableName}");
+            UnityHelper.Error_H($"TableDataPacket Remove Error Not Exist Table\nTable : {tableName}");
             return;
         }
 
@@ -99,7 +99,7 @@ public class TableDataPacket
         string file = GetTableFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableData.cs");
+            UnityHelper.Error_H($"Must Link TableData.cs");
             return;
         }
 
@@ -107,7 +107,7 @@ public class TableDataPacket
 
         if (!isExist)
         {
-            UnityHelper.LogError_H($"TableDataPacket Modify Error Not Exist Table\nTable : {tableName}");
+            UnityHelper.Error_H($"TableDataPacket Modify Error Not Exist Table\nTable : {tableName}");
             return;
         }
 
@@ -160,7 +160,7 @@ public class TableDataPacket
         string file = GetTableFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableData.cs");
+            UnityHelper.Error_H($"Must Link TableData.cs");
             return false;
         }
 
@@ -187,7 +187,7 @@ public class TableDataPacket
         }
         else
         {
-            UnityHelper.LogError_H($"TableDataPacket GetTableFile No Linked File");
+            UnityHelper.Error_H($"TableDataPacket GetTableFile No Linked File");
             return "";
         }
     }
@@ -211,7 +211,7 @@ public class TableDataPacket
         }
         catch
         {
-            UnityHelper.LogError_H($"TableDataPacket TableTypes Error\ntableData : {tableData}");
+            UnityHelper.Error_H($"TableDataPacket TableTypes Error\ntableData : {tableData}");
             return null;
         }
     }
@@ -235,7 +235,7 @@ public class TableDataPacket
         }
         catch
         {
-            UnityHelper.LogError_H($"TableDataPacket TableTypes Error\ntableData : {tableData}");
+            UnityHelper.Error_H($"TableDataPacket TableTypes Error\ntableData : {tableData}");
             return null;
         }
     }
@@ -249,7 +249,7 @@ public class TableDataPacket
 
         if (types.Count != variables.Count || types.Count == 0)
         {
-            UnityHelper.LogError_H($"TableDataPacket Create Error Types Or Variable Exception\nTableData : {tableData}");
+            UnityHelper.Error_H($"TableDataPacket Create Error Types Or Variable Exception\nTableData : {tableData}");
             return "";
         }
 

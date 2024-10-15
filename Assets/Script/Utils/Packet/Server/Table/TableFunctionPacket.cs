@@ -7,7 +7,7 @@ public class TableFunctionPacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"TableFunctionPacket ChangeUpdateFunction Error Must Link TableFunction.cs");
+            UnityHelper.Error_H($"TableFunctionPacket ChangeUpdateFunction Error Must Link TableFunction.cs");
             return;
         }
 
@@ -15,7 +15,7 @@ public class TableFunctionPacket
 
         if (check)
         {
-            UnityHelper.LogError_H($"TableFunctionPacket ChangeUpdateFunction Error Alread Setting\tableName : {tableName}");
+            UnityHelper.Error_H($"TableFunctionPacket ChangeUpdateFunction Error Alread Setting\tableName : {tableName}");
             return;
         }
 
@@ -83,7 +83,7 @@ public class TableFunctionPacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableFunction.cs");
+            UnityHelper.Error_H($"Must Link TableFunction.cs");
             return false;
         }
 
@@ -110,7 +110,7 @@ public class TableFunctionPacket
         }
         else
         {
-            UnityHelper.LogError_H($"TableFunctionPacket GetTableFile No Linked File");
+            UnityHelper.Error_H($"TableFunctionPacket GetTableFile No Linked File");
             return "";
         }
     }

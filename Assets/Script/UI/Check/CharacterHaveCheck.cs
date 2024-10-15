@@ -1,8 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class CharacterHaveCheck : UICheck
+ï»¿public class CharacterHaveCheck : UICheck
 {
-    protected override string Script => "º¸À¯ÁßÀÎ Ä³¸¯ÅÍ¸¸ Ç¥½Ã";
+	protected override void Initialize()
+	{
+		base.Initialize();
+	}
+    protected override string Script => "ë³´ìœ ì¤‘ì¸ ìºë¦­í„° í‘œì‹œ";
 }

@@ -8,7 +8,7 @@ public class TableServicePacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"TableServicePacket Create Error Must Link TableService.cs");
+            UnityHelper.Error_H($"TableServicePacket Create Error Must Link TableService.cs");
             return;
         }
 
@@ -16,7 +16,7 @@ public class TableServicePacket
 
         if (isExist)
         {
-            UnityHelper.LogError_H($"TableServicePacket Create Error Alread Exist Table\nTable : {tableName}");
+            UnityHelper.Error_H($"TableServicePacket Create Error Alread Exist Table\nTable : {tableName}");
             return;
         }
 
@@ -57,7 +57,7 @@ public class TableServicePacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableService.cs");
+            UnityHelper.Error_H($"Must Link TableService.cs");
             return;
         }
 
@@ -65,7 +65,7 @@ public class TableServicePacket
 
         if (!isExist)
         {
-            UnityHelper.LogError_H($"TableServicePacket Remove Error Not Exist Table\nTable : {tableName}");
+            UnityHelper.Error_H($"TableServicePacket Remove Error Not Exist Table\nTable : {tableName}");
             return;
         }
 
@@ -110,7 +110,7 @@ public class TableServicePacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableController.cs");
+            UnityHelper.Error_H($"Must Link TableController.cs");
             return false;
         }
 
@@ -137,7 +137,7 @@ public class TableServicePacket
         }
         else
         {
-            UnityHelper.LogError_H($"TableServicePacket GetTableFile No Linked File");
+            UnityHelper.Error_H($"TableServicePacket GetTableFile No Linked File");
             return "";
         }
     }
@@ -177,7 +177,7 @@ public class TableServicePacket
         }
         catch
         {
-            UnityHelper.LogError_H($"TableDataPacket TableTypes Error\ntableData : {tableData}");
+            UnityHelper.Error_H($"TableDataPacket TableTypes Error\ntableData : {tableData}");
             return null;
         }
     }

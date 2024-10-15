@@ -122,7 +122,7 @@ public class WebManager
                 ErrorResponse errorResponse = CSharpHelper.DeserializeObject<ErrorResponse>(response.DataAsText);
                 if (errorResponse == null)
                 {
-                    UnityHelper.LogError_H($"ErrorResponse DeserializeObject Error");
+                    UnityHelper.Error_H($"ErrorResponse DeserializeObject Error");
                     return;
                 }
 
@@ -144,7 +144,7 @@ public class WebManager
 
                 if (!isJopWork)
                 {
-                    UnityHelper.LogError_H($"Server sent an error: {response.StatusCode}-{response.DataAsText}\nRequest Url : {request.Uri}");
+                    UnityHelper.Error_H($"Server sent an error: {response.StatusCode}-{response.DataAsText}\nRequest Url : {request.Uri}");
                     ErrorResponseMessage(errorMsgType);
                 }
 

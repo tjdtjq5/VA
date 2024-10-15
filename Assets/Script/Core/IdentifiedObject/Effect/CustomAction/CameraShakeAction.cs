@@ -7,7 +7,7 @@ public class CameraShakeAction : CustomAction
 {
     public override void Run(object data)
     {
-        UnityHelper.LogSerialize($"camera action : {data}");
+        UnityHelper.SerializeL($"camera action : {data}");
         Camera.main.GetComponent<Cinemachine.CinemachineImpulseSource>().GenerateImpulse();
     }
 

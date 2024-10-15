@@ -82,7 +82,7 @@ public class AppleLogin
 
         Managers.Web.SendPostRequest<AccountLoginResponce>("account/login", req, (res) =>
         {
-            UnityHelper.LogSerialize(res);
+            UnityHelper.SerializeL(res);
 
             Managers.Web.JwtToken = res.JwtAccessToken;
             Managers.Web.AccountId = res.AccountId;

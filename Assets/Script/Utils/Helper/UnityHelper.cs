@@ -27,7 +27,7 @@ public static class UnityHelper
 
         Log_H(datas);
     }
-    public static void LogError_H(object message)
+    public static void Error_H(object message)
     {
         if (!GameOptionManager.IsRelease)
         {
@@ -35,7 +35,7 @@ public static class UnityHelper
             Debug.LogError(msg);
         }
     }
-    public static void LogSerialize(object message)
+    public static void SerializeL(object message)
     {
         Log_H($"<color=#006AFF>{CSharpHelper.SerializeObject(message)}</color>");
     }
@@ -118,6 +118,7 @@ public static class UnityHelper
     public static T FindChildByPath<T>(GameObject _go, string path)
     {
         string parentsName = _go.name.Replace("(Clone)", "");
+
         List<string> objNames = path.Split('/').ToList();
         for (int i = 0; i < objNames.Count; i++)
         {
@@ -142,7 +143,7 @@ public static class UnityHelper
 
             if (child == null)
             {
-                LogError_H($"Not Found Object\npath : {path}\nparents : {parentsName}");
+                Error_H($"Not Found Object\npath : {path}\nparents : {parentsName}");
                 return default(T);
             }
 
@@ -156,7 +157,7 @@ public static class UnityHelper
             }
         }
 
-        LogError_H($"Not Found Object\npath : {path}\nparents : {parentsName}");
+        Error_H($"Not Found Object\npath : {path}\nparents : {parentsName}");
         return default(T);
     }
     public static List<T> FlindChilds<T>(GameObject _go, bool _recursive = false) where T : UnityEngine.Object

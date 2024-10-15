@@ -12,12 +12,13 @@ public class UIFrame : UIBase
     [Button]
     public virtual void BindEnumCreate()
     {
-        ChildCheckAndAddUIBaseComponent();
+        ChildNameSetting();
+        ChildCheckAndAddUIBaseComponent(this.transform);
         SetBindDics();
 
         if (enumDics.Count <= 0 || bindDics.Count <= 0)
             return;
-
+         
         foreach (var enumData in enumDics)
         {
             InnerEmumFormat.Set(this.GetType(), enumData.Key, enumData.Value.ToArray());
@@ -25,12 +26,28 @@ public class UIFrame : UIBase
 
         UIFrameInitFormat.Set(this.GetType(), bindDics);
     }
-    public void ChildCheckAndAddUIBaseComponent()
+    public void ChildNameSetting()
     {
         List<RectTransform> childs = UnityHelper.FlindChilds<RectTransform>(this.gameObject, true);
         for (int i = 0; i < childs.Count; i++)
         {
             RectTransform child = childs[i];
+            string n = child.gameObject.name;
+            child.gameObject.name = n.Replace(" ", "").Replace("_","").Replace("(Legacy)", "");
+        }
+    }
+    public void ChildCheckAndAddUIBaseComponent(Transform parents)
+    {
+        List<RectTransform> childs = UnityHelper.FlindChilds<RectTransform>(parents.gameObject);
+
+        for (int i = 0; i < childs.Count; i++)
+        {
+            RectTransform child = childs[i];
+
+            if (child.GetComponentInChildren<UIFrame>())
+            {
+                continue;
+            }
 
             if (child.GetComponent<Image>())
             {
@@ -52,6 +69,8 @@ public class UIFrame : UIBase
             {
                 UnityHelper.GetOrAddComponent<UIScrollbar>(child.gameObject);
             }
+
+            ChildCheckAndAddUIBaseComponent(child);
         }
     }
     public void SetBindDics()
@@ -65,136 +84,37 @@ public class UIFrame : UIBase
 
         foreach (RectTransform child in childs)
         {
+            string childName = child.name;
             string current = $"{parentsName}/{child.name}";
+
             if (string.IsNullOrEmpty(parentsName))
-                current = $"{child.name}";
+                current = $"{childName}";
             else
-                current = $"{parentsName}/{child.name}";
+                current = $"{parentsName}/{childName}";
 
-            if (child.GetComponent<UIImage>())
+            Component components = child.GetComponent(typeof(UIBase));
+
+            if (components)
             {
-                string key = $"{nameof(UIImage) + "E"}";
-                BindDicsAdd(typeof(UIImage), key);
-                EnumDicsAdd(key, current);
-            }
-            if (child.GetComponent<UIText>())
-            {
-                string key = $"{nameof(UIText) + "E"}";
-                BindDicsAdd(typeof(UIText), key);
-                EnumDicsAdd(key, current);
-            }
-            if (child.GetComponent<UISlider>())
-            {
-                string key = $"{nameof(UISlider) + "E"}";
-                BindDicsAdd(typeof(UISlider), key);
-                EnumDicsAdd(key, current);
-            }
-            if (child.GetComponent<UIToggle>())
-            {
-                string key = $"{nameof(UIToggle) + "E"}";
-                BindDicsAdd(typeof(UIToggle), key);
-                EnumDicsAdd(key, current);
-            }
-            if (child.GetComponent<UIScrollbar>())
-            {
-                string key = $"{nameof(UIScrollbar) + "E"}";
-                BindDicsAdd(typeof(UIScrollbar), key);
-                EnumDicsAdd(key, current);
-            }
-            if (child.GetComponent<UIButton>())
-            {
-                string key = $"{nameof(UIButton) + "E"}";
-                BindDicsAdd(typeof(UIButton), key);
-                EnumDicsAdd(key, current);
-            }
-            if (child.GetComponent<UITabButton>())
-            {
-                string key = $"{nameof(UITabButton) + "E"}";
-                BindDicsAdd(typeof(UITabButton), key);
-                EnumDicsAdd(key, current);
-            }
-            if (child.GetComponent<UITabSlider>())
-            {
-                string key = $"{nameof(UITabSlider) + "E"}";
-                BindDicsAdd(typeof(UITabSlider), key);
-                EnumDicsAdd(key, current);
-            }
-            if (child.GetComponent<UITabButtonParent>())
-            {
-                string key = $"{nameof(UITabButtonParent) + "E"}";
-                BindDicsAdd(typeof(UITabButtonParent), key);
-                EnumDicsAdd(key, current);
-            }
-            if (child.GetComponent<UIScrollView>())
-            {
-                string key = $"{nameof(UIScrollView) + "E"}";
-                BindDicsAdd(typeof(UIScrollView), key);
-                EnumDicsAdd(key, current);
-            }
-            if (child.GetComponent<UIInputField>())
-            {
-                string key = $"{nameof(UIInputField) + "E"}";
-                BindDicsAdd(typeof(UIInputField), key);
-                EnumDicsAdd(key, current);
-            }
-            if (child.GetComponent<UICheck>())
-            {
-                string key = $"{nameof(UICheck) + "E"}";
-                BindDicsAdd(typeof(UICheck), key);
+                string key = $"{components.GetType() + "E"}";
+                BindDicsAdd(components.GetType(), key);
+                UnityHelper.Log_H($"[{key}] : {current}");
                 EnumDicsAdd(key, current);
             }
 
-            if (child.GetComponent<UIFrame>())
-            {
-                continue;
-            }
-
-            AddChildPath(current, child);
+            if (!child.GetComponent(typeof(UIFrame)))
+                AddChildPath(current, child);
         }
     }
     void AddRootPath()
     {
-        if (this.GetComponent<UIImage>())
+        Component components = this.GetComponent(typeof(UIBase));
+
+        if (components)
         {
-            string key = $"{nameof(UIImage) + "E"}";
-            BindDicsAdd(typeof(UIImage), key);
-            EnumDicsAdd(key, nameof(UIImage));
-        }
-        if (this.GetComponent<UIText>())
-        {
-            string key = $"{nameof(UIText) + "E"}";
-            BindDicsAdd(typeof(UIText), key);
-            EnumDicsAdd(key, nameof(UIText));
-        }
-        if (this.GetComponent<UISlider>())
-        {
-            string key = $"{nameof(UISlider) + "E"}";
-            BindDicsAdd(typeof(UISlider), key);
-            EnumDicsAdd(key, nameof(UISlider));
-        }
-        if (this.GetComponent<UIToggle>())
-        {
-            string key = $"{nameof(UIToggle) + "E"}";
-            BindDicsAdd(typeof(UIToggle), key);
-            EnumDicsAdd(key, nameof(UIToggle));
-        }
-        if (this.GetComponent<UIScrollbar>())
-        {
-            string key = $"{nameof(UIScrollbar) + "E"}";
-            BindDicsAdd(typeof(UIScrollbar), key);
-            EnumDicsAdd(key, nameof(UIScrollbar));
-        }
-        if (this.GetComponent<UIScrollView>())
-        {
-            string key = $"{nameof(UIScrollView) + "E"}";
-            BindDicsAdd(typeof(UIScrollView), key);
-            EnumDicsAdd(key, nameof(UIScrollView));
-        }
-        if (this.GetComponent<UIInputField>())
-        {
-            string key = $"{nameof(UIInputField) + "E"}";
-            BindDicsAdd(typeof(UIInputField), key);
-            EnumDicsAdd(key, nameof(UIInputField));
+            string key = $"{components.GetType() + "E"}";
+            BindDicsAdd(components.GetType(), key);
+            EnumDicsAdd(key, components.GetType().Name);
         }
     }
     void EnumDicsAdd(string key, string value)
@@ -214,5 +134,18 @@ public class UIFrame : UIBase
     {
         if (!bindDics.ContainsKey(key))
             bindDics.Add(key, value);
+    }
+
+    [Button]
+    public void Test()
+    {
+        foreach (var t in this.enumDics)
+        {
+            UnityHelper.Log_H($"====={t.Key}=====");
+            for (var i = 0; i < t.Value.Count; i++)
+            {
+                UnityHelper.Log_H($"{t.Value[i]}");
+            }
+        }
     }
 }

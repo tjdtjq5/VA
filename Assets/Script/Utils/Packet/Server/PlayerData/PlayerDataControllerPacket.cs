@@ -39,7 +39,7 @@ public class PlayerDataControllerPacket
         }
         else
         {
-            UnityHelper.LogError_H($"PlayerDataControllerPacket GetFile No Linked File");
+            UnityHelper.Error_H($"PlayerDataControllerPacket GetFile No Linked File");
             return "";
         }
     }

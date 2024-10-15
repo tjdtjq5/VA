@@ -19,8 +19,6 @@ public abstract class Table<T>
         string path = DefinePath.TableSOResourcesPath(TableName, code);
         TableSO tableSO = Managers.Resources.Load<TableSO>(path);
 
-        UnityHelper.Log_H($"[{path}] : {tableSO != null}");
-
         tableSOs.Add(code, tableSO);
         return tableSO;
     }

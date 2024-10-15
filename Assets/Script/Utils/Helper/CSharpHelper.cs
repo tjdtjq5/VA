@@ -3,10 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Numerics;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using static UnityEngine.Rendering.DebugUI;
 
 public static class CSharpHelper
 {
@@ -19,8 +17,8 @@ public static class CSharpHelper
         }
         catch (Exception e)
         {
-            UnityHelper.LogError_H($"{e.Message}");
-            UnityHelper.LogError_H($"CSharpHelper Format_H Error\nformat : {format}");
+            UnityHelper.Error_H($"{e.Message}");
+            UnityHelper.Error_H($"CSharpHelper Format_H Error\nformat : {format}");
             return "";
         }
     }
@@ -56,7 +54,7 @@ public static class CSharpHelper
     {
         return Enum.GetValues(typeof(T)).Length;
     }
-    public static int EnumClamp<T>(int value, bool isDebug) where T : Enum
+    public static int EnumClamp<T>(int value, bool isDebug = true) where T : Enum
     {
         try
         {
@@ -70,7 +68,7 @@ public static class CSharpHelper
             if (isDebug)
                 UnityHelper.Log_H($"CSharpHelper Parse Error\nvalue : {value}");
 
-            return 0;
+            throw;
         }
     }
     public static int EnumInRemain<T>(int value, bool isDebug) where T : Enum
@@ -145,7 +143,7 @@ public static class CSharpHelper
         if (!DateTime.TryParseExact(str, "yyyy-mm-dd hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
         {
             if (isDebug)
-                UnityHelper.LogError_H($"CSharpHelper ToDateTime Error\nstr : {str}\nresult : {result}");
+                UnityHelper.Error_H($"CSharpHelper ToDateTime Error\nstr : {str}\nresult : {result}");
         }
 
         return result;
@@ -153,6 +151,11 @@ public static class CSharpHelper
     #endregion
 
     #region Type Field
+    public static Type GetTypeByString(string typeAsString)
+    {
+        Type typeAsType = Type.GetType(typeAsString);
+        return typeAsType;
+    }
     public static Type GetType(string value)
     {
         object obj = AutoParse(value);
@@ -176,7 +179,7 @@ public static class CSharpHelper
             case TypeCollect.Byte:
                 return "byte";
             default:
-                UnityHelper.LogError_H($"Not Found Type\nType Name : {type.Name}");
+                UnityHelper.Error_H($"Not Found Type\nType Name : {type.Name}");
                 return "";
         }
     }
@@ -236,12 +239,12 @@ public static class CSharpHelper
         }
         catch (NullReferenceException e)
         {
-            UnityHelper.LogError_H($"지정할 수 없는 타입 (커스텀 클래스)\n{e.Message}");
+            UnityHelper.Error_H($"지정할 수 없는 타입 (커스텀 클래스)\n{e.Message}");
             return TypeCollect.None;
         }
         catch
         {
-            UnityHelper.LogError_H($"설정되지 않은 타입 GetTypeName : {obj.GetType().Name}");
+            UnityHelper.Error_H($"설정되지 않은 타입 GetTypeName : {obj.GetType().Name}");
             return TypeCollect.None;
         }
     }
@@ -312,7 +315,7 @@ public static class CSharpHelper
         }
         catch
         {
-            UnityHelper.LogError_H($"CSharpHelper SerializeObject Error\nvalue : {value}");
+            UnityHelper.Error_H($"CSharpHelper SerializeObject Error\nvalue : {value}");
             return "";
         }
     }
@@ -331,7 +334,7 @@ public static class CSharpHelper
         }
         catch
         {
-            UnityHelper.LogError_H($"CSharpHelper DeserializeObject Error\nvalue : {value}");
+            UnityHelper.Error_H($"CSharpHelper DeserializeObject Error\nvalue : {value}");
             return default;
         }
     } 
@@ -378,7 +381,7 @@ public static class CSharpHelper
         }
         catch
         {
-            UnityHelper.LogError_H($"GetReplaceRegex Error\nvalue : {value}");
+            UnityHelper.Error_H($"GetReplaceRegex Error\nvalue : {value}");
             return value;
         }
     }
@@ -395,7 +398,7 @@ public static class CSharpHelper
         }
         catch
         {
-            UnityHelper.LogError_H($"GetReplaceRNT Error\nvalue : {value}");
+            UnityHelper.Error_H($"GetReplaceRNT Error\nvalue : {value}");
             return value;
         }
     }

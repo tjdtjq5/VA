@@ -46,7 +46,7 @@ public class BasicFileTxt : IFileTxt
         bool exist = file != null;
         if (!exist)
         {
-            UnityHelper.LogError_H($"OptionFile GetFileData Exist Error");
+            UnityHelper.Error_H($"OptionFile GetFileData Exist Error");
             return new Dictionary<string, string>();
         }
 

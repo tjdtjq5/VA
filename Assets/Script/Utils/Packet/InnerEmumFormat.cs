@@ -6,7 +6,7 @@ public class InnerEmumFormat
     {
         if (string.IsNullOrEmpty(enumName) || enumValues.Length <= 0)
         {
-            UnityHelper.LogError_H($"InnerEmumFormat EnumName Or Value Null Error");
+            UnityHelper.Error_H($"InnerEmumFormat EnumName Or Value Null Error");
             return;
         }
 

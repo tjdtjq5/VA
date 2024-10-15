@@ -32,7 +32,7 @@ public class PoolManager
         {
             if (poolable == null)
             {
-                UnityHelper.LogError_H($"Pool poolable Null Error");
+                UnityHelper.Error_H($"Pool poolable Null Error");
                 return;
             }
 
@@ -99,7 +99,7 @@ public class PoolManager
     {
         if (original == null) 
         {
-            UnityHelper.LogError_H($"PoolManager original Null Error");
+            UnityHelper.Error_H($"PoolManager original Null Error");
             return null;
         }
 

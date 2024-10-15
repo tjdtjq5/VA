@@ -69,7 +69,7 @@ public class SoundManager
 
             if (resourcesClip == null)
             {
-                UnityHelper.LogError_H($"SoundManager GetAudioClip Clip Null Error\nclipName : {clipName}");
+                UnityHelper.Error_H($"SoundManager GetAudioClip Clip Null Error\nclipName : {clipName}");
             }
 
             return resourcesClip;

@@ -7,7 +7,7 @@ public class GameOptionManagerPacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link GameOptionManager.cs");
+            UnityHelper.Error_H($"Must Link GameOptionManager.cs");
             return;
         }
 
@@ -15,7 +15,7 @@ public class GameOptionManagerPacket
 
         if (!isExist)
         {
-            UnityHelper.LogError_H($"GameOptionManagerPacket Error Not Exist Code");
+            UnityHelper.Error_H($"GameOptionManagerPacket Error Not Exist Code");
             return;
         }
 
@@ -42,7 +42,7 @@ public class GameOptionManagerPacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link GameOptionManager.cs");
+            UnityHelper.Error_H($"Must Link GameOptionManager.cs");
             return;
         }
 
@@ -55,7 +55,7 @@ public class GameOptionManagerPacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableController.cs");
+            UnityHelper.Error_H($"Must Link TableController.cs");
             return false;
         }
 
@@ -81,7 +81,7 @@ public class GameOptionManagerPacket
         }
         else
         {
-            UnityHelper.LogError_H($"GameOptionManagerPacket GetTableFile No Linked File\nfile : {file}");
+            UnityHelper.Error_H($"GameOptionManagerPacket GetTableFile No Linked File\nfile : {file}");
             return "";
         }
     }

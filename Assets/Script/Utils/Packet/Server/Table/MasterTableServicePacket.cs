@@ -7,7 +7,7 @@ public class MasterTableServicePacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableController.cs");
+            UnityHelper.Error_H($"Must Link TableController.cs");
             return;
         }
 
@@ -36,7 +36,7 @@ public class MasterTableServicePacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableController.cs");
+            UnityHelper.Error_H($"Must Link TableController.cs");
             return;
         }
 
@@ -65,7 +65,7 @@ public class MasterTableServicePacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableController.cs");
+            UnityHelper.Error_H($"Must Link TableController.cs");
             return false;
         }
 
@@ -90,7 +90,7 @@ public class MasterTableServicePacket
         }
         else
         {
-            UnityHelper.LogError_H($"TableServicePacket GetTableFile No Linked File");
+            UnityHelper.Error_H($"TableServicePacket GetTableFile No Linked File");
             return "";
         }
     }
