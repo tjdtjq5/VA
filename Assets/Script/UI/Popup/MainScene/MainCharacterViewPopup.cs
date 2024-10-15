@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using static UnityEngine.Rendering.DebugUI;
 
 public class MainCharacterViewPopup : UIPopup
 {
 	protected override void Initialize()
 	{
-		base.Initialize();
 		Bind<CharacterHaveCheck>(typeof(CharacterHaveCheckE));
 		Bind<UIImage>(typeof(UIImageE));
 		Bind<UITabButtonParent>(typeof(UITabButtonParentE));
 		Bind<UIScrollView>(typeof(UIScrollViewE));
+		Bind<CharacterFilterBtn>(typeof(CharacterFilterBtnE));
+		Bind<UITabButton>(typeof(UITabButtonE));
 		Bind<UIButton>(typeof(UIButtonE));
 
-		GetTabButtonParent(UITabButtonParentE.CharacterTribeTab).SwitchOnHandler += TribeTabAction;
-		Get<CharacterHaveCheck>(CharacterHaveCheckE.CharacterHaveCheck).CheckHandler += HaveCheckAction;
+		base.Initialize();
+
+        GetTabButtonParent(UITabButtonParentE.CharacterTribeTab).SwitchOnHandler += TribeTabAction;
+        Get<CharacterHaveCheck>(CharacterHaveCheckE.CharacterHaveCheck).CheckHandler += HaveCheckAction;
+        Get<CharacterFilterBtn>(CharacterFilterBtnE.CharacterViews_Under_Filter).FilterHandler += FilterAction;
     }
 
     protected override void UISet()
@@ -29,28 +31,40 @@ public class MainCharacterViewPopup : UIPopup
 
 	void HaveCheckAction(bool flag)
 	{
-		int tabIndex = GetTabButtonParent(UITabButtonParentE.CharacterTribeTab).Index;
+        CharacterFilterType filterType = Get<CharacterFilterBtn>(CharacterFilterBtnE.CharacterViews_Under_Filter).FilterType;
+        int tabIndex = GetTabButtonParent(UITabButtonParentE.CharacterTribeTab).Index;
         bool isAll = tabIndex == 0;
         Tribe tribe = (Tribe)CSharpHelper.EnumClamp<Tribe>(tabIndex - 1);
-        ScrollSet(flag, isAll, tribe);
+        ScrollSet(flag, isAll, tribe, filterType);
     }
 
 	void TribeTabAction(int index)
 	{
-		bool isHaveCheck = Get<CharacterHaveCheck>(CharacterHaveCheckE.CharacterHaveCheck).IsChecked;
+		CharacterFilterType filterType = Get<CharacterFilterBtn>(CharacterFilterBtnE.CharacterViews_Under_Filter).FilterType;
+        bool isHaveCheck = Get<CharacterHaveCheck>(CharacterHaveCheckE.CharacterHaveCheck).IsChecked;
 		bool isAll = index == 0;
 		Tribe tribe = (Tribe)CSharpHelper.EnumClamp<Tribe>(index - 1);
-		ScrollSet(isHaveCheck, isAll, tribe);
+		ScrollSet(isHaveCheck, isAll, tribe, filterType);
     }
 
-	void ScrollSet(bool isHave, bool isAll, Tribe tribe)
+	void FilterAction(CharacterFilterType type)
+	{
+        bool isHaveCheck = Get<CharacterHaveCheck>(CharacterHaveCheckE.CharacterHaveCheck).IsChecked;
+        int tabIndex = GetTabButtonParent(UITabButtonParentE.CharacterTribeTab).Index;
+        bool isAll = tabIndex == 0;
+        Tribe tribe = (Tribe)CSharpHelper.EnumClamp<Tribe>(tabIndex - 1);
+        ScrollSet(isHaveCheck, isAll, tribe, type);
+    }
+
+	void ScrollSet(bool isHave, bool isAll, Tribe tribe, CharacterFilterType filterType)
 	{
 		List<CharacterCardData> datas = new List<CharacterCardData>();
 
 	 	var tableDatas = Managers.Table.CharacterTable.Gets().ToList();
+        tableDatas = tableDatas.OrderBy(t => t.grade).ToList();
 
         if (!isAll)
-            tableDatas = tableDatas.FindAll(t => t.tribeType.Equals(tribe));
+            tableDatas = tableDatas.FindAll(t => t.tribeType.Equals((int)tribe));
 
 		var playerDatas = Managers.PlayerData.Character.Gets();
 
@@ -81,10 +95,23 @@ public class MainCharacterViewPopup : UIPopup
             datas.Add(data);
         }
 
-        GetScrollView(UIScrollViewE.CharacterViews_ScrollView).UISet( UIScrollViewLayoutStartAxis.Vertical, "CharacterCard", new List<ICardData>(datas), 0, 4, UIScrollViewLayoutStartCorner.Middle, 3.5f, 10);
+		switch (filterType)
+		{
+			case CharacterFilterType.Grade:
+				datas = datas.OrderBy(d => d.tableData.grade).ToList();
+                break;
+			case CharacterFilterType.Level:
+                datas = datas.OrderBy(d => (d.playerData == null) ? -1 : d.playerData.Level).ToList();
+                break;
+			case CharacterFilterType.Awake:
+                datas = datas.OrderBy(d => (d.playerData == null) ? -1 : d.playerData.Awake).ToList();
+                break;
+		}
+
+		GetScrollView(UIScrollViewE.CharacterViews_ScrollView).UISet( UIScrollViewLayoutStartAxis.Vertical, "CharacterCard", new List<ICardData>(datas), 0, 4, UIScrollViewLayoutStartCorner.Middle, 3.5f, 10);
     }
 
-    public enum CharacterHaveCheckE
+	public enum CharacterHaveCheckE
     {
 		CharacterHaveCheck,
     }
@@ -100,10 +127,16 @@ public class MainCharacterViewPopup : UIPopup
     {
 		CharacterViews_ScrollView,
     }
-	public enum UIButtonE
+	public enum CharacterFilterBtnE
     {
 		CharacterViews_Under_Filter,
+    }
+	public enum UITabButtonE
+    {
 		CharacterViews_Under_Order,
+    }
+	public enum UIButtonE
+    {
 		CharacterViews_Under_AllAwakeBtn,
     }
 }

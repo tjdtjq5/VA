@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class UIImage : UIBase
 {
-    Image Image
+    public Image Image
     {
         get
         {

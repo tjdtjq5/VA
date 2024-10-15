@@ -16,13 +16,26 @@
 
         bool isPlayerDataExist = _data.playerData != null;
         int awake = isPlayerDataExist ? _data.playerData.Awake : 0;
+        Grade grade = (Grade)_data.tableData.grade;
 
         NameSetting(_data.soData.DisplayName);
         SliderSetting(1, awake);
+        GradeSetting(grade);
     }
     void NameSetting(string name)
     {
         GetText(UITextE.TextName).text = name;
+    }
+    void GradeSetting(Grade grade)
+    {
+        GetImage(UIImageE.Grade).sprite = Managers.Atlas.GetGrade(grade);
+        GetImage(UIImageE.Grade).Image.SetNativeSize();
+
+        GetImage(UIImageE.BG).sprite = Managers.Atlas.GetGradeBg(grade);
+    }
+    void JobSetting(CharacterJob job)
+    {
+
     }
     void SliderSetting(int cardCount, int awake)
     {
@@ -31,10 +44,8 @@
     
 	public enum UIImageE
     {
-		BgDeco_BgDeco1,
-		BgDeco_BgDeco2,
-		BgDeco_BgDeco3,
-		BgDeco_BgDeco4,
+        BG,
+        BgDeco,
 		Grade,
 		Job,
     }

@@ -66,6 +66,12 @@ public enum ChatFrequencyCycle
     Sometimes,
     Close
 }
+public enum CharacterJob
+{
+    Dealer,
+    SubDealer,
+    Supporter,
+}
 public enum Tribe
 {
     Cat,

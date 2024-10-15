@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Timeline;
 
 public class SimpleFormat
 {
@@ -87,6 +88,10 @@ public class SimpleFormat
         string checkClassFormat = $"public class {className}";
 
         InnerUnderAdd(file, checkClassFormat, format);
+    }
+    public static void InnerTypeUnderEnumAdd(string file, string className, string enumName, string[] values)
+    {
+
     }
 
     public static void InnerEnumUpperAdd(Type scriptType, string enumName, string format)
@@ -656,6 +661,56 @@ public class SimpleFormat
                     readCheck = false;
                 }
             }
+        }
+
+        text = text.Substring(0, text.Length - 1);
+        FileHelper.Write(file, text, true);
+    }
+
+    public static void RemoveLineInner(Type scriptType, string checkFormat, string removeFormat)
+    {
+        string file = $"{FileHelper.GetScriptPath(scriptType)}";
+
+        if (string.IsNullOrEmpty(file))
+        {
+            UnityHelper.Error_H($"SimpleFormat RemoveLineInner Not Found File Error\nscriptType : {scriptType.Name}");
+            return;
+        }
+
+        RemoveLineInner(file, checkFormat, removeFormat);
+    }
+    public static void RemoveLineInner(string file, string checkFormat, string removeFormat)
+    {
+        string text = "";
+        int leftBracketCount = 0;
+        int rightBracketCount = 0;
+        bool readCheck = false;
+
+        foreach (var line in FileHelper.ReadLines(file))
+        {
+            if (line.Contains(checkFormat))
+            {
+                readCheck = true;
+            }
+
+            if (readCheck)
+            {
+                if (!line.Contains(removeFormat))
+                    text += $"{line}\n";
+
+                if (line.Contains('{'))
+                    leftBracketCount++;
+
+                if (line.Contains('}'))
+                    rightBracketCount++;
+
+                if (leftBracketCount != 0 && leftBracketCount == rightBracketCount)
+                {
+                    readCheck = false;
+                }
+            }
+            else
+                text += $"{line}\n";
         }
 
         text = text.Substring(0, text.Length - 1);
