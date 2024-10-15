@@ -79,7 +79,6 @@ public class UIManager
 
         string popupName = _popupNameStack[LastIndex];
         ClosePopupUI(popupName);
-        _popupNameStack.RemoveAt(LastIndex);
     }
     public void ClosePopupUI(string name)
     {

@@ -14,10 +14,11 @@
     {
         _data = (CharacterCardData)data;
 
-        UnityHelper.SerializeL(_data);
+        bool isPlayerDataExist = _data.playerData != null;
+        int awake = isPlayerDataExist ? _data.playerData.Awake : 0;
 
-       // NameSetting(_data.soData.DisplayName);
-       // SliderSetting(1, _data.playerData.Awake);
+        NameSetting(_data.soData.DisplayName);
+        SliderSetting(1, awake);
     }
     void NameSetting(string name)
     {

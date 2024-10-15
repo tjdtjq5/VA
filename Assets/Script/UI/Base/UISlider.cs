@@ -18,4 +18,6 @@ public class UISlider : UIFrame
             Slider.value = value;
         }
     }
+
+   
 }

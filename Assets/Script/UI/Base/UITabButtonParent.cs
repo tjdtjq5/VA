@@ -7,7 +7,7 @@ using UnityEngine;
 public class UITabButtonParent : UIFrame
 {
     List<UITabButton> tabs = new();
-
+    public int Index {  get; set; }
     public Action<int> SwitchOnHandler;
     public Action<int> SwitchOffHandler;
 
@@ -36,6 +36,8 @@ public class UITabButtonParent : UIFrame
 
         if (SwitchOnHandler != null)
             SwitchOnHandler.Invoke(index);
+
+        Index = index;
     }
     void SwitchOff(int index)
     {

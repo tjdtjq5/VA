@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class CharacterTable : Table<CharacterTableData>
 {
+    Dictionary<string, CharacterSO> tableSOs { get; set; } = new();
     protected override string TableName => "Character";
     public override void DbGets(Action<List<CharacterTableData>> result)
     {
@@ -66,5 +67,16 @@ public class CharacterTable : Table<CharacterTableData>
             new CharacterTableData() { characterCode = "Druid_008", tribeType = 5, grade = 6, tipName = "드루이드008",  },
         };
         Push(datas);
+    }
+    public CharacterSO GetTableSO(string code)
+    {
+        if (tableSOs.ContainsKey(code))
+            return tableSOs[code];
+
+        string path = DefinePath.TableSOResourcesPath(TableName, code);
+        CharacterSO tableSO = Managers.Resources.Load<CharacterSO>(path);
+
+        tableSOs.Add(code, tableSO);
+        return tableSO;
     }
 }

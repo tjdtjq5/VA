@@ -38,6 +38,19 @@ public class TablePacket
             string initForm = CSharpHelper.Format_H(initFormat, tableName, tdFormats);
             SimpleFormat.InnerUnderAdd(file, initCheckF, initForm);
         }
+
+        bool isExistSOEnum = CSharpHelper.ExistEnumData<SOTableType>(tableName);
+        if (isExistSOEnum)
+        {
+            string soVariableF = CSharpHelper.Format_H(soVariableFormat, tableName);
+
+            if(!SimpleFormat.Exist(file, soVariableF))
+                SimpleFormat.InnerTypeUpperAdd(file, $"{tableName}Table", soVariableF);
+
+            string soFuncF = CSharpHelper.Format_H(soFuncFormat, tableName);
+            if (!SimpleFormat.Exist(file, soFuncF))
+                SimpleFormat.InnerTypeUnderAdd(file, $"{tableName}Table", soFuncF);
+        }
     }
     public static void Remove(string tableName)
     {
@@ -100,4 +113,19 @@ public class {0}Table : Table<{0}TableData>
     // {1} Value
     static string tableDataFormat =
 @"{0} = {1},";
+    // {0} TableName
+    static string soVariableFormat =
+@"    Dictionary<string, {0}SO> tableSOs {{ get; set; }} = new();";
+    static string soFuncFormat =
+@"    public {0}SO GetTableSO(string code)
+    {{
+        if (tableSOs.ContainsKey(code))
+            return tableSOs[code];
+
+        string path = DefinePath.TableSOResourcesPath(TableName, code);
+        {0}SO tableSO = Managers.Resources.Load<{0}SO>(path);
+
+        tableSOs.Add(code, tableSO);
+        return tableSO;
+    }}";
 }

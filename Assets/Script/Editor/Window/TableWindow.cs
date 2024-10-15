@@ -325,17 +325,17 @@ public class TableWindow : EditorWindow
     }
     void OnClickTableUpdate(string tableName, string tableData)
     {
-        if (!TableFunctionPacket.IsCheckUpdateTable(tableName))
+        if (!TableFunctionPacket.IsCheckUpdateTable(tableName) || !TableSOMakePacket.IsCheckTable(tableName))
         {
             TableFunctionPacket.ChangeUpdateFunction(tableName);
+            TableSOMakePacket.ChangeUpdate(tableName);
             EditorMessageUtils.DialogMessage("TableFunction Loading", "After Loading, Try Again!");
         }
         else
         {
             TableFunction.UpdateTable(tableName, tableData);
-
             TableCodeDefine(tableName, tableData);
-            CreateSOs(tableName, tableData);
+            TableSOMake.CreateSO(tableName, tableData);
             DefineCopy();
         }
     }
@@ -560,40 +560,5 @@ public class TableWindow : EditorWindow
             List<string> tableKeys = GoogleSpreadSheetUtils.GetKeyDatas(tableData);
             TableDefineCodePacket.Update(tableName, tableKeys);
         }
-    }
-
-    // SO
-    public void CreateSOs(string tableName, string tableData)
-    {
-        bool isExistSOEnum = CSharpHelper.ExistEnumData<SOTableType>(tableName);
-
-        if (isExistSOEnum)
-        {
-            List<string> tableKeys = GoogleSpreadSheetUtils.GetKeyDatas(tableData);
-            for (int i = 0; i < tableKeys.Count; i++)
-            {
-                TableSO soData = CreateSO(tableName, tableKeys[i]);
-            }
-        }
-    }
-    public TableSO CreateSO(string tableName, string code)
-    {
-        string path = DefinePath.TableSODirectory(tableName);
-        if (!FileHelper.DirectoryExist(path))
-            FileHelper.DirectoryCreate(path);
-
-        string soName = DefinePath.TableSOName(tableName, code);
-
-        path = DefinePath.TableSOPath(tableName, code);
-        var so = AssetDatabase.LoadAssetAtPath<TableSO>(path);
-
-        if (so == null)
-        {
-            so = CreateInstance<TableSO>();
-            so.codeName = code;
-            AssetDatabase.CreateAsset(so, path);
-        }
-
-        return so;
     }
 }

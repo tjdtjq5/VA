@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class ResourcesManager
 {
@@ -19,6 +20,8 @@ public class ResourcesManager
         }
 
         T resourcesLoad = Resources.Load<T>(path);
+
+
         return resourcesLoad;
     }
     public T Instantiate<T>(string path, Transform parent = null) where T : UnityEngine.Object

@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using static UnityEngine.Rendering.DebugUI;
 
 public class MainCharacterViewPopup : UIPopup
 {
@@ -12,6 +16,7 @@ public class MainCharacterViewPopup : UIPopup
 		Bind<UIButton>(typeof(UIButtonE));
 
 		GetTabButtonParent(UITabButtonParentE.CharacterTribeTab).SwitchOnHandler += TribeTabAction;
+		Get<CharacterHaveCheck>(CharacterHaveCheckE.CharacterHaveCheck).CheckHandler += HaveCheckAction;
     }
 
     protected override void UISet()
@@ -20,6 +25,14 @@ public class MainCharacterViewPopup : UIPopup
 
 		Get<CharacterHaveCheck>(CharacterHaveCheckE.CharacterHaveCheck).UISet(false);
 		GetTabButtonParent(UITabButtonParentE.CharacterTribeTab).UISet(0);
+    }
+
+	void HaveCheckAction(bool flag)
+	{
+		int tabIndex = GetTabButtonParent(UITabButtonParentE.CharacterTribeTab).Index;
+        bool isAll = tabIndex == 0;
+        Tribe tribe = (Tribe)CSharpHelper.EnumClamp<Tribe>(tabIndex - 1);
+        ScrollSet(flag, isAll, tribe);
     }
 
 	void TribeTabAction(int index)
@@ -34,7 +47,7 @@ public class MainCharacterViewPopup : UIPopup
 	{
 		List<CharacterCardData> datas = new List<CharacterCardData>();
 
-	 	var tableDatas = Managers.Table.CharacterTable.Gets();
+	 	var tableDatas = Managers.Table.CharacterTable.Gets().ToList();
 
         if (!isAll)
             tableDatas = tableDatas.FindAll(t => t.tribeType.Equals(tribe));
@@ -62,13 +75,12 @@ public class MainCharacterViewPopup : UIPopup
             CharacterTableData tData = tableDatas[i];
 
             data.tableData = tData;
-			data.playerData = isHave ? playerDatas.Find(p => p.Code.Equals(tData.characterCode)) : null;
-			data.soData = Managers.Table.CharacterTable.GetTableSO(tData.characterCode) as CharacterSO;
+			data.playerData = playerDatas.Find(p => p.Code.Equals(tData.characterCode));
+            data.soData = Managers.Table.CharacterTable.GetTableSO(tData.characterCode);
 
             datas.Add(data);
         }
 
-        datas.Add(new CharacterCardData());
         GetScrollView(UIScrollViewE.CharacterViews_ScrollView).UISet( UIScrollViewLayoutStartAxis.Vertical, "CharacterCard", new List<ICardData>(datas), 0, 4, UIScrollViewLayoutStartCorner.Middle, 3.5f, 10);
     }
 

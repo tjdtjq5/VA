@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UICheck : UIFrame
 {
-    protected virtual string Script { get; set; } = "보유중";
+    protected virtual string Script { get; set; }
 
+    public Action<bool> CheckHandler;
     public bool IsChecked { get; set; } = false;
 
     HorizontalLayoutGroup hlg;
@@ -49,6 +51,9 @@ public class UICheck : UIFrame
     {
         IsChecked = !IsChecked;
         CheckSetting();
+
+        if (CheckHandler != null)
+            CheckHandler.Invoke(IsChecked);
     }
     void CheckSetting()
     {

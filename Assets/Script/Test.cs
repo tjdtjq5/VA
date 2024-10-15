@@ -9,9 +9,7 @@ public class Test : MonoBehaviour
     [Button]
     public void TT()
     {
-        string a = "Test";
-
-        UnityHelper.Log_H(CSharpHelper.GetTypeByString(a));
+        TableSOMakePacket.ChangeUpdate("a");
     }
     [Button]
     public void MasterGets()

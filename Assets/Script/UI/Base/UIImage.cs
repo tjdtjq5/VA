@@ -17,4 +17,10 @@ public class UIImage : UIBase
             Image.sprite = value;
         }
     }
+    protected override void Initialize()
+    {
+        base.Initialize();
+
+        Image.raycastTarget = false;
+    }
 }

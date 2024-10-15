@@ -30,6 +30,7 @@ public class FormulaTable : Table<FormulaTableData>
             new FormulaTableData() { formulaCode = "Stage_Get_StarCandy", fM = "10+(10*{C_LEVEL})", tipName = "일반던전획득별사탕",  },
             new FormulaTableData() { formulaCode = "Stage_Get_LC", fM = "10+(10*{C_LEVEL})", tipName = "일반던전획득행운변환기",  },
             new FormulaTableData() { formulaCode = "Character_Level_Up", fM = "10+(10*{C_LEVEL})", tipName = "캐릭터레벨업",  },
+            new FormulaTableData() { formulaCode = "Need_C_Awake_Card", fM = "2+2^{C_AWAKE}", tipName = "캐릭터승급에따라필요한카드수",  },
         };
         Push(datas);
     }
@@ -67,7 +68,6 @@ public class FormulaTable : Table<FormulaTableData>
     private FormulaTableData GetData(FormulaTableCodeDefine code)
     {
         FormulaTableData data = datas.Where(d => d.formulaCode.Equals(code.ToString())).FirstOrDefault();
-
         try
         {
             if (data == null)
