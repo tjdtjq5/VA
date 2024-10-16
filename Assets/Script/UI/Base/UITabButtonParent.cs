@@ -31,13 +31,13 @@ public class UITabButtonParent : UIFrame
     }
     void SwitchOn(int index)
     {
-        for(int i = 0;i < tabs.Count; i++)
+        Index = index;
+
+        for (int i = 0;i < tabs.Count; i++)
             tabs[i].Switch(tabs[i].Index == index);
 
         if (SwitchOnHandler != null)
             SwitchOnHandler.Invoke(index);
-
-        Index = index;
     }
     void SwitchOff(int index)
     {

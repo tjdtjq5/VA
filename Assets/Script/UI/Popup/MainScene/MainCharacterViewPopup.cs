@@ -6,16 +6,15 @@ public class MainCharacterViewPopup : UIPopup
 {
 	protected override void Initialize()
 	{
-		Bind<CharacterHaveCheck>(typeof(CharacterHaveCheckE));
+        base.Initialize();
+
+        Bind<CharacterHaveCheck>(typeof(CharacterHaveCheckE));
 		Bind<UIImage>(typeof(UIImageE));
 		Bind<UITabButtonParent>(typeof(UITabButtonParentE));
 		Bind<UIScrollView>(typeof(UIScrollViewE));
 		Bind<CharacterFilterBtn>(typeof(CharacterFilterBtnE));
 		Bind<CharacterOrderTabBtn>(typeof(CharacterOrderTabBtnE));
 		Bind<UIButton>(typeof(UIButtonE));
-
-
-		base.Initialize();
 
         GetTabButtonParent(UITabButtonParentE.CharacterTribeTab).SwitchOnHandler += TribeTabAction;
         Get<CharacterHaveCheck>(CharacterHaveCheckE.CharacterHaveCheck).CheckHandler += HaveCheckAction;
