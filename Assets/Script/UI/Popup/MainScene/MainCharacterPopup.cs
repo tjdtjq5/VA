@@ -1,7 +1,5 @@
 ﻿public class MainCharacterPopup : UIPopup
 {
-	MainCharacterViewPopup characterViewPopup;
-
     protected override void Initialize()
 	{
 		base.Initialize();
@@ -32,10 +30,10 @@
 	{
 		string popupName = "MainScene/MainCharacterView";
 		if (isActive)
-            Managers.UI.ShopPopupUI<MainCharacterViewPopup>(popupName);
-        else
-            Managers.UI.ClosePopupUI(popupName);
-    }
+			Managers.UI.ShopPopupUI<MainCharacterViewPopup>(popupName);
+		else
+			Managers.UI.ClosePopupUI(popupName);
+	}
 
     public enum UIImageE
     {

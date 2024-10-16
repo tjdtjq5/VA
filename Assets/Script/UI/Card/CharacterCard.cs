@@ -20,9 +20,10 @@ public class CharacterCard : UICard
         int awake = isPlayerDataExist ? _data.playerData.Awake : 0;
         Grade grade = (Grade)_data.tableData.grade;
         int level = isPlayerDataExist ? _data.playerData.Level : 0;
+        int cardCount = isPlayerDataExist ? 1 : -1;
 
         NameSetting(_data.soData.DisplayName);
-        SliderSetting(1, awake);
+        SliderSetting(cardCount, awake, isPlayerDataExist);
         GradeSetting(grade);
         CharacterImgSet(_data.soData.Icon);
         LevelSet(level);
@@ -62,9 +63,9 @@ public class CharacterCard : UICard
     {
 
     }
-    void SliderSetting(int cardCount, int awake)
+    void SliderSetting(int cardCount, int awake, bool isPlayerData)
     {
-        Get<CharacterCardSlider>(CharacterCardSliderE.CharacterCardSlider).UISet(cardCount, awake);
+        Get<CharacterCardSlider>(CharacterCardSliderE.CharacterCardSlider).UISet(cardCount, awake, isPlayerData);
     }
     
 	public enum UIImageE

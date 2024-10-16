@@ -31,24 +31,23 @@ public class UIManager
     int Count => _popupDics.Count;
     int LastIndex => Count - 1;
 
-    public void SetPopupCanvas(GameObject go, bool sort = true)
+    public void SetPopupCanvas(GameObject go, int order = -1)
     {
         Canvas canvas = UnityHelper.GetOrAddComponent<Canvas>(go);
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.overrideSorting = true;
 
-        if (sort)
+        if (order < 0)
         {
             canvas.sortingOrder = _order;
             _order++;
         }
         else
         {
-            canvas.sortingOrder = 0;
+            canvas.sortingOrder = order;
         }
     }
-
-    public T ShopPopupUI<T>(string name = null) where T : UIPopup
+    public T ShopPopupUI<T>(string name, int order = -1) where T : UIPopup
     {
         if (string.IsNullOrEmpty(name))
         {
@@ -69,6 +68,8 @@ public class UIManager
         T popup = UnityHelper.GetOrAddComponent<T>(go);
 
         go.transform.SetParent(RootGo.transform);
+
+        SetPopupCanvas(go, order);
 
         return popup;
     }

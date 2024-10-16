@@ -4,7 +4,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Slider))]
 public class UISlider : UIFrame
 {
-    Slider Slider
+    public Slider Slider
     {
         get
         {

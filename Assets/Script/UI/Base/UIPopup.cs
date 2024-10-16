@@ -5,8 +5,6 @@ public class UIPopup : UIFrame
     protected override void Initialize()
     {
         base.Initialize();
-
-        Managers.UI.SetPopupCanvas(gameObject, IsSort);
     }
 
     public virtual void ClosePopupUI()
