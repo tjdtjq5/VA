@@ -8,6 +8,10 @@ public class UIFrameInitFormat
         string file = $"{FileHelper.GetScriptPath(scriptType)}";
 
         bool isInitCheck = SimpleFormat.Exist(scriptType, initializeCheckFormat);
+        UnityHelper.Log_H($"[{scriptType.Name}] [{isInitCheck}]");
+
+        if (!isInitCheck)
+            SimpleFormat.InnerTypeUpperAdd(scriptType, initFormat);
 
         string text = "";
         foreach (var bind in bindDics)
@@ -15,13 +19,8 @@ public class UIFrameInitFormat
             text += "\t" + "\t" + CSharpHelper.Format_H(bindFormat, bind.Key, bind.Value) + "\n";
         }
 
-        if (isInitCheck)
-        {
-            SimpleFormat.RemoveLineInner(file, initializeCheckFormat, "Bind");
-            SimpleFormat.InnerUpperAdd(file, initializeCheckFormat, text);
-        }
-        else
-            SimpleFormat.InnerTypeUpperAdd(scriptType, text);
+        SimpleFormat.RemoveLineInner(file, initializeCheckFormat, "Bind");
+        SimpleFormat.InnerUpperAdd(file, initializeCheckFormat, text);
     }
     #region Format
     // {0} : TypeName
@@ -38,5 +37,11 @@ public class UIFrameInitFormat
     // {1} EnumName
     static string bindFormat =
 @"Bind<{0}>(typeof({1}));";
+
+    static string initFormat =
+@"    protected override void Initialize()
+    {
+        base.Initialize();
+    }";
     #endregion
 }

@@ -8,8 +8,10 @@ public class UITabButton : UIFrame
 {
     public Action<int> SwitchOnHandler {  get; set; }
     public Action<int> SwitchOffHandler {  get; set; }
+    public Action<bool> SwitchHandler { get; set; }
 
     public int Index { get; private set; }
+    public bool IsSwitch { get; set; }
     bool isAllOff;
 
     Image Image => GetComponent<Image>();
@@ -22,8 +24,10 @@ public class UITabButton : UIFrame
     }
     protected AniController AniController;
 
-    bool isSwitch = false;
     int switchHash = Animator.StringToHash("Switch");
+    int pointDownHash = Animator.StringToHash("PointDown");
+    int pointUpHash = Animator.StringToHash("PointUp");
+    int pressedHash = Animator.StringToHash("Pressed");
 
     protected override void Initialize()
     {
@@ -31,29 +35,30 @@ public class UITabButton : UIFrame
 
         Image.raycastTarget = true;
 
+        UIOffSet();
+
         if (Animator)
             AniController = Animator.Initialize();
 
-        BindEvent(Image.gameObject, OnClickEvent, UIEvent.Click);
+        AddPointDownEvent(OnPointDownEvent);
+        AddPointUpEvent(OnPointUpEvent);
+        AddClickEvent(OnClickEvent);
     }
     public void Set(int index, bool isAllOff)
     {
         this.Index = index;
         this.isAllOff = isAllOff;
     }
-    public void Switch(bool flag)
+    public bool Switch(bool flag)
     {
-        if (isSwitch.Equals(flag))
-            return;
+        if (IsSwitch.Equals(flag))
+            return false;
 
-        isSwitch = flag;
+        IsSwitch = flag;
 
         if (flag)
         {
             AniController.SetBool(switchHash, true);
-
-            if (SwitchOnHandler != null)
-                SwitchOnHandler.Invoke(Index);
 
             UIOnSet();
         }
@@ -61,18 +66,54 @@ public class UITabButton : UIFrame
         {
             AniController.SetBool(switchHash, false);
 
-            if (SwitchOffHandler != null)
-                SwitchOffHandler.Invoke(Index);
-
             UIOffSet();
         }
+
+        return true;
     }
+
+    public void AddClickEvent(Action<PointerEventData> _action)
+    {
+        BindEvent(Image.gameObject, _action, UIEvent.Click);
+    }
+    public void AddPointDownEvent(Action<PointerEventData> _action)
+    {
+        BindEvent(Image.gameObject, _action, UIEvent.PointDown);
+    }
+    public void AddPointUpEvent(Action<PointerEventData> _action)
+    {
+        BindEvent(Image.gameObject, _action, UIEvent.PointUp);
+    }
+
     void OnClickEvent(PointerEventData ped)
     {
-        if (!isAllOff && isSwitch)
+        if (!isAllOff && IsSwitch)
             return;
 
-        Switch(!isSwitch);
+        if (Switch(!IsSwitch))
+        {
+            if (IsSwitch)
+            {
+                if (SwitchOnHandler != null)
+                    SwitchOnHandler.Invoke(Index);
+            }
+            else
+            {
+                if (SwitchOffHandler != null)
+                    SwitchOffHandler.Invoke(Index);
+            }
+
+            if (SwitchHandler != null)
+                SwitchHandler.Invoke(IsSwitch);
+        }
+    }
+    void OnPointDownEvent(PointerEventData ped)
+    {
+        AniController.SetTrigger(pointDownHash);
+    }
+    void OnPointUpEvent(PointerEventData ped)
+    {
+        AniController.SetTrigger(pointUpHash);
     }
 
     protected override sealed void UISet() => base.UISet();

@@ -14,8 +14,6 @@ public class CharacterTribeTabBtn : UITabButton
 
     protected override void Initialize()
     {
-        base.Initialize();
-
         if (IsAll)
         {
             allText = this.gameObject.FindChild<Text>();
@@ -27,7 +25,7 @@ public class CharacterTribeTabBtn : UITabButton
             onColor = DefineColor.GetTribe(Tribe);
         }
 
-        UIOffSet();
+        base.Initialize();
     }
     protected override void UIOnSet()
     {

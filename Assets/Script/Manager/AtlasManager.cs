@@ -18,17 +18,13 @@ public class AtlasManager
         Tribe = Managers.Resources.Load<SpriteAtlas>("Atlas/Tribe");
     }
 
-    #region Format
-    string gradeFormat = "Grade_{0}";
-    #endregion
-
     public Sprite GetGrade(Grade grade)
     {
-        return Grade.GetSprite(CSharpHelper.Format_H(gradeFormat, grade.ToString()));
+        return Grade.GetSprite(grade.ToString());
     }
     public Sprite GetGradeBg(Grade grade)
     {
-        return GradeBg.GetSprite(CSharpHelper.Format_H(gradeFormat, grade.ToString()));
+        return GradeBg.GetSprite(grade.ToString());
     }
     public Sprite GetItem(ItemTableCodeDefine item)
     {

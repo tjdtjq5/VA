@@ -1,15 +1,17 @@
-﻿public class CharacterCard : UICard
+﻿using UnityEngine;
+
+public class CharacterCard : UICard
 {
     CharacterCardData _data;
 
 	protected override void Initialize()
 	{
-		base.Initialize();
 		Bind<UIImage>(typeof(UIImageE));
 		Bind<UIText>(typeof(UITextE));
 		Bind<CharacterCardSlider>(typeof(CharacterCardSliderE));
-	}
 
+		base.Initialize();
+	}
     public override void Setting(ICardData data)
     {
         _data = (CharacterCardData)data;
@@ -17,14 +19,24 @@
         bool isPlayerDataExist = _data.playerData != null;
         int awake = isPlayerDataExist ? _data.playerData.Awake : 0;
         Grade grade = (Grade)_data.tableData.grade;
+        int level = isPlayerDataExist ? _data.playerData.Level : 0;
 
         NameSetting(_data.soData.DisplayName);
         SliderSetting(1, awake);
         GradeSetting(grade);
+        CharacterImgSet(_data.soData.Icon);
+        LevelSet(level);
     }
     void NameSetting(string name)
     {
         GetText(UITextE.TextName).text = name;
+    }
+    void LevelSet(int level)
+    {
+        if (level < 1)
+            GetText(UITextE.TextLv).text = "";
+        else
+            GetText(UITextE.TextLv).text = $"Lv.{level}";
     }
     void GradeSetting(Grade grade)
     {
@@ -32,6 +44,19 @@
         GetImage(UIImageE.Grade).Image.SetNativeSize();
 
         GetImage(UIImageE.BG).sprite = Managers.Atlas.GetGradeBg(grade);
+    }
+    void CharacterImgSet(Sprite sprite)
+    {
+        if (sprite == null)
+        {
+            GetImage(UIImageE.Character).Image.color = Color.clear;
+        }
+        else
+        {
+            GetImage(UIImageE.Character).Image.color = Color.white;
+            GetImage(UIImageE.Character).sprite = sprite;
+            GetImage(UIImageE.Character).Image.SetNativeSize();
+        }
     }
     void JobSetting(CharacterJob job)
     {
@@ -44,8 +69,9 @@
     
 	public enum UIImageE
     {
-        BG,
-        BgDeco,
+		BG,
+		BgDeco,
+		Character,
 		Grade,
 		Job,
     }
