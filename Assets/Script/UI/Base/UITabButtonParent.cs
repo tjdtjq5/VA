@@ -9,7 +9,7 @@ public class UITabButtonParent : UIFrame
     List<UITabButton> tabs = new();
     public int Index {  get; set; }
     public Action<int> SwitchOnHandler;
-    public Action<int> SwitchOffHandler;
+    public Action<int> SwitchOffHandler; 
 
     [SerializeField] bool isAllOff;
 
@@ -31,6 +31,9 @@ public class UITabButtonParent : UIFrame
     }
     void SwitchOn(int index)
     {
+        if (index != Index)
+            SwitchOff(Index);
+
         Index = index;
 
         for (int i = 0;i < tabs.Count; i++)

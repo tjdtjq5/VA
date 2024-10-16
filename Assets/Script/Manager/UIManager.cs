@@ -5,7 +5,8 @@ using UnityEngine;
 public class UIManager
 {
     const string rootName = "======UI======";
-    int _order = 100;
+    Dictionary<CanvasOrderType, int> _order = new();
+    int orderLayer = 1000;
 
     GameObject rootGo = null;
 
@@ -31,23 +32,26 @@ public class UIManager
     int Count => _popupDics.Count;
     int LastIndex => Count - 1;
 
-    public void SetPopupCanvas(GameObject go, int order = -1)
+    public void SetPopupCanvas(GameObject go, CanvasOrderType orderType)
     {
         Canvas canvas = UnityHelper.GetOrAddComponent<Canvas>(go);
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.overrideSorting = true;
 
-        if (order < 0)
+        if(_order.TryGetValue(orderType, out int value))
         {
-            canvas.sortingOrder = _order;
-            _order++;
+            int next = value + 1;
+            _order[orderType] = next;
+            canvas.sortingOrder = next;
         }
         else
         {
-            canvas.sortingOrder = order;
+            int startOrder = (int)orderType * orderLayer;
+            _order.Add(orderType, startOrder);
+            canvas.sortingOrder = startOrder;
         }
     }
-    public T ShopPopupUI<T>(string name, int order = -1) where T : UIPopup
+    public T ShopPopupUI<T>(string name, CanvasOrderType orderType, Transform root = null) where T : UIPopup
     {
         if (string.IsNullOrEmpty(name))
         {
@@ -66,10 +70,12 @@ public class UIManager
         _popupNameStack.Add(name);
 
         T popup = UnityHelper.GetOrAddComponent<T>(go);
+        popup.OrderType = orderType;
 
-        go.transform.SetParent(RootGo.transform);
-
-        SetPopupCanvas(go, order);
+        if (root == null)
+            go.transform.SetParent(RootGo.transform);
+        else
+            go.transform.SetParent(root);
 
         return popup;
     }
@@ -115,4 +121,10 @@ public class UIManager
         CloseAllPopupUI();
         rootGo = null;
     }
+}
+public enum CanvasOrderType
+{
+    Bottom,
+    Middle,
+    Top
 }

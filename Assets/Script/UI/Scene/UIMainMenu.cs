@@ -50,7 +50,7 @@
     {
         string popupName = "MainScene/MainCharacter";
         if (isActive)
-            Managers.UI.ShopPopupUI<MainCharacterPopup>(popupName);
+            Managers.UI.ShopPopupUI<MainCharacterPopup>(popupName, CanvasOrderType.Middle);
         else
             Managers.UI.ClosePopupUI(popupName);
     }

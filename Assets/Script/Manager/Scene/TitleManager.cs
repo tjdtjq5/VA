@@ -18,7 +18,7 @@ public class TitleManager : SceneBase
 
         }, () => 
         {
-            UI_Login UI_Login = Managers.UI.ShopPopupUI<UI_Login>("UILogin");
+            UI_Login UI_Login = Managers.UI.ShopPopupUI<UI_Login>("UILogin", CanvasOrderType.Bottom);
 
             UI_Login.LoginAfterJob(() =>
             {
@@ -46,8 +46,7 @@ public class TitleManager : SceneBase
         {
             Managers.PlayerData.DbGets(() => 
             {
-              //  UnityHelper.LogSerialize(Managers.PlayerData.Character.Gets());
-                UIItemTest ulft = Managers.UI.ShopPopupUI<UIItemTest>("Test/UIItemTest");
+                UIItemTest ulft = Managers.UI.ShopPopupUI<UIItemTest>("Test/UIItemTest", CanvasOrderType.Bottom);
             });
         });
     }

@@ -26,11 +26,12 @@
                 break;
 		}
 	}
+
 	void CharacterViewPoup(bool isActive)
 	{
 		string popupName = "MainScene/MainCharacterView";
 		if (isActive)
-			Managers.UI.ShopPopupUI<MainCharacterViewPopup>(popupName);
+			Managers.UI.ShopPopupUI<MainCharacterViewPopup>(popupName, CanvasOrderType.Middle, this.transform);
 		else
 			Managers.UI.ClosePopupUI(popupName);
 	}
