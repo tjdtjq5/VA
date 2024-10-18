@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
-using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
@@ -33,7 +31,7 @@ public class AutoBuilder
         buildPlayerOptions.scenes = scenes;
         buildPlayerOptions.locationPathName = app_target;
         buildPlayerOptions.target = BuildTarget.Android;
-        buildPlayerOptions.options = BuildOptions.CompressWithLz4;
+        buildPlayerOptions.options = BuildOptions.CompressWithLz4HC;
 
         var report = BuildPipeline.BuildPlayer(buildPlayerOptions);
 

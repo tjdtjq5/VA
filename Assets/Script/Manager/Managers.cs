@@ -42,6 +42,8 @@ public class Managers : MonoBehaviour
     void Start()
     {
         Init();
+
+        Application.targetFrameRate = 60;
     }
     static void Init()
     {

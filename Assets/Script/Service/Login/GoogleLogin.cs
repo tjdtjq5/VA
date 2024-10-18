@@ -97,6 +97,7 @@ public class GoogleLogin
     private static void DeepLinkResponse(ImaginationOverflow.UniversalDeepLinking.LinkActivation s)
     {
         string url = s.Uri;
+        UnityHelper.Log_H(url);
 
         if (!url.Contains(_redirect_uri))
             return;

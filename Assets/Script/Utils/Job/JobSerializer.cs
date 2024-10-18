@@ -6,7 +6,6 @@ public class JobSerializer
     JobTimer _timer = new JobTimer();
     Queue<IJob> _jobQueue = new Queue<IJob>();
     object _lock = new object();
-    bool _flush = false;
 
     public int Count
     {
@@ -64,7 +63,6 @@ public class JobSerializer
         {
             if (_jobQueue.Count == 0)
             {
-                _flush = false;
                 return null;
             }
             return _jobQueue.Dequeue();
