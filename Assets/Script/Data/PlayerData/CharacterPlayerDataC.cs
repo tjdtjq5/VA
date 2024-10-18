@@ -12,8 +12,36 @@ public class CharacterPlayerDataC : PlayerDataC<CharacterPlayerData>
         });
     }
 
+    // Dic<Stat Code , Bonus Data>
+    // Dic<string, Tuple<string, string, BBNumber>> 
     public override List<Stat> GetStats()
     {
+        // Main / Sub / BBnum
+
+        /* [캐릭터 별 추가 능력] 
+         * 
+         * 1. 캐릭터 레벨 : 공격력 , 체력 , 방어력 
+         * 2. 잠재능력
+         * 3. 전용무기 레벨
+         * 
+         * [모든 캐릭터 추가 능력] 
+         * 1. 승급 
+         * 2. 전용무기 달성
+         * 3. 도감
+        */
+
+        string CharacterLevelMainKey = "CharacterLevel";
+        string CharacterPotentialMainKey = "CharacterPotential";
+        string CharacterSpecialWeaponLevelMainKey = "CharacterSpecialWeaponLevel";
+
+        for (int i = 0; i < datas.Count; i++)
+        {
+            CharacterPlayerData data = datas[i];
+
+        }
+
+        var result = new Tuple<string, string, BBNumber>("Main", "Sub", 1);
+
         throw new NotImplementedException();
     }
 

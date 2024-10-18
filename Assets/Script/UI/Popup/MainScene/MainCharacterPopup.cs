@@ -3,6 +3,7 @@
     protected override void Initialize()
 	{
 		base.Initialize();
+
 		Bind<UIImage>(typeof(UIImageE));
 		Bind<UITabSlider>(typeof(UITabSliderE));
 
@@ -11,7 +12,16 @@
     protected override void UISet()
     {
         base.UISet();
+
 		TabAction(0);
+    }
+
+    public override void OpenUISet(CanvasOrderType orderType)
+    {
+        base.OpenUISet(orderType);
+
+		int index = GetTabSlider(UITabSliderE.TabSlider).Index;
+		TabAction(index);
     }
 
     void TabAction(int index)

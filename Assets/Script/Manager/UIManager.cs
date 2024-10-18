@@ -70,7 +70,7 @@ public class UIManager
         _popupNameStack.Add(name);
 
         T popup = UnityHelper.GetOrAddComponent<T>(go);
-        popup.OrderType = orderType;
+        popup.OpenUISet(orderType);
 
         if (root == null)
             go.transform.SetParent(RootGo.transform);

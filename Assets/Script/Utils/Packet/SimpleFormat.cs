@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Timeline;
 
 public class SimpleFormat
 {
@@ -462,7 +461,7 @@ public class SimpleFormat
 
         foreach (var line in FileHelper.ReadLines(file))
         {
-            if (line.Trim().Equals(format))
+            if (line.Trim().Contains(format))
             {
                 return true;
             }

@@ -13,7 +13,11 @@ public class CharacterTableData
 {
 	public string characterCode { get; set; }
 	public int tribeType { get; set; }
+	public int job { get; set; }
 	public int grade { get; set; }
+	public int atk { get; set; }
+	public int hp { get; set; }
+	public int def { get; set; }
 	public string tipName { get; set; }
 }
 

@@ -99,6 +99,7 @@ public enum ItemTableCodeDefine
 
 public enum FormulaKeyword
 {
+    Default,
     LEVEL,
     STAGE,
     C_LEVEL,
@@ -130,4 +131,7 @@ public enum FormulaTableCodeDefine
     Stage_Get_LC,
     Character_Level_Up,
     Need_C_Awake_Card,
+    Ab_C_Level_Hp,
+    Ab_C_Level_Atk,
+    Ab_C_Level_Def,
 }

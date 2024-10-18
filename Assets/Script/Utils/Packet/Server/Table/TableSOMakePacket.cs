@@ -2,6 +2,10 @@ public class TableSOMakePacket
 {
     public static void ChangeUpdate(string tableName)
     {
+        bool isExistSOEnum = CSharpHelper.ExistEnumData<SOTableType>(tableName);
+        if (!isExistSOEnum)
+            return;
+
         string tableCheckF = CSharpHelper.Format_H(tableCheckFormat, tableName);
         string file = FileHelper.GetScriptPath("TableSOMake");
 
@@ -21,6 +25,10 @@ public class TableSOMakePacket
     }
     public static bool IsCheckTable(string tableName)
     {
+        bool isExistSOEnum = CSharpHelper.ExistEnumData<SOTableType>(tableName);
+        if (!isExistSOEnum)
+            return true;
+
         string tableCheckF = CSharpHelper.Format_H(tableCheckFormat, tableName);
         string file = FileHelper.GetScriptPath("TableSOMake");
         return SimpleFormat.Exist(file, tableCheckF);

@@ -244,3 +244,13 @@ public class Stat : IdentifiedObject
     public bool ContainsBonusValue(object key, object subKey)
         => bonusValuesByKey.TryGetValue(key, out var bonusValuesBySubKey) ? bonusValuesBySubKey.ContainsKey(subKey) : false;
 }
+public enum OnlyCharacterStatKey // Sub -> CharacterCode
+{
+    CharacterLevel,
+    CharacterPotential,
+    CharacterSpecialWeaponLevel,
+}
+public enum ScreenStatKey
+{
+    Buff,
+}

@@ -5,7 +5,7 @@ using UnityEngine;
 public class UITabSlider : UIFrame
 {
     protected virtual IReadOnlyList<string> TabNames { get; set; }
-    protected int SelectIndex {  get; set; }
+    public int Index {  get; set; }
     public Action<int> TabHandler;
 
 	string tabBtnPrefabName = "Prefab/UI/Tab/TabSliderBtn";
@@ -50,8 +50,8 @@ public class UITabSlider : UIFrame
     }
     void SelectInitialize()
     {
-        SelectIndex = 0;
-        selectTr.position = new Vector2(tabParentTr.GetChild(SelectIndex).position.x + tabWidth / 2, selectTr.position.y);
+        Index = 0;
+        selectTr.position = new Vector2(tabParentTr.GetChild(Index).position.x + tabWidth / 2, selectTr.position.y);
         SelectTextSet();
     }
     
@@ -62,10 +62,10 @@ public class UITabSlider : UIFrame
 
     public void OnClickTab(int index)
     {
-        if (SelectIndex.Equals(index))
+        if (Index.Equals(index))
             return;
 
-        SelectIndex = index;
+        Index = index;
         SelectTextSet();
         SelectMove();
 
@@ -74,12 +74,12 @@ public class UITabSlider : UIFrame
     }
     void SelectMove()
     {
-        movePos = new Vector2(tabParentTr.GetChild(SelectIndex).position.x + (SelectIndex == 0 ? 0 : horizontalSpacingX), selectTr.position.y);
+        movePos = new Vector2(tabParentTr.GetChild(Index).position.x + (Index == 0 ? 0 : horizontalSpacingX), selectTr.position.y);
         isMove = true;
     }
     void SelectTextSet()
     {
-        GetText(UITextE.Select_Text).text = TabNames[SelectIndex];
+        GetText(UITextE.Select_Text).text = TabNames[Index];
     }
     private void FixedUpdate()
     {

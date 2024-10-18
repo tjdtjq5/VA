@@ -42,14 +42,19 @@ public class TablePacket
         bool isExistSOEnum = CSharpHelper.ExistEnumData<SOTableType>(tableName);
         if (isExistSOEnum)
         {
-            string soVariableF = CSharpHelper.Format_H(soVariableFormat, tableName);
-
-            if(!SimpleFormat.Exist(file, soVariableF))
+            string soVariableCheckF = CSharpHelper.Format_H(soVariableCheckFormat, tableName);
+            if (!SimpleFormat.Exist(file, soVariableCheckF))
+            {
+                string soVariableF = CSharpHelper.Format_H(soVariableFormat, tableName);
                 SimpleFormat.InnerTypeUpperAdd(file, $"{tableName}Table", soVariableF);
+            }
 
-            string soFuncF = CSharpHelper.Format_H(soFuncFormat, tableName);
-            if (!SimpleFormat.Exist(file, soFuncF))
+            string soFuncCheckF = CSharpHelper.Format_H(soFuncCheckFormat, tableName);
+            if (!SimpleFormat.Exist(file, soFuncCheckF))
+            {
+                string soFuncF = CSharpHelper.Format_H(soFuncFormat, tableName);
                 SimpleFormat.InnerTypeUnderAdd(file, $"{tableName}Table", soFuncF);
+            }
         }
     }
     public static void Remove(string tableName)
@@ -113,6 +118,10 @@ public class {0}Table : Table<{0}TableData>
     // {1} Value
     static string tableDataFormat =
 @"{0} = {1},";
+    static string soVariableCheckFormat =
+@"Dictionary<string, {0}SO> tableSOs";
+    static string soFuncCheckFormat =
+@"public {0}SO GetTableSO(string code)";
     // {0} TableName
     static string soVariableFormat =
 @"    Dictionary<string, {0}SO> tableSOs {{ get; set; }} = new();";

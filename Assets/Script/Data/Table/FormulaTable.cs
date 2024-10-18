@@ -31,6 +31,9 @@ public class FormulaTable : Table<FormulaTableData>
             new FormulaTableData() { formulaCode = "Stage_Get_LC", fM = "10+(10*{C_LEVEL})", tipName = "일반던전획득행운변환기",  },
             new FormulaTableData() { formulaCode = "Character_Level_Up", fM = "10+(10*{C_LEVEL})", tipName = "캐릭터레벨업",  },
             new FormulaTableData() { formulaCode = "Need_C_Awake_Card", fM = "2+2^{C_AWAKE}", tipName = "캐릭터승급에따라필요한카드수",  },
+            new FormulaTableData() { formulaCode = "Ab_C_Level_Hp", fM = "{Default}+{C_LEVEL}*({Default}*0.1)", tipName = "캐릭터레벨별능력치_체력",  },
+            new FormulaTableData() { formulaCode = "Ab_C_Level_Atk", fM = "{Default}+{C_LEVEL}*({Default}*0.1)", tipName = "캐릭터레벨별능력치_공격력",  },
+            new FormulaTableData() { formulaCode = "Ab_C_Level_Def", fM = "{Default}+{C_LEVEL}*({Default}*0.1)", tipName = "캐릭터레벨별능력치_방어력",  },
         };
         Push(datas);
     }

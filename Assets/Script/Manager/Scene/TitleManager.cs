@@ -46,7 +46,8 @@ public class TitleManager : SceneBase
         {
             Managers.PlayerData.DbGets(() => 
             {
-                UIItemTest ulft = Managers.UI.ShopPopupUI<UIItemTest>("Test/UIItemTest", CanvasOrderType.Bottom);
+                Managers.Scene.LoadScene(SceneType.InGame);
+               // UIItemTest ulft = Managers.UI.ShopPopupUI<UIItemTest>("Test/UIItemTest", CanvasOrderType.Bottom);
             });
         });
     }

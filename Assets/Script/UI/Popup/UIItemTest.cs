@@ -4,7 +4,7 @@ public class UIItemTest : UIPopup
 {
 	protected override void Initialize()
 	{
-		base.Initialize();
+        base.Initialize();
 		Bind<UIImage>(typeof(UIImageE));
 		Bind<UIButton>(typeof(UIButtonE));
 		Bind<UIInputField>(typeof(UIInputFieldE));
