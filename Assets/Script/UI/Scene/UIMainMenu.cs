@@ -1,4 +1,4 @@
-﻿public class UIMainMenu : UIFrame
+﻿public class UIMainMenu : UIScene
 {
     protected override void Initialize()
     {
@@ -30,6 +30,8 @@
     }
     void OffMenueAction(int index)
     {
+        Managers.Scene.InGameManager.ItemViewOff();
+
         switch (index)
         {
             case 0:

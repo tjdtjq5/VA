@@ -44,7 +44,7 @@ public class UIFrame : UIBase
         {
             RectTransform child = childs[i];
 
-            if (child.GetComponentInChildren<UIFrame>())
+            if (child != parents && child.GetComponentInChildren<UIFrame>())
             {
                 continue;
             }

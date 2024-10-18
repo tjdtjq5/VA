@@ -14,8 +14,25 @@ public class UIImage : UIBase
     {
         set
         {
-            Image.sprite = value;
+            if (value != null)
+                Image.sprite = value;
+            else
+            {
+                Image.sprite = null;
+                Image.color = Color.clear;
+            }
         }
+        get
+        {
+            return Image.sprite;
+        }
+    }
+    public void SetNativeSize()
+    {
+        if (sprite == null)
+            return;
+
+        this.Image.SetNativeSize();
     }
     protected override void Initialize()
     {

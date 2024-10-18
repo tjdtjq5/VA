@@ -17,6 +17,19 @@ public class ItemPlayerDataC : PlayerDataC<PlayerItemData>
         return null;
     }
 
+    public PlayerItemData GetItem(ItemTableCodeDefine item)
+    {
+        PlayerItemData getData = Gets().Find(i => i.ItemCode.Equals(item.ToString()));
+        if (getData == null)
+        {
+            return new PlayerItemData() { ItemCode = item.ToString() };
+        }
+        else
+        {
+            return getData;
+        }
+    }
+
     public override void InitialData()
     {
         List<PlayerItemData> datas = new List<PlayerItemData>()

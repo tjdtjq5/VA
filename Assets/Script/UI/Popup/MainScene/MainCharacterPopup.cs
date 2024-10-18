@@ -31,10 +31,16 @@
 	{
 		string popupName = "MainScene/MainCharacterView";
 		if (isActive)
-			Managers.UI.ShopPopupUI<MainCharacterViewPopup>(popupName, CanvasOrderType.Middle, this.transform);
+		{
+            Managers.UI.ShopPopupUI<MainCharacterViewPopup>(popupName, CanvasOrderType.Middle, this.transform);
+
+			Managers.Scene.InGameManager.ItemViewSet(ItemTableCodeDefine.Elixir);
+        }
 		else
-			Managers.UI.ClosePopupUI(popupName);
-	}
+		{
+            Managers.UI.ClosePopupUI(popupName);
+        }
+    }
 
     public enum UIImageE
     {

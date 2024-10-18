@@ -1,6 +1,7 @@
+using System;
+
 public class UIPopup : UIFrame
 {
-    protected virtual bool IsSort => true;
     public CanvasOrderType OrderType { get; set; }
 
     protected override void Initialize()

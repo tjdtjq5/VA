@@ -36,8 +36,16 @@ public class UITabButtonParent : UIFrame
 
         Index = index;
 
-        for (int i = 0;i < tabs.Count; i++)
-            tabs[i].Switch(tabs[i].Index == index);
+        for (int i = 0; i < tabs.Count; i++)
+        {
+            if (tabs[i].Index != index)
+                tabs[i].Switch(false);
+        }
+        for (int i = 0; i < tabs.Count; i++)
+        {
+            if (tabs[i].Index == index)
+                tabs[i].Switch(true);
+        }
 
         if (SwitchOnHandler != null)
             SwitchOnHandler.Invoke(index);

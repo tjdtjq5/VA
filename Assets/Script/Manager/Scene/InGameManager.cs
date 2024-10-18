@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerSpawnActionController))]
 public class InGameManager : SceneBase
 {
+    [SerializeField] UIMainItemViewList itemViewList;
+    
     EnemySpawnActionController enemySpawnActionController;
     PlayerSpawnActionController playerSpawnActionController;
 
@@ -33,14 +35,15 @@ public class InGameManager : SceneBase
     {
         enemySpawnActionController.FixedUpdate();
     }
-
     public override PlayerController GetPlayer()
     {
         return playerSpawnActionController.Player;
     }
-
     public override int GetPlayerJobCount(Tribe job)
     {
         return playerSpawnActionController.JobCount(job);
     }
+
+    public void ItemViewOff() => itemViewList.UISetOff();
+    public void ItemViewSet(ItemTableCodeDefine item) => itemViewList.UISet(item);
 }

@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UIJoystic : UIPopup
+public class UIJoystic : UIScene
 {
-    protected override bool IsSort => false;
-
     [SerializeField] Transform tr;
 	[SerializeField] Transform in_tr;
 	float MaxRadisus => 75f;

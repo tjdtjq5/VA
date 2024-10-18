@@ -5,11 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagerEx
 {
+    SceneBase _currentScene;
+    InGameManager _inGameManager;
+
     public SceneBase CurrentScene
     {
         get
         {
-            return GameObject.FindObjectOfType<SceneBase>();
+            if (_currentScene == null)
+                _currentScene = GameObject.FindObjectOfType<SceneBase>();
+            return _currentScene;
+        }
+    }
+    public InGameManager InGameManager
+    {
+        get
+        {
+            if (_inGameManager == null)
+                _inGameManager = GameObject.FindObjectOfType<InGameManager>();
+            return _inGameManager;
         }
     }
     public void LoadScene(SceneType sceneType)
@@ -33,6 +47,9 @@ public class SceneManagerEx
     }
     void SceneClear()
     {
+        _currentScene = null;
+        _inGameManager = null;
+
         Managers.Instance.Clean();
     }
 }
