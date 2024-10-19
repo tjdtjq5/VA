@@ -52,6 +52,7 @@ public static class GoogleLogin
         isInit = true;
 
         GoogleAuth = new GoogleAuth();
+        GoogleAuth.DebugLog = false;
         GoogleAuth.TryResume(OnSignIn, OnGetTokenResponse);
     }
     static public void Login(Action callback)
@@ -59,6 +60,8 @@ public static class GoogleLogin
         Initialize();
 
         _callback = callback;
+
+        SignIn();
     }
     static public void SignIn()
     {
@@ -74,7 +77,29 @@ public static class GoogleLogin
     }
     static private void OnSignIn(bool success, string error, UserInfo userInfo)
     {
-        UnityHelper.Log_H(success ? $"Hello, {userInfo.name}!" : error);
+        if (success)
+        {
+            AccountLoginRequest req = new AccountLoginRequest()
+            {
+                ProviderType = ProviderType.Google,
+                NetworkIdOrCode = $"[{ProviderType.Google.ToString()}]{userInfo.email}",
+            };
+
+            Managers.Web.SendPostRequest<AccountLoginResponce>("account/login", req, (res) =>
+            {
+                Managers.Web.JwtToken = res.JwtAccessToken;
+                Managers.Web.AccountId = res.AccountId;
+
+                AutoJwtToken = res.JwtAccessToken;
+                AutoProviderType = ProviderType.Apple;
+                AutoAccountId = res.AccountId;
+
+                if (_callback != null)
+                    _callback.Invoke();
+            });
+        }
+        else
+            UnityHelper.Log_H(error);
     }
     static private void OnGetTokenResponse(bool success, string error, TokenResponse tokenResponse)
     {
