@@ -1,5 +1,4 @@
 #if UNITY_IOS
-using AppleAuth.Editor;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
@@ -42,8 +41,8 @@ class XCodePostBuilder
         // apple login Entitlements 
         var manager = new ProjectCapabilityManager(projectPath, "Entitlements.entitlements", null, pbxProject.GetUnityMainTargetGuid());
 
-        // Compatibility 
-        manager.AddSignInWithAppleWithCompatibility(pbxProject.GetUnityFrameworkTargetGuid());
+        // Compatibility
+        manager.AddSignInWithApple();
         manager.AddGameCenter();
         manager.AddInAppPurchase();
 
