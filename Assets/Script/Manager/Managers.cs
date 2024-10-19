@@ -12,7 +12,6 @@ public class Managers : MonoBehaviour
     ResourcesManager _resources = new ResourcesManager();
     PoolManager _pool = new PoolManager();
     UIManager _ui = new UIManager();
-    ProcessDeepLinkManager _deepLink = new ProcessDeepLinkManager();
     TimeManager _time = new TimeManager();
     SseManager _sse = new SseManager();
     ChatManager _chat = new ChatManager();
@@ -29,7 +28,6 @@ public class Managers : MonoBehaviour
     public static ResourcesManager Resources { get { return Instance._resources; } }
     public static PoolManager Pool { get { return Instance._pool; } }
     public static UIManager UI { get { return Instance._ui; } }
-    public static ProcessDeepLinkManager DeepLink { get { return Instance._deepLink; } }
     public static TimeManager Time { get { return Instance._time; } }
     public static SseManager Sse { get { return Instance._sse; } }
     public static ChatManager Chat { get { return Instance._chat; } }
