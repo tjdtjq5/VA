@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -218,6 +219,14 @@ public class TableWindow : EditorWindow
             {
                 OnClickTableUpdate(_selectKey, _tableData);
             }
+
+            Color origin = GUI.color;
+            GUI.color = Color.red;
+            if (GUILayout.Button("Delete Table DB"))
+            {
+                OnClickTableDelete(_selectKey);
+            }
+            GUI.color = origin;
         }
         EditorGUILayout.EndHorizontal();
 
@@ -232,16 +241,16 @@ public class TableWindow : EditorWindow
     }
     async void GoogleSheetLoadTable(long sheetId, string range, System.Action<string> res)
     {
-        string address = secretFileTxt.Read<string>("GoogleSheetAdress");
+        string address = secretFileTxt.Read("GoogleSheetAdress");
         string url = GoogleSpreadSheetUtils.GetTSVAdress(address, range, sheetId);
 
-        string data = await WebTaskCall.Get<string>(url);
+        string data = await WebTaskCall.Get(url);
 
         res.Invoke(data);
     }
     void OnClickGoToGoogleSheet(long sheetId)
     {
-        string address = secretFileTxt.Read<string>("GoogleSheetAdress");
+        string address = secretFileTxt.Read("GoogleSheetAdress");
         Application.OpenURL(GoogleSpreadSheetUtils.GetUrl(address, sheetId));
     }
     void OnClickCreateTableDB(string tableName, string tableData)
@@ -273,10 +282,6 @@ public class TableWindow : EditorWindow
         {
             TableRRPacket.Create(tableName);
         }
-        else
-        {
-            TableRRPacket.Modify(tableName);
-        }
 
         if (!TableControllerPacket.Exist(tableName))
         {
@@ -288,6 +293,20 @@ public class TableWindow : EditorWindow
             TableServicePacket.Create(tableName, tableData);
         }
 
+        if (!TableCollectionPacket.Exist(tableName))
+        {
+            TableCollectionPacket.Add(tableName);
+        }
+
+        if (!TableManagerPacket.Exist(tableName))
+        {
+            TableManagerPacket.Add(tableName);
+        }
+
+        TablePacket.Add(tableName, tableData);
+
+        MasterTableServicePacket.Create(tableName);
+
         //ItemTableService
         string addScopedName = $"{tableName}TableService";
         if (!ServerProgramPacket.ExistScoped(addScopedName))
@@ -295,45 +314,99 @@ public class TableWindow : EditorWindow
             ServerProgramPacket.AddScoped(addScopedName);
         }
 
-        // 복사하기 DefineCopyPath
-        string defineCopyPath = secretFileTxt.Read<string>("DefineCopyPath");
-        FileHelper.ProcessStart(defineCopyPath);
+        DefineCopy();
 
         bool isDialogMsg = EditorMessageUtils.DialogMessage("CreateTableDB", "Do It\n1. Add-Migration [Message]\n2. Update-Database\n3. Build");
         if (isDialogMsg)
         {
-            string serverPath = secretFileTxt.Read<string>("ServerSlnPath");
-            FileHelper.ProcessStart(serverPath);
+            //string serverPath = secretFileTxt.Read("ServerSlnPath");
+            //FileHelper.ProcessStart(serverPath);
         }
     }
     void OnClickTableUpdate(string tableName, string tableData)
     {
-        if (!TableFunctionPacket.IsCheckUpdateTable(tableName))
+        if (!TableFunctionPacket.IsCheckUpdateTable(tableName) || !TableSOMakePacket.IsCheckTable(tableName))
         {
             TableFunctionPacket.ChangeUpdateFunction(tableName);
+            TableSOMakePacket.ChangeUpdate(tableName);
             EditorMessageUtils.DialogMessage("TableFunction Loading", "After Loading, Try Again!");
         }
         else
         {
             TableFunction.UpdateTable(tableName, tableData);
+            TableCodeDefine(tableName, tableData);
+            TableSOMake.CreateSO(tableName, tableData);
+            DefineCopy();
+        }
+    }
+    void OnClickTableDelete(string tableName)
+    {
+        bool isDialogMsg = EditorMessageUtils.DialogMessage("DeleteTableDB", "Do It\n1. Add-Migration [Message]\n2. Update-Database\n3. Build");
+        if (isDialogMsg)
+        {
+            if (TableDbPacket.Exist(tableName))
+            {
+                TableDbPacket.Remove(tableName);
+            }
+
+            if (DbContextPacket.Exist(tableName))
+            {
+                DbContextPacket.Remove(tableName);
+            }
+
+            if (TableDataPacket.Exist(tableName))
+            {
+                TableDataPacket.Remove(tableName);
+            }
+
+            if (TableRRPacket.Exist(tableName))
+            {
+                TableRRPacket.Remove(tableName);
+            }
+
+            if (TableControllerPacket.Exist(tableName))
+            {
+                TableControllerPacket.Remove(tableName);
+            }
+
+            if (TableServicePacket.Exist(tableName))
+            {
+                TableServicePacket.Remove(tableName);
+            }
+
+            if (TableCollectionPacket.Exist(tableName))
+            {
+                TableCollectionPacket.Remove(tableName);
+            }
+
+            if (TableManagerPacket.Exist(tableName))
+            {
+                TableManagerPacket.Remove(tableName);
+            }
+
+            TablePacket.Remove(tableName);
+
+            MasterTableServicePacket.Remove(tableName);
+
+            //ItemTableService
+            string addScopedName = $"{tableName}TableService";
+            if (ServerProgramPacket.ExistScoped(addScopedName))
+            {
+                ServerProgramPacket.RemoveScoped(addScopedName);
+            }
+
+            // 복사하기 DefineCopyPath
+            string defineCopyPath = secretFileTxt.Read("DefineCopyPath");
+            FileHelper.ProcessStart(defineCopyPath);
+
+            //string serverPath = secretFileTxt.Read("ServerSlnPath");
+            //FileHelper.ProcessStart(serverPath);
         }
     }
     void OnClickDebugServerStart()
     {
         // 서버 실행 
-        switch (GameOptionManager.ServerUrlType)
-        {
-            case ServerUrlType.DebugUrl:
-                string serverSlnPath = secretFileTxt.Read<string>("ServerSlnPath");
-                FileHelper.ProcessStart(serverSlnPath);
-                break;
-            case ServerUrlType.LocalhostUrl:
-                string serverDebugExePath = secretFileTxt.Read<string>("LocalhostStartPath");
-                FileHelper.ProcessStart(serverDebugExePath);
-                break;
-            default:
-                break;
-        }
+        ServerEditor.StartServer();
     }
     void ConnetModeSetting()
     {
@@ -367,14 +440,14 @@ public class TableWindow : EditorWindow
             {
                 if (string.IsNullOrEmpty(_connectTableName) || string.IsNullOrEmpty(_connectSheetId) || string.IsNullOrEmpty(_connectRange))
                 {
-                    UnityHelper.LogError_H($"TableWindow ConnetModeSetting Null Or Empty Error");
+                    UnityHelper.Error_H($"TableWindow ConnetModeSetting Null Or Empty Error");
                     return;
                 }
 
                 long sheetId = 0;
                 if (!long.TryParse(_connectSheetId, out sheetId))
                 {
-                    UnityHelper.LogError_H($"TableWindow ConnetModeSetting SheetId Parse Error\n_connectSheetId : {_connectSheetId}");
+                    UnityHelper.Error_H($"TableWindow ConnetModeSetting SheetId Parse Error\n_connectSheetId : {_connectSheetId}");
                     return;
                 }
 
@@ -398,19 +471,94 @@ public class TableWindow : EditorWindow
             GUI.backgroundColor = Color.red;
             if (GUILayout.Button("Remove"))
             {
-                googleSheetFile.Remove(_connectTableName);
-
-                _upperToolbarIndex = 0;
-
-                _selectKey = "";
-                _tableData = "";
-
-                _connectTableName = "";
-                _connectSheetId = "";
-                _connectRange = "";
+                OnClickConnectRemove(_connectTableName);
             }
             GUI.backgroundColor = originColor;
         }
         EditorGUILayout.EndVertical();
+    }
+
+    void OnClickConnectRemove(string tableName)
+    {
+        bool notAlready = false;
+        if (TableDbPacket.Exist(tableName))
+        {
+            notAlready = true;
+        }
+
+        if (DbContextPacket.Exist(tableName))
+        {
+            notAlready = true;
+        }
+
+        if (TableDataPacket.Exist(tableName))
+        {
+            notAlready = true;
+        }
+
+        if (TableRRPacket.Exist(tableName))
+        {
+            notAlready = true;
+        }
+
+        if (TableControllerPacket.Exist(tableName))
+        {
+            notAlready = true;
+        }
+
+        if (TableServicePacket.Exist(tableName))
+        {
+            notAlready = true;
+        }
+
+        if (TableCollectionPacket.Exist(tableName))
+        {
+            notAlready = true;
+        }
+
+        if (TableManagerPacket.Exist(tableName))
+        {
+            notAlready = true;
+        }
+
+        //ItemTableService
+        string addScopedName = $"{tableName}TableService";
+        if (ServerProgramPacket.ExistScoped(addScopedName))
+        {
+            notAlready = true;
+        }
+
+        if (notAlready)
+        {
+            UnityHelper.Error_H($"First you need to delete all table data");
+            return;
+        }
+
+
+        googleSheetFile.Remove(_connectTableName);
+
+        _upperToolbarIndex = 0;
+
+        _selectKey = "";
+        _tableData = "";
+
+        _connectTableName = "";
+        _connectSheetId = "";
+        _connectRange = "";
+    }
+
+    void DefineCopy()
+    {
+        string defineCopyPath = secretFileTxt.Read("DefineCopyPath");
+        FileHelper.ProcessStart(defineCopyPath);
+    }
+    void TableCodeDefine(string tableName, string tableData)
+    {
+        bool isExistDefineEnum = CSharpHelper.ExistEnumData<DefineTableCodeType>(tableName);
+        if (isExistDefineEnum) 
+        {
+            List<string> tableKeys = GoogleSpreadSheetUtils.GetKeyDatas(tableData);
+            TableDefineCodePacket.Update(tableName, tableKeys);
+        }
     }
 }

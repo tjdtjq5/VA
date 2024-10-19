@@ -1,0 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SleepingState : EntityCCState
+{
+    private static readonly string kAnimationClipName = "isSleeping";
+
+    public override string Description => "Description";
+    protected override string AnimationClipName => kAnimationClipName;
+}

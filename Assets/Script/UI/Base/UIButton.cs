@@ -1,31 +1,107 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIButton : UIBase
+[RequireComponent(typeof(Animator))]
+public class UIButton : UIFrame
 {
-    enum Buttons
+    Image Image
     {
-        PointButton
+        get
+        {
+            return GetComponent<Image>();
+        }
     }
-    enum Texts : int
+    protected Animator Animator
     {
-        PointText,
-        ScoreText,
+        get
+        {
+            return GetComponent<Animator>();
+        }
+    }
+    protected AniController AniController;
+
+    int pointDownHash = UnityEngine.Animator.StringToHash("PointDown");
+    int pointUpHash = UnityEngine.Animator.StringToHash("PointUp");
+    int pressedHash = UnityEngine.Animator.StringToHash("Pressed");
+
+    bool isPressed = false;
+    float pressedStartTime = 0.4f; float pressedStartTimer;
+    float pressedTime = 0.1f; float pressedTimer;
+    bool isPointDown;
+
+    protected override void Initialize()
+    {
+        Image.raycastTarget = true;
+
+        if (Animator)
+            AniController = Animator.Initialize();
+
+        AddPointDownEvent(OnPointDownEvent);
+        AddPointUpEvent(OnPointUpEvent);
     }
 
-    enum GameObjects
+    public void AddClickEvent(Action<PointerEventData> _action)
     {
-        TestObj
+        BindEvent(Image.gameObject, _action, UIEvent.Click);
+    }
+    public void AddPointDownEvent(Action<PointerEventData> _action)
+    {
+        BindEvent(Image.gameObject, _action, UIEvent.PointDown);
+    }
+    public void AddPointUpEvent(Action<PointerEventData> _action)
+    {
+        BindEvent(Image.gameObject, _action, UIEvent.PointUp);
+    }
+    public void AddDragEvent(Action<PointerEventData> _action)
+    {
+        BindEvent(Image.gameObject, _action, UIEvent.Drag);
+    }
+    public void AddPressedEvent(Action<PointerEventData> _action)
+    {
+        isPressed = true;
+
+        AddPointDownEvent(_action);
     }
 
-    private void Start()
+    void OnPointDownEvent(PointerEventData ped)
     {
-        Bind<Button>(typeof(Buttons));
-        Bind<Text>(typeof(Texts));
-        Bind<GameObject>(typeof(GameObjects));
+        if (!isPressed)
+            AniController.SetTrigger(pointDownHash);
+        else
+            AniController.SetBool(pressedHash, true);
 
-        Get<Button>(Buttons.PointButton);
+        isPointDown = true;
+    }
+    void OnPointUpEvent(PointerEventData ped)
+    {
+        if (!isPressed)
+            AniController.SetTrigger(pointUpHash);
+        else
+            AniController.SetBool(pressedHash, false);
+
+        isPointDown = false;
+    }
+    private void FixedUpdate()
+    {
+        if (isPressed)
+        {
+            if (isPointDown)
+            {
+                float fixedDeltaTime = Managers.Time.FixedDeltaTime;
+                pressedStartTimer += fixedDeltaTime;
+                pressedTimer += fixedDeltaTime;
+
+                if (pressedStartTimer >= pressedStartTime)
+                {
+                    if (pressedTimer >= pressedTime)
+                    {
+                        pressedTimer = 0;
+                        GetEvent(Image.gameObject, UIEvent.PointDown).Invoke(null);
+                    }
+                }
+            }
+        }
     }
 }

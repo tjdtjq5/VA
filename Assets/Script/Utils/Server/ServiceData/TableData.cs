@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 [Serializable] // ItemTable
 public class ItemTableData
@@ -8,10 +8,31 @@ public class ItemTableData
 	public string tipName { get; set; }
 }
 
-[Serializable] // SkillTable
-public class SkillTableData
+[Serializable] // CharacterTable
+public class CharacterTableData
 {
-	public string skillCode { get; set; }
-	public int skillType { get; set; }
+	public string characterCode { get; set; }
+	public int tribeType { get; set; }
+	public int job { get; set; }
+	public int grade { get; set; }
+	public int atk { get; set; }
+	public int hp { get; set; }
+	public int def { get; set; }
+	public string tipName { get; set; }
+}
+
+[Serializable] // FormulaTable
+public class FormulaTableData
+{
+	public string formulaCode { get; set; }
+	public string fM { get; set; }
+	public string tipName { get; set; }
+}
+
+[Serializable] // GameDefineTable
+public class GameDefineTableData
+{
+	public string gameDefineCode { get; set; }
+	public string value { get; set; }
 	public string tipName { get; set; }
 }

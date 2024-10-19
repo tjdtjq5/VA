@@ -1,10 +1,15 @@
-public class UIPopup : UIBase
+using System;
+
+public class UIPopup : UIFrame
 {
-    public override void Initialize()
+    protected override void Initialize()
     {
         base.Initialize();
+    }
 
-        Managers.UI.SetCanvas(gameObject, true);
+    public virtual void OpenUISet(CanvasOrderType orderType)
+    {
+        Managers.UI.SetPopupCanvas(gameObject, orderType);
     }
 
     public virtual void ClosePopupUI()
