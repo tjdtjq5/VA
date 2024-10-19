@@ -2,9 +2,10 @@ using UnityEngine.UI;
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using EasyButtons;
 
 [RequireComponent(typeof(ScrollRect))]
-public class UIScrollView : UIBase
+public class UIScrollView : UIFrame
 {
     UICard _cardPrepab;
     UIScrollViewLayoutStartAxis _axis;
@@ -20,6 +21,8 @@ public class UIScrollView : UIBase
     ScrollRect _scrollRect;
     List<ICardData> _dataList = new List<ICardData>();
     List<UICard> _cardList = new List<UICard>();
+
+    Image _scrollViewImg;
 
     Scrollbar _scrollbarHorizontal;
     RectTransform _scrollbarHorizontalRectTr;
@@ -69,6 +72,9 @@ public class UIScrollView : UIBase
         base.Initialize();
 
         _scrollRect = UnityHelper.GetOrAddComponent<ScrollRect>(this.gameObject);
+        _scrollRect.movementType = ScrollRect.MovementType.Clamped;
+
+        _scrollViewImg = GetComponent<Image>();
 
         _scrollRect.content.anchorMax = new Vector2(0.5f, 1);
         _scrollRect.content.anchorMin = new Vector2(0.5f, 1);
@@ -97,23 +103,23 @@ public class UIScrollView : UIBase
             _scrollbarVerticalSlidingAreaDeltaSize = _scrollbarVerticalSlidingAreaRectTr.sizeDelta;
         }
     }
-    void CardSetting(string cardName, int columnOrRowCount = 1, float spacingX = 0, float spacingY = 0)
+    void CardSet(string cardName, int columnOrRowCount = 1, float spacingX = 0, float spacingY = 0)
     {
         if (_cardPrepab == null)
         {
-            _cardPrepab = Managers.Resources.Load<UICard>($"Prepab/UI/Card/{cardName}");
+            _cardPrepab = Managers.Resources.Load<UICard>($"Prefab/UI/Card/{cardName}");
         }
         else
         {
             if (!_cardPrepab.name.Equals(cardName))
             {
-                _cardPrepab = Managers.Resources.Load<UICard>($"Prepab/UI/Card/{cardName}");
+                _cardPrepab = Managers.Resources.Load<UICard>($"Prefab/UI/Card/{cardName}");
             }
         }
 
         if (_cardPrepab == null)
         {
-            UnityHelper.LogError_H($"UIScrollView _cardPrepab Null Load\ncardName : {cardName}");
+            UnityHelper.Error_H($"UIScrollView CardPrefab Null Load\ncardName : {cardName}");
             return;
         }
 
@@ -122,15 +128,18 @@ public class UIScrollView : UIBase
 
         _columnOrRowCount = columnOrRowCount;
     }
-    public void View(UIScrollViewLayoutStartAxis axis, string cardName, List<ICardData> dataList, int selectIndex = 0, int columnCount = 1, UIScrollViewLayoutStartCorner corner = UIScrollViewLayoutStartCorner.Middle, float spacingX = 0, float spacingY = 0)
+    public void UISet(UIScrollViewLayoutStartAxis axis, string cardName, List<ICardData> dataList, int selectIndex = 0, int columnCount = 1, UIScrollViewLayoutStartCorner corner = UIScrollViewLayoutStartCorner.Middle, float spacingX = 0, float spacingY = 0)
     {
-        CardSetting(cardName, columnCount, spacingX, spacingY);
+        CardSet(cardName, columnCount, spacingX, spacingY);
 
         if (_cardPrepab == null)
         {
-            UnityHelper.LogError_H($"UIScrollView View Card Prepab Null Error");
+            UnityHelper.Error_H($"UIScrollView View Card Prepab Null Error");
             return;
         }
+
+        _scrollRect.horizontal = axis == UIScrollViewLayoutStartAxis.Horizontal;
+        _scrollRect.vertical = axis == UIScrollViewLayoutStartAxis.Vertical;
 
         _dataList = dataList;
 
@@ -155,7 +164,7 @@ public class UIScrollView : UIBase
 
         for (int i = 0; i < cardCount; i++)
         {
-            GameObject cardGo = Managers.Resources.Instantiate($"Prepab/UI/Card/{_cardPrepab.name}", _scrollRect.content);
+            GameObject cardGo = Managers.Resources.Instantiate($"Prefab/UI/Card/{_cardPrepab.name}", _scrollRect.content);
             UICard card = UnityHelper.GetOrAddComponent<UICard>(cardGo);
 
             card.RectTransform.pivot = _cardPivot;
@@ -380,5 +389,14 @@ public class UIScrollView : UIBase
                 _startCornerValue = 0;
                 break;
         }
+    }
+
+    [Button]
+    public void InspectorSetting()
+    {
+        Initialize();
+        ScrollBarHorizontalActive(false);
+        ScrollBarVerticalActive(false);
+        _scrollViewImg.color = Color.clear;
     }
 }

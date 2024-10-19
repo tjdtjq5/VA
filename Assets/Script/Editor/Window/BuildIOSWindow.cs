@@ -10,6 +10,7 @@ public class BuildIOSWindow : EditorWindow
 
     static bool _versionFoldout;
     static bool _bundleCodeFoldout;
+    static bool _releaseBuildFoldout;
     static bool _serverUrlFoldout;
     static bool _logFoldout;
 
@@ -48,6 +49,10 @@ public class BuildIOSWindow : EditorWindow
 
             EditorGUILayout.Space(4);
 
+            ReleaseBuildGUI();
+
+            EditorGUILayout.Space(4);
+
             ServerURLSetting();
 
             EditorGUILayout.Space(4);
@@ -59,6 +64,11 @@ public class BuildIOSWindow : EditorWindow
             BuildGUI();
         }
         EditorGUILayout.EndVertical();
+    }
+
+    private void OnEnable()
+    {
+        _releaseBuildFoldout = true;
     }
 
     void TitleGUI()
@@ -180,6 +190,37 @@ public class BuildIOSWindow : EditorWindow
                     bundleCode++;
                     buildOptionFile.Add(_bundleCodeValue, bundleCode);
                 }
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+    }
+
+    void ReleaseBuildGUI()
+    {
+        _releaseBuildFoldout = CustomEditorUtility.DrawFoldoutTitle("Release", _releaseBuildFoldout);
+
+        if (_releaseBuildFoldout)
+        {
+            EditorGUILayout.Space(4);
+
+            EditorGUILayout.BeginHorizontal();
+            {
+                Color originColor = GUI.backgroundColor;
+                bool isRelease = GameOptionManager.IsRelease;
+
+                for (int i = 0; i < 2; i++)
+                {
+                    bool flag = i % 2 == 0;
+                    bool isSelect = flag == isRelease;
+                    GUI.backgroundColor = isSelect ? Color.cyan : Color.white;
+
+                    if (GUILayout.Button($"{flag.ToString()}"))
+                    {
+                        GameOptionManager.SetRelease(flag);
+                    }
+                }
+
+                GUI.backgroundColor = originColor;
             }
             EditorGUILayout.EndHorizontal();
         }

@@ -17,4 +17,11 @@ public class UIText : UIBase
             Text.text = value;
         }
     }
+
+    protected override void Initialize()
+    {
+        base.Initialize();
+
+        Text.raycastTarget = false;
+    }
 }

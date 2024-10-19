@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c43c11f085e0424fbf995787e42221d, type: 3}
+  m_Name: SKILL_Robot001_Active
+  m_EditorClassIdentifier: 
+  categories: []
+  icon: {fileID: 0}
+  id: 8
+  codeName: Robot001_Active
+  displayName: Robot001_Active
+  description: Robot001_Active
+  type: 0
+  useType: 0
+  executionType: 1
+  applyType: 1
+  needSelectionResultType: 0
+  targetSelectionTimingOption: 0
+  targetSearchTimingOption: 0
+  acquisitionConditions: []
+  acquisitionCosts: []
+  useConditions: []
+  isAllowLevelExceedDatas: 0
+  maxLevel: 1
+  defaultLevel: 1
+  skillDatas:
+  - level: 1
+    levelUpConditions: []
+    levelUpCosts: []
+    precedingAction:
+      rid: 5444726173243277316
+    action:
+      rid: 5444726173243277322
+    runningFinishOption: 0
+    duration: 0
+    applyCount: 1
+    applyCycle: 0
+    cooldown:
+      defaultValue: 5
+      scaleStat: {fileID: 0}
+    targetSearcher:
+      selectionAction:
+        rid: 5444726173243277318
+      searchAction:
+        rid: 5444726173243277319
+    costs: []
+    isUseCast: 0
+    castTime:
+      defaultValue: 0
+      scaleStat: {fileID: 0}
+    isUseCharge: 0
+    chargeFinishActionOption: 0
+    chargeDuration: 0
+    chargeTime: 0
+    needChargeTimeToUse: 0
+    startChargePower: 0
+    effectSelectors:
+    - level: 1
+      effect: {fileID: 11400000, guid: f44f197e27c2e364c859bebac99f3624, type: 2}
+    inSkillActionFinishOption: 0
+    castAnimatorClipName: 
+    chargeAnimatorClipName: 
+    precedingActionAnimatorClipName: 
+    actionAnimatorClipName: skill
+    customActionsOnCast: []
+    customActionsOnCharge: []
+    customActionsOnPrecedingAction: []
+    customActionsOnAction: []
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5444726173243277316
+      type: {class: StarSpawnPrecedingAction, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 5444726173243277318
+      type: {class: SelectRandomEntity, ns: , asm: Assembly-CSharp}
+      data:
+        indicatorViewAction:
+          rid: -2
+        isUseScale: 0
+        range: 10
+        angle: 360
+        isSelectSameCategory: 0
+        castRadius: 1000
+    - rid: 5444726173243277319
+      type: {class: SelectedTarget, ns: , asm: Assembly-CSharp}
+      data:
+        indicatorViewAction:
+          rid: -2
+        isUseScale: 0
+    - rid: 5444726173243277322
+      type: {class: InstantApplyEffectSpawnAction, ns: , asm: Assembly-CSharp}
+      data:
+        effectObj: {fileID: 4218160674387114083, guid: b36030e378781004dbcd2d7388b134cc, type: 3}
+        spawnTarget: 1
+        isRotation: 0
+        isOneEffect: 0

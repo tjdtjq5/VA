@@ -69,7 +69,7 @@ public class SoundManager
 
             if (resourcesClip == null)
             {
-                UnityHelper.LogError_H($"SoundManager GetAudioClip Clip Null Error\nclipName : {clipName}");
+                UnityHelper.Error_H($"SoundManager GetAudioClip Clip Null Error\nclipName : {clipName}");
             }
 
             return resourcesClip;
@@ -79,8 +79,11 @@ public class SoundManager
     {
         foreach (var source in _audioSoucrces)
         {
-            source.clip = null;
-            source.Stop();
+            if (source)
+            {
+                source.clip = null;
+                source.Stop();
+            }
         }
 
         _clipDics.Clear();

@@ -1,6 +1,4 @@
-using Newtonsoft.Json;
-using System;
-using System.Collections;
+using Spine.Unity;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -11,29 +9,40 @@ public static class UnityHelper
     #region Log
     public static void Log_H(object message)
     {
-        Debug.Log($"<color=#006AFF>{message}</color>");
+        if (!GameOptionManager.IsRelease)
+            Debug.Log(message);
     }
     public static void Log_H<T1, T2>(Dictionary<T1, T2> dics) where T1 : new() where T2 : new()
     {
-        string message = "";
+        Log_H(dics.ToString());
+    }
+    public static void Log_H<T>(List<T> list)
+    {
+        string datas = "";
 
-        foreach (var data in dics)
+        for (int i = 0; i < list.Count; i++)
+            datas += CSharpHelper.SerializeObject(list[i]) + "\n";
+
+        datas = datas.Substring(0, datas.Length - 1);
+
+        Log_H(datas);
+    }
+    public static void Error_H(object message)
+    {
+        if (!GameOptionManager.IsRelease)
         {
-            string keyData = CSharpHelper.SerializeObject(data.Key);
-            string valueData = CSharpHelper.SerializeObject(data.Value);
-
-            message += $"{keyData} : {valueData}\n";
+            string msg = $"{message}";
+            Debug.LogError(msg);
         }
-
-        Log_H(message);
     }
-    public static void LogError_H(object message)
+    public static void SerializeL(object message)
     {
-        Debug.LogError(message);
+        Log_H($"<color=#006AFF>{CSharpHelper.SerializeObject(message)}</color>");
     }
-    public static void LogSerialize(object message)
+    public static void Assert_H(bool condition, string message)
     {
-        Debug.Log($"<color=#006AFF>{CSharpHelper.SerializeObject(message)}</color>");
+        if (!GameOptionManager.IsRelease)
+            Debug.Assert(condition, message);
     }
     #endregion
 
@@ -106,9 +115,10 @@ public static class UnityHelper
 
         return null;
     }
-    public static T FindChildPath<T>(GameObject _go, string path)
+    public static T FindChildByPath<T>(GameObject _go, string path)
     {
         string parentsName = _go.name.Replace("(Clone)", "");
+
         List<string> objNames = path.Split('/').ToList();
         for (int i = 0; i < objNames.Count; i++)
         {
@@ -133,7 +143,7 @@ public static class UnityHelper
 
             if (child == null)
             {
-                LogError_H($"Not Found Object\npath : {path}\nparents : {parentsName}");
+                Error_H($"Not Found Object\npath : {path}\nparents : {parentsName}");
                 return default(T);
             }
 
@@ -143,11 +153,11 @@ public static class UnityHelper
             }
             else
             {
-                return FindChildPath<T>(child, path);
+                return FindChildByPath<T>(child, path);
             }
         }
 
-        LogError_H($"Not Found Object\npath : {path}\nparents : {parentsName}");
+        Error_H($"Not Found Object\npath : {path}\nparents : {parentsName}");
         return default(T);
     }
     public static List<T> FlindChilds<T>(GameObject _go, bool _recursive = false) where T : UnityEngine.Object
@@ -232,7 +242,7 @@ public static class UnityHelper
     {
         string versionCode = "0.0";
 
-        for (int i = 0; i < values.Length; i++) 
+        for (int i = 0; i < values.Length; i++)
         {
             if (i == 0)
             {
@@ -251,6 +261,58 @@ public static class UnityHelper
         string path = Application.dataPath.Substring(0, Application.dataPath.LastIndexOf('/'));
         path += $"/Build/{buildTarget}";
         return path;
+    }
+    #endregion
+
+    #region Transform
+    public static void LookAt_H(this Transform tr, Transform target)
+    {
+        var angle = tr.position.GetAngle(target.position);
+        tr.localRotation = Quaternion.Euler(57f, tr.localRotation.y, angle);
+    }
+    public static float GetAngle(this UnityEngine.Vector3 start, UnityEngine.Vector3 end)
+    {
+        UnityEngine.Vector3 v2 = end - start;
+        return Mathf.Atan2(v2.z, v2.x) * Mathf.Rad2Deg;
+    }
+    #endregion
+
+    #region Vector3
+    public static Vector3 GetDirection(this Vector3 originPos, Vector3 targetPos)
+    {
+        targetPos = targetPos - originPos;
+        return targetPos.normalized;
+    }
+    public static float GetDistance(this Vector3 originPos, Vector3 targetPos)
+    {
+        return Vector3.Distance(originPos, targetPos);
+    }
+    public static float GetSqrMagnitude(this Vector3 originPos, Vector3 targetPos)
+    {
+        return Vector3.SqrMagnitude(originPos - targetPos);
+    }
+    #endregion
+
+    #region  Animation
+    public static AniController Initialize(this Animator animator)
+    {
+        AniController ac = animator.GetOrAddComponent<AniController>();
+        ac.Initialize(animator);
+        return ac;
+    }
+    public static SpineAniController Initialize(this SkeletonAnimation animator)
+    {
+        SpineAniController ac = animator.GetOrAddComponent<SpineAniController>();
+        ac.Initialize(animator);
+        return ac;
+    }
+    #endregion
+
+    #region Function
+    public static bool IsApplyPercent(float percent)
+    {
+        float r = Random.Range(0.0f, 100.0f);
+        return r < percent;
     }
     #endregion
 }

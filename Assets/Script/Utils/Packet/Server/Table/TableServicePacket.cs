@@ -8,7 +8,7 @@ public class TableServicePacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"TableServicePacket Create Error Must Link TableService.cs");
+            UnityHelper.Error_H($"TableServicePacket Create Error Must Link TableService.cs");
             return;
         }
 
@@ -16,7 +16,7 @@ public class TableServicePacket
 
         if (isExist)
         {
-            UnityHelper.LogError_H($"TableServicePacket Create Error Alread Exist Table\nTable : {tableName}");
+            UnityHelper.Error_H($"TableServicePacket Create Error Alread Exist Table\nTable : {tableName}");
             return;
         }
 
@@ -41,6 +41,9 @@ public class TableServicePacket
         string updateF = CSharpHelper.Format_H(updateFormat, tableName, LowerTableName(tableName), KeyValueName(tableData));
         text += $"\t{updateF}\n";
 
+        string getsF = CSharpHelper.Format_H(getsFormat, tableName);
+        text += $"\t{getsF}\n";
+
         string dbDataF = CSharpHelper.Format_H(getDbDataByTableDataFormat, tableName);
         text += $"\t{dbDataF}\n";
 
@@ -54,7 +57,7 @@ public class TableServicePacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableService.cs");
+            UnityHelper.Error_H($"Must Link TableService.cs");
             return;
         }
 
@@ -62,7 +65,7 @@ public class TableServicePacket
 
         if (!isExist)
         {
-            UnityHelper.LogError_H($"TableServicePacket Remove Error Not Exist Table\nTable : {tableName}");
+            UnityHelper.Error_H($"TableServicePacket Remove Error Not Exist Table\nTable : {tableName}");
             return;
         }
 
@@ -107,7 +110,7 @@ public class TableServicePacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableController.cs");
+            UnityHelper.Error_H($"Must Link TableController.cs");
             return false;
         }
 
@@ -134,20 +137,20 @@ public class TableServicePacket
         }
         else
         {
-            UnityHelper.LogError_H($"TableServicePacket GetTableFile No Linked File");
+            UnityHelper.Error_H($"TableServicePacket GetTableFile No Linked File");
             return "";
         }
     }
     static string LowerTableName(string tableName)
     {
-        return CSharpHelper.StartCharToLower(tableName);
+        return CSharpHelper.ToLower_H(tableName);
     }
     static string KeyValueName(string tableData)
     {
         List<string> variableNames = VariableNames(tableData);
         if (variableNames.Count >= 1)
         {
-            return CSharpHelper.StartCharToLower(variableNames[0]);
+            return CSharpHelper.ToLower_H(variableNames[0]);
         }
         else
         {
@@ -174,7 +177,7 @@ public class TableServicePacket
         }
         catch
         {
-            UnityHelper.LogError_H($"TableDataPacket TableTypes Error\ntableData : {tableData}");
+            UnityHelper.Error_H($"TableDataPacket TableTypes Error\ntableData : {tableData}");
             return null;
         }
     }
@@ -250,6 +253,19 @@ public class TableServicePacket
 
         return changeDatas;
     }}";
+
+    // {0} Table Name
+    static string getsFormat =
+@"	public List<{0}TableData> Gets()
+    {{
+        List<{0}TableData> results = new List<{0}TableData>();
+        var datas = _context.{0}s;
+
+        results.SetCopyValue(datas.ToList());
+
+        return results;
+    }}
+";
 
     // {0} Table Name
     static string getDbDataByTableDataFormat =

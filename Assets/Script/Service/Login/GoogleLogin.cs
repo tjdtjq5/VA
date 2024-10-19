@@ -1,18 +1,49 @@
 using System;
 using UnityEngine;
+using Assets.SimpleSignIn.Google.Scripts;
 
-public class GoogleLogin : MonoBehaviour, ILoginService
+public static class GoogleLogin
 {
-    string _url = "http://accounts.google.com/o/oauth2/v2/auth";
-    string _clientId = "263943206515-gkikthsoisdbvoaek84bo8l8su0sguoo.apps.googleusercontent.com";
-    string _redirect_uri = "https://slitz95.com/auth/google/callback";
-    string _response_type = "code";
-    string _scope = "https://www.googleapis.com/auth/userinfo.email";
+    static public GoogleAuth GoogleAuth;
+    static string AutoJwtToken
+    {
+        get
+        {
+            return PlayerPrefsHelper.GetString_H(PlayerPrefsKey.auto_login_jwt_token);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_jwt_token, value);
+        }
+    }
+    static ProviderType AutoProviderType
+    {
+        get
+        {
+            int value = PlayerPrefsHelper.GetInt_H(PlayerPrefsKey.auto_login_provider);
+            return (ProviderType)CSharpHelper.EnumClamp<ProviderType>(value, true);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_provider, (int)value);
+        }
+    }
+    static int AutoAccountId
+    {
+        get
+        {
+            return PlayerPrefsHelper.GetInt_H(PlayerPrefsKey.auto_login_account_id);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_account_id, value);
+        }
+    }
 
-    Action _callback;
+    static Action _callback;
 
-    bool isInit = false;
-    public void Initialize()
+    static bool isInit = false;
+    static public void Initialize()
     {
         if (isInit)
         {
@@ -20,40 +51,49 @@ public class GoogleLogin : MonoBehaviour, ILoginService
         }
         isInit = true;
 
-        Managers.DeepLink.AddAction(DeepLinkResponse);
+        GoogleAuth = new GoogleAuth();
+        GoogleAuth.TryResume(OnSignIn, OnGetTokenResponse);
     }
-    public void Login(Action callback)
+    static public void Login(Action callback)
     {
+        Initialize();
+
         _callback = callback;
-
-        _redirect_uri = System.Web.HttpUtility.UrlDecode(_redirect_uri);
-        string url = $"{_url}?client_id={_clientId}&redirect_uri={_redirect_uri}&response_type={_response_type}&scope={_scope}";
-
-        Application.OpenURL(url);
     }
-    private void DeepLinkResponse(ImaginationOverflow.UniversalDeepLinking.LinkActivation s)
+    static public void SignIn()
     {
-        string url = s.Uri;
+        GoogleAuth.SignIn(OnSignIn, caching: true);
+    }
+    static public void SignOut()
+    {
+        GoogleAuth.SignOut(revokeAccessToken: true);
+    }
+    static public void GetAccessToken()
+    {
+        GoogleAuth.GetTokenResponse(OnGetTokenResponse);
+    }
+    static private void OnSignIn(bool success, string error, UserInfo userInfo)
+    {
+        UnityHelper.Log_H(success ? $"Hello, {userInfo.name}!" : error);
+    }
+    static private void OnGetTokenResponse(bool success, string error, TokenResponse tokenResponse)
+    {
+        UnityHelper.Log_H(success ? $"Access token: {tokenResponse.AccessToken}" : error);
 
-        if (!url.Contains(_redirect_uri))
-            return;
+        if (!success) return;
 
-        string code = s.QueryString["code"];
+        var jwt = new JWT(tokenResponse.IdToken);
 
-        AccountLoginRequest req = new AccountLoginRequest()
-        {
-            ProviderType = ProviderType.Google,
-            NetworkIdOrCode = code,
-        };
+        UnityHelper.Log_H($"JSON Web Token (JWT) Payload: {jwt.Payload}");
 
-        Managers.Web.SendPostRequest<AccountLoginResponce>("account/login", req, (res) =>
-        {
-            UnityHelper.LogSerialize(res);
-
-            if (_callback != null)
-            {
-                _callback.Invoke();
-            }
-        });
+        jwt.ValidateSignature(GoogleAuth.ClientId, OnValidateSignature);
+    }
+    static private void OnValidateSignature(bool success, string error)
+    {
+        UnityHelper.Log_H(success ? "JWT signature validated" : error);
+    }
+    static public void Navigate(string url)
+    {
+        Application.OpenURL(url);
     }
 }

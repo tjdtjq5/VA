@@ -5,11 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagerEx
 {
+    SceneBase _currentScene;
+    InGameManager _inGameManager;
+
     public SceneBase CurrentScene
     {
         get
         {
-            return GameObject.FindObjectOfType<SceneBase>();
+            if (_currentScene == null)
+                _currentScene = GameObject.FindObjectOfType<SceneBase>();
+            return _currentScene;
+        }
+    }
+    public InGameManager InGameManager
+    {
+        get
+        {
+            if (_inGameManager == null)
+                _inGameManager = GameObject.FindObjectOfType<InGameManager>();
+            return _inGameManager;
         }
     }
     public void LoadScene(SceneType sceneType)
@@ -27,22 +41,15 @@ public class SceneManagerEx
                 return "InGame";
             case SceneType.Dungeon:
                 return "Dungeon";
-            case SceneType.Life:
-                return "Life";
-            case SceneType.Guild:
-                return "Guild";
             default:
                 return "";
         }
     }
     void SceneClear()
     {
-        CurrentScene.Clear();
+        _currentScene = null;
+        _inGameManager = null;
 
-        Managers.Resources.Clear();
-        Managers.Sound.Clear();
-        Managers.Input.Clear();
-        Managers.UI.Clear();
-        Managers.Pool.Clear();
+        Managers.Instance.Clean();
     }
 }

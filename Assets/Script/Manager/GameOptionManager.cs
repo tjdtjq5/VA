@@ -1,9 +1,11 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class GameOptionManager
 {
     static OptionFile optionFile = new OptionFile();
     static Dictionary<ServerUrlType, string> serverUrlDics = new Dictionary<ServerUrlType, string>();
+
+    public static bool IsRelease { get; } = false;
 
 	public static ServerUrlType ServerUrlType { get; } = ServerUrlType.ReleaseUrl;
 	public static string GetCurrentServerUrl
@@ -52,4 +54,8 @@ public class GameOptionManager
 
         GameOptionManagerPacket.ServerUrlChange(changeUrlType);
 	}
+    public static void SetRelease(bool flag)
+    {
+        GameOptionManagerPacket.SetRelease(flag);
+    }
 }

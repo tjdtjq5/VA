@@ -16,6 +16,8 @@ public class SettingOptionWindow : EditorWindow
 
     static IFileTxt[] _txtFiles;
     static Vector2 _windowSize;
+    static bool _serverUrlFoldout;
+    static bool _releaseBuildFoldout;
 
     [MenuItem("Tool/Setting %q")]
     static void Open()
@@ -64,6 +66,8 @@ public class SettingOptionWindow : EditorWindow
             }
 
             ServerURLSetting();
+
+            ReleaseBuildGUI();
         }
         EditorGUILayout.EndVertical();
     }
@@ -114,6 +118,12 @@ public class SettingOptionWindow : EditorWindow
                     EditorGUILayout.SelectableLabel(fileName);
 
                     GUI.contentColor = originColor;
+
+                    if (GUILayout.Button("Link"))
+                    {
+                        string path = _txtFiles[i].GetFile();
+                        FileHelper.ProcessStart(path);
+                    }
                 }
                 EditorGUILayout.EndHorizontal();
 
@@ -127,7 +137,15 @@ public class SettingOptionWindow : EditorWindow
                         string key = keys[j];
                         object value = _txtFiles[i].Read<object>(key);
                         string valueStr = CSharpHelper.SerializeObject(value);
-                        valueStr = RemoveSemi(valueStr);
+                        valueStr = CSharpHelper.RemoveSemi(valueStr);
+                        Color valueColor = GUI.contentColor;
+                        if (FileHelper.IsPathData(valueStr))
+                        {
+                            if(FileHelper.FileExist(valueStr) || FileHelper.DirectoryExist(valueStr))
+                                valueColor = Color.cyan;
+                            else
+                                valueColor = Color.red;
+                        }
 
                         bool isModify = modifyFlag.ContainsKey(key) ? modifyFlag[key] : false;
 
@@ -136,7 +154,7 @@ public class SettingOptionWindow : EditorWindow
                             if (!isModify)
                             {
                                 EditorGUILayout.LabelField(key, EditorStyles.helpBox, GUILayout.Width(150));
-                                EditorGUILayout.LabelField(valueStr, GUILayout.Width(CustomEditorUtility.GetScreenWidth - 400));
+                                EditorGUILayout.LabelField(valueStr, CustomEditorUtility.GetLabelStyle(13 ,valueColor), GUILayout.Width(CustomEditorUtility.GetScreenWidth - 400));
 
                                 if (GUILayout.Button("M", GUILayout.Width(35)))
                                 {
@@ -152,7 +170,7 @@ public class SettingOptionWindow : EditorWindow
                                     if (!string.IsNullOrEmpty(filePath))
                                     {
                                         _inputValue = filePath;
-                                        _inputValue = RemoveSemi(_inputValue);
+                                        _inputValue = CSharpHelper.RemoveSemi(_inputValue);
 
                                         ChangeData(i, key, valueStr);
                                     }
@@ -165,7 +183,7 @@ public class SettingOptionWindow : EditorWindow
 
                                 if (GUILayout.Button("M", GUILayout.Width(35)))
                                 {
-                                    _inputValue = RemoveSemi(_inputValue);
+                                    _inputValue = CSharpHelper.RemoveSemi(_inputValue);
 
                                     ChangeData(i, key, valueStr);
 
@@ -183,7 +201,7 @@ public class SettingOptionWindow : EditorWindow
                 {
                     int index = keys != null ? keys.Count : 0;
                     string key = $"NewOption_{index}";
-                    optionFile.Add(key, $"Value");
+                    _txtFiles[i].Add(key, $"Value");
                 }
             }
             EditorGUILayout.EndScrollView();
@@ -191,30 +209,65 @@ public class SettingOptionWindow : EditorWindow
     }
     void ServerURLSetting()
     {
-        ServerUrlType selectType = GameOptionManager.ServerUrlType;
-        int len = Enum.GetValues(typeof(ServerUrlType)).Length;
+        _serverUrlFoldout = CustomEditorUtility.DrawFoldoutTitle("Server Url Setting", _serverUrlFoldout);
 
-        EditorGUILayout.LabelField("Server Url", CustomEditorUtility.GetMiddleLabel);
-
-        Color originColor = GUI.backgroundColor;
-
-        EditorGUILayout.BeginHorizontal();
+        if (_serverUrlFoldout)
         {
-            for (int i = 0; i < len; i++) 
-            {
-                ServerUrlType cType = (ServerUrlType)i;
-                bool isSelect = cType == selectType;
-                GUI.backgroundColor = isSelect ? Color.cyan : Color.white;
+            EditorGUILayout.Space(4);
 
-                if (GUILayout.Button($"{cType.ToString()}"))
+            ServerUrlType selectType = GameOptionManager.ServerUrlType;
+            int len = Enum.GetValues(typeof(ServerUrlType)).Length;
+
+            Color originColor = GUI.backgroundColor;
+
+            EditorGUILayout.BeginHorizontal();
+            {
+                for (int i = 0; i < len; i++)
                 {
-                    GameOptionManager.ChangeServerUrl(cType);
+                    ServerUrlType cType = (ServerUrlType)i;
+                    bool isSelect = cType == selectType;
+                    GUI.backgroundColor = isSelect ? Color.cyan : Color.white;
+
+                    if (GUILayout.Button($"{cType.ToString()}"))
+                    {
+                        GameOptionManager.ChangeServerUrl(cType);
+                    }
                 }
             }
-        }
-        EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();
 
-        GUI.backgroundColor = originColor;
+            GUI.backgroundColor = originColor;
+        }
+    }
+    void ReleaseBuildGUI()
+    {
+        _releaseBuildFoldout = CustomEditorUtility.DrawFoldoutTitle("Release", _releaseBuildFoldout);
+
+        if (_releaseBuildFoldout)
+        {
+            EditorGUILayout.Space(4);
+
+            EditorGUILayout.BeginHorizontal();
+            {
+                Color originColor = GUI.backgroundColor;
+                bool isRelease = GameOptionManager.IsRelease;
+
+                for (int i = 0; i < 2; i++)
+                {
+                    bool flag = i % 2 == 0;
+                    bool isSelect = flag == isRelease;
+                    GUI.backgroundColor = isSelect ? Color.cyan : Color.white;
+
+                    if (GUILayout.Button($"{flag.ToString()}"))
+                    {
+                        GameOptionManager.SetRelease(flag);
+                    }
+                }
+
+                GUI.backgroundColor = originColor;
+            }
+            EditorGUILayout.EndHorizontal();
+        }
     }
 
     void SwitchModifyFlag(int index, string key, bool flag)
@@ -228,16 +281,6 @@ public class SettingOptionWindow : EditorWindow
         {
             _modifyFlag[index].Clear();
         }
-    }
-
-    string RemoveSemi(string path)
-    {
-        string result = path;
-        result = result.Replace("\\\\\\", "");
-        result = result.Replace("\\\\", "\\");
-        result = result.Replace("\"", "");
-
-        return result;
     }
 
     void ChangeData(int index, string originKey, string originValue)

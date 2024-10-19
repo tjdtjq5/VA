@@ -1,59 +1,108 @@
-using AppleAuth;
-using AppleAuth.Interfaces;
-using AppleAuth.Native;
 using System;
 using UnityEngine;
+using Assets.SimpleSignIn.Apple.Scripts;
 
-public class AppleLogin : MonoBehaviour, ILoginService
+public class AppleLogin
 {
-    private AppleAuthManager appleAuthManager;
+    static AppleAuth AppleAuth;
+    static Action _callback;
 
-    public void Initialize()
+    static string AutoJwtToken
     {
-        var deserializer = new PayloadDeserializer();
-        appleAuthManager = new AppleAuthManager(deserializer);
+        get
+        {
+            return PlayerPrefsHelper.GetString_H(PlayerPrefsKey.auto_login_jwt_token);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_jwt_token, value);
+        }
     }
-    void Update()
+    static ProviderType AutoProviderType
     {
-        if (appleAuthManager != null)
-            appleAuthManager.Update();
+        get
+        {
+            int value = PlayerPrefsHelper.GetInt_H(PlayerPrefsKey.auto_login_provider);
+            return (ProviderType)CSharpHelper.EnumClamp<ProviderType>(value, true);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_provider, (int)value);
+        }
+    }
+    static int AutoAccountId
+    {
+        get
+        {
+            return PlayerPrefsHelper.GetInt_H(PlayerPrefsKey.auto_login_account_id);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_account_id, value);
+        }
     }
 
-    public void Login(Action callback)
+    static bool isInit = false;
+
+    public static void Initialize()
     {
-        var loginArgs = new AppleAuthLoginArgs();
+        if (isInit)
+        {
+            return;
+        }
+        isInit = true;
 
-        appleAuthManager.LoginWithAppleId(
-            loginArgs,
-            credential =>
-            {
-                var appleIdCredential = credential as IAppleIDCredential;
-                if (appleIdCredential != null)
-                {
-                    var userId = appleIdCredential.User;
+        AppleAuth = new AppleAuth();
+        AppleAuth.TryResume(OnSignIn, OnGetTokenResponse);
+    }
 
-                    // 로그인처리
+    public static void Login(Action callback)
+    {
+        Initialize();
 
-                    AccountLoginRequest req = new AccountLoginRequest()
-                    {
-                        ProviderType = ProviderType.Apple,
-                        NetworkIdOrCode = userId,
-                    };
+        _callback = callback;
+    }
+    static public void SignIn()
+    {
+        AppleAuth.SignIn(OnSignIn, caching: true);
+    }
 
-                    Managers.Web.SendPostRequest<AccountLoginResponce>("account/login", req, (res) =>
-                    {
-                        UnityHelper.LogSerialize(res);
+    static public void SignOut()
+    {
+        AppleAuth.SignOut(revokeAccessToken: true);
+        UnityHelper.Log_H("Not signed in");
+    }
 
-                        if (callback != null)
-                        {
-                            callback.Invoke();
-                        }
-                    });
-                }
-            },
-            error =>
-            {
-                UnityHelper.Log_H("Apple Signin Error");
-            });
+    static public void GetAccessToken()
+    {
+        AppleAuth.GetTokenResponse(OnGetTokenResponse);
+    }
+
+    static private void OnSignIn(bool success, string error, UserInfo userInfo)
+    {
+        UnityHelper.Log_H(success ? $"Hello, {userInfo.Name}!" : error);
+    }
+
+    static private void OnGetTokenResponse(bool success, string error, TokenResponse tokenResponse)
+    {
+        UnityHelper.Log_H(success ? $"Access token: {tokenResponse.AccessToken}" : error);
+
+        if (!success) return;
+
+        var jwt = new JWT(tokenResponse.IdToken);
+
+        Debug.Log($"JSON Web Token (JWT) Payload: {jwt.Payload}");
+
+        jwt.ValidateSignature(AppleAuth.ClientId, OnValidateSignature);
+    }
+
+    static private void OnValidateSignature(bool success, string error)
+    {
+        UnityHelper.Log_H(success ? "JWT signature validated" : error);
+    }
+
+    static public void Navigate(string url)
+    {
+        Application.OpenURL(url);
     }
 }

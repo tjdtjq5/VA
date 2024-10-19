@@ -5,11 +5,13 @@ using UnityEngine;
 public class UIManager
 {
     const string rootName = "======UI======";
-    int _order = 10;
+    Dictionary<CanvasOrderType, int> _order = new();
+    int orderLayer = 1000;
 
     GameObject rootGo = null;
 
-    Stack<UIPopup> _popupStack = new Stack<UIPopup>(); 
+    Dictionary<string, GameObject> _popupDics = new Dictionary<string, GameObject>();
+    List<string> _popupNameStack = new List<string>();
     GameObject RootGo
     {
         get
@@ -27,68 +29,89 @@ public class UIManager
             return rootGo;
         }
     } 
+    int Count => _popupDics.Count;
+    int LastIndex => Count - 1;
 
-    public void SetCanvas(GameObject go, bool sort = true)
+    public void SetPopupCanvas(GameObject go, CanvasOrderType orderType)
     {
         Canvas canvas = UnityHelper.GetOrAddComponent<Canvas>(go);
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.overrideSorting = true;
 
-        if (sort)
+        if(_order.TryGetValue(orderType, out int value))
         {
-            canvas.sortingOrder = _order;
-            _order++;
+            int next = value + 1;
+            _order[orderType] = next;
+            canvas.sortingOrder = next;
         }
         else
         {
-            canvas.sortingOrder = 0;
+            int startOrder = (int)orderType * orderLayer;
+            _order.Add(orderType, startOrder);
+            canvas.sortingOrder = startOrder;
         }
     }
-
-    public T ShopPopupUI<T>(string name = null) where T : UIPopup
+    public T ShopPopupUI<T>(string name, CanvasOrderType orderType, Transform root = null) where T : UIPopup
     {
         if (string.IsNullOrEmpty(name))
         {
             name = typeof(T).Name;
         }
 
-        GameObject go = Managers.Resources.Instantiate($"Prepab/UI/Popup/{name}");
-        T popup = UnityHelper.GetOrAddComponent<T>(go);
-        _popupStack.Push(popup);
+        GameObject go = null;
+        if (_popupDics.ContainsKey(name))
+            go = _popupDics[name];
+        else
+        {
+            go = Managers.Resources.Instantiate($"Prefab/UI/Popup/{name}");
+            _popupDics.Add(name, go);
+        }
 
-        go.transform.SetParent(RootGo.transform);
+        _popupNameStack.Add(name);
+
+        T popup = UnityHelper.GetOrAddComponent<T>(go);
+        popup.OpenUISet(orderType);
+
+        if (root == null)
+            go.transform.SetParent(RootGo.transform);
+        else
+            go.transform.SetParent(root);
 
         return popup;
     }
     public void ClosePopupUI()
     {
-        if (_popupStack.Count == 0)
+        if (_popupDics.Count == 0)
             return;
 
-        UIPopup popup = _popupStack.Pop();
+        string popupName = _popupNameStack[LastIndex];
+        ClosePopupUI(popupName);
+    }
+    public void ClosePopupUI(string name)
+    {
+        if (_popupDics.ContainsKey(name))
+        {
+            Managers.Resources.Destroy(_popupDics[name]);
+            _popupDics.Remove(name);
+        }
 
-        Managers.Resources.Destroy(popup.gameObject);
-
-        popup = null;
-
-        _order--;
+        if (_popupNameStack.Contains(name))
+            _popupNameStack.Remove(name);
     }
     public void ClosePopupUI(UIPopup popup)
     {
-        if (_popupStack.Count == 0)
-            return;
-
-        if (_popupStack.Peek() != popup)
+        foreach (var go in _popupDics) 
         {
-            UnityHelper.LogError_H($"UIManager ClosePopupUI Failed");
-            return;
+            if (go.Value.gameObject == popup.gameObject)
+            {
+                ClosePopupUI(go.Key);
+                break;
+            }
         }
-
-        ClosePopupUI();
     }
     public void CloseAllPopupUI()
     {
-        while (_popupStack.Count > 0) 
+        while (_popupDics.Count > 0) 
         {
             ClosePopupUI();
         }
@@ -98,4 +121,10 @@ public class UIManager
         CloseAllPopupUI();
         rootGo = null;
     }
+}
+public enum CanvasOrderType
+{
+    Bottom,
+    Middle,
+    Top
 }

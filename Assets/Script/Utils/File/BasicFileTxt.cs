@@ -46,7 +46,7 @@ public class BasicFileTxt : IFileTxt
         bool exist = file != null;
         if (!exist)
         {
-            UnityHelper.LogError_H($"OptionFile GetFileData Exist Error");
+            UnityHelper.Error_H($"OptionFile GetFileData Exist Error");
             return new Dictionary<string, string>();
         }
 
@@ -73,7 +73,7 @@ public class BasicFileTxt : IFileTxt
         Dictionary<string, string> data = GetFileData();
         if (data.ContainsKey(key))
         {
-            string valueData = data[key];
+            string valueData = CSharpHelper.RemoveSemi(data[key]);
             return valueData;
         }
         else

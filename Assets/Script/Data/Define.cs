@@ -12,8 +12,6 @@ public enum SceneType
     Title,
     InGame,
     Dungeon,
-    Life,
-    Guild,
 }
 public enum UIEvent
 {
@@ -61,4 +59,35 @@ public enum TypeCollect
     Byte,
     List,
     Dictionary,
+}
+public enum ChatFrequencyCycle
+{
+    Often,
+    Sometimes,
+    Close
+}
+public enum CharacterJob
+{
+    Dealer,
+    SubDealer,
+    Supporter,
+}
+public enum Tribe
+{
+    Cat,
+    Dragon,
+    Druid,
+    Pirate,
+    Robot,
+    Thief,
+}
+public enum Grade
+{
+    D,
+    C,
+    B,
+    A,
+    S,
+    SS,
+    SSS,
 }

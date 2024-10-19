@@ -24,6 +24,7 @@ public class SecretFileTxt : IFileTxt
 
         string text = CSharpHelper.SerializeObject(data);
 
+
         FileHelper.Write(file, text, true);
     }
 
@@ -39,7 +40,7 @@ public class SecretFileTxt : IFileTxt
 
         if (string.IsNullOrEmpty(path))
         {
-            UnityHelper.LogError_H($"SecretOptionFile GetSecretFile Null SecretFilePath");
+            UnityHelper.Error_H($"SecretOptionFile GetSecretFile Null SecretFilePath");
             return null;
         }
 
@@ -96,7 +97,7 @@ public class SecretFileTxt : IFileTxt
 
         if (data.ContainsKey(key))
         {
-            string valueData = data[key];
+            string valueData = CSharpHelper.RemoveSemi(data[key]);
 
             return valueData;
         }

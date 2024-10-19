@@ -7,7 +7,7 @@ public class TableFunctionPacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"TableFunctionPacket ChangeUpdateFunction Error Must Link TableFunction.cs");
+            UnityHelper.Error_H($"TableFunctionPacket ChangeUpdateFunction Error Must Link TableFunction.cs");
             return;
         }
 
@@ -15,7 +15,7 @@ public class TableFunctionPacket
 
         if (check)
         {
-            UnityHelper.LogError_H($"TableFunctionPacket ChangeUpdateFunction Error Alread Setting\tableName : {tableName}");
+            UnityHelper.Error_H($"TableFunctionPacket ChangeUpdateFunction Error Alread Setting\tableName : {tableName}");
             return;
         }
 
@@ -83,7 +83,7 @@ public class TableFunctionPacket
         string file = GetFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"Must Link TableFunction.cs");
+            UnityHelper.Error_H($"Must Link TableFunction.cs");
             return false;
         }
 
@@ -110,7 +110,7 @@ public class TableFunctionPacket
         }
         else
         {
-            UnityHelper.LogError_H($"TableFunctionPacket GetTableFile No Linked File");
+            UnityHelper.Error_H($"TableFunctionPacket GetTableFile No Linked File");
             return "";
         }
     }
@@ -127,14 +127,14 @@ public class TableFunctionPacket
     static string updateTableFormat =
 @"        if (!tableName.Equals(GetUpdateTableName))
         {{
-            UnityHelper.LogError_H($""Error Deference Table Function"");
+            UnityHelper.Error_H($""Error Deference Table Function"");
             return;
         }}
 
         List<{0}TableData> tableDatas = GoogleSpreadSheetUtils.GetListTableDatas<{0}TableData>(tableName, tableData);
 
-        string addUrl = $""{{CSharpHelper.StartCharToLower(tableName)}}Table/update"";
-        var result = await WebTaskCall.Post<{0}TableResponse>(true, addUrl, tableDatas);
+        string addUrl = $""{{tableName.ToLower_H()}}Table/update"";
+        var result = await WebTaskCall.Post<{0}TableUpdateResponse>(true, addUrl, tableDatas);
 
         string resultSeri = CSharpHelper.SerializeObject(result);
         UnityHelper.Log_H(resultSeri);";

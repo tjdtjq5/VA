@@ -11,7 +11,7 @@ public class DbContextPacket
         string file = GetTableFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"DbContextPacket Add Error Must Link ApplicationDbContext.cs");
+            UnityHelper.Error_H($"DbContextPacket Add Error Must Link ApplicationDbContext.cs");
             return;
         }
 
@@ -19,7 +19,7 @@ public class DbContextPacket
 
         if (isExist)
         {
-            UnityHelper.LogError_H($"DbContextPacket Add Error Already Exist TableDB\nTableName : {tableName}");
+            UnityHelper.Error_H($"DbContextPacket Add Error Already Exist TableDB\nTableName : {tableName}");
             return;
         }
 
@@ -56,7 +56,7 @@ public class DbContextPacket
         string file = GetTableFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"DbContextPacket Remove Error Must Link ApplicationDbContext.cs");
+            UnityHelper.Error_H($"DbContextPacket Remove Error Must Link ApplicationDbContext.cs");
             return;
         }
 
@@ -64,7 +64,7 @@ public class DbContextPacket
 
         if (!isExist)
         {
-            UnityHelper.LogError_H($"DbContextPacket Add Error Not Exist TableDB\nTableName : {tableName}");
+            UnityHelper.Error_H($"DbContextPacket Add Error Not Exist TableDB\nTableName : {tableName}");
             return;
         }
 
@@ -98,7 +98,7 @@ public class DbContextPacket
         string file = GetTableFile();
         if (string.IsNullOrEmpty(file))
         {
-            UnityHelper.LogError_H($"DbContextPacket Exist Error Must Link ApplicationDbContext.cs");
+            UnityHelper.Error_H($"DbContextPacket Exist Error Must Link ApplicationDbContext.cs");
             return false;
         }
 
@@ -124,7 +124,7 @@ public class DbContextPacket
         }
         else
         {
-            UnityHelper.LogError_H($"TableDbPacket GetTableFile No Linked File");
+            UnityHelper.Error_H($"TableDbPacket GetTableFile No Linked File");
             return "";
         }
     }

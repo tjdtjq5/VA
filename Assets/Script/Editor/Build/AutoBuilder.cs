@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
-using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
@@ -22,6 +20,8 @@ public class AutoBuilder
         string targetDir = UnityHelper.GetBuildPath(BuildTarget.Android.ToString());
         Directory.CreateDirectory(targetDir);
 
+        UnityHelper.SerializeL(SCENES);
+
         BuildAndroid(targetDir, SCENES, targetDir + "/" + appName);
     }
 
@@ -31,7 +31,7 @@ public class AutoBuilder
         buildPlayerOptions.scenes = scenes;
         buildPlayerOptions.locationPathName = app_target;
         buildPlayerOptions.target = BuildTarget.Android;
-        buildPlayerOptions.options = BuildOptions.None;
+        buildPlayerOptions.options = BuildOptions.CompressWithLz4HC;
 
         var report = BuildPipeline.BuildPlayer(buildPlayerOptions);
 
@@ -57,11 +57,10 @@ public class AutoBuilder
     public static void PerformBuildIOS()
     {
         BuildOptions opt = BuildOptions.None; 
-        PlayerSettings.iOS.sdkVersion = iOSSdkVersion.DeviceSDK; // ?????????????? ?????????? ?????????? sdk ?? 
+        PlayerSettings.iOS.sdkVersion = iOSSdkVersion.DeviceSDK;
         char sep = Path.DirectorySeparatorChar;
         string BUILD_TARGET_PATH = UnityHelper.GetBuildPath(BuildTarget.iOS.ToString());
         Directory.CreateDirectory(BUILD_TARGET_PATH);
-        // PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
         try
         {
             BuildIOS(SCENES, BUILD_TARGET_PATH, BuildTarget.iOS, opt);

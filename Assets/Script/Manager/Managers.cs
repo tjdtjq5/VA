@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Managers : MonoBehaviour
 {
@@ -14,7 +12,14 @@ public class Managers : MonoBehaviour
     ResourcesManager _resources = new ResourcesManager();
     PoolManager _pool = new PoolManager();
     UIManager _ui = new UIManager();
-    ProcessDeepLinkManager _deepLink = new ProcessDeepLinkManager();
+    TimeManager _time = new TimeManager();
+    SseManager _sse = new SseManager();
+    ChatManager _chat = new ChatManager();
+    FloatingTextManager _floatingText = new FloatingTextManager();
+    TableManager _table = new TableManager();
+    ObserverManager _observer = new ObserverManager();
+    PlayerDataManager _playerData = new PlayerDataManager();
+    AtlasManager _atlas = new AtlasManager();
 
     public static WebManager Web { get { return Instance._web; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
@@ -23,17 +28,26 @@ public class Managers : MonoBehaviour
     public static ResourcesManager Resources { get { return Instance._resources; } }
     public static PoolManager Pool { get { return Instance._pool; } }
     public static UIManager UI { get { return Instance._ui; } }
-    public static ProcessDeepLinkManager DeepLink { get { return Instance._deepLink; } }
+    public static TimeManager Time { get { return Instance._time; } }
+    public static SseManager Sse { get { return Instance._sse; } }
+    public static ChatManager Chat { get { return Instance._chat; } }
+    public static FloatingTextManager FloatingText { get { return Instance._floatingText; } }
+    public static TableManager Table { get { return Instance._table; } }
+    public static ObserverManager Observer { get { return Instance._observer; } }
+    public static PlayerDataManager PlayerData { get { return Instance._playerData; } }
+    public static AtlasManager Atlas { get { return Instance._atlas; } }
 
     void Start()
     {
         Init();
-	}
+
+        Application.targetFrameRate = 60;
+    }
     static void Init()
     {
         if (s_instance == null)
         {
-			GameObject go = GameObject.Find("@Managers");
+            GameObject go = GameObject.Find("@Managers");
             if (go == null)
             {
                 go = new GameObject { name = "@Managers" };
@@ -45,11 +59,41 @@ public class Managers : MonoBehaviour
 
             s_instance._sound.Initialize();
             s_instance._pool.Initialize();
+            s_instance._time.Initialize();
+            s_instance._chat.Initialize();
+            s_instance._web.Initialize();
+            s_instance._playerData.Initialize();
+            s_instance._table.Initialize();
+            s_instance._atlas.Initialize();
         }
     }
 
     private void Update()
     {
         _input.OnUpdate();
+    }
+    private void FixedUpdate()
+    {
+        _time.OnFixedUpdate();
+        _chat.OnFixedUpdate();
+        _floatingText.OnFixedUpdate();
+    }
+
+    public void Clean()
+    {
+        if (_scene.CurrentScene != null)
+            _scene.CurrentScene.Clear();
+
+        _resources.Clear();
+        _sound.Clear();
+        _input.Clear();
+        _ui.Clear();
+        _pool.Clear();
+        _sse.Clear();
+        _chat.Clear();
+    }
+    private void OnDisable()
+    {
+        Clean();
     }
 }

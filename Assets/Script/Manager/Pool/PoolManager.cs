@@ -32,11 +32,11 @@ public class PoolManager
         {
             if (poolable == null)
             {
-                UnityHelper.LogError_H($"Pool poolable Null Error");
+                UnityHelper.Error_H($"Pool poolable Null Error");
                 return;
             }
 
-            poolable.transform.parent = Root;
+            poolable.transform.SetParent(Root);
             poolable.gameObject.SetActive(false);
             poolable.IsUsing = false;
 
@@ -54,7 +54,7 @@ public class PoolManager
             if (parent == null)
                 parent = Root;
 
-            poolable.transform.parent = parent;
+            poolable.transform.SetParent(parent);
             poolable.gameObject.SetActive(true);
             poolable.IsUsing = true;
 
@@ -75,7 +75,7 @@ public class PoolManager
         }
     }
 
-    void Create(GameObject original, int count = 5)
+    void Create(GameObject original, int count = 1)
     {
         Pool pool = new Pool();
         pool.Initialize(original, count);
@@ -99,7 +99,7 @@ public class PoolManager
     {
         if (original == null) 
         {
-            UnityHelper.LogError_H($"PoolManager original Null Error");
+            UnityHelper.Error_H($"PoolManager original Null Error");
             return null;
         }
 
@@ -118,9 +118,12 @@ public class PoolManager
 
     public void Clear()
     {
-        foreach (Transform child in _root)
+        if (_root)
         {
-            GameObject.Destroy(child.gameObject);
+            foreach (Transform child in _root)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
         }
 
         _pools.Clear();
