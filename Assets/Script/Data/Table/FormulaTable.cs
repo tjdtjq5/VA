@@ -38,7 +38,7 @@ public class FormulaTable : Table<FormulaTableData>
         Push(datas);
     }
 
-    public BBNumber GetValue(FormulaTableCodeDefine code, Dictionary<FormulaKeyword, int> keywordDics)
+    public BBNumber GetValue(FormulaTableCodeDefine code, Dictionary<FormulaKeyword, float> keywordDics)
     {
         string formulaData = GetData(code).fM;
         int keywordLen = CSharpHelper.GetEnumLength<FormulaKeyword>();

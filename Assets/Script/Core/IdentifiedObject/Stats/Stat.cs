@@ -32,6 +32,7 @@ public class Stat : IdentifiedObject
     // mainKey가 bonus stat을 여러번 줄 때 각 bonus 값을 구분하기 위한 용도
     // subKey가 필요없을 경우 string.Empty를 subKey로 bonus를 저장함
     private Dictionary<object, Dictionary<object, BBNumber>> bonusValuesByKey = new();
+    public Dictionary<object, Dictionary<object, BBNumber>> BonusValuesByKey => bonusValuesByKey;
 
     public bool IsPercentType => isPercentType;
     public BBNumber MaxValue
@@ -52,10 +53,7 @@ public class Stat : IdentifiedObject
         set
         {
             BBNumber prevValue = Value;
-            if (MaxValue <= 0)
-                defaultValue = BBNumber.Max(value, MinValue);
-            else
-                defaultValue = BBNumber.Clamp(value, MinValue, MaxValue);
+            defaultValue = value;
 
             // value가 변했을 시 event로 알림
             TryInvokeValueChangedEvent(Value, prevValue);
@@ -113,6 +111,22 @@ public class Stat : IdentifiedObject
 
     public void SetBonusValue(object key, BBNumber value)
         => SetBonusValue(key, string.Empty, value);
+
+    public void SetBonusValue(Dictionary<object, Dictionary<object, BBNumber>> _bonusValuesByKey)
+    {
+        foreach (var bonusKey in _bonusValuesByKey)
+        {
+            object key = bonusKey.Key;
+
+            foreach (var bonusValue in bonusKey.Value)
+            {
+                object subKey = bonusValue.Key;
+                BBNumber value = bonusValue.Value;
+
+                SetBonusValue(key, subKey, value);
+            }
+        }
+    }
 
     BBNumber CurrentBonusValue
     {
@@ -236,6 +250,23 @@ public class Stat : IdentifiedObject
             }
         }
         return false;
+    }
+
+    public void RemoveBonusValueAndExceptionSub(object key, object exceptSubKeys)
+    {
+        if (bonusValuesByKey.TryGetValue(key, out var bonusValuesBySubkey))
+        {
+            List<object> removeSubKeys = new List<object>();
+
+            foreach (var subBonus in bonusValuesBySubkey)
+            {
+                if (!exceptSubKeys.Equals(subBonus.Key))
+                    removeSubKeys.Add(subBonus.Key);
+            }
+
+            for (int i = 0; i < removeSubKeys.Count; i++)
+                RemoveBonusValue(key, removeSubKeys[i]);
+        }
     }
 
     public bool ContainsBonusValue(object key)

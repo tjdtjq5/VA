@@ -2,7 +2,7 @@
 
 public class CharacterCardSlider : UISlider
 {
-    Dictionary<FormulaKeyword, int> formulaKeyDics = new Dictionary<FormulaKeyword, int>();
+    Dictionary<FormulaKeyword, float> formulaKeyDics = new Dictionary<FormulaKeyword, float>();
 
     protected override void Initialize()
 	{

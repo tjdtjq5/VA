@@ -8,8 +8,9 @@ using UnityEngine;
 [RequireComponent(typeof(EntityMovement))]
 [RequireComponent(typeof(EntityAnimator))]
 [RequireComponent(typeof(EntityStateMachine))]
-public abstract class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour 
 {
+    public string Code { get; protected set; }
     public int Index { get; set; }
 
     protected Entity entity;
@@ -19,7 +20,7 @@ public abstract class Character : MonoBehaviour
 
     protected int fuTickMaxCount = 10; protected int fuTickCount = 0;
 
-    protected virtual void Initialize()
+    public virtual void Initialize()
     {
         entity = GetComponent<Entity>();
 
@@ -35,12 +36,19 @@ public abstract class Character : MonoBehaviour
     public virtual void OnDead(Entity entity) => onDead?.Invoke(entity);
     public virtual void OnAllive(Entity entity) => onAllive?.Invoke(entity);
     public virtual void OnTakeDamage(Entity entity, Entity instigator, object causer, BBNumber damage) => onTakeDamage?.Invoke(entity, instigator, causer, damage);
-    public abstract void Play();
+    public abstract void Play(string code);
     public abstract void Stop();
     public abstract void Clear();
+    public abstract void SetStats();
     public abstract void MoveDirection(Vector3 direction);
     public abstract void MoveDestination(Vector3 destination);
     public abstract void MoveTrance(Transform target, Vector3 offset);
+
+    [Button]
+    public void DebugStats(Stat stat)
+    {
+        UnityHelper.Log_H($"[{stat.CodeName}] : {entity.Stats.GetStat(stat).Value}");
+    }
 
     [Button]
     public void DebugIsDead()

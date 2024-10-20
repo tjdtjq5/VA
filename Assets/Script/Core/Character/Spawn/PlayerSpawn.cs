@@ -7,13 +7,13 @@ public class PlayerSpawn : CharacterSpawn
     List<PlayerController> players = new List<PlayerController>();
     public override int Count => players.Count;
 
-    public override Character Spawn(Character prefab, Vector3 pos, int index)
+    public override Character Spawn(Character prefab, string code, Vector3 pos, int index)
     {
         Character c = Managers.Resources.Instantiate(prefab);
         PlayerController player = c.GetComponent<PlayerController>();
         player.Index = index;
         player.transform.position = pos;
-        player.Play();
+        player.Play(code);
 
         if (!players.Contains(player))
             players.Add(player);

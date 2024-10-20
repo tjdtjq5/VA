@@ -90,7 +90,7 @@ public class EnemySpawnActionInGame : EnemySpawnAction
         float posZ = UnityEngine.Random.Range(0, 100) % 2 == 0 ? UnityEngine.Random.Range(groupSpawnPosRangeMin, groupSpawnPosRangeMax) : UnityEngine.Random.Range(-groupSpawnPosRangeMax, -groupSpawnPosRangeMin);
         Vector3 pos = new Vector3(posX, 0, posZ) + groupPosition;
 
-        Character enemy = enemySpawn[groupX, groupY].Spawn(enemyPrefabs[random], pos, GetIndexByGrid(groupX, groupY));
+        Character enemy = enemySpawn[groupX, groupY].Spawn(enemyPrefabs[random], null, pos, GetIndexByGrid(groupX, groupY));
         EnemyController ec = enemy.GetComponent<EnemyController>();
         ec.Allive();
 

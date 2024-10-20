@@ -93,4 +93,13 @@ public class TribeSkill : MonoBehaviour
             otherEffect.FixedUpdate();
         }
     }
+
+    private void OnDisable()
+    {
+        if (mainEffect)
+            mainEffect.Release();
+
+        if (otherEffect)
+            otherEffect.Release();
+    }
 }

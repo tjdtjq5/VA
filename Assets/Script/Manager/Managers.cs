@@ -20,6 +20,7 @@ public class Managers : MonoBehaviour
     ObserverManager _observer = new ObserverManager();
     PlayerDataManager _playerData = new PlayerDataManager();
     AtlasManager _atlas = new AtlasManager();
+    SOManager _so = new SOManager();
 
     public static WebManager Web { get { return Instance._web; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
@@ -36,6 +37,7 @@ public class Managers : MonoBehaviour
     public static ObserverManager Observer { get { return Instance._observer; } }
     public static PlayerDataManager PlayerData { get { return Instance._playerData; } }
     public static AtlasManager Atlas { get { return Instance._atlas; } }
+    public static SOManager SO { get { return Instance._so; } }
 
     void Start()
     {

@@ -74,6 +74,10 @@ public class Stats : MonoBehaviour
         => GetStat(stat).SetBonusValue(key, value);
     public void SetBonusValue(Stat stat, object key, object subKey, BBNumber value)
         => GetStat(stat).SetBonusValue(key, subKey, value);
+    public void SetBonusValue(Stat bonusStat)
+    {
+        GetStat(bonusStat).SetBonusValue(bonusStat.BonusValuesByKey);
+    }
 
     public BBNumber GetBonusValue(Stat stat)
         => GetStat(stat).BonusValue;

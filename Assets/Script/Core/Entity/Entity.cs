@@ -1,10 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 using System.Linq;
 
-public enum EntityControlType
+public enum EntityControlType 
 {
     Player,
     AI
@@ -94,7 +92,7 @@ public class Entity : MonoBehaviour
 
         onTakeDamage?.Invoke(this, instigator, causer, damage);
 
-        if (BBNumber.Approximately(Stats.HPStat.DefaultValue, 0f))
+        if (BBNumber.Approximately(Stats.HPStat.Value, 0f))
             OnDead();
     }
 
@@ -128,6 +126,16 @@ public class Entity : MonoBehaviour
         isDead = true;
     }
 
+    public void SetBonusStats(List<Stat> bonusStats)
+    {
+        for (int i = 0; i < bonusStats.Count; i++)
+            SetBonusStat(bonusStats[i]);
+    }
+    public void SetBonusStat(Stat bonusStat)
+    {
+        Stats.SetBonusValue(bonusStat);
+    }
+
     private Transform GetTransformSocket(Transform root, string socketName)
     {
         if (root.name == socketName || string.IsNullOrEmpty(socketName))
@@ -142,7 +150,6 @@ public class Entity : MonoBehaviour
 
         return null;
     }
-
     public Transform GetTransformSocket(string socketName)
     {
         if (socketsByName.TryGetValue(socketName, out var socket))

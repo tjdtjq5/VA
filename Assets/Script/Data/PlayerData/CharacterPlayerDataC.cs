@@ -12,8 +12,6 @@ public class CharacterPlayerDataC : PlayerDataC<CharacterPlayerData>
         });
     }
 
-    // Dic<Stat Code , Bonus Data>
-    // Dic<string, Tuple<string, string, BBNumber>> 
     public override List<Stat> GetStats()
     {
         // Main / Sub / BBnum
@@ -30,31 +28,64 @@ public class CharacterPlayerDataC : PlayerDataC<CharacterPlayerData>
          * 3. 도감
         */
 
-        string CharacterLevelMainKey = "CharacterLevel";
-        string CharacterPotentialMainKey = "CharacterPotential";
-        string CharacterSpecialWeaponLevelMainKey = "CharacterSpecialWeaponLevel";
+        // Test
+        // InitialData();
+
+        var result = new List<Stat>();
+
+        Stat atk = Managers.SO.GetStat("Atk");
+        Stat hp = Managers.SO.GetStat("Hp");
+        Stat def = Managers.SO.GetStat("Def");
+
+        result.Add(atk);
+        result.Add(hp);
+        result.Add(def);
+
+        Dictionary<FormulaKeyword, float> formulaKeywords = new Dictionary<FormulaKeyword, float>();
+
+        List<CharacterTableData> tables = Managers.Table.CharacterTable.Gets();
 
         for (int i = 0; i < datas.Count; i++)
         {
             CharacterPlayerData data = datas[i];
+            string code = data.Code;
+            CharacterTableData table = tables.Find(t => t.characterCode.Equals(code));
+            if(table == null)
+            {
+                UnityHelper.Error_H($"CharacterPlayerDataC GetStats Error Null Table\ncode : {code}");
+                continue;
+            }
 
+            int level = data.Level;
+            formulaKeywords.TryAdd_H(FormulaKeyword.C_LEVEL, level, true);
+
+            float c_hp = table.hp;
+            float c_atk = table.atk;
+            float c_def = table.def;
+
+            formulaKeywords.TryAdd_H(FormulaKeyword.Default, c_hp, true);
+            hp.SetBonusValue(OnlyCharacterStatKey.CharacterLevel.ToString(), code, Managers.Table.FormulaTable.GetValue(FormulaTableCodeDefine.Ab_C_Level_Hp, formulaKeywords));
+
+            formulaKeywords.TryAdd_H(FormulaKeyword.Default, c_atk, true);
+            atk.SetBonusValue(OnlyCharacterStatKey.CharacterLevel.ToString(), code, Managers.Table.FormulaTable.GetValue(FormulaTableCodeDefine.Ab_C_Level_Atk, formulaKeywords));
+
+            formulaKeywords.TryAdd_H(FormulaKeyword.Default, c_def, true);
+            def.SetBonusValue(OnlyCharacterStatKey.CharacterLevel.ToString(), code, Managers.Table.FormulaTable.GetValue(FormulaTableCodeDefine.Ab_C_Level_Def, formulaKeywords));
         }
 
-        var result = new Tuple<string, string, BBNumber>("Main", "Sub", 1);
-
-        throw new NotImplementedException();
+        return result;
     }
 
     public override void InitialData()
     {
         List<CharacterPlayerData> datas = new List<CharacterPlayerData>()
         {
-            new CharacterPlayerData() { Code = "Pirate_001", Level = 1 },
-            new CharacterPlayerData() { Code = "Cat_001", Level = 1 },
-            new CharacterPlayerData() { Code = "Dragon_001", Level = 1 },
-            new CharacterPlayerData() { Code = "Robot_001", Level = 1 },
-            new CharacterPlayerData() { Code = "Thief_001", Level = 1 },
-            new CharacterPlayerData() { Code = "Druid_001", Level = 1 },
+            new CharacterPlayerData() { Code = "Pirate001", Level = 1 },
+            new CharacterPlayerData() { Code = "Cat001", Level = 1 },
+            new CharacterPlayerData() { Code = "Dragon001", Level = 1 },
+            new CharacterPlayerData() { Code = "Robot001", Level = 1 },
+            new CharacterPlayerData() { Code = "Thief001", Level = 1 },
+            new CharacterPlayerData() { Code = "Druid001", Level = 1 },
         };
         Sets(datas);
     }

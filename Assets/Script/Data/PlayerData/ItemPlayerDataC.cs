@@ -14,7 +14,7 @@ public class ItemPlayerDataC : PlayerDataC<PlayerItemData>
 
     public override List<Stat> GetStats()
     {
-        return null;
+        return new List<Stat>();
     }
 
     public PlayerItemData GetItem(ItemTableCodeDefine item)

@@ -28,7 +28,7 @@ public class DealDamageAction : EffectAction
     private BBNumber GetTotalDamage(Effect effect, Entity user, int stack, float scale)
     {
         var totalDamage = GetDefaultDamage(effect) + GetStackDamage(stack);
-        if (bonusDamageStat)
+        if (bonusDamageStat) 
             totalDamage += GetBonusStatDamage(user);
 
         totalDamage *= scale;

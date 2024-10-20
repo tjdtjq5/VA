@@ -25,13 +25,11 @@ public class UIMainItemViewList : UIScene
 
     public void UISet(ItemTableCodeDefine item)
     {
-        UnityHelper.Log_H($"[UISet]");
         Get<MainItemView>(MainItemViewE.MainItemViewEtc).gameObject.SetActive(true);
         Get<MainItemView>(MainItemViewE.MainItemViewEtc).UISet(item);
     }
     public void UISetOff()
     {
-        UnityHelper.Log_H($"[UISetOff]");
         Get<MainItemView>(MainItemViewE.MainItemViewEtc).gameObject.SetActive(false);
     }
 

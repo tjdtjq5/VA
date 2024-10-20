@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class PlayerController : Character
 {
-    private SkillSystem skillSystem;
+    private SkillSystem skillSystem; 
     private MoveController moveController;
     private EntityAnimator animator;
     private CharacterTribeSkill jobSkill;
@@ -23,7 +23,7 @@ public class PlayerController : Character
     [SerializeField] private Skill basicSkill; private Skill RegisterBasicSkill;
     [SerializeField] private Skill activeSkill; [SerializeField] private Skill activeUpgradeSkill; private Skill RegisterActiveSkill;
 
-    protected override void Initialize()
+    public override void Initialize()
     {
         base.Initialize();
 
@@ -82,7 +82,7 @@ public class PlayerController : Character
         skillSystem.CancelTargetSearching();
     }
 
-    public override void Play() { Initialize(); }
+    public override void Play(string code) { this.Code = code; Initialize(); SetStats(); }
     public override void Stop()
     {
         moveController.Stop();
@@ -91,6 +91,23 @@ public class PlayerController : Character
     {
         onDead = null;
         onTakeDamage = null;
+    }
+    public override void SetStats()
+    {
+        List<Stat> stats = Managers.PlayerData.GetStats();
+
+        int removeLen = CSharpHelper.GetEnumLength<OnlyCharacterStatKey>();
+
+        for (int i = 0; i < stats.Count; i++)
+        {
+            for (int j = 0; j < removeLen; j++) 
+            {
+                OnlyCharacterStatKey key = (OnlyCharacterStatKey)i;
+                stats[i].RemoveBonusValueAndExceptionSub(key.ToString(), Code);
+            }
+        }
+
+        entity.SetBonusStats(stats);
     }
 
     void FixedUpdate()

@@ -53,7 +53,7 @@ public class {0}PlayerDataC : PlayerDataC<{0}PlayerData>
 
     public override List<Stat> GetStats()
     {{
-        throw new NotImplementedException();
+        return new List<Stat>();
     }}
 }}";
     #endregion

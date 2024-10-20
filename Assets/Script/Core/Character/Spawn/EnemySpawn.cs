@@ -7,12 +7,12 @@ public class EnemySpawn : CharacterSpawn
     List<EnemyController> currentSpawnEnemies = new List<EnemyController>();
     public override int Count => currentSpawnEnemies.Where(e => !e.IsDead).Count();
 
-    public override Character Spawn(Character enemyPrefab, Vector3 pos, int index)
+    public override Character Spawn(Character enemyPrefab, string code, Vector3 pos, int index)
     {
         Character c = Managers.Resources.Instantiate(enemyPrefab);
         EnemyController enemy = c.GetComponent<EnemyController>();
         enemy.transform.position = pos;
-        enemy.Play();
+        enemy.Play(code);
         enemy.Index = index;
 
         if (!currentSpawnEnemies.Contains(enemy))

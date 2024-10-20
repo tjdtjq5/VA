@@ -25,7 +25,7 @@ public class EnemyController : Character
     Vector3 spawnPos;
     private SearchResultMessage reserveSearchMessage;
 
-    protected override void Initialize()
+    public override void Initialize()
     {
         base.Initialize();
 
@@ -44,11 +44,13 @@ public class EnemyController : Character
         skillSystem.onSkillTargetSelectionCompleted -= ReserveSkill;
         skillSystem.onSkillTargetSelectionCompleted += ReserveSkill;
     }
-    public override void Play()
+    public override void Play(string code)
     {
+        this.Code = code;
         spawnPos = this.transform.position;
 
         Initialize();
+        SetStats();
     }
     public void Allive() => entity.Allive(true);
     private void ReserveSkill(SkillSystem skillSystem, Skill skill, TargetSearcher targetSearcher, TargetSelectionResult result)
@@ -125,6 +127,7 @@ public class EnemyController : Character
 
     }
     public override void Clear() { }
+    public override void SetStats() { }
 
     public override void OnTakeDamage(Entity entity, Entity instigator, object causer, BBNumber damage)
     {

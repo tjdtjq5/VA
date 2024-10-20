@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerSpawnActionInGame : PlayerSpawnAction
 {
-    [SerializeField] List<PlayerController> testPcPrefabs = new List<PlayerController>();
+    [SerializeField] List<CharacterSO> characterSOs = new List<CharacterSO>();
 
     PlayerSpawn playerSpawn = new PlayerSpawn();
     int masterPlayerIndex = -1;
@@ -52,13 +52,13 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
 
     public void TestSet()
     {
-        Set(testPcPrefabs.ToArray());
+        Set(characterSOs.ToArray());
 
         Managers.Observer.OnJoystic -= JoysticMove;
         Managers.Observer.OnJoystic += JoysticMove;
     }
 
-    void Set(PlayerController[] pcs)
+    void Set(CharacterSO[] sos)
     {
         Clear();
 
@@ -66,13 +66,13 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
 
         for (int i = 0; i < playerCharacters.Length; i++)
         {
-            if (i < pcs.Length)
-                playerCharacters[i] = PlayerSpawn(pcs[i], i);
+            if (i < sos.Length)
+                playerCharacters[i] = PlayerSpawn(sos[i].prefab, sos[i].codeName, i);
         }
 
         for (int i = 0; i < playerCharacters.Length; i++)
         {
-            if (i < pcs.Length)
+            if (i < sos.Length)
                 playerCharacters[i].JobSetUp(JobCount(playerCharacters[i].Job));
         }
     }
@@ -84,7 +84,7 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
 
         for (int i = 0; i < playerCharacters.Length; i++)
             if (playerCharacters[i])
-                playerCharacters[i].Play();
+                playerCharacters[i].Play(playerCharacters[i].Code);
     }
     public override void Stop()
     {
@@ -103,7 +103,7 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
             playerCharacters[i] = null;
     }
 
-    PlayerController PlayerSpawn(PlayerController pcPrefabs, int index)
+    PlayerController PlayerSpawn(PlayerController pcPrefabs, string code ,int index)
     {
         if (index < 0 || playerCharacters.Length <= index)
         {
@@ -116,7 +116,7 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
 
         PlayerController masterPlayer = Player;
 
-        Character playerCharacter = playerSpawn.Spawn(pcPrefabs, GameController.GetIndexWorldPos(masterPlayer, index), index);
+        Character playerCharacter = playerSpawn.Spawn(pcPrefabs, code, GameController.GetIndexWorldPos(masterPlayer, index), index);
         playerCharacters[index] = playerCharacter.GetComponent<PlayerController>();
         return playerCharacters[index];
     }

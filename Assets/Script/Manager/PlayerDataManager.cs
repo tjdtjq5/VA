@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public class PlayerDataManager
 {
@@ -17,6 +18,15 @@ public class PlayerDataManager
             _character.Sets(_result.Characters);
             callback.Invoke();
         });
+    }
+    public List<Stat> GetStats()
+    {
+        List<Stat> result = new List<Stat>();
+
+        result.AddRange(_item.GetStats());
+        result.AddRange(_character.GetStats());
+
+        return result;
     }
     public CharacterPlayerDataC Character => _character;
     public ItemPlayerDataC Item => _item;
