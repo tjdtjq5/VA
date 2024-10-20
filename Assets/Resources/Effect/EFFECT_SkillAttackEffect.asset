@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5572046b21b14245abd62fa7d8c6ca9, type: 3}
-  m_Name: EFFECT_Tribe_Robot
+  m_Name: EFFECT_SkillAttackEffect
   m_EditorClassIdentifier: 
   categories: []
   icon: {fileID: 0}
-  id: 5
-  codeName: Tribe_Pirate
-  displayName: Tribe_Robot
-  description: Tribe_Robot
+  id: 9
+  codeName: SkillAttackEffect
+  displayName: SkillAttackEffect
+  description: 
   type: 0
   isAllowDuplicate: 1
   removeDuplicateTargetOption: 0
@@ -29,33 +29,22 @@ MonoBehaviour:
     maxStack: 1
     stackActions: []
     action:
-      rid: 8010792345591873546
+      rid: 8010792597295464448
     runningFinishOption: 0
     isApplyAllWhenDurationExpires: 0
     duration:
-      defaultValue: 3
+      defaultValue: 0
       scaleStat: {fileID: 0}
-    applyCount: 3
+    applyCount: 1
     applyCycle: 0
-    customActions:
-    - rid: 8010792345591873541
+    customActions: []
   references:
     version: 2
     RefIds:
-    - rid: 8010792345591873541
-      type: {class: SpawnObjectAction, ns: , asm: Assembly-CSharp}
-      data:
-        targetType: 1
-        methodType: 1
-        prefab: {fileID: 4218160674387114083, guid: 49f4c4097dffb7243825ff44b906202b, type: 3}
-        offset: {x: 0, y: 0, z: 0}
-        scaleFactor: {x: 1, y: 1, z: 1}
-        isAttachToTarget: 0
-        isDestroyOnRelease: 0
-    - rid: 8010792345591873546
+    - rid: 8010792597295464448
       type: {class: DealDamageAction, ns: , asm: Assembly-CSharp}
       data:
-        defaultDamage: 5
+        defaultDamage: 10
         bonusDamageStat: {fileID: 11400000, guid: a25236d71c208b445aa86ccd88dd7283, type: 2}
         bonusDamageStatFactor: 1
         bonusDamagePerLevel: 0

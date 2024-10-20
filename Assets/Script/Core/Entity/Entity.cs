@@ -5,7 +5,12 @@ using System.Linq;
 public enum EntityControlType 
 {
     Player,
-    AI
+    Enemy,
+}
+public enum MonsterType
+{
+    Nomal,
+    Boss,
 }
 
 public class Entity : MonoBehaviour
@@ -18,14 +23,18 @@ public class Entity : MonoBehaviour
 
     [SerializeField]
     private Category[] categories;
-    [SerializeField]
-    private EntityControlType controlType;
+    public EntityControlType controlType;
+    [SerializeField, ShowWhen("controlType", EntityControlType.Enemy)]
+    private MonsterType monsterType;
 
     private Dictionary<string, Transform> socketsByName = new();
 
-    public EntityControlType ControlType => controlType;
+    public MonsterType MonsterType => monsterType;
     public IReadOnlyList<Category> Categories => categories;
     public bool IsPlayer => controlType == EntityControlType.Player;
+    public bool IsBoss => !IsPlayer && monsterType == MonsterType.Boss;
+    public Tribe Tribe { get; set; }
+    public CharacterJob Job {  get; set; }
     private bool isAiMove = false;
     public bool IsAIMove
     {

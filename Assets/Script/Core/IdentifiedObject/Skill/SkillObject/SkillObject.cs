@@ -100,6 +100,6 @@ public class SkillObject : MonoBehaviour
         if (!player)
             return;
 
-        player.JobSkillAction(target);
+        player.TribeSkillAction(target);
     }
 }

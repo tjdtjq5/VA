@@ -44,6 +44,8 @@ public class Stats : MonoBehaviour
         UnityHelper.Assert_H(stat != null, $"Stats::GetStat - stat은 null이 될 수 없습니다.");
         return stats.FirstOrDefault(x => x.ID == stat.ID);
     }
+    public Stat GetStat(string code)
+        => stats.FirstOrDefault(x => x.CodeName == code);
 
     public bool TryGetStat(Stat stat, out Stat outStat)
     {
@@ -55,6 +57,8 @@ public class Stats : MonoBehaviour
 
     public BBNumber GetValue(Stat stat)
         => GetStat(stat).Value;
+    public BBNumber GetValue(string code)
+    => GetStat(code).Value;
 
     public bool HasStat(Stat stat)
     {

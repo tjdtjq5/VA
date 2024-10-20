@@ -87,6 +87,6 @@ public class Projectile : MonoBehaviour
         if (!player)
             return;
 
-        player.JobSkillAction(target);
+        player.TribeSkillAction(target);
     }
 }

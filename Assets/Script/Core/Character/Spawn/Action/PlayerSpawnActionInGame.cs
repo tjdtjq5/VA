@@ -41,7 +41,7 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
         int count = 0;
         for (int i = 0; i < playerCharacters.Length; i++) 
         {
-            if (playerCharacters[i] && playerCharacters[i].Job.Equals(job))
+            if (playerCharacters[i] && playerCharacters[i].Tribe.Equals(job))
                 count++;
         }
 
@@ -67,13 +67,19 @@ public class PlayerSpawnActionInGame : PlayerSpawnAction
         for (int i = 0; i < playerCharacters.Length; i++)
         {
             if (i < sos.Length)
+            {
                 playerCharacters[i] = PlayerSpawn(sos[i].prefab, sos[i].codeName, i);
+                playerCharacters[i].entity.Job = (CharacterJob)sos[i].TableData.job;
+                playerCharacters[i].entity.Tribe = (Tribe)sos[i].TableData.tribeType;
+            }
         }
 
         for (int i = 0; i < playerCharacters.Length; i++)
         {
             if (i < sos.Length)
-                playerCharacters[i].JobSetUp(JobCount(playerCharacters[i].Job));
+            {
+                playerCharacters[i].TribeSetUp(JobCount(playerCharacters[i].Tribe));
+            }
         }
     }
 

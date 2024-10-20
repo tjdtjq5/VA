@@ -8,28 +8,11 @@ public class DealDamageAction : EffectAction
     [SerializeField]
     private float defaultDamage;
     [SerializeField]
-    private Stat bonusDamageStat;
-    [SerializeField]
     private float bonusDamageStatFactor;
-    [SerializeField]
-    private float bonusDamagePerLevel;
-    [SerializeField]
-    private float bonusDamagePerStack;
-
-    private BBNumber GetDefaultDamage(Effect effect)
-        => defaultDamage + (effect.DataBonusLevel * bonusDamagePerLevel);
-
-    private BBNumber GetStackDamage(int stack)
-        => (stack - 1) * bonusDamagePerStack;
-
-    private BBNumber GetBonusStatDamage(Entity user)
-        => user.Stats.GetValue(bonusDamageStat) * bonusDamageStatFactor;
 
     private BBNumber GetTotalDamage(Effect effect, Entity user, int stack, float scale)
     {
-        var totalDamage = GetDefaultDamage(effect) + GetStackDamage(stack);
-        if (bonusDamageStat) 
-            totalDamage += GetBonusStatDamage(user);
+        var totalDamage = user.Stats.GetValue("Atk") * bonusDamageStatFactor;
 
         totalDamage *= scale;
 
@@ -42,9 +25,95 @@ public class DealDamageAction : EffectAction
             return false;
 
         var totalDamage = GetTotalDamage(effect, user, stack, scale);
+        bool isCri = false;
+
+        if (user.IsPlayer)
+        {
+            float cri = user.Stats.GetValue("CriPercent").ToFloat();
+            isCri = UnityHelper.IsApplyPercent(cri);
+            if (isCri)
+                totalDamage *= user.Stats.GetValue("CriDamage");
+
+            float week = user.Stats.GetValue("WeekPercent").ToFloat();
+            bool isWeek = UnityHelper.IsApplyPercent(cri);
+            if (isWeek)
+                totalDamage *= user.Stats.GetValue("WeekDamage");
+
+
+            switch (effect.CodeName)
+            {
+                case "BasicAttackEffect":
+                    totalDamage *= user.Stats.GetValue("BasicAttackDamage");
+                    break;
+                case "SkillAttackEffect":
+                    totalDamage *= user.Stats.GetValue("SkillAttackDamage");
+                    break;
+                case "Tribe_Cat":
+                    totalDamage *= user.Stats.GetValue("CatSkillDamage");
+                    break;
+                case "Tribe_Dragon":
+                    totalDamage *= user.Stats.GetValue("DragonSkillDamage");
+                    break;
+                case "Tribe_Druid":
+                    totalDamage *= user.Stats.GetValue("DruidSkillDamage");
+                    break;
+                case "Tribe_Pirate":
+                    totalDamage *= user.Stats.GetValue("PirateSkillDamage");
+                    break;
+                case "Tribe_Robot":
+                    totalDamage *= user.Stats.GetValue("RobotSkillDamage");
+                    break;
+                case "Tribe_Thief":
+                    totalDamage *= user.Stats.GetValue("ThiefSkillDamage");
+                    break;
+            }
+
+            if (target.IsBoss)
+                totalDamage *= user.Stats.GetValue("BossMonsterDamage");
+            else
+                totalDamage *= user.Stats.GetValue("NomalMonsterDamage");
+
+            switch (user.Tribe)
+            {
+                case Tribe.Cat:
+                    totalDamage *= user.Stats.GetValue("CatDamage");
+                    break;
+                case Tribe.Dragon:
+                    totalDamage *= user.Stats.GetValue("DragonDamage");
+                    break;
+                case Tribe.Druid:
+                    totalDamage *= user.Stats.GetValue("DruidDamage");
+                    break;
+                case Tribe.Pirate:
+                    totalDamage *= user.Stats.GetValue("PirateDamage");
+                    break;
+                case Tribe.Robot:
+                    totalDamage *= user.Stats.GetValue("RobotDamage");
+                    break;
+                case Tribe.Thief:
+                    totalDamage *= user.Stats.GetValue("ThiefDamage");
+                    break;
+            }
+
+            switch (user.Job)
+            {
+                case CharacterJob.Dealer:
+                    totalDamage *= user.Stats.GetValue("DealerDamage");
+                    break;
+                case CharacterJob.SubDealer:
+                    totalDamage *= user.Stats.GetValue("SubDealerDamage");
+                    break;
+                case CharacterJob.Supporter:
+                    totalDamage *= user.Stats.GetValue("SupporterDamage");
+                    break;
+            }
+
+            totalDamage *= user.Stats.GetValue("FinalDamage");
+        }
+
         target.TakeDamage(user, effect, totalDamage);
 
-        Managers.FloatingText.DamageSpawn(target, effect, totalDamage, false);
+        Managers.FloatingText.DamageSpawn(target, effect, totalDamage, isCri);
 
         return true;
     }
@@ -53,11 +122,7 @@ public class DealDamageAction : EffectAction
     {
         var descriptionValuesByKeyword = new Dictionary<string, string>
         {
-            ["defaultDamage"] = GetDefaultDamage(effect).ToString(".##"),
-            ["bonusDamageStat"] = bonusDamageStat?.DisplayName ?? string.Empty,
             ["bonusDamageStatFactor"] = (bonusDamageStatFactor * 100f).ToString() + "%",
-            ["bonusDamagePerLevel"] = bonusDamagePerLevel.ToString(),
-            ["bonusDamagePerStack"] = bonusDamagePerStack.ToString(),
         };
 
         if (effect.User)
@@ -74,10 +139,7 @@ public class DealDamageAction : EffectAction
         return new DealDamageAction()
         {
             defaultDamage = defaultDamage,
-            bonusDamageStat = bonusDamageStat,
             bonusDamageStatFactor = bonusDamageStatFactor,
-            bonusDamagePerLevel = bonusDamagePerLevel,
-            bonusDamagePerStack = bonusDamagePerStack
         };
     }
 }

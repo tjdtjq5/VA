@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class Effect : IdentifiedObject
 {
-    // ��� ������ ���� 0�̸� ������ �ǹ���
     private const int kInfinity = 0;
 
     public delegate void StartedHandler(Effect effect);
@@ -22,37 +21,25 @@ public class Effect : IdentifiedObject
     [SerializeField]
     private EffectRemoveDuplicateTargetOption removeDuplicateTargetOption;
 
-    // UI�� Effect ������ ���������� ���� ����
     [SerializeField]
     private bool isShowInUI;
 
-    // maxLevel�� effectDatas�� Length�� �ʰ��� �� �ִ��� ����
-    // �� Option�� false�� maxLevel�� effectDatas�� Length�� ������
     [SerializeField]
     private bool isAllowLevelExceedDatas;
     [SerializeField]
     private int maxLevel;
-    // Level�� Data, Level�� 1���� �����ϰ� Array�� Index�� 0���� �����ϹǷ�
-    // Level�� �´� Data�� ���������� [���� Level - 1]��° Data�� �����;���
-    // ex. Level�� 1�̶��, 1 - 1 = 0, 0��° Data�� �����;���(= effectDatas[0])
     [SerializeField]
     private EffectData[] effectDatas;
 
-    // Level�� �´� ���� Data
     private EffectData currentData;
 
-    // ���� Effect Level
     private int level;
-    // ���� ���� Stack
     private int currentStack = 1;
     private float currentDuration;
     private int currentApplyCount;
     private float currentApplyCycle;
-    // Action�� Apply �Լ��� �����Ϸ� �õ��� ���� �ִ��� ����, �� ���� ���� Apply �����ÿ� currentApplyCycle ������ ���� �ٸ��� �ʱ�ȭ ��.
-    // Action�� Apply �Լ��� ����� �� true���ǰ�, Apply �Լ��� true�� return�ϸ� false�� �ʱ�ȭ ��.
     private bool isApplyTried;
 
-    // ���� Stack�� ���� ���� ����� Stack Actions
     private readonly List<EffectStackAction> aplliedStackActions = new();
 
     public EffectType Type => type;

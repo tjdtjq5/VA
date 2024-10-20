@@ -18,7 +18,7 @@ public abstract class SkillAction : ICloneable
         if (!player)
             return;
 
-        player.JobSkillAction(target);
+        player.TribeSkillAction(target);
     }
 
     protected virtual IReadOnlyDictionary<string, string> GetStringsByKeyword() => null;

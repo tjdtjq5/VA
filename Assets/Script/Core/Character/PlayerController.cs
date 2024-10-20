@@ -10,16 +10,15 @@ public class PlayerController : Character
     private SkillSystem skillSystem; 
     private MoveController moveController;
     private EntityAnimator animator;
-    private CharacterTribeSkill jobSkill;
+    private CharacterTribeSkill TribeSkill;
 
     public bool IsLeft => moveController.IsLeft;
     public bool IsDown => moveController.IsDown;
-    public Tribe Job => job;
+    public Tribe Tribe => entity.Tribe;
     private Vector3 JoysticDir { get; set; } = Vector3.zero;
     private float searchRadius = 1000f;
 
     [Header("Setting")]
-    [SerializeField] private Tribe job;
     [SerializeField] private Skill basicSkill; private Skill RegisterBasicSkill;
     [SerializeField] private Skill activeSkill; [SerializeField] private Skill activeUpgradeSkill; private Skill RegisterActiveSkill;
 
@@ -32,7 +31,7 @@ public class PlayerController : Character
         skillSystem = entity.SkillSystem;
         moveController = entity.Movement.MoveController;
         animator = entity.Animator;
-        jobSkill = this.GetOrAddComponent<CharacterTribeSkill>();
+        TribeSkill = this.GetOrAddComponent<CharacterTribeSkill>();
 
         skillSystem.onSkillTargetSelectionCompleted -= ReserveSkill;
         skillSystem.onSkillTargetSelectionCompleted += ReserveSkill;
@@ -166,13 +165,13 @@ public class PlayerController : Character
 
         JoysticDir = direction;
     }
-    public void JobSetUp(int jobCount)
+    public void TribeSetUp(int jobCount)
     {
-        jobSkill.SetUp(entity, job, jobCount);
+        TribeSkill.SetUp(entity, Tribe, jobCount);
     }
-    public void JobSkillAction(Entity target)
+    public void TribeSkillAction(Entity target)
     {
-        jobSkill.Apply(target);
+        TribeSkill.Apply(target);
     }
 
     #region Debug
