@@ -6,6 +6,42 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
+    private void Start()
+    {
+        GoogleLogin.Initialize();
+        AppleLogin.Initialize();
+    }
+
+    [Button]
+    public void GoogleLoginFunc()
+    {
+        GoogleLogin.SignIn();
+    }
+    [Button]
+    public void GoogleLogoutFunc()
+    {
+        GoogleLogin.SignOut();
+    }
+    [Button]
+    public void GoogleTokenFunc()
+    {
+        GoogleLogin.GetAccessToken();
+    }
+    [Button]
+    public void AppleLoginFunc()
+    {
+        AppleLogin.SignIn();
+    }
+    [Button]
+    public void AppleLogoutFunc()
+    {
+        AppleLogin.SignOut();
+    }
+    [Button]
+    public void AppleTokenFunc()
+    {
+        AppleLogin.GetAccessToken();
+    }
     [Button]
     public void TT()
     {

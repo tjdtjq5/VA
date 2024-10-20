@@ -1,5 +1,4 @@
 #if UNITY_IOS
-using AppleAuth.Editor;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
@@ -42,8 +41,8 @@ class XCodePostBuilder
         // apple login Entitlements 
         var manager = new ProjectCapabilityManager(projectPath, "Entitlements.entitlements", null, pbxProject.GetUnityMainTargetGuid());
 
-        // Compatibility 
-        manager.AddSignInWithAppleWithCompatibility(pbxProject.GetUnityFrameworkTargetGuid());
+        // Compatibility
+        manager.AddSignInWithApple();
         manager.AddGameCenter();
         manager.AddInAppPurchase();
 
@@ -63,12 +62,12 @@ class XCodePostBuilder
             plistDoc.root.SetBoolean("ITSAppUsesNonExemptEncryption", false);
 
             // URL Scheme
-            // var array = plistDoc.root.CreateArray("CFBundleURLTypes");
-            // var urlDict = array.AddDict();
-            // urlDict.SetString("CFBundleURLName", PlayerSettings.iPhoneBundleIdentifier);
-            // urlDict.SetString("CFBundleTypeRole", "Viewer");
-            // varurlInnerArray = urlDict.CreateArray("CFBundleURLSchemes");
-            // urlInnerArray.AddString("https");
+             var array = plistDoc.root.CreateArray("CFBundleURLTypes");
+             var urlDict = array.AddDict();
+             urlDict.SetString("CFBundleURLName", PlayerSettings.iPhoneBundleIdentifier);
+             urlDict.SetString("CFBundleTypeRole", "Viewer");
+             var varurlInnerArray = urlDict.CreateArray("CFBundleURLSchemes");
+             varurlInnerArray.AddString("simple.oauth");
 
             plistDoc.WriteToFile(infoPlistPath);
         }
