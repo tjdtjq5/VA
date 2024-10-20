@@ -35,6 +35,7 @@ public class Stats : MonoBehaviour
     {
         foreach (var stat in stats)
             Destroy(stat);
+
         stats = null;
     }
 
@@ -77,7 +78,7 @@ public class Stats : MonoBehaviour
     public void SetBonusValue(Stat bonusStat)
     {
         GetStat(bonusStat).SetBonusValue(bonusStat.BonusValuesByKey);
-    }
+    } 
 
     public BBNumber GetBonusValue(Stat stat)
         => GetStat(stat).BonusValue;
