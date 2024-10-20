@@ -13,7 +13,7 @@ public abstract class Character : MonoBehaviour
     public string Code { get; protected set; }
     public int Index { get; set; }
 
-    public Entity entity;
+    [HideInInspector] public Entity entity;
     public Action<Entity> onDead;
     public Action<Entity> onAllive;
     public Action<Entity, Entity, object, BBNumber> onTakeDamage;

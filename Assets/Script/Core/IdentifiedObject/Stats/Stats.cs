@@ -17,6 +17,8 @@ public class Stats : MonoBehaviour
     private StatOverride[] statOverrides;
 
     private Stat[] stats;
+    private Dictionary<string, Stat> statsDicsKeyCode = new();
+    private Dictionary<int, Stat> statsDicsId = new();
 
     public Entity Owner { get; private set; }
     public Stat HPStat { get; private set; }
@@ -27,6 +29,15 @@ public class Stats : MonoBehaviour
         Owner = entity;
 
         stats = statOverrides.Select(x => x.CreateStat()).ToArray();
+
+        statsDicsKeyCode.Clear();
+        statsDicsId.Clear();
+        for (int i = 0; i < stats.Length; i++)
+        {
+            statsDicsKeyCode.Add(stats[i].CodeName, stats[i]);
+            statsDicsId.Add(stats[i].ID, stats[i]);
+        }
+
         HPStat = hpStat ? GetStat(hpStat) : null;
         SkillCostStat = skillCostStat ? GetStat(skillCostStat) : null;
     }
@@ -36,16 +47,26 @@ public class Stats : MonoBehaviour
         foreach (var stat in stats)
             Destroy(stat);
 
+        statsDicsKeyCode.Clear();
+        statsDicsId.Clear();
+
         stats = null;
     }
 
     public Stat GetStat(Stat stat)
     {
-        UnityHelper.Assert_H(stat != null, $"Stats::GetStat - stat은 null이 될 수 없습니다.");
-        return stats.FirstOrDefault(x => x.ID == stat.ID);
+        if (statsDicsId.ContainsKey(stat.ID))
+            return statsDicsId[stat.ID];
+        else
+            return null;
     }
     public Stat GetStat(string code)
-        => stats.FirstOrDefault(x => x.CodeName == code);
+    {
+        if (statsDicsKeyCode.ContainsKey(code))
+            return statsDicsKeyCode[code];
+        else
+            return null;
+    }
 
     public bool TryGetStat(Stat stat, out Stat outStat)
     {
