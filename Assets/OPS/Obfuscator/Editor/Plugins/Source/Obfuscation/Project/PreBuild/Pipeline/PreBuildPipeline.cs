@@ -510,7 +510,7 @@ namespace OPS.Obfuscator.Editor.Project.PreBuild.Pipeline
                 var_OpenScenes.Add(SceneManager.GetSceneAt(i).path);
             }
 #else
-            for (var i = 0; i < EditorSceneManager.loadedSceneCount; i++)
+            for (var i = 0; i < SceneManager.loadedSceneCount; i++)
             {
                 var_OpenScenes.Add(SceneManager.GetSceneAt(i).path);
             }
