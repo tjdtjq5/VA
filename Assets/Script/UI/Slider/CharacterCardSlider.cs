@@ -6,9 +6,12 @@ public class CharacterCardSlider : UISlider
 
     protected override void Initialize()
 	{
-		base.Initialize();
 		Bind<UIImage>(typeof(UIImageE));
-		Bind<UIText>(typeof(UITextE));
+		Bind<UITextPro>(typeof(UITextProE));
+
+
+
+		base.Initialize();
 
         formulaKeyDics.Add(FormulaKeyword.C_AWAKE, 0);
     }
@@ -20,8 +23,8 @@ public class CharacterCardSlider : UISlider
             formulaKeyDics[FormulaKeyword.C_AWAKE] = awake;
             int needCardCount = Managers.Table.FormulaTable.GetValue(FormulaTableCodeDefine.Need_C_Awake_Card, formulaKeyDics).ToInt();
 
-            GetText(UITextE.Count).text = $"{cardCount} / {needCardCount}";
-            GetText(UITextE.Star_Text).text = $"{awake}";
+            GetTextPro(UITextProE.Count).text = $"{cardCount} / {needCardCount}";
+            GetTextPro(UITextProE.Star_Text).text = $"{awake}";
 
             float sliderValue = cardCount / (float)needCardCount;
             this.value = sliderValue;
@@ -30,21 +33,21 @@ public class CharacterCardSlider : UISlider
         }
 		else
 		{
-            GetText(UITextE.Count).text = $"{0} / {0}";
-            GetText(UITextE.Star_Text).text = $"{0}";
+            GetTextPro(UITextProE.Count).text = $"{0} / {0}";
+            GetTextPro(UITextProE.Star_Text).text = $"{0}";
             this.value = 0;
             GetImage(UIImageE.Arrow).gameObject.SetActive(false);
         }
     }
 
-    public enum UIImageE
+	public enum UIImageE
     {
 		Background,
 		FillArea_Fill,
 		Arrow,
 		Star,
     }
-	public enum UITextE
+	public enum UITextProE
     {
 		Count,
 		Star_Text,

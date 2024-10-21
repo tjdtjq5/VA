@@ -29,6 +29,8 @@ public class MainCharacterViewPopup : UIPopup
 
 		Get<CharacterHaveCheck>(CharacterHaveCheckE.CharacterHaveCheck).UISet(false);
         Get<CharacterTribeTab>(CharacterTribeTabE.CharacterViews_CharacterTribeTab).UISet(0);
+
+        ActionControll();
     }
 
 	void HaveCheckAction(bool flag)

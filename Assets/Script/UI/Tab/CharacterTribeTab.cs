@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterTribeTab : UIFrame
 {
     [SerializeField] Transform onTr;
+    [SerializeField] GameObject onIconObj;
+    [SerializeField] GameObject onTextObj;
 	[SerializeField] Transform tabParentTr;
     public int Index { get; set; }
     public Action<int> TabHandler;
+    List<UITabButton> tabs = new();
 
+    float onTrWidth;
     float horizontalSpacingX = 0;
     float moveSpeed = 0.12f;
     Vector2 movePos = Vector2.zero;
@@ -19,6 +24,8 @@ public class CharacterTribeTab : UIFrame
 		Bind<UIImage>(typeof(UIImageE));
 
         base.Initialize();
+
+        onTrWidth = onTr.GetComponent<RectTransform>().rect.width;
 
         TabInitialize();
         SelectInitialize();
@@ -40,11 +47,19 @@ public class CharacterTribeTab : UIFrame
         GetTabButton(UITabButtonE.BtnList_Pirate).SwitchOnHandler += UISet;
         GetTabButton(UITabButtonE.BtnList_Robot).SwitchOnHandler += UISet;
         GetTabButton(UITabButtonE.BtnList_Thief).SwitchOnHandler += UISet;
+
+        tabs.Add(GetTabButton(UITabButtonE.BtnList_All));
+        tabs.Add(GetTabButton(UITabButtonE.BtnList_Cat));
+        tabs.Add(GetTabButton(UITabButtonE.BtnList_Dragon));
+        tabs.Add(GetTabButton(UITabButtonE.BtnList_Druid));
+        tabs.Add(GetTabButton(UITabButtonE.BtnList_Pirate));
+        tabs.Add(GetTabButton(UITabButtonE.BtnList_Robot));
+        tabs.Add(GetTabButton(UITabButtonE.BtnList_Thief));
     }
     void SelectInitialize()
     {
         Index = 0;
-        onTr.position = new Vector2(tabParentTr.GetChild(Index).position.x, onTr.position.y);
+        onTr.position = new Vector2(tabParentTr.GetChild(Index).position.x + onTrWidth / 2, onTr.position.y);
         SelectUISet();
     }
 
@@ -54,6 +69,18 @@ public class CharacterTribeTab : UIFrame
             return;
 
         Index = index;
+
+        for (int i = 0; i < tabs.Count; i++)
+        {
+            if (tabs[i].Index != index)
+                tabs[i].Switch(false);
+        }
+        for (int i = 0; i < tabs.Count; i++)
+        {
+            if (tabs[i].Index == index)
+                tabs[i].Switch(true);
+        }
+
         SelectUISet();
         SelectMove();
 
@@ -69,12 +96,18 @@ public class CharacterTribeTab : UIFrame
     {
         if (Index > 0)
         {
+            onIconObj.SetActive(true);
+            onTextObj.SetActive(false);
             Tribe tribe = (Tribe)(Index - 1);
             GetImage(UIImageE.TabOn_Bg_Icon).sprite = Managers.Atlas.GetTribe(tribe);
+            GetImage(UIImageE.TabOn_Bg_Icon).SetNativeSize();
+            GetImage(UIImageE.TabOn_Bg_Icon).color = DefineColor.GetTribe(tribe);
         }
         else
         {
             // all
+            onIconObj.SetActive(false);
+            onTextObj.SetActive(true);
         }
     }
     private void FixedUpdate()
