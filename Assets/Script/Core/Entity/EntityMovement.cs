@@ -193,7 +193,7 @@ public class EntityMovement : MonoBehaviour
         currentDashTime = 0;
         prevDashDistance = 0;
         dashCallback = callback;
-        dashSpeed = MoveSpeed / 3f * speedValue;
+        dashSpeed = MoveSpeed / 35f * speedValue;
 
         MoveController.LookAtImmediateDirection(direction);
 

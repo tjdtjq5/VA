@@ -49,6 +49,9 @@ public class UIBase : MonoBehaviour
                 case nameof(UIText):
                     objs[i] = gameObject.GetComponent<UIText>();
                     continue;
+                case nameof(UITextPro):
+                    objs[i] = gameObject.GetComponent<UITextPro>();
+                    continue;
                 case nameof(UISlider):
                     objs[i] = gameObject.GetComponent<UISlider>();
                     continue;
@@ -102,6 +105,10 @@ public class UIBase : MonoBehaviour
     protected UIText GetText(Enum _enumValue)
     {
         return Get<UIText>(_enumValue);
+    }
+    protected UITextPro GetTextPro(Enum _enumValue)
+    {
+        return Get<UITextPro>(_enumValue);
     }
     protected UIImage GetImage(Enum _enumValue)
     {

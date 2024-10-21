@@ -67,7 +67,6 @@ public class UIJoystic : UIScene
 
     public enum UIImageE
     {
-		TouchBackGround,
 		Out,
 		Out_In,
     }

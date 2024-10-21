@@ -6,17 +6,18 @@ public class MainCharacterViewPopup : UIPopup
 {
 	protected override void Initialize()
 	{
-        base.Initialize();
-
-        Bind<CharacterHaveCheck>(typeof(CharacterHaveCheckE));
+		Bind<CharacterHaveCheck>(typeof(CharacterHaveCheckE));
 		Bind<UIImage>(typeof(UIImageE));
-		Bind<UITabButtonParent>(typeof(UITabButtonParentE));
+		Bind<CharacterTribeTab>(typeof(CharacterTribeTabE));
 		Bind<UIScrollView>(typeof(UIScrollViewE));
 		Bind<CharacterFilterBtn>(typeof(CharacterFilterBtnE));
 		Bind<CharacterOrderTabBtn>(typeof(CharacterOrderTabBtnE));
 		Bind<UIButton>(typeof(UIButtonE));
 
-        GetTabButtonParent(UITabButtonParentE.CharacterTribeTab).SwitchOnHandler += TribeTabAction;
+        base.Initialize();
+
+
+        Get<CharacterTribeTab>(CharacterTribeTabE.CharacterViews_CharacterTribeTab).TabHandler += TribeTabAction;
         Get<CharacterHaveCheck>(CharacterHaveCheckE.CharacterHaveCheck).CheckHandler += HaveCheckAction;
         Get<CharacterFilterBtn>(CharacterFilterBtnE.CharacterViews_Under_Filter).FilterHandler += FilterAction;
 		Get<CharacterOrderTabBtn>(CharacterOrderTabBtnE.CharacterViews_Under_Order).SwitchHandler += OrderAction;
@@ -27,7 +28,7 @@ public class MainCharacterViewPopup : UIPopup
         base.UISet();
 
 		Get<CharacterHaveCheck>(CharacterHaveCheckE.CharacterHaveCheck).UISet(false);
-		GetTabButtonParent(UITabButtonParentE.CharacterTribeTab).UISet(0);
+        Get<CharacterTribeTab>(CharacterTribeTabE.CharacterViews_CharacterTribeTab).UISet(0);
     }
 
 	void HaveCheckAction(bool flag)
@@ -54,7 +55,7 @@ public class MainCharacterViewPopup : UIPopup
     {
         CharacterFilterType filterType = Get<CharacterFilterBtn>(CharacterFilterBtnE.CharacterViews_Under_Filter).FilterType;
         bool isHaveCheck = Get<CharacterHaveCheck>(CharacterHaveCheckE.CharacterHaveCheck).IsChecked;
-        int tabIndex = GetTabButtonParent(UITabButtonParentE.CharacterTribeTab).Index;
+        int tabIndex = Get<CharacterTribeTab>(CharacterTribeTabE.CharacterViews_CharacterTribeTab).Index;
         bool isAll = tabIndex == 0;
         Tribe tribe = (Tribe)CSharpHelper.EnumClamp<Tribe>(tabIndex - 1);
         bool isOrder = Get<CharacterOrderTabBtn>(CharacterOrderTabBtnE.CharacterViews_Under_Order).IsSwitch;
@@ -126,9 +127,9 @@ public class MainCharacterViewPopup : UIPopup
     {
 		LineTop,
     }
-	public enum UITabButtonParentE
+	public enum CharacterTribeTabE
     {
-		CharacterTribeTab,
+		CharacterViews_CharacterTribeTab,
     }
 	public enum UIScrollViewE
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -7,18 +8,12 @@ public class CharacterFilterBtn : UIButton
     public CharacterFilterType FilterType { get; set; } = CharacterFilterType.Grade;
     public Action<CharacterFilterType> FilterHandler;
 
-    HorizontalLayoutGroup _hlg;
-	ContentSizeFitter _ccf;
-
 	protected override void Initialize()
 	{
+		Bind<UIImage>(typeof(UIImageE));
+		Bind<UITextPro>(typeof(UITextProE));
+
 		base.Initialize();
-
-		_hlg = this.gameObject.GetComponent<HorizontalLayoutGroup>();
-		_ccf = this.gameObject.FindChildByPath<ContentSizeFitter>("Text");
-
-        Bind<UIImage>(typeof(UIImageE));
-		Bind<UIText>(typeof(UITextE));
 
         AddClickEvent(OnClick);
 	}
@@ -41,7 +36,6 @@ public class CharacterFilterBtn : UIButton
     public void UISet(CharacterFilterType type)
     {
         TextSet(type);
-        LayoutSet();
     }
 
     void TextSet(CharacterFilterType type)
@@ -60,20 +54,14 @@ public class CharacterFilterBtn : UIButton
                 break;
         }
 
-        GetText(UITextE.Text).text = text;
-    }
-
-    void LayoutSet()
-	{
-        _ccf.SetLayoutHorizontal();
-        _hlg.SetLayoutHorizontal();
+        GetTextPro(UITextProE.Text).text = text;
     }
 
 	public enum UIImageE
     {
 		Icon,
     }
-	public enum UITextE
+	public enum UITextProE
     {
 		Text,
     }

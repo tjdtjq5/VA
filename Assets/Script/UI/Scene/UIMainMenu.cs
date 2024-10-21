@@ -13,7 +13,6 @@
 
     void OnMenueAction(int index)
     {
-        UnityHelper.Log_H($"Open [{index}]");
         switch (index)
         {
             case 0:
@@ -31,7 +30,6 @@
     }
     void OffMenueAction(int index)
     {
-        UnityHelper.Log_H($"Close [{index}]");
         Managers.Scene.InGameManager.ItemViewOff();
 
         switch (index)
