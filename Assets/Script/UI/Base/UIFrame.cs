@@ -1,6 +1,7 @@
 using EasyButtons;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,6 +57,10 @@ public class UIFrame : UIBase
             if (child.GetComponent<Text>())
             {
                 UnityHelper.GetOrAddComponent<UIText>(child.gameObject);
+            }
+            if (child.GetComponent<TextMeshProUGUI>())
+            {
+                UnityHelper.GetOrAddComponent<UITextPro>(child.gameObject);
             }
             if (child.GetComponent<Slider>())
             {

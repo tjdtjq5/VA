@@ -27,6 +27,17 @@ public class UIImage : UIBase
             return Image.sprite;
         }
     }
+    public Color color
+    {
+        set
+        {
+            Image.color = value;
+        }
+        get
+        {
+            return Image.color;
+        }
+    }
     public void SetNativeSize()
     {
         if (sprite == null)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UITabSlider : UIFrame
+public class UITabSlider : UIFrame 
 {
     protected virtual IReadOnlyList<string> TabNames { get; set; }
     public int Index {  get; set; }
@@ -45,7 +45,7 @@ public class UITabSlider : UIFrame
             TabSliderBtn tabBtn = Managers.Resources.Instantiate<TabSliderBtn>(tabBtnPrefabName, tabParentTr);
             tabBtn.Set(TabNames[i], tw);
             int index = i;
-            tabBtn.AddClickEvent((ped) => { OnClickTab(index); });
+            tabBtn.AddClickEvent((ped) => { UISet(index); });
         }
     }
     void SelectInitialize()
@@ -60,7 +60,7 @@ public class UITabSlider : UIFrame
         base.UISet();
     }
 
-    public void OnClickTab(int index)
+    public void UISet(int index)
     {
         if (Index.Equals(index))
             return;

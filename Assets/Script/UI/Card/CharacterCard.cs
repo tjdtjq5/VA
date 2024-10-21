@@ -7,8 +7,9 @@ public class CharacterCard : UICard
 	protected override void Initialize()
 	{
 		Bind<UIImage>(typeof(UIImageE));
-		Bind<UIText>(typeof(UITextE));
+		Bind<UITextPro>(typeof(UITextProE));
 		Bind<CharacterCardSlider>(typeof(CharacterCardSliderE));
+
 
 		base.Initialize();
 	}
@@ -30,14 +31,14 @@ public class CharacterCard : UICard
     }
     void NameSetting(string name)
     {
-        GetText(UITextE.TextName).text = name;
+        GetTextPro(UITextProE.Name).text = name;
     }
     void LevelSet(int level)
     {
         if (level < 1)
-            GetText(UITextE.TextLv).text = "";
+            GetTextPro(UITextProE.LvText).text = "";
         else
-            GetText(UITextE.TextLv).text = $"Lv.{level}";
+            GetTextPro(UITextProE.LvText).text = $"Lv.{level}";
     }
     void GradeSetting(Grade grade)
     {
@@ -76,10 +77,10 @@ public class CharacterCard : UICard
 		Grade,
 		Job,
     }
-	public enum UITextE
+	public enum UITextProE
     {
-		TextLv,
-		TextName,
+		LvText,
+		Name,
     }
 	public enum CharacterCardSliderE
     {
