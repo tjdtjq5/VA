@@ -166,10 +166,6 @@ public class UIBase : MonoBehaviour
                 evt.eventHandlerClick -= _action;
                 evt.eventHandlerClick += _action;
                 break;
-            case UIEvent.Drag:
-                evt.eventHandlerOnDrag -= _action;
-                evt.eventHandlerOnDrag += _action;
-                break;
             case UIEvent.PointDown:
                 evt.eventHandlerPointDown -= _action;
                 evt.eventHandlerPointDown += _action;
@@ -189,9 +185,6 @@ public class UIBase : MonoBehaviour
             case UIEvent.Click:
                 evt.eventHandlerClick -= _action;
                 break;
-            case UIEvent.Drag:
-                evt.eventHandlerOnDrag -= _action;
-                break;
             case UIEvent.PointDown:
                 evt.eventHandlerPointDown -= _action;
                 break;
@@ -208,8 +201,6 @@ public class UIBase : MonoBehaviour
         {
             case UIEvent.Click:
                 return evt.eventHandlerClick;
-            case UIEvent.Drag:
-                return evt.eventHandlerOnDrag;
             case UIEvent.PointDown:
                 return evt.eventHandlerPointDown;
             case UIEvent.PointUp:

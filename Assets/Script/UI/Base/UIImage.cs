@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class UIImage : UIBase
 {
+    [SerializeField] bool isRaycast;
+
     public Image Image
     {
         get
@@ -49,6 +51,6 @@ public class UIImage : UIBase
     {
         base.Initialize();
 
-        Image.raycastTarget = false;
+        Image.raycastTarget = isRaycast;
     }
 }

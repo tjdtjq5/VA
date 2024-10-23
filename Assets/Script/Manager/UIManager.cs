@@ -91,7 +91,7 @@ public class UIManager
     {
         if (_popupDics.ContainsKey(name))
         {
-            Managers.Resources.Destroy(_popupDics[name]);
+            Managers.Resources.Destroy(_popupDics[name]); 
             _popupDics.Remove(name);
         }
 

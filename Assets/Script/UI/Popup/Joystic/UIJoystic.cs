@@ -35,7 +35,6 @@ public class UIJoystic : UIScene
 
         GetButton(UIButtonE.TouchBackGround).AddPointDownEvent(PointDownEvent);
 		GetButton(UIButtonE.TouchBackGround).AddPointUpEvent(PointUpEvent);
-		GetButton(UIButtonE.TouchBackGround).AddDragEvent(DrayEvent);
 	}
 
 	void PointDownEvent(PointerEventData ped)
@@ -51,16 +50,14 @@ public class UIJoystic : UIScene
 
         Managers.Observer.OnJoystic.Invoke(Vector3.zero);
     }
-	void DrayEvent(PointerEventData ped)
-    {
-        in_tr.position = ped.position;
-		in_tr.localPosition = Vector3.ClampMagnitude(in_tr.localPosition, MaxRadisus);
-    }
 
     private void FixedUpdate()
     {
 		if (isPointDown) 
 		{
+            in_tr.position = Input.mousePosition;
+            in_tr.localPosition = Vector3.ClampMagnitude(in_tr.localPosition, MaxRadisus);
+
             Managers.Observer.OnJoystic.Invoke(Direction);
         }
     }

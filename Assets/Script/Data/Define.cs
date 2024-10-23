@@ -16,7 +16,6 @@ public enum SceneType
 public enum UIEvent
 {
     Click,
-    Drag,
     PointDown,
     PointUp,
 }

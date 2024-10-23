@@ -12,8 +12,6 @@
     protected override void UISet()
     {
         base.UISet();
-
-		TabAction(0);
     }
 
     public override void OpenUISet(CanvasOrderType orderType)

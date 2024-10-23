@@ -1,19 +1,13 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class UIEventHandler : MonoBehaviour, IPointerClickHandler, IDragHandler, IPointerDownHandler, IPointerUpHandler
+public class UIEventHandler : UIBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
 {
     public Action<PointerEventData> eventHandlerClick;
-    public Action<PointerEventData> eventHandlerOnDrag;
     public Action<PointerEventData> eventHandlerPointDown;
     public Action<PointerEventData> eventHandlerPointUp;
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        if (eventHandlerOnDrag != null)
-            eventHandlerOnDrag.Invoke(eventData);
-    }
 
     public void OnPointerClick(PointerEventData eventData)
     {

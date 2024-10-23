@@ -1,19 +1,25 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CharacterCard : UICard
 {
-    CharacterCardData _data;
-
-	protected override void Initialize()
-	{
+    protected override void Initialize()
+    {
 		Bind<UIImage>(typeof(UIImageE));
 		Bind<UITextPro>(typeof(UITextProE));
 		Bind<CharacterCardSlider>(typeof(CharacterCardSliderE));
+		Bind<UIButton>(typeof(UIButtonE));
 
+        base.Initialize();
+    }
+    CharacterCardData _data;
 
+    protected override void UISet()
+    {
+        base.UISet();
 
-		base.Initialize();
-	}
+        GetButton(UIButtonE.Button).AddClickEvent(Click);
+    }
     public override void Setting(ICardData data)
     {
         _data = (CharacterCardData)data;
@@ -69,6 +75,11 @@ public class CharacterCard : UICard
     {
         Get<CharacterCardSlider>(CharacterCardSliderE.Main_CharacterCardSlider).UISet(cardCount, awake, isPlayerData);
     }
+    void Click(PointerEventData ped)
+    {
+        string popupName = "MainScene/CharacterInfoPopup";
+        Managers.UI.ShopPopupUI<CharacterInfoPopup>(popupName, CanvasOrderType.Middle);
+    }
     
 	public enum UIImageE
     {
@@ -86,6 +97,10 @@ public class CharacterCard : UICard
 	public enum CharacterCardSliderE
     {
 		Main_CharacterCardSlider,
+    }
+	public enum UIButtonE
+    {
+		Button,
     }
 }
 public class CharacterCardData : ICardData
