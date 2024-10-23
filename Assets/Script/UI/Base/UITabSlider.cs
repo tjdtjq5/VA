@@ -1,19 +1,21 @@
-﻿using System;
+﻿using EasyButtons;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UITabSlider : UIFrame 
 {
-    protected virtual IReadOnlyList<string> TabNames { get; set; }
+    [SerializeField] private List<string> TabNames = new();
     public int Index {  get; set; }
     public Action<int> TabHandler;
 
-	string tabBtnPrefabName = "Prefab/UI/Tab/TabSliderBtn";
+    private Transform selectTr;
+    private Transform tabParentTr;
+
+    string tabBtnPrefabName = "Prefab/UI/Tab/TabSliderBtn";
     string selectTrName = "Select";
     string tabParentTrName = "TabList";
-    Transform selectTr;
-    Transform tabParentTr;
-    float horizontalSpacingX = 15f;
+
     float tabWidth;
     float moveSpeed = 0.12f;
 
@@ -30,6 +32,10 @@ public class UITabSlider : UIFrame
         selectTr = this.gameObject.FindChild<Transform>(selectTrName);
         tabParentTr = this.gameObject.FindChild<Transform>(tabParentTrName);
 
+        float width = RectTransform.rect.width;
+        RectTransform selectRect = selectTr.GetComponent<RectTransform>();
+        selectRect.sizeDelta = new Vector2(width / TabNames.Count, selectRect.sizeDelta.y);
+
         TabInitialize();
         SelectInitialize();
     }
@@ -38,7 +44,7 @@ public class UITabSlider : UIFrame
     {
         float tabParentTrWidth = tabParentTr.GetComponent<RectTransform>().rect.width;
         tabWidth = tabParentTrWidth / TabNames.Count;
-        float tw = tabParentTrWidth / TabNames.Count - horizontalSpacingX;
+        float tw = tabParentTrWidth / TabNames.Count;
 
         for (int i = 0; i < TabNames.Count; i++) 
         {
@@ -74,7 +80,7 @@ public class UITabSlider : UIFrame
     }
     void SelectMove()
     {
-        movePos = new Vector2(tabParentTr.GetChild(Index).position.x + (Index == 0 ? 0 : horizontalSpacingX), selectTr.position.y);
+        movePos = new Vector2(tabParentTr.GetChild(Index).position.x , selectTr.position.y);
         isMove = true;
     }
     void SelectTextSet()
@@ -90,6 +96,17 @@ public class UITabSlider : UIFrame
             if (selectTr.position.GetDistance(movePos) <= 0.1f)
                 isMove = true;
         }
+    }
+
+    [Button]
+    public void InspecterSetting()
+    {
+        selectTr = this.gameObject.FindChild<Transform>(selectTrName);
+        tabParentTr = this.gameObject.FindChild<Transform>(tabParentTrName);
+
+        float width = RectTransform.rect.width;
+        RectTransform selectRect = selectTr.GetComponent<RectTransform>();
+        selectRect.sizeDelta = new Vector2(width / TabNames.Count, selectRect.sizeDelta.y);
     }
 
     public enum UITextE
