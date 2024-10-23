@@ -277,12 +277,14 @@ public class UIScrollView : UIFrame
                 {
                     _card.transform.localPosition -= new Vector3(0, _offset, 0);
                     RocateItem(_card, _contentsXY, _scrollWH);
+                    _card.In();
                     return true;
                 }
                 else if (itemPos < -_scrollWH - (_cardHeight))
                 {
                     _card.transform.localPosition += new Vector3(0, _offset, 0);
                     RocateItem(_card, _contentsXY, _scrollWH);
+                    _card.In();
                     return true;
                 }
                 return false;
@@ -291,12 +293,14 @@ public class UIScrollView : UIFrame
                 {
                     _card.transform.localPosition -= new Vector3(_offset, 0, 0);
                     RocateItem(_card, _contentsXY, _scrollWH);
+                    _card.In();
                     return true;
                 }
                 else if (itemPos < -(_scrollWH / 2) - (_cardWidth * 2))
                 {
                     _card.transform.localPosition += new Vector3(_offset, 0, 0);
                     RocateItem(_card, _contentsXY, _scrollWH);
+                    _card.In();
                     return true;
                 }
                 return false;

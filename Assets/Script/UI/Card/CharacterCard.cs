@@ -11,6 +11,7 @@ public class CharacterCard : UICard
 		Bind<CharacterCardSlider>(typeof(CharacterCardSliderE));
 
 
+
 		base.Initialize();
 	}
     public override void Setting(ICardData data)
@@ -31,33 +32,33 @@ public class CharacterCard : UICard
     }
     void NameSetting(string name)
     {
-        GetTextPro(UITextProE.Name).text = name;
+        GetTextPro(UITextProE.Main_Name).text = name;
     }
     void LevelSet(int level)
     {
         if (level < 1)
-            GetTextPro(UITextProE.LvText).text = "";
+            GetTextPro(UITextProE.Main_LvText).text = "";
         else
-            GetTextPro(UITextProE.LvText).text = $"Lv.{level}";
+            GetTextPro(UITextProE.Main_LvText).text = $"Lv.{level}";
     }
     void GradeSetting(Grade grade)
     {
-        GetImage(UIImageE.Grade).sprite = Managers.Atlas.GetGrade(grade);
-        GetImage(UIImageE.Grade).Image.SetNativeSize();
+        GetImage(UIImageE.Main_Grade).sprite = Managers.Atlas.GetGrade(grade);
+        GetImage(UIImageE.Main_Grade).Image.SetNativeSize();
 
-        GetImage(UIImageE.BG).sprite = Managers.Atlas.GetGradeBg(grade);
+        GetImage(UIImageE.Main_BG).sprite = Managers.Atlas.GetGradeBg(grade);
     }
     void CharacterImgSet(Sprite sprite)
     {
         if (sprite == null)
         {
-            GetImage(UIImageE.Character).Image.color = Color.clear;
+            GetImage(UIImageE.Main_Character).Image.color = Color.clear;
         }
         else
         {
-            GetImage(UIImageE.Character).Image.color = Color.white;
-            GetImage(UIImageE.Character).sprite = sprite;
-            GetImage(UIImageE.Character).Image.SetNativeSize();
+            GetImage(UIImageE.Main_Character).Image.color = Color.white;
+            GetImage(UIImageE.Main_Character).sprite = sprite;
+            GetImage(UIImageE.Main_Character).Image.SetNativeSize();
         }
     }
     void JobSetting(CharacterJob job)
@@ -66,25 +67,25 @@ public class CharacterCard : UICard
     }
     void SliderSetting(int cardCount, int awake, bool isPlayerData)
     {
-        Get<CharacterCardSlider>(CharacterCardSliderE.CharacterCardSlider).UISet(cardCount, awake, isPlayerData);
+        Get<CharacterCardSlider>(CharacterCardSliderE.Main_CharacterCardSlider).UISet(cardCount, awake, isPlayerData);
     }
     
 	public enum UIImageE
     {
-		BG,
-		BgDeco,
-		Character,
-		Grade,
-		Job,
+		Main_BG,
+		Main_BgDeco,
+		Main_Character,
+		Main_Grade,
+		Main_Job,
     }
 	public enum UITextProE
     {
-		LvText,
-		Name,
+		Main_LvText,
+		Main_Name,
     }
 	public enum CharacterCardSliderE
     {
-		CharacterCardSlider,
+		Main_CharacterCardSlider,
     }
 }
 public class CharacterCardData : ICardData

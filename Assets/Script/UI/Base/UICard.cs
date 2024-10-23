@@ -1,4 +1,25 @@
-public abstract class UICard : UIFrame
+using UnityEngine;
+
+[RequireComponent(typeof(Animator))]
+public class UICard : UIFrame
 {
-    public abstract void Setting(ICardData data);
+    protected Animator Animator
+    {
+        get
+        {
+            return GetComponent<Animator>();
+        }
+    }
+    protected AniController AniController;
+
+    int inHash = UnityEngine.Animator.StringToHash("In");
+
+    protected override void Initialize()
+    {
+        if (Animator)
+            AniController = Animator.Initialize();
+    }
+    public virtual void Setting(ICardData data) { }
+    public virtual void In()
+        => AniController.SetTrigger(inHash);
 }
