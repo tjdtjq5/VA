@@ -1,7 +1,13 @@
-﻿using UnityEngine.EventSystems;
+﻿using System;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CharacterInfoPopup : UIPopup
 {
+	[SerializeField] Transform main;
+
+	UIPopup currentPopup;
+
     protected override void Initialize()
     {
 		Bind<UIButton>(typeof(UIButtonE));
@@ -9,7 +15,6 @@ public class CharacterInfoPopup : UIPopup
 		Bind<UITextPro>(typeof(UITextProE));
 		Bind<UIText>(typeof(UITextE));
 		Bind<UITabSlider>(typeof(UITabSliderE));
-
 
         base.Initialize();
     }
@@ -20,9 +25,40 @@ public class CharacterInfoPopup : UIPopup
 
 		GetButton(UIButtonE.Dim).AddClickEvent(Close);
 		GetButton(UIButtonE.Main_PopupBg_Close).AddClickEvent(Close);
+		GetButton(UIButtonE.Main_SpecialWeapon).AddClickEvent(SpecialWeaponAction);
+
+		GetTabSlider(UITabSliderE.Main_TabSlider).TabHandler += TabAction;
+
+        int tabIndex = GetTabSlider(UITabSliderE.Main_TabSlider).Index;
+		TabAction(tabIndex);
     }
 
-	void Close(PointerEventData ped) => ClosePopupUIPlayAni();
+	void TabAction(int index)
+	{
+        currentPopup?.ClosePopupUI();
+        switch (index)
+		{
+			case 0:
+                currentPopup = Managers.UI.ShopPopupUI<CharacterBasicInfo>("MainScene/CharacterBasicInfo", CanvasOrderType.Top, main);
+                break;
+            case 1:
+                currentPopup = Managers.UI.ShopPopupUI<CharacterAwakeInfo>("MainScene/CharacterAwakeInfo", CanvasOrderType.Top, main);
+                break;
+            case 2:
+                currentPopup = Managers.UI.ShopPopupUI<CharacterDetailInfo>("MainScene/CharacterDetailInfo", CanvasOrderType.Top, main);
+                break;
+        }
+	}
+	void SpecialWeaponAction(PointerEventData ped)
+	{
+        CloseAction(() => 
+		{
+            Managers.UI.ShopPopupUI<CharacterPotentialPopup>("MainScene/CharacterPotentialPopup", CanvasOrderType.Top);
+        });
+    }
+
+	void Close(PointerEventData ped) => CloseAction(null);
+    void CloseAction(Action callback) => ClosePopupUIPlayAni(() => { currentPopup?.ClosePopupUI(); callback?.Invoke(); });
 
     public enum UIButtonE
     {
@@ -30,6 +66,7 @@ public class CharacterInfoPopup : UIPopup
 		Main_PopupBg_Close,
 		Main_BtnRe,
 		Main_BtnDic,
+		Main_SpecialWeapon,
     }
 	public enum UIImageE
     {
@@ -55,8 +92,6 @@ public class CharacterInfoPopup : UIPopup
 		Main_LevelUpButton,
 		Main_LevelUpButton_Bg,
 		Main_LevelUpButton_Bg_Icon,
-		Main_SpecialWeapon,
-		Main_SpecialWeapon_Icon,
     }
 	public enum UITextProE
     {
