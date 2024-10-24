@@ -23,4 +23,6 @@ public class UICard : UIFrame
     public virtual void Setting(ICardData data) { }
     public virtual void In(float time)
         => AniController.SetFloat(inHash, time);
+
+    private void OnEnable() => In(1);
 }

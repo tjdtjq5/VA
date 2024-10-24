@@ -14,11 +14,13 @@ public class UIScrollView : UIFrame
     int _columnOrRowCount = 1;
     Vector2 _cardPivot = new Vector2(0, 1);
     float _startCornerValue = 0;
+    float _currentValue = 0;
 
     // key : pos, value : idx
     Dictionary<Vector2, int> idxDics = new Dictionary<Vector2, int>();
 
     ScrollRect _scrollRect;
+    Scrollbar _bar;
     List<ICardData> _dataList = new List<ICardData>();
     List<UICard> _cardList = new List<UICard>();
 
@@ -140,6 +142,7 @@ public class UIScrollView : UIFrame
 
         _scrollRect.horizontal = axis == UIScrollViewLayoutStartAxis.Horizontal;
         _scrollRect.vertical = axis == UIScrollViewLayoutStartAxis.Vertical;
+        _bar = axis == UIScrollViewLayoutStartAxis.Vertical ? _scrollbarVertical : _scrollbarHorizontal;
 
         _dataList = dataList;
 
@@ -317,6 +320,10 @@ public class UIScrollView : UIFrame
     }
     private void Update()
     {
+        if (_currentValue.Equals(_bar.value))
+            return;
+
+        _currentValue = _bar.value;
         float contentsXY = (_axis == UIScrollViewLayoutStartAxis.Vertical) ? _scrollRect.content.anchoredPosition.y : _scrollRect.content.anchoredPosition.x;
 
         RectTransform scrollRectTr = _scrollRect.GetComponent<RectTransform>();

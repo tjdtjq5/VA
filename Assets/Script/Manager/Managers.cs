@@ -98,4 +98,11 @@ public class Managers : MonoBehaviour
     {
         Clean();
     }
+
+    private void OnDestroy()
+    {
+        GameObject go = GameObject.Find("@Managers");
+        if (go != null)
+            Destroy(go);
+    }
 }

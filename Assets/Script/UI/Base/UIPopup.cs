@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Animator))]
 public class UIPopup : UIFrame
@@ -15,6 +17,8 @@ public class UIPopup : UIFrame
         }
     }
     protected AniController AniController;
+
+    Action closeCallback;
 
     protected override void Initialize()
     {
@@ -38,12 +42,16 @@ public class UIPopup : UIFrame
     {
         Managers.UI.ClosePopupUI(this);
     }
-    public void ClosePopupUIPlayAni()
+    public void ClosePopupUIPlayAni(Action closeCallback)
     {
+        this.closeCallback = closeCallback;
         AniController.SetTrigger(closeHash);
     }
     void CloseAniEndFunc(string clipName)
     {
+        closeCallback?.Invoke();
+        closeCallback = null;
+
         ClosePopupUI();
     }
 }

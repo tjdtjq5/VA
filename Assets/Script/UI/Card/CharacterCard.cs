@@ -78,7 +78,7 @@ public class CharacterCard : UICard
     void Click(PointerEventData ped)
     {
         string popupName = "MainScene/CharacterInfoPopup";
-        Managers.UI.ShopPopupUI<CharacterInfoPopup>(popupName, CanvasOrderType.Middle);
+        Managers.UI.ShopPopupUI<CharacterInfoPopup>(popupName, CanvasOrderType.Top);
     }
     
 	public enum UIImageE
