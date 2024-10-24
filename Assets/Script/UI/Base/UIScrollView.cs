@@ -159,7 +159,7 @@ public class UIScrollView : UIFrame
         }
         _cardList.Clear();
 
-        int cardCount = (_axis == UIScrollViewLayoutStartAxis.Vertical) ? ((int)(RectTransform.rect.height / _cardHeight) + 2) * _columnOrRowCount : ((int)(RectTransform.rect.width / _cardWidth) + 2) * _columnOrRowCount;
+        int cardCount = (_axis == UIScrollViewLayoutStartAxis.Vertical) ? ((int)(RectTransform.rect.height / _cardHeight) + 4) * _columnOrRowCount : ((int)(RectTransform.rect.width / _cardWidth) + 4) * _columnOrRowCount;
         cardCount = Math.Min(_dataList.Count, cardCount);
 
         for (int i = 0; i < cardCount; i++)
@@ -273,18 +273,16 @@ public class UIScrollView : UIFrame
         switch (_axis)
         {
             case UIScrollViewLayoutStartAxis.Vertical:
-                if (itemPos > _cardHeight)
+                if (itemPos > _cardHeight * 2)
                 {
                     _card.transform.localPosition -= new Vector3(0, _offset, 0);
                     RocateItem(_card, _contentsXY, _scrollWH);
-                    _card.In();
                     return true;
                 }
-                else if (itemPos < -_scrollWH - (_cardHeight))
+                else if (itemPos < -_scrollWH - (_cardHeight * 2))
                 {
                     _card.transform.localPosition += new Vector3(0, _offset, 0);
                     RocateItem(_card, _contentsXY, _scrollWH);
-                    _card.In();
                     return true;
                 }
                 return false;
@@ -293,14 +291,12 @@ public class UIScrollView : UIFrame
                 {
                     _card.transform.localPosition -= new Vector3(_offset, 0, 0);
                     RocateItem(_card, _contentsXY, _scrollWH);
-                    _card.In();
                     return true;
                 }
                 else if (itemPos < -(_scrollWH / 2) - (_cardWidth * 2))
                 {
                     _card.transform.localPosition += new Vector3(_offset, 0, 0);
                     RocateItem(_card, _contentsXY, _scrollWH);
-                    _card.In();
                     return true;
                 }
                 return false;
@@ -325,10 +321,27 @@ public class UIScrollView : UIFrame
 
         RectTransform scrollRectTr = _scrollRect.GetComponent<RectTransform>();
         float scrollWHeight = (_axis == UIScrollViewLayoutStartAxis.Vertical) ? scrollRectTr.rect.height : scrollRectTr.rect.width;
+        float cardLenth = (_axis == UIScrollViewLayoutStartAxis.Vertical) ? _cardHeight : _cardWidth;
+        float cardRowCount = scrollWHeight / cardLenth;
 
         for (int i = 0; i < _cardList.Count; i++)
         {
+            float inValue = MathF.Abs((_axis == UIScrollViewLayoutStartAxis.Vertical) ? _cardList[i].transform.localPosition.y : _cardList[i].transform.position.x);
             bool isChanged = RocateItem(_cardList[i], contentsXY, scrollWHeight);
+
+            inValue = .8f - (contentsXY - inValue) / cardLenth;
+
+            if (inValue > cardRowCount)
+            {
+                inValue = .8f - (inValue - cardRowCount);
+                inValue = Math.Clamp(inValue, 0, 1);
+                _cardList[i].In(inValue);
+            }
+            else
+            {
+                inValue = Math.Clamp(inValue, 0, 1);
+                _cardList[i].In(inValue);
+            }
 
             if (isChanged)
             {

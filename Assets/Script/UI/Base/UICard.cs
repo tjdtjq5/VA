@@ -21,6 +21,6 @@ public class UICard : UIFrame
             AniController = Animator.Initialize();
     }
     public virtual void Setting(ICardData data) { }
-    public virtual void In()
-        => AniController.SetTrigger(inHash);
+    public virtual void In(float time)
+        => AniController.SetFloat(inHash, time);
 }
