@@ -28,10 +28,9 @@ public class CharacterCard : UICard
         int awake = isPlayerDataExist ? _data.playerData.Awake : 0;
         Grade grade = (Grade)_data.tableData.grade;
         int level = isPlayerDataExist ? _data.playerData.Level : 0;
-        int cardCount = isPlayerDataExist ? 1 : -1;
 
         NameSetting(_data.soData.DisplayName);
-        SliderSetting(cardCount, awake, isPlayerDataExist);
+        SliderSetting(_data.playerData);
         GradeSetting(grade);
         CharacterImgSet(_data.soData.Icon);
         LevelSet(level);
@@ -71,14 +70,15 @@ public class CharacterCard : UICard
     {
 
     }
-    void SliderSetting(int cardCount, int awake, bool isPlayerData)
+    void SliderSetting(CharacterPlayerData playerData)
     {
-        Get<CharacterCardSlider>(CharacterCardSliderE.Main_CharacterCardSlider).UISet(cardCount, awake, isPlayerData);
+        Get<CharacterCardSlider>(CharacterCardSliderE.Main_CharacterCardSlider).UISet(playerData);
     }
     void Click(PointerEventData ped)
     {
         string popupName = "MainScene/CharacterInfoPopup";
-        Managers.UI.ShopPopupUI<CharacterInfoPopup>(popupName, CanvasOrderType.Top);
+        CharacterInfoPopup popup = Managers.UI.ShopPopupUI<CharacterInfoPopup>(popupName, CanvasOrderType.Top);
+        popup.UISet(_data.tableData.characterCode);
     }
     
 	public enum UIImageE

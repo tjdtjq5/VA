@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class GameDefineTable : Table<GameDefineTableData>
 {
@@ -13,6 +14,10 @@ public class GameDefineTable : Table<GameDefineTableData>
             result.Invoke(_result.datas);
         });
     }
+
+    public override GameDefineTableData Get(object key)
+        => Gets().Where(d => d.gameDefineCode.Equals(key.ToString())).FirstOrDefault();
+
     public override void InitialData()
     {
         List<GameDefineTableData> datas = new List<GameDefineTableData>()

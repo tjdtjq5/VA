@@ -17,7 +17,7 @@ public class UITabSlider : UIFrame
     string tabParentTrName = "TabList";
 
     float tabWidth;
-    float moveSpeed = 0.12f;
+    float moveSpeed = 0.25f;
 
     Vector2 movePos = Vector2.zero;
     bool isMove = false;

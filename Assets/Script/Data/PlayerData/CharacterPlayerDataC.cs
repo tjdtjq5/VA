@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class CharacterPlayerDataC : PlayerDataC<CharacterPlayerData> 
 {
@@ -10,6 +11,11 @@ public class CharacterPlayerDataC : PlayerDataC<CharacterPlayerData>
             datas = _result;
             result.Invoke(_result);
         });
+    }
+
+    public override CharacterPlayerData Get(object key)
+    {
+        return Gets().Where(p => p.Code.Equals(key.ToString())).FirstOrDefault();
     }
 
     public override List<Stat> GetStats()

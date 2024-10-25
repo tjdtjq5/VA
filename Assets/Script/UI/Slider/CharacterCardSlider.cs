@@ -16,17 +16,17 @@ public class CharacterCardSlider : UISlider
         formulaKeyDics.Add(FormulaKeyword.C_AWAKE, 0);
     }
 
-	public void UISet(int cardCount, int awake, bool isPlayerData)
+	public void UISet(CharacterPlayerData playerData)
 	{
-		if (isPlayerData)
+		if (playerData != null)
 		{
-            formulaKeyDics[FormulaKeyword.C_AWAKE] = awake;
+            formulaKeyDics[FormulaKeyword.C_AWAKE] = playerData.Awake;
             int needCardCount = Managers.Table.FormulaTable.GetValue(FormulaTableCodeDefine.Need_C_Awake_Card, formulaKeyDics).ToInt();
 
-            GetTextPro(UITextProE.Count).text = $"{cardCount} / {needCardCount}";
-            GetTextPro(UITextProE.Star_Text).text = $"{awake}";
+            GetTextPro(UITextProE.Count).text = $"{playerData.Count} / {needCardCount}";
+            GetTextPro(UITextProE.Star_Text).text = $"{playerData.Awake}";
 
-            float sliderValue = cardCount / (float)needCardCount;
+            float sliderValue = playerData.Count / (float)needCardCount;
             this.value = sliderValue;
 
             GetImage(UIImageE.Arrow).gameObject.SetActive(sliderValue >= 1);

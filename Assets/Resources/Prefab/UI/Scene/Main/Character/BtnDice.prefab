@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d330144df17c0604cab4bcc3f456ebcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRaycast: 0
 --- !u!1 &8718830780833465948
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,7 +101,8 @@ GameObject:
   - component: {fileID: 4801408187618454361}
   - component: {fileID: 4669719450312942522}
   - component: {fileID: 2227105982597761328}
-  - component: {fileID: 3863102529031715864}
+  - component: {fileID: 5498683109231337833}
+  - component: {fileID: 5306233902916080155}
   m_Layer: 5
   m_Name: BtnDice
   m_TagString: Untagged
@@ -167,7 +169,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3863102529031715864
+--- !u!95 &5498683109231337833
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8718830780833465948}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7450fb19ce71e954f923f39872b9e77b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5306233902916080155
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,6 +199,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8718830780833465948}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d330144df17c0604cab4bcc3f456ebcb, type: 3}
+  m_Script: {fileID: 11500000, guid: 258a56004ec42b54c84f30867b721093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
