@@ -5,6 +5,7 @@ public abstract class PlayerDataC<T>
 {
     protected List<T> datas = new List<T>();
     public List<T> Gets() => datas;
+    public abstract T Get(object key);
     public void Sets(List<T> _datas)
     {
         if(_datas == null)

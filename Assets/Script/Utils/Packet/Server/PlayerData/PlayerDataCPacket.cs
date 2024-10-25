@@ -55,6 +55,11 @@ public class {0}PlayerDataC : PlayerDataC<{0}PlayerData>
     {{
         return new List<Stat>();
     }}
+
+    public override {0}PlayerData Get(object key)
+    {{
+        return null;
+    }}
 }}";
     #endregion
 }

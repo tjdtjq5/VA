@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class ItemPlayerDataC : PlayerDataC<PlayerItemData>
 {
@@ -42,5 +43,10 @@ public class ItemPlayerDataC : PlayerDataC<PlayerItemData>
             new PlayerItemData() { ItemCode = "MeteoriteDebris", SignValue = 500000 },
         };
         Sets(datas);
+    }
+
+    public override PlayerItemData Get(object key)
+    {
+        return Gets().Where(p => p.ItemCode.Equals(key.ToString())).FirstOrDefault();
     }
 }

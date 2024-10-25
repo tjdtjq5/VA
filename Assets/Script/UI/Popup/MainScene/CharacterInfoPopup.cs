@@ -12,8 +12,7 @@ public class CharacterInfoPopup : UIPopup
     {
 		Bind<UIButton>(typeof(UIButtonE));
 		Bind<UIImage>(typeof(UIImageE));
-		Bind<UITextPro>(typeof(UITextProE));
-		Bind<UIText>(typeof(UITextE));
+		Bind<CharacterInfoFrame>(typeof(CharacterInfoFrameE));
 		Bind<UITabSlider>(typeof(UITabSliderE));
 
         base.Initialize();
@@ -25,13 +24,17 @@ public class CharacterInfoPopup : UIPopup
 
 		GetButton(UIButtonE.Dim).AddClickEvent(Close);
 		GetButton(UIButtonE.Main_PopupBg_Close).AddClickEvent(Close);
-		GetButton(UIButtonE.Main_SpecialWeapon).AddClickEvent(SpecialWeaponAction);
+		GetButton(UIButtonE.Main_PotentialButton).AddClickEvent(PotentialAction);
 
 		GetTabSlider(UITabSliderE.Main_TabSlider).TabHandler += TabAction;
 
         int tabIndex = GetTabSlider(UITabSliderE.Main_TabSlider).Index;
 		TabAction(tabIndex);
     }
+	public void UISet(string characterCode)
+	{
+		Get<CharacterInfoFrame>(CharacterInfoFrameE.Main_CharacterInfo).UISet(characterCode);
+	}
 
 	void TabAction(int index)
 	{
@@ -49,7 +52,7 @@ public class CharacterInfoPopup : UIPopup
                 break;
         }
 	}
-	void SpecialWeaponAction(PointerEventData ped)
+	void PotentialAction(PointerEventData ped)
 	{
         CloseAction(() => 
 		{
@@ -60,12 +63,15 @@ public class CharacterInfoPopup : UIPopup
 	void Close(PointerEventData ped) => CloseAction(null);
     void CloseAction(Action callback) => ClosePopupUIPlayAni(() => { currentPopup?.ClosePopupUI(); callback?.Invoke(); });
 
-    public enum UIButtonE
+	public enum UIButtonE
     {
 		Dim,
 		Main_PopupBg_Close,
 		Main_BtnRe,
 		Main_BtnDic,
+		Main_PotentialButton,
+		Main_AwakeButton,
+		Main_LevelUpButton,
 		Main_SpecialWeapon,
     }
 	public enum UIImageE
@@ -73,40 +79,10 @@ public class CharacterInfoPopup : UIPopup
 		Main_PopupBg,
 		Main_PopupBg_Pattern,
 		Main_PopupBg_Bg,
-		Main_CharacterInfo_Shadow,
-		Main_CharacterInfo_Character,
-		Main_CharacterInfo_CharacterInfoSlider,
-		Main_CharacterInfo_CharacterInfoSlider_Slider,
-		Main_CharacterInfo_CharacterInfoSlider_Slider_Fill,
-		Main_CharacterInfo_CharacterInfoSlider_Arrow,
-		Main_CharacterInfo_CharacterInfoSlider_Awake,
-		Main_CharacterInfo_Type_Grade,
-		Main_CharacterInfo_Type_Grade_Icon,
-		Main_CharacterInfo_Type_Job,
-		Main_CharacterInfo_Type_Tribe,
-		Main_BtnDice,
-		Main_BtnDice_Icon,
-		Main_AwakeButton,
-		Main_AwakeButton_Bg,
-		Main_AwakeButton_Bg_Icon,
-		Main_LevelUpButton,
-		Main_LevelUpButton_Bg,
-		Main_LevelUpButton_Bg_Icon,
     }
-	public enum UITextProE
+	public enum CharacterInfoFrameE
     {
-		Main_CharacterInfo_Text,
-		Main_CharacterInfo_CharacterInfoSlider_Awake_Text,
-		Main_AwakeButton_Text,
-		Main_LevelUpButton_Text,
-    }
-	public enum UITextE
-    {
-		Main_CharacterInfo_CharacterInfoSlider_Count,
-		Main_CharacterInfo_Type_Job_Text,
-		Main_CharacterInfo_Type_Tribe_Text,
-		Main_AwakeButton_Bg_Text,
-		Main_LevelUpButton_Bg_Text,
+		Main_CharacterInfo,
     }
 	public enum UITabSliderE
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class CharacterTable : Table<CharacterTableData>
 {
@@ -79,4 +80,7 @@ public class CharacterTable : Table<CharacterTableData>
         tableSOs.Add(code, tableSO);
         return tableSO;
     }
+
+    public override CharacterTableData Get(object key)
+        => Gets().Where(d => d.characterCode.Equals(key.ToString())).FirstOrDefault();
 }

@@ -84,4 +84,7 @@ public class FormulaTable : Table<FormulaTableData>
 
         return data;
     }
+
+    public override FormulaTableData Get(object key)
+        => Gets().Where(d => d.formulaCode.Equals(key.ToString())).FirstOrDefault();
 }
