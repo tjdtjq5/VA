@@ -269,6 +269,23 @@ public class Stat : IdentifiedObject
         }
     }
 
+    public void RemoveExBonus()
+    {
+        int cLen = CSharpHelper.GetEnumLength<OnlyCharacterStatKey>();
+        for (int i = 0; i < cLen; i++)
+        {
+            OnlyCharacterStatKey key = (OnlyCharacterStatKey)i;
+            RemoveBonusValue(key.ToString());
+        }
+
+        int sLen = CSharpHelper.GetEnumLength<ScreenStatKey>();
+        for (int i = 0; i < sLen; i++)
+        {
+            ScreenStatKey key = (ScreenStatKey)i;
+            RemoveBonusValue(key.ToString());
+        }
+    }
+
     public bool ContainsBonusValue(object key)
         => bonusValuesByKey.ContainsKey(key);
 
