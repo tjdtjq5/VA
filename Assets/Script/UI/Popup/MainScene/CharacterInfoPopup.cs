@@ -7,6 +7,7 @@ public class CharacterInfoPopup : UIPopup
 	[SerializeField] Transform main;
 
 	UIPopup currentPopup;
+	string characterCode;
 
     protected override void Initialize()
     {
@@ -33,6 +34,7 @@ public class CharacterInfoPopup : UIPopup
     }
 	public void UISet(string characterCode)
 	{
+		this.characterCode = characterCode;
 		Get<CharacterInfoFrame>(CharacterInfoFrameE.Main_CharacterInfo).UISet(characterCode);
 	}
 
@@ -48,7 +50,9 @@ public class CharacterInfoPopup : UIPopup
                 currentPopup = Managers.UI.ShopPopupUI<CharacterAwakeInfo>("MainScene/CharacterAwakeInfo", CanvasOrderType.Top, main);
                 break;
             case 2:
-                currentPopup = Managers.UI.ShopPopupUI<CharacterDetailInfo>("MainScene/CharacterDetailInfo", CanvasOrderType.Top, main);
+                CharacterDetailInfo detailInfo = Managers.UI.ShopPopupUI<CharacterDetailInfo>("MainScene/CharacterDetailInfo", CanvasOrderType.Top, main);
+                currentPopup = detailInfo;
+                detailInfo.UISet(characterCode);
                 break;
         }
 	}

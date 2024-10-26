@@ -35,6 +35,7 @@ public class Stats : MonoBehaviour
         for (int i = 0; i < stats.Length; i++)
         {
             statsDicsKeyCode.Add(stats[i].CodeName, stats[i]);
+            UnityHelper.Log_H(stats[i].CodeName);
             statsDicsId.Add(stats[i].ID, stats[i]);
         }
 
