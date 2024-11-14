@@ -8,14 +8,12 @@ public class PlayerDataManagerPacket
         string funcF = CSharpHelper.Format_H(funcFormat, playerDataName, lower);
         string dbF = CSharpHelper.Format_H(dbGetsFormat, playerDataName, lower);
         string initF = CSharpHelper.Format_H(initFormat, lower);
-        string statF = CSharpHelper.Format_H(statFormat, lower);
 
         string check = "public class PlayerDataManager";
         bool variExist = SimpleFormat.InnerExist(typeof(PlayerDataManager), check, variF);
         bool funcExist = SimpleFormat.InnerExist(typeof(PlayerDataManager), check, funcF);
         bool dbExist = SimpleFormat.InnerExist(typeof(PlayerDataManager), check, dbF);
         bool initExist = SimpleFormat.InnerExist(typeof(PlayerDataManager), check, initF);
-        bool statExist = SimpleFormat.InnerExist(typeof(PlayerDataManager), check, statF);
 
         if (!variExist)
         {
@@ -38,11 +36,6 @@ public class PlayerDataManagerPacket
         {
             SimpleFormat.InnerUnderAdd(file, initCheckFormat, initF);
         }
-
-        if (!statExist)
-        {
-            SimpleFormat.InnerUnderAdd(file, statCheckFormat, statEndCheckFormat, statF);
-        }
     }
     public static void Remove(string playerDataName)
     {
@@ -52,13 +45,11 @@ public class PlayerDataManagerPacket
         string funcF = CSharpHelper.Format_H(funcFormat, playerDataName, lower);
         string dbF = CSharpHelper.Format_H(dbGetsFormat, playerDataName, lower);
         string initF = CSharpHelper.Format_H(initFormat, lower);
-        string statF = CSharpHelper.Format_H(statFormat, lower);
 
         SimpleFormat.InnerTypeDataRemove(typeof(PlayerDataManager), variF);
         SimpleFormat.InnerTypeDataRemove(typeof(PlayerDataManager), funcF);
         SimpleFormat.InnerTypeDataRemove(typeof(PlayerDataManager), dbF);
         SimpleFormat.InnerTypeDataRemove(typeof(PlayerDataManager), initF);
-        SimpleFormat.InnerTypeDataRemove(typeof(PlayerDataManager), statF);
     }
     public static bool Exist(string playerDataName)
     {
@@ -70,15 +61,13 @@ public class PlayerDataManagerPacket
         string funcF = CSharpHelper.Format_H(funcFormat, playerDataName, lower);
         string dbF = CSharpHelper.Format_H(dbGetsFormat, playerDataName, lower);
         string initF = CSharpHelper.Format_H(initFormat, lower);
-        string statF = CSharpHelper.Format_H(statFormat, lower);
 
         bool variExist = SimpleFormat.InnerExist(typeof(PlayerDataManager), check, variF);
         bool funcExist = SimpleFormat.InnerExist(typeof(PlayerDataManager), check, funcF);
         bool dbExist = SimpleFormat.InnerExist(typeof(PlayerDataManager), check, dbF);
         bool initExist = SimpleFormat.InnerExist(typeof(PlayerDataManager), check, initF);
-        bool statExist = SimpleFormat.InnerExist(typeof(PlayerDataManager), check, statF);
 
-        return variExist && funcExist && dbExist && initExist && statExist;
+        return variExist && funcExist && dbExist && initExist;
     }
 
     #region Format
@@ -99,12 +88,5 @@ public class PlayerDataManagerPacket
     // {0} PlayerData Name ToLower
     static string initFormat =
 @"        _{0}.InitialData();";
-    static string statCheckFormat =
-@"public List<Stat> GetStats()";
-    static string statEndCheckFormat =
-@"return result;";
-    // {0} PlayerData Name ToLower
-    static string statFormat =
-@"        result.AddRange(_{0}.GetStats());";
     #endregion
 }

@@ -13,11 +13,6 @@ public class ItemPlayerDataC : PlayerDataC<PlayerItemData>
         });
     }
 
-    public override List<Stat> GetStats()
-    {
-        return new List<Stat>();
-    }
-
     public PlayerItemData GetItem(ItemTableCodeDefine item)
     {
         PlayerItemData getData = Gets().Find(i => i.ItemCode.Equals(item.ToString()));

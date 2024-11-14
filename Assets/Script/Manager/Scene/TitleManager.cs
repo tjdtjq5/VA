@@ -51,14 +51,4 @@ public class TitleManager : SceneBase
             });
         });
     }
-
-    public override PlayerController GetPlayer()
-    {
-        return null;
-    }
-
-    public override int GetPlayerJobCount(Tribe job)
-    {
-        throw new System.NotImplementedException();
-    }
 }

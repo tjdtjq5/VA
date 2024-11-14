@@ -13,14 +13,4 @@ public class DungeonManager : SceneBase
     public override void Clear()
     {
     }
-
-    public override PlayerController GetPlayer()
-    {
-        return null;
-    }
-
-    public override int GetPlayerJobCount(Tribe job)
-    {
-        throw new System.NotImplementedException();
-    }
 }

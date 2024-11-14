@@ -22,17 +22,7 @@ public class ItemTableUpdateResponse
     public List<string> changeDatas { get; set; }
 }
 
-public class CharacterTableUpdateResponse
-{
-    public string tableName { get; set; }
-    public List<string> changeDatas { get; set; }
-}
 
-public class CharacterTableGetsResponse
-{
-    public string tableName { get; set; }
-    public List<CharacterTableData> datas { get; set; }
-}
 
 public class FormulaTableUpdateResponse
 {

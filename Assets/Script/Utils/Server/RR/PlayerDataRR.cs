@@ -2,7 +2,6 @@
 public class PlayerDataGetsResponse
 {
     public List<PlayerItemData> Items { get; set; }
-    public List<CharacterPlayerData> Characters { get; set; }
 }
 public class CPDLevelUpRequest
 {
