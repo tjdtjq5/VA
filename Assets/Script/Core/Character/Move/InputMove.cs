@@ -73,6 +73,7 @@ public class InputMove : Move
         if (Character.TargetCheck(true))
             return;
         
+        this.Character.CharacterAttack.EndAction();
         OnMove?.Invoke();
         IsMoving = true;
         IsLeft = true;
@@ -98,6 +99,7 @@ public class InputMove : Move
         if (Character.TargetCheck(false))
             return;
         
+        this.Character.CharacterAttack.EndAction();
         OnMove?.Invoke();
         IsMoving = true;
         IsLeft = false;

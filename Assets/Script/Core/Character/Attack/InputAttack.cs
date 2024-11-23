@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputAttack : Attack
+public class InputAttack : PlayerAttack
 {
     public override void Initialize(Character character, Transform transform, SpineAniController spineAniController)
     {
@@ -10,11 +10,6 @@ public class InputAttack : Attack
         InputSet();
     }
 
-    public override void FixedUpdate()
-    {
-        
-    }
-    
     void InputSet()
     {
         Managers.Input.AddKeyDownAction(KeyCode.LeftArrow, InputDownLeft);

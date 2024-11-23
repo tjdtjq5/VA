@@ -9,32 +9,37 @@ public class CharacterAttack : MonoBehaviour
     private Attack _attack;
 
     [Range(0f, 10f)] public float AttackLength;
-    [Range(0f, 10f)] public float MoveRadiusAttack1;
-    [Range(0f, 10f)] public float MoveRadiusAttack2;
-    [Range(0f, 10f)] public float MoveRadiusAttack3;
-    [Range(0f, 10f)] public float MoveRadiusAttack4;
-
-
+    
     public bool IsAttack => _attack.IsAttack;
     public void AttackAction(bool isLeft) => _attack.AttackAction(isLeft);
-    
+    public void EndAction() => _attack.EndAction();
     public void Initialize(Character character, SpineAniController spineAniController)
     {
         this._character = character;
         this._spineAniController = spineAniController;
         
         _attack = null;
-        switch (character.control)
+
+        if (character.team.Equals(CharacterTeam.Player))
         {
-            case CharacterControllType.Input:
-                _attack = new InputAttack();
-                break;
-            case CharacterControllType.UI:
-                _attack = new UIAttack();
-                break;
-            case CharacterControllType.AI:
-                _attack = new AIAttack();
-                break;
+            switch (character.control)
+            {
+                case CharacterControllType.Input:
+                    _attack = new InputAttack();
+                    break;
+                case CharacterControllType.UI:
+                    _attack = new UIAttack();
+                    break;
+                case CharacterControllType.AI:
+                    _attack = new AIAttack();
+                    break;
+            }
         }
+        else if (character.team.Equals(CharacterTeam.Enemy))
+        {
+            _attack = new EnemyAttack();
+        }
+        
+        _attack?.Initialize(character, this.transform, spineAniController);
     }
 }

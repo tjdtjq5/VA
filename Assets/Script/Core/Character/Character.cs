@@ -24,6 +24,7 @@ public class Character : MonoBehaviour
     public bool IsDead { get; private set; } = false;
     public CharacterMove CharacterMove => _characterMove;
     public CharacterAttack CharacterAttack => _characterAttack;
+    public float BoxWeidth => _boxCollider2D.bounds.size.x;     
 
     private void Start()
     {

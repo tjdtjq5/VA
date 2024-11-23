@@ -11,17 +11,24 @@ public class CharacterMove : MonoBehaviour
     public void Initialize(Character character, SpineAniController spineAniController)
     {
         _move = null;
-        switch (character.control)
+        if (character.team.Equals(CharacterTeam.Player))
         {
-            case CharacterControllType.Input:
-                _move = new InputMove();
-                break;
-            case CharacterControllType.UI:
-                _move = new UIMove();
-                break;
-            case CharacterControllType.AI:
-                _move = new AIMove();
-                break;
+            switch (character.control)
+            {
+                case CharacterControllType.Input:
+                    _move = new InputMove();
+                    break;
+                case CharacterControllType.UI:
+                    _move = new UIMove();
+                    break;
+                case CharacterControllType.AI:
+                    _move = new AIMove();
+                    break;
+            }
+        }
+        else if (character.team.Equals(CharacterTeam.Enemy))
+        {
+            _move = new AIMove();
         }
         
         _move.Initialize(character, this.transform, spineAniController);
