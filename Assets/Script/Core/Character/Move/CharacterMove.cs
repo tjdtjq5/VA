@@ -5,13 +5,26 @@ using UnityEngine;
 
 public class CharacterMove : MonoBehaviour
 {
-    [SubclassSelector, SerializeReference] public Move move;
-
+    private Move _move;
     private bool _isInitialized = false;
     
     public void Initialize(Character character, SpineAniController spineAniController)
     {
-        move.Initialize(this.transform, spineAniController);
+        _move = null;
+        switch (character.control)
+        {
+            case CharacterControllType.Input:
+                _move = new InputMove();
+                break;
+            case CharacterControllType.UI:
+                _move = new UIMove();
+                break;
+            case CharacterControllType.AI:
+                _move = new AIMove();
+                break;
+        }
+        
+        _move.Initialize(character, this.transform, spineAniController);
 
         _isInitialized = true;
     }
@@ -20,7 +33,7 @@ public class CharacterMove : MonoBehaviour
     {
         if (_isInitialized)
         {
-            move.FixedUpdate();
+            _move.FixedUpdate();
         }
     }
 }

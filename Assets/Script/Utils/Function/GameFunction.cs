@@ -4,42 +4,89 @@ using UnityEngine;
 
 public static class GameFunction
 {
-    //public static Entity SearchTarget(Entity requester, float searchRadius, bool isSameCategory = false)
-    //{
-    //    List<Entity> targets = SearchTargets(requester, searchRadius, isSameCategory);
+    #region SearchTarget
+    public static Character SearchTarget(Character requester, bool isLeft, bool isSameTeam = false)
+    {
+        List<Character> targets = SearchTargets(requester, isLeft, isSameTeam);
 
-    //    if (targets.Count <= 0)
-    //        return null;
+        if (targets.Count <= 0)
+            return null;
 
-    //    Vector3 requesterPos = requester.transform.position;
-    //    targets = targets.OrderBy(t => Vector3.SqrMagnitude(t.transform.position - requesterPos)).ToList();
-    //    return targets.FirstOrDefault();
-    //}
-    //public static List<Entity> SearchTargets(Entity requester, float searchRadius, bool isSameCategory = false)
-    //{
-    //    Vector3 requesterPos = requester.transform.position;
-    //    var castTargets = Physics.SphereCastAll(requesterPos, searchRadius, Vector3.up, 0f).ToList();
-    //    List<Entity> targets = new List<Entity>();
+        Vector3 requesterPos = requester.transform.position;
+        targets = targets.OrderBy(t => Vector3.SqrMagnitude(t.transform.position - requesterPos)).ToList();
+        return targets.FirstOrDefault();
+    }
+    public static List<Character> SearchTargets(Character requester, bool isLeft, bool isSameTeam = false)
+    {
+        float radius = 1000f; 
+        Vector3 requesterPos = requester.transform.position;
+        var castTargets = Physics2D.BoxCastAll(requesterPos, new Vector2(radius, radius), 0, Vector3.zero).ToList();
+        
+        List<Character> targets = new List<Character>();
+        
+        for (int i = 0; i < castTargets.Count; i++)
+        {
+            Character castTarget = castTargets[i].transform.GetComponent<Character>();
 
-    //    for (int i = 0; i < castTargets.Count; i++)
-    //    {
-    //        Entity castTarget = castTargets[i].transform.GetComponent<Entity>();
+            if (!castTarget)
+                continue;
 
-    //        if (!castTarget)
-    //            continue;
+            if (castTarget.IsDead)
+                continue;
 
-    //        if (castTarget.IsDead)
-    //            continue;
+            if (castTarget.gameObject != requester.gameObject)
+            {
+                if (isLeft && requester.transform.position.x < castTarget.transform.position.x)
+                    continue;
+                
+                if (!isLeft && requester.transform.position.x > castTarget.transform.position.x)
+                    continue;
+                
+                bool sameTeam = requester.team == castTarget.team;
+                if ((sameTeam && isSameTeam) || (!sameTeam && !isSameTeam))
+                    targets.Add(castTarget);
+            }
+        }
+        
+        return targets;
+    }
+    public static Character SearchTarget(Character requester, float searchRadius, bool isSameTeam = false)
+    {
+        List<Character> targets = SearchTargets(requester, searchRadius, isSameTeam);
 
-    //        if (castTarget.gameObject != requester.gameObject)
-    //        {
-    //            var hasCategory = requester.Categories.Any(x => castTarget.HasCategory(x));
+        if (targets.Count <= 0)
+            return null;
 
-    //            if ((hasCategory && isSameCategory) || (!hasCategory && !isSameCategory))
-    //                targets.Add(castTarget);
-    //        }
-    //    }
+        Vector3 requesterPos = requester.transform.position;
+        targets = targets.OrderBy(t => Vector3.SqrMagnitude(t.transform.position - requesterPos)).ToList();
+        return targets.FirstOrDefault();
+    }
+    public static List<Character> SearchTargets(Character requester, float searchRadius, bool isSameTeam = false)
+    {
+        Vector3 requesterPos = requester.transform.position;
+        var castTargets = Physics2D.BoxCastAll(requesterPos, new Vector2(searchRadius, searchRadius), 0, Vector3.zero).ToList();
+        
+        List<Character> targets = new List<Character>();
+        
+        for (int i = 0; i < castTargets.Count; i++)
+        {
+            Character castTarget = castTargets[i].transform.GetComponent<Character>();
 
-    //    return targets;
-    //}
+            if (!castTarget)
+                continue;
+
+            if (castTarget.IsDead)
+                continue;
+
+            if (castTarget.gameObject != requester.gameObject)
+            {
+                bool sameTeam = requester.team == castTarget.team;
+                if ((sameTeam && isSameTeam) || (!sameTeam && !isSameTeam))
+                    targets.Add(castTarget);
+            }
+        }
+        
+        return targets;
+    }
+    #endregion
 }

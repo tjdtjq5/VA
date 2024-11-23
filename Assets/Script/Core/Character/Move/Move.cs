@@ -6,6 +6,7 @@ using UnityEngine;
 public abstract class Move
 {
     public bool IsMoving { get; set; } = false;
+    public bool IsLeft { get; set; } = false;
     protected MoveType Movetype { get; set; }
     
     public Action OnMove { get; set; }
@@ -19,10 +20,19 @@ public abstract class Move
     protected readonly Vector2 Right = new Vector2(10f, 0);
     protected readonly Vector3 LeftScale = new Vector3(-1f, 1f, 1f);
     protected readonly Vector3 RightScale = new Vector3(1f, 1f, 1f);
-    public abstract void Initialize(Transform transform, SpineAniController spineAniController);
+
+    public virtual void Initialize(Character character, Transform transform, SpineAniController spineAniController)
+    {
+        this.Character = character; 
+        this.Transform = transform;    
+        this.SpineAniController = spineAniController;
+        
+        SpineAniController.Play(Idle, true);
+    }
     public abstract void SetIdle();
     public abstract void FixedUpdate();
     
+    protected  Character Character;
     protected  Transform Transform;
     protected  SpineAniController SpineAniController;
 }

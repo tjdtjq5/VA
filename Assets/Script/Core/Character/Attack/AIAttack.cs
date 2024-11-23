@@ -1,15 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class AIMove : Move
+public class AIAttack : Attack
 {
-    public override void SetIdle()
-    {
-        
-    }
     public override void FixedUpdate()
     {
         

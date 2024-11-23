@@ -6,13 +6,9 @@ using UnityEngine;
 [Serializable]
 public class InputMove : Move
 {
-    public override void Initialize(Transform transform, SpineAniController spineAniController)
+    public override void Initialize(Character character, Transform transform, SpineAniController spineAniController)
     {
-        this.Transform = transform;    
-        this.SpineAniController = spineAniController;
-        
-        SpineAniController.Play(Idle, true);
-        
+        base.Initialize(character, transform, spineAniController);
         InputSet();
     }
 
@@ -31,17 +27,32 @@ public class InputMove : Move
                 break;
         }
     }
-
     public override void FixedUpdate()
     {
         Vector2 currentPosition = this.Transform.position;
         switch (Movetype)
         {
             case MoveType.LeftMoving:
-                this.Transform.position = Vector2.MoveTowards(currentPosition,currentPosition + Left * Managers.Time.FixedDeltaTime, DefaultSpeed);
+                
+                if (!Character.TargetCheck(true))
+                    this.Transform.position = Vector2.MoveTowards(currentPosition,currentPosition + Left * Managers.Time.FixedDeltaTime, DefaultSpeed);
+                else
+                {
+                    SetIdle();
+                    Character.CharacterAttack.AttackAction(true);
+                }
+                
                 break;
             case MoveType.RightMoving:
-                this.Transform.position = Vector2.MoveTowards(currentPosition,currentPosition + Right * Managers.Time.FixedDeltaTime, DefaultSpeed);
+                
+                if (!Character.TargetCheck(false))
+                  this.Transform.position = Vector2.MoveTowards(currentPosition,currentPosition + Right * Managers.Time.FixedDeltaTime, DefaultSpeed);
+                else
+                {
+                    SetIdle();
+                    Character.CharacterAttack.AttackAction(false);
+                }
+                
                 break;
         }
     }
@@ -56,8 +67,15 @@ public class InputMove : Move
 
     void InputDownLeft()
     {
+        if (this.Character.CharacterAttack.IsAttack)
+            return;
+
+        if (Character.TargetCheck(true))
+            return;
+        
         OnMove?.Invoke();
         IsMoving = true;
+        IsLeft = true;
         Movetype = MoveType.LeftMoving;
         this.Transform.localScale = LeftScale;
         SpineAniController.Play(Moving, true);
@@ -74,8 +92,15 @@ public class InputMove : Move
     }
     void InputDownRight()
     {
+        if (this.Character.CharacterAttack.IsAttack)
+            return;
+        
+        if (Character.TargetCheck(false))
+            return;
+        
         OnMove?.Invoke();
         IsMoving = true;
+        IsLeft = false;
         Movetype = MoveType.RightMoving;
         this.Transform.localScale = RightScale;
         SpineAniController.Play(Moving, true);

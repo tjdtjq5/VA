@@ -287,6 +287,12 @@ public static class UnityHelper
     {
         return Vector3.Distance(originPos, targetPos);
     }
+
+    public static float GetDistanceX(this Vector3 originPos, Vector3 targetPos)
+    {
+        Vector3 tempTargetPos = new Vector3(targetPos.x, originPos.y, originPos.z);
+        return Vector3.Distance(originPos, tempTargetPos);
+    }
     public static float GetSqrMagnitude(this Vector3 originPos, Vector3 targetPos)
     {
         return Vector3.SqrMagnitude(originPos - targetPos);
