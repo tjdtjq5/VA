@@ -4,25 +4,26 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    Vector3 cameraOriginPos;
-    Transform target;
-    Vector3 targetOriginPos;
-    Vector3 Destination { get { return target.transform.position - targetOriginPos + cameraOriginPos; } }
-    float speed = .01f;
+    private Transform _target;
 
-    void Start()
+    private float _noneLength = 0.1f;
+    private float _speed = 2.5f;
+    
+    public void Initialize(Transform target)
     {
-        cameraOriginPos = transform.position;
-    }
-    public void SetTarget(Transform target)
-    {
-        this.target = target;
-        targetOriginPos = target.transform.position;
+        this._target = target;
     }
 
     void Update()
     {
-        if (target != null)
-            this.transform.position = Vector3.Lerp(this.transform.position, Destination, speed);
+        if (_target is not null)
+        {
+            Vector3 destPos = this.transform.position;
+            destPos.x = _target.position.x; 
+            if (this.transform.position.GetDistance(destPos) > _noneLength)
+            {
+                this.transform.position = Vector3.Lerp(this.transform.position, destPos, _speed * Managers.Time.DeltaTime);
+            }
+        }
     }
 }

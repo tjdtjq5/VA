@@ -28,7 +28,6 @@ public class SoundManager
             _audioSoucrces[(int)Sound.Bgm].loop = true;
         } 
     }
-
     public void Play(string clipName, Sound sound = Sound.UI)
     {
         AudioClip clip = GetAudioClip(clipName);

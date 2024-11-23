@@ -1,0 +1,35 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class Move
+{
+    public bool IsMoving { get; set; } = false;
+    protected MoveType Movetype { get; set; }
+    
+    public Action OnMove { get; set; }
+    public Action OnStop { get; set; }
+    
+    protected readonly float DefaultSpeed = 5f;
+
+    protected readonly string Idle = "idle";
+    protected readonly string Moving = "move";
+    protected readonly Vector2 Left = new Vector2(-10f, 0);
+    protected readonly Vector2 Right = new Vector2(10f, 0);
+    protected readonly Vector3 LeftScale = new Vector3(-1f, 1f, 1f);
+    protected readonly Vector3 RightScale = new Vector3(1f, 1f, 1f);
+    public abstract void Initialize(Transform transform, SpineAniController spineAniController);
+    public abstract void SetIdle();
+    public abstract void FixedUpdate();
+    
+    protected  Transform Transform;
+    protected  SpineAniController SpineAniController;
+}
+
+public enum MoveType
+{
+    Idle,
+    LeftMoving,
+    RightMoving,
+}
