@@ -1,9 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class PlayerMove : Move
 {
+    protected bool _isLeftDown = false;
+    protected bool _isRightDown = false;
+    
+    
+    public override void Initialize(Character character, Transform transform, SpineAniController spineAniController)
+    {
+        base.Initialize(character, transform, spineAniController);
+
+        this.Character.CharacterAttack.Attack.OnEnd += AttackEnd;
+    }
+
     public override void SetIdle()
     {
         if (!IsMoving)
@@ -57,16 +69,19 @@ public abstract class PlayerMove : Move
         if (Character.TargetCheck(true))
             return;
             
-        this.Character.CharacterAttack.EndAction();
+        this.Character.CharacterAttack.Clear();
         OnMove?.Invoke();
         IsMoving = true;
         IsLeft = true;
         Movetype = MoveType.LeftMoving;
-        this.Transform.localScale = LeftScale;
+        this.Character.Look(true);
         SpineAniController.Play(Moving, true);
     }
     protected virtual void LeftUp()
     {
+        if (this.Character.CharacterAttack.IsAttack)
+            return;
+        
         if (Movetype == MoveType.LeftMoving)
         {
             OnStop?.Invoke();
@@ -83,22 +98,43 @@ public abstract class PlayerMove : Move
         if (Character.TargetCheck(false))
             return;
         
-        this.Character.CharacterAttack.EndAction();
+        this.Character.CharacterAttack.Clear();
         OnMove?.Invoke();
         IsMoving = true;
         IsLeft = false;
         Movetype = MoveType.RightMoving;
-        this.Transform.localScale = RightScale;
+        this.Character.Look(false);
         SpineAniController.Play(Moving, true);
     }
     protected virtual void RightUp()
     {
+        if (this.Character.CharacterAttack.IsAttack)
+            return;
+        
         if (Movetype == MoveType.RightMoving)
         {
             OnStop?.Invoke();
             IsMoving = false;
             Movetype = MoveType.Idle;
             SpineAniController.Play(Idle, true);
+        }
+    }
+
+    void AttackEnd(int attackIndex)
+    {
+        if (_isLeftDown)
+        {
+            if (Character.TargetCheck(true))
+                Character.CharacterAttack.AttackAction(true);
+            else
+                LeftDown();
+        }
+        else if (_isRightDown)
+        {
+            if (Character.TargetCheck(false))
+                Character.CharacterAttack.AttackAction(false);
+            else
+                RightDown();
         }
     }
 }

@@ -9,7 +9,7 @@ public abstract class EnemyAttack : Attack
         
     }
 
-    public override void EndAction()
+    public override void Clear()
     {
         
     }

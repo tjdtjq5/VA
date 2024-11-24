@@ -18,8 +18,7 @@ public abstract class Move
     protected readonly string Moving = "move";
     protected readonly Vector2 Left = new Vector2(-10f, 0);
     protected readonly Vector2 Right = new Vector2(10f, 0);
-    protected readonly Vector3 LeftScale = new Vector3(-1f, 1f, 1f);
-    protected readonly Vector3 RightScale = new Vector3(1f, 1f, 1f);
+
 
     public virtual void Initialize(Character character, Transform transform, SpineAniController spineAniController)
     {

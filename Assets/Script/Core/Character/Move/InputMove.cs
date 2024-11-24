@@ -22,18 +22,22 @@ public class InputMove : PlayerMove
 
     void InputDownLeft()
     {
+        _isLeftDown = true;
         LeftDown();
     }
     void InputUpLeft()
     {
+        _isLeftDown = false;
         LeftUp();
     }
     void InputDownRight()
     {
+        _isRightDown = true;
         RightDown();
     }
     void InputUpRight()
     {
+        _isRightDown = false;
         RightUp();
     }
 }

@@ -8,17 +8,17 @@ public abstract class PlayerAttack : Attack
     public override float AttackRadius() => _moveRadiusAttack[AttackIndex];
 
     private readonly List<string> _attackNames = new List<string>() { "attack_1", "attack_2", "attack_3", "attack_4" };
-    private readonly List<float> _moveRadiusAttack = new List<float>() { 2.5f, 2.5f, 0, 7f };
+    private readonly List<float> _moveRadiusAttack = new List<float>() { 2.5f, 2.5f, 2.5f, 7f };
     private readonly string _moveEvent = "move";
     private readonly string _endEvent = "end";
     private readonly string _actionEvent = "action";
     protected int MaxAttackIndex => _moveRadiusAttack.Count;
 
-    private readonly float _attackIndexTime = 0.5f;
+    private readonly float _attackIndexTime = 0.8f;
     private float _attackIndexTimer;
     private bool _isAttackIndexing = false;
 
-    private readonly float _attackMoveSpeed = 5f;
+    private readonly float _attackMoveSpeed = 15f;
     private Vector3 _attackMoveDest;
     private readonly float _attackMoveDestDistance = 0.1f;
     private bool _isAttackMoving = false;
@@ -33,7 +33,7 @@ public abstract class PlayerAttack : Attack
         SpineAniController.SetEventFunc(_attackNames[0], _moveEvent, ()=> AttackMove(false));
         SpineAniController.SetEventFunc(_attackNames[1], _moveEvent, ()=> AttackMove(false));
         SpineAniController.SetEventFunc(_attackNames[2], _moveEvent, ()=> AttackMove(false));
-        SpineAniController.SetEventFunc(_attackNames[3], _moveEvent, ()=> AttackMove(true));
+        SpineAniController.SetEventFunc(_attackNames[3], _moveEvent, ()=> AttackMove(false));
         
         SpineAniController.SetEventFunc(_attackNames[0], _actionEvent, AttackActionHit);
         SpineAniController.SetEventFunc(_attackNames[1], _actionEvent, AttackActionHit);
@@ -53,9 +53,12 @@ public abstract class PlayerAttack : Attack
         
         if (!Character.TargetCheck(isLeft))
             return;
+        
+        
 
         this.IsAttack = true;
         this._isLeft = isLeft;
+        this.Character.Look(_isLeft);
 
         _target = Character.SearchTarget(isLeft);
         
@@ -73,12 +76,14 @@ public abstract class PlayerAttack : Attack
         // 4타에서는 제일 먼 거리의 있는 적 + 적들 사이에 캐릭터 박스 사이즈 만큼 공간이 없다면 가장 마지막 이후 적으로 타겟 변경  
         
         // 애니 실행
-        this.SpineAniController.Play(_attackNames[AttackIndex], false);
+        UnityHelper.Log_H("AttackAction");
+        this.SpineAniController.Play(_attackNames[AttackIndex], false, true);
     }
 
-    public override void EndAction()
+    public override void Clear()
     {
         _isAttackMoving = false;
+        this.IsAttack = false;
     }
     public override void FixedUpdate()
     {
@@ -103,10 +108,10 @@ public abstract class PlayerAttack : Attack
     }
     void AttackIndexUp()
     {
-        AttackIndex++;
-       
-        if (MaxAttackIndex <= AttackIndex)
+        if (MaxAttackIndex - 1 <= AttackIndex)
             AttackIndex = 0;
+        else
+            AttackIndex++;
 
         _attackIndexTimer = 0;
         _isAttackIndexing = true;
@@ -157,7 +162,9 @@ public abstract class PlayerAttack : Attack
     }
     void AttackEnd()
     {
-        this.IsAttack = false;
+        UnityHelper.Log_H("AttackEnd");
         AttackIndexUp();
+        this.IsAttack = false;
+        OnEnd?.Invoke(AttackIndex);
     }
 }

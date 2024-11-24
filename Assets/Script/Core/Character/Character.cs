@@ -24,7 +24,10 @@ public class Character : MonoBehaviour
     public bool IsDead { get; private set; } = false;
     public CharacterMove CharacterMove => _characterMove;
     public CharacterAttack CharacterAttack => _characterAttack;
-    public float BoxWeidth => _boxCollider2D.bounds.size.x;     
+    public float BoxWeidth => _boxCollider2D.bounds.size.x;  
+    
+    protected readonly Vector3 LeftScale = new Vector3(-1f, 1f, 1f);
+    protected readonly Vector3 RightScale = new Vector3(1f, 1f, 1f);
 
     private void Start()
     {
@@ -33,11 +36,11 @@ public class Character : MonoBehaviour
         _spineAniController = this.GetComponent<SpineAniController>();
         _spineAniController.Initialize(_skeletonAnimation);
         
-        _characterMove = this.GetComponent<CharacterMove>();
-        _characterMove?.Initialize(this, _spineAniController);
-        
         _characterAttack = this.GetComponent<CharacterAttack>();
         _characterAttack?.Initialize(this, _spineAniController);
+        
+        _characterMove = this.GetComponent<CharacterMove>();
+        _characterMove?.Initialize(this, _spineAniController);
         
         _rigidbody2D = this.GetComponent<Rigidbody2D>();
         _boxCollider2D = this.GetComponent<BoxCollider2D>();
@@ -60,6 +63,8 @@ public class Character : MonoBehaviour
         else
             return false;
     }
+
+    public void Look(bool isLeft) => this.transform.localScale = isLeft ? LeftScale : RightScale;
 
     void Test()
     {

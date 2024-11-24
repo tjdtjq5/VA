@@ -77,7 +77,6 @@ public class SpineAniController : MonoBehaviour
 
         if (eventDic.ContainsKey(eventName))
         {
-            _onAnimationEventDics[clipName][eventName] -= callback;
             _onAnimationEventDics[clipName][eventName] += callback;
         }
         else

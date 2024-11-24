@@ -9,6 +9,7 @@ public abstract class Attack
     public abstract float AttackRadius();
     
     public Action<int> OnAttack { get; set; }
+    public Action<int> OnEnd { get; set; }
     
     public virtual void Initialize(Character character, Transform transform, SpineAniController spineAniController)
     {
@@ -19,7 +20,7 @@ public abstract class Attack
 
     public abstract void AttackAction(bool isLeft);
 
-    public abstract void EndAction();
+    public abstract void Clear();
 
     public virtual void FixedUpdate() { }
 
