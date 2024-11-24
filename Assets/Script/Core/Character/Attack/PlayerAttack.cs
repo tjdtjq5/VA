@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : Attack
+public abstract class PlayerAttack : Attack
 {
     public int AttackIndex { get; set; } = 0;
+    public override float AttackRadius() => _moveRadiusAttack[AttackIndex];
 
-    protected readonly string Attack1 = "attack_1";
-    protected readonly string Attack2 = "attack_2";
-    protected readonly string Attack3 = "attack_3";
-    protected readonly string Attack4 = "attack_4";
-
-    private readonly List<float> MoveRadiusAttack = new List<float>() { 3f, 3f, 0f, 7f };
-    protected int MaxAttackIndex => MoveRadiusAttack.Count;
+    private readonly List<string> _attackNames = new List<string>() { "attack_1", "attack_2", "attack_3", "attack_4" };
+    private readonly List<float> _moveRadiusAttack = new List<float>() { 2.5f, 2.5f, 0, 7f };
+    private readonly string _moveEvent = "move";
+    private readonly string _endEvent = "end";
+    private readonly string _actionEvent = "action";
+    protected int MaxAttackIndex => _moveRadiusAttack.Count;
 
     private readonly float _attackIndexTime = 0.5f;
     private float _attackIndexTimer;
@@ -30,26 +30,50 @@ public class PlayerAttack : Attack
     {
         base.Initialize(character, transform, spineAniController);
         
-        SpineAniController.SetEventFunc(Attack1, ()=> AttackMove(false));
-        SpineAniController.SetEventFunc(Attack2, ()=> AttackMove(false));
-        SpineAniController.SetEventFunc(Attack3, ()=> AttackMove(false));
-        SpineAniController.SetEventFunc(Attack4, ()=> AttackMove(true));
+        SpineAniController.SetEventFunc(_attackNames[0], _moveEvent, ()=> AttackMove(false));
+        SpineAniController.SetEventFunc(_attackNames[1], _moveEvent, ()=> AttackMove(false));
+        SpineAniController.SetEventFunc(_attackNames[2], _moveEvent, ()=> AttackMove(false));
+        SpineAniController.SetEventFunc(_attackNames[3], _moveEvent, ()=> AttackMove(true));
+        
+        SpineAniController.SetEventFunc(_attackNames[0], _actionEvent, AttackActionHit);
+        SpineAniController.SetEventFunc(_attackNames[1], _actionEvent, AttackActionHit);
+        SpineAniController.SetEventFunc(_attackNames[2], _actionEvent, AttackActionHit);
+        SpineAniController.SetEventFunc(_attackNames[3], _actionEvent, AttackActionHit);
+        
+        SpineAniController.SetEventFunc(_attackNames[0], _endEvent, AttackEnd);
+        SpineAniController.SetEventFunc(_attackNames[1], _endEvent, AttackEnd);
+        SpineAniController.SetEventFunc(_attackNames[2], _endEvent, AttackEnd);
+        SpineAniController.SetEventFunc(_attackNames[3], _endEvent, AttackEnd);
     }
 
     public override void AttackAction(bool isLeft)
     {
+        if (IsAttack)
+            return;
+        
+        if (!Character.TargetCheck(isLeft))
+            return;
+
+        this.IsAttack = true;
         this._isLeft = isLeft;
+
         _target = Character.SearchTarget(isLeft);
+        
+        if (AttackIndex < 3)
+        {
+            
+        }
+        else if (AttackIndex == 3)
+        {
+            
+        }
+        
         
         // 1 ~ 3타는 제일 가까운 적 타겟
         // 4타에서는 제일 먼 거리의 있는 적 + 적들 사이에 캐릭터 박스 사이즈 만큼 공간이 없다면 가장 마지막 이후 적으로 타겟 변경  
         
         // 애니 실행
-        
-        if (_target is null)
-            return;
-
-        AttackIndexUp();
+        this.SpineAniController.Play(_attackNames[AttackIndex], false);
     }
 
     public override void EndAction()
@@ -92,7 +116,7 @@ public class PlayerAttack : Attack
     {
         float moveLen = 0;
         if (MaxAttackIndex > 0)
-            moveLen = MoveRadiusAttack[AttackIndex];
+            moveLen = _moveRadiusAttack[AttackIndex];
 
         Vector3 targetPos = Vector3.zero;
         
@@ -125,5 +149,15 @@ public class PlayerAttack : Attack
         }
         
         _isAttackMoving = true;
+    }
+
+    void AttackActionHit()
+    {
+        this.OnAttack?.Invoke(AttackIndex);
+    }
+    void AttackEnd()
+    {
+        this.IsAttack = false;
+        AttackIndexUp();
     }
 }

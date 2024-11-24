@@ -4,13 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class UIMove : Move
+public class UIMove : PlayerMove
 {
-    public override void SetIdle()
-    {
-        
-    }
-    public override void FixedUpdate()
-    {
-    }
 }

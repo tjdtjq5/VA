@@ -43,7 +43,11 @@ public class Character : MonoBehaviour
         _boxCollider2D = this.GetComponent<BoxCollider2D>();
         
         Setting();
-        Test();
+
+        if (team == CharacterTeam.Player)
+        {
+            Test();
+        }
     }
 
     public Character SearchTarget(bool isLeft) => GameFunction.SearchTarget(this, isLeft);
@@ -51,7 +55,7 @@ public class Character : MonoBehaviour
     public bool TargetCheck(bool isLeft)
     {
         Character target = SearchTarget(isLeft);
-        if (target is not null && this.transform.position.GetDistanceX(target.transform.position) < CharacterAttack.AttackLength )
+        if (target is not null && this.transform.position.GetDistanceX(target.transform.position) < CharacterAttack.AttackRadius() )
             return true;
         else
             return false;

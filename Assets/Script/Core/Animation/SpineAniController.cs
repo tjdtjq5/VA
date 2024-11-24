@@ -7,15 +7,15 @@ using UnityEngine;
 
 public class SpineAniController : MonoBehaviour
 {
-    SkeletonAnimation sa;
+    private SkeletonAnimation _sa;
 
-    Dictionary<string, Action<string>> OnAnimationCompleteDics = new();
-    Dictionary<string, Action> OnAnimationEventDics = new();
-    Dictionary<int, string> PlayAniClipName = new();
+    private readonly Dictionary<string, Action<string>> _onAnimationCompleteDics = new();
+    private readonly Dictionary<string, Dictionary<string, Action>> _onAnimationEventDics = new(); // clipName, eventName
+    private readonly Dictionary<int, string> _playAniClipName = new();
 
     public void Initialize(SkeletonAnimation sa)
     {
-        this.sa = sa;
+        this._sa = sa;
         sa.AnimationState.Complete += EndListener;
         sa.AnimationState.Event += EventListener;
     }
@@ -27,8 +27,8 @@ public class SpineAniController : MonoBehaviour
         
         try
         {
-            sa.AnimationState.SetAnimation(index, aniName, isLoop);
-            PlayAniClipName.TryAdd_H(index, aniName, true);
+            _sa.AnimationState.SetAnimation(index, aniName, isLoop);
+            _playAniClipName.TryAdd_H(index, aniName, true);
         }
         catch
         {
@@ -37,59 +37,67 @@ public class SpineAniController : MonoBehaviour
     }
     public void AniSpeed(float _speed)
     {
-        sa.AnimationState.TimeScale = _speed;
+        _sa.AnimationState.TimeScale = _speed;
     }
     public bool IsPlay(string aniName, int index = 0)
     {
-        return PlayAniClipName.TryGet_H(index).Equals(aniName);
+        return _playAniClipName.TryGet_H(index).Equals(aniName);
     }
     public string GetClipName(int index)
     {
-        return sa.AnimationState.GetCurrent(index).Animation.Name;
+        return _sa.AnimationState.GetCurrent(index).Animation.Name;
     }
 
     public void SetEndFunc(string clipName, Action<string> callback)
     {
-        if (OnAnimationCompleteDics.ContainsKey(clipName))
+        if (_onAnimationCompleteDics.ContainsKey(clipName))
         {
-            OnAnimationCompleteDics[clipName] -= callback;
-            OnAnimationCompleteDics[clipName] += callback;
+            _onAnimationCompleteDics[clipName] -= callback;
+            _onAnimationCompleteDics[clipName] += callback;
         }
         else
         {
-            OnAnimationCompleteDics.Add(clipName, callback);
+            _onAnimationCompleteDics.Add(clipName, callback);
         }
     }
     void EndListener(TrackEntry trackEntry)
     {
         string clipName = trackEntry.Animation.Name;
-        PlayAniClipName.TryAdd_H(trackEntry.TrackIndex, "", true);
+        _playAniClipName.TryAdd_H(trackEntry.TrackIndex, "", true);
 
-        if (OnAnimationCompleteDics.ContainsKey(clipName))
-            OnAnimationCompleteDics[clipName]?.Invoke(clipName);
+        if (_onAnimationCompleteDics.ContainsKey(clipName))
+            _onAnimationCompleteDics[clipName]?.Invoke(clipName);
     }
-    public void SetEventFunc(string clipName, Action callback)
+    public void SetEventFunc(string clipName, string eventName, Action callback)
     {
-        if (OnAnimationEventDics.ContainsKey(clipName))
+        if (!_onAnimationEventDics.ContainsKey(clipName))
+            _onAnimationEventDics.Add(clipName, new Dictionary<string, Action>());
+        
+        Dictionary<string, Action> eventDic = _onAnimationEventDics[clipName];
+
+        if (eventDic.ContainsKey(eventName))
         {
-            OnAnimationEventDics[clipName] -= callback;
-            OnAnimationEventDics[clipName] += callback;
+            _onAnimationEventDics[clipName][eventName] -= callback;
+            _onAnimationEventDics[clipName][eventName] += callback;
         }
         else
         {
-            OnAnimationEventDics.Add(clipName, callback);
+            eventDic.Add(eventName, callback);
+            _onAnimationEventDics[clipName] = eventDic;
         }
     }
     void EventListener(TrackEntry trackEntry, Spine.Event e)
     {
+        string clipName = trackEntry.Animation.Name;
         string eName = e.Data.Name;
-
-        if (OnAnimationEventDics.ContainsKey(eName))
-            OnAnimationEventDics[eName]?.Invoke();
+        
+        if (_onAnimationEventDics.ContainsKey(clipName))
+            if (_onAnimationEventDics[clipName].ContainsKey(eName))
+                _onAnimationEventDics[clipName][eName]?.Invoke();
     }
     public void Clear()
     {
-        sa.Initialize(true);
-        sa = null;
+        _sa.Initialize(true);
+        _sa = null;
     }
 }

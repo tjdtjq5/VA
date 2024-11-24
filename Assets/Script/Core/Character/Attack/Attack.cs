@@ -6,6 +6,7 @@ using UnityEngine;
 public abstract class Attack
 {
     public bool IsAttack { get; set; } = false;
+    public abstract float AttackRadius();
     
     public Action<int> OnAttack { get; set; }
     

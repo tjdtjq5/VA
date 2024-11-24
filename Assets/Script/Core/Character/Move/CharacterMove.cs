@@ -28,7 +28,7 @@ public class CharacterMove : MonoBehaviour
         }
         else if (character.team.Equals(CharacterTeam.Enemy))
         {
-            _move = new AIMove();
+            _move = new EnemyMoveNomal();
         }
         
         _move.Initialize(character, this.transform, spineAniController);
