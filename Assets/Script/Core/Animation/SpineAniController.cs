@@ -8,31 +8,34 @@ using UnityEngine;
 public class SpineAniController : MonoBehaviour
 {
     private SkeletonAnimation _sa;
+    
+    private readonly string _endEvent = "end";
 
-    private readonly Dictionary<string, Action<string>> _onAnimationCompleteDics = new();
     private readonly Dictionary<string, Dictionary<string, Action>> _onAnimationEventDics = new(); // clipName, eventName
     private readonly Dictionary<int, string> _playAniClipName = new();
 
     public void Initialize(SkeletonAnimation sa)
     {
         this._sa = sa;
-        sa.AnimationState.Complete += EndListener;
         sa.AnimationState.Event += EventListener;
     }
 
-    public void Play(string aniName, bool isLoop, bool isDupli = false ,int index = 0)
+    public void Play(string clipName, bool isLoop, bool isDupli = false ,int index = 0)
     {
-        if (!isDupli && IsPlay(aniName, index))
+        if (!isDupli && IsPlay(clipName, index))
+        {
+            EventAction(clipName, _endEvent);
             return;
+        }
         
         try
         {
-            _sa.AnimationState.SetAnimation(index, aniName, isLoop);
-            _playAniClipName.TryAdd_H(index, aniName, true);
+            _sa.AnimationState.SetAnimation(index, clipName, isLoop);
+            _playAniClipName.TryAdd_H(index, clipName, true);
         }
         catch
         {
-            UnityHelper.Error_H($"SpineAniController Play Error\naniName : {aniName}");
+            UnityHelper.Error_H($"SpineAniController Play Error\naniName : {clipName}");
         }
     }
     public void AniSpeed(float _speed)
@@ -48,25 +51,9 @@ public class SpineAniController : MonoBehaviour
         return _sa.AnimationState.GetCurrent(index).Animation.Name;
     }
 
-    public void SetEndFunc(string clipName, Action<string> callback)
+    public void SetEndFunc(string clipName, Action callback)
     {
-        if (_onAnimationCompleteDics.ContainsKey(clipName))
-        {
-            _onAnimationCompleteDics[clipName] -= callback;
-            _onAnimationCompleteDics[clipName] += callback;
-        }
-        else
-        {
-            _onAnimationCompleteDics.Add(clipName, callback);
-        }
-    }
-    void EndListener(TrackEntry trackEntry)
-    {
-        string clipName = trackEntry.Animation.Name;
-        _playAniClipName.TryAdd_H(trackEntry.TrackIndex, "", true);
-
-        if (_onAnimationCompleteDics.ContainsKey(clipName))
-            _onAnimationCompleteDics[clipName]?.Invoke(clipName);
+        SetEventFunc(clipName, _endEvent, callback);
     }
     public void SetEventFunc(string clipName, string eventName, Action callback)
     {
@@ -89,10 +76,15 @@ public class SpineAniController : MonoBehaviour
     {
         string clipName = trackEntry.Animation.Name;
         string eName = e.Data.Name;
-        
+
+        EventAction(clipName, eName);
+    }
+
+    void EventAction(string clipName, string eventName)
+    {
         if (_onAnimationEventDics.ContainsKey(clipName))
-            if (_onAnimationEventDics[clipName].ContainsKey(eName))
-                _onAnimationEventDics[clipName][eName]?.Invoke();
+            if (_onAnimationEventDics[clipName].ContainsKey(eventName))
+                _onAnimationEventDics[clipName][eventName]?.Invoke();
     }
     public void Clear()
     {

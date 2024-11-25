@@ -63,6 +63,7 @@ public class Character : MonoBehaviour
         else
             return false;
     }
+   
 
     public void Look(bool isLeft) => this.transform.localScale = isLeft ? LeftScale : RightScale;
 
@@ -77,6 +78,7 @@ public class Character : MonoBehaviour
         _rigidbody2D.gravityScale = 0;
         _boxCollider2D.isTrigger = true;
     }
+ 
 }
 
 public enum CharacterTeam

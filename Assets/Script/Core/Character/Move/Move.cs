@@ -7,6 +7,7 @@ public abstract class Move
 {
     public bool IsMoving { get; set; } = false;
     public bool IsLeft { get; set; } = false;
+    public bool IsBackMove = false;
     protected MoveType Movetype { get; set; }
     
     public Action OnMove { get; set; }

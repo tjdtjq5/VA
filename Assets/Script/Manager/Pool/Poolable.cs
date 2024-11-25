@@ -75,7 +75,7 @@ public class Poolable : MonoBehaviour
                 break;
             case PoolObjectType.Animator:
                 aniController = animator.Initialize();
-                aniController.SetEndFunc(endAniName, OnResourcesDestroy);
+                aniController.SetEndFunc(endAniName, OnResourcesDestroyAnimation);
                 break;
             case PoolObjectType.Time:
                 destoryTime = 0;
@@ -83,7 +83,7 @@ public class Poolable : MonoBehaviour
                 break;
             case PoolObjectType.SpineAni:
                 spineAniController = spineAnimation.Initialize();
-                spineAniController.SetEndFunc(spineEndAniName, OnResourcesDestroy);
+                spineAniController.SetEndFunc(spineEndAniName, OnResourcesDestroySpineAnimation);
                 break;
         }
 
@@ -104,19 +104,14 @@ public class Poolable : MonoBehaviour
         isDestroy = true;
     }
 
-    public void OnResourcesDestroy(string aniName)
+    public void OnResourcesDestroyAnimation(string aniName)
     {
-        switch (poolObjectType)
-        {
-            case PoolObjectType.Animator:
-                if (aniName.Equals(endAniName))
-                    Managers.Resources.Destroy(this.gameObject);
-                break;
-            case PoolObjectType.SpineAni:
-                if (aniName.Equals(spineEndAniName))
-                    Managers.Resources.Destroy(this.gameObject);
-                break;
-        }
+        if (aniName.Equals(endAniName))
+            Managers.Resources.Destroy(this.gameObject);
+    }
+    public void OnResourcesDestroySpineAnimation()
+    {
+        Managers.Resources.Destroy(this.gameObject);
     }
     private void FixedUpdate()
     {

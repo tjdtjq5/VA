@@ -11,7 +11,6 @@ public abstract class PlayerAttack : Attack
     private readonly List<string> _attackNames = new List<string>() { "attack_1", "attack_2", "attack_3", "attack_4" };
     private readonly List<float> _moveRadiusAttack = new List<float>() { 2.5f, 2.5f, 2.5f, 7f };
     private readonly string _moveEvent = "move";
-    private readonly string _endEvent = "end";
     private readonly string _actionEvent = "action";
     protected int MaxAttackIndex => _moveRadiusAttack.Count;
 
@@ -41,15 +40,18 @@ public abstract class PlayerAttack : Attack
         SpineAniController.SetEventFunc(_attackNames[2], _actionEvent, AttackActionHit);
         SpineAniController.SetEventFunc(_attackNames[3], _actionEvent, AttackActionHit);
         
-        SpineAniController.SetEventFunc(_attackNames[0], _endEvent, AttackEnd);
-        SpineAniController.SetEventFunc(_attackNames[1], _endEvent, AttackEnd);
-        SpineAniController.SetEventFunc(_attackNames[2], _endEvent, AttackEnd);
-        SpineAniController.SetEventFunc(_attackNames[3], _endEvent, AttackEnd);
+        SpineAniController.SetEndFunc(_attackNames[0], AttackEnd);
+        SpineAniController.SetEndFunc(_attackNames[1], AttackEnd);
+        SpineAniController.SetEndFunc(_attackNames[2], AttackEnd);
+        SpineAniController.SetEndFunc(_attackNames[3], AttackEnd);
     }
 
     public override void AttackAction(bool isLeft)
     {
         if (IsAttack)
+            return;
+
+        if (Character.CharacterMove.IsBackmove)
             return;
         
         if (!Character.TargetCheck(isLeft))
@@ -59,6 +61,7 @@ public abstract class PlayerAttack : Attack
         this._isLeft = isLeft;
         this.Character.Look(_isLeft);
         this._target = null;
+        this._isAttackIndexing = false; 
         
         if (AttackIndex < 3)
         {
@@ -80,7 +83,6 @@ public abstract class PlayerAttack : Attack
                 targetFinds = targets.FindAll(t => t.transform.position.x >= minPosX && t.transform.position.x <= maxPosX);
             }
         }
-        
         this.SpineAniController.Play(_attackNames[AttackIndex], false, true);
     }
 
@@ -151,15 +153,14 @@ public abstract class PlayerAttack : Attack
             }
             else
             {
-                targetPos.x -= _isLeft ? _target.BoxWeidth / 2 : -_target.BoxWeidth / 2;
-                targetPos.x -= _isLeft ? this.Character.BoxWeidth / 2 : -this.Character.BoxWeidth / 2;
+                targetPos.x -= _isLeft ? _target.BoxWeidth : -_target.BoxWeidth;
+                targetPos.x -= _isLeft ? this.Character.BoxWeidth : -this.Character.BoxWeidth;
                 this._attackMoveDest = targetPos;
             }
         }
         
         _isAttackMoving = true;
     }
-
     void AttackActionHit()
     {
         this.OnAttack?.Invoke(AttackIndex);

@@ -6,7 +6,10 @@ using UnityEngine;
 public class CharacterMove : MonoBehaviour
 {
     private Move _move;
+    
+    public bool IsBackmove => _move.IsBackMove;
     private bool _isInitialized = false;
+    
     
     public void Initialize(Character character, SpineAniController spineAniController)
     {
