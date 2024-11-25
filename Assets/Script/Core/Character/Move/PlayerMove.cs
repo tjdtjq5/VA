@@ -21,6 +21,8 @@ public abstract class PlayerMove : Move
         if (!IsMoving)
             return;
         
+        Movetype = MoveType.Idle;
+        
         switch (Movetype)
         {
             case MoveType.LeftMoving:
@@ -125,14 +127,20 @@ public abstract class PlayerMove : Move
         if (_isLeftDown)
         {
             if (Character.TargetCheck(true))
+            {
+                SetIdle();
                 Character.CharacterAttack.AttackAction(true);
+            }
             else
                 LeftDown();
         }
         else if (_isRightDown)
         {
             if (Character.TargetCheck(false))
+            {
+                SetIdle();
                 Character.CharacterAttack.AttackAction(false);
+            }
             else
                 RightDown();
         }

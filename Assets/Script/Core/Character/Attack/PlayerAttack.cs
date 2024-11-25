@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class PlayerAttack : Attack
@@ -33,7 +34,7 @@ public abstract class PlayerAttack : Attack
         SpineAniController.SetEventFunc(_attackNames[0], _moveEvent, ()=> AttackMove(false));
         SpineAniController.SetEventFunc(_attackNames[1], _moveEvent, ()=> AttackMove(false));
         SpineAniController.SetEventFunc(_attackNames[2], _moveEvent, ()=> AttackMove(false));
-        SpineAniController.SetEventFunc(_attackNames[3], _moveEvent, ()=> AttackMove(false));
+        SpineAniController.SetEventFunc(_attackNames[3], _moveEvent, ()=> AttackMove(true));
         
         SpineAniController.SetEventFunc(_attackNames[0], _actionEvent, AttackActionHit);
         SpineAniController.SetEventFunc(_attackNames[1], _actionEvent, AttackActionHit);
@@ -54,29 +55,32 @@ public abstract class PlayerAttack : Attack
         if (!Character.TargetCheck(isLeft))
             return;
         
-        
-
         this.IsAttack = true;
         this._isLeft = isLeft;
         this.Character.Look(_isLeft);
-
-        _target = Character.SearchTarget(isLeft);
+        this._target = null;
         
         if (AttackIndex < 3)
         {
-            
+            _target = Character.SearchTarget(isLeft);
         }
         else if (AttackIndex == 3)
         {
-            
+            var targets = Character.SearchTargets(isLeft);
+            float minDistanceX = _moveRadiusAttack[AttackIndex] - this.Character.BoxWeidth / 2;
+            float maxDistanceX = _moveRadiusAttack[AttackIndex] + this.Character.BoxWeidth / 2;
+            var targetFinds = targets.FindAll(t => t.transform.position.GetDistanceX(Transform.position) >= minDistanceX && t.transform.position.GetDistanceX(Transform.position) <= maxDistanceX);
+            while (targetFinds.Count != 0)
+            {
+                _target = targetFinds.LastOrDefault();
+                float targetPosLastX = _target.transform.position.x + (isLeft ? -_target.BoxWeidth / 2 : +_target.BoxWeidth / 2);
+                float minPosX = targetPosLastX + (isLeft ? -this.Character.BoxWeidth / 2 : +this.Character.BoxWeidth / 2);
+                float maxPosX = targetPosLastX + (isLeft ? this.Character.BoxWeidth / 2 : -this.Character.BoxWeidth / 2);
+                
+                targetFinds = targets.FindAll(t => t.transform.position.x >= minPosX && t.transform.position.x <= maxPosX);
+            }
         }
         
-        
-        // 1 ~ 3타는 제일 가까운 적 타겟
-        // 4타에서는 제일 먼 거리의 있는 적 + 적들 사이에 캐릭터 박스 사이즈 만큼 공간이 없다면 가장 마지막 이후 적으로 타겟 변경  
-        
-        // 애니 실행
-        UnityHelper.Log_H("AttackAction");
         this.SpineAniController.Play(_attackNames[AttackIndex], false, true);
     }
 
@@ -162,7 +166,6 @@ public abstract class PlayerAttack : Attack
     }
     void AttackEnd()
     {
-        UnityHelper.Log_H("AttackEnd");
         AttackIndexUp();
         this.IsAttack = false;
         OnEnd?.Invoke(AttackIndex);

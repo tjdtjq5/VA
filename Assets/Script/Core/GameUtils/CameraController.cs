@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
     private Transform _target;
 
     private float _noneLength = 0.1f;
-    private float _speed = 2.5f;
+    private float _speed = 4f;
     
     public void Initialize(Transform target)
     {
