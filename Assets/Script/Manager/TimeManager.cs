@@ -50,4 +50,10 @@ public class TimeManager
     public void TimeMultiple(float value) => Magnification = value;
     public float FixedDeltaTime => Time.fixedDeltaTime * Magnification;
     public float DeltaTime => Time.deltaTime * Magnification;
+
+    public void ChangeFrameRate(int value)
+    {
+        Application.targetFrameRate = value;
+        Time.fixedDeltaTime = 1 / (float)value;
+    }
 }

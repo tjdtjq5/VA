@@ -42,8 +42,7 @@ public class Managers : MonoBehaviour
     void Start()
     {
         Init();
-
-        Application.targetFrameRate = 60;
+        _time.ChangeFrameRate(120);
     }
     static void Init()
     {

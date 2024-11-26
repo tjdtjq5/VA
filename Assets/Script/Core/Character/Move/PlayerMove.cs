@@ -9,7 +9,7 @@ public abstract class PlayerMove : Move
     
     protected readonly string Backmove = "miss";
     protected float _backmoveCheckRadius => Character.BoxWeidth * 2;
-    protected float _backmoveWidth = 2.5f;
+    protected float _backmoveWidth = 6.5f;
     protected Vector3 _backmoveDest;
     
     public override void Initialize(Character character, Transform transform, SpineAniController spineAniController)
@@ -40,7 +40,7 @@ public abstract class PlayerMove : Move
     public override void FixedUpdate()
     {
         Vector2 currentPosition = this.Transform.position;
-
+        
         if (IsBackMove)
         {
             this.Transform.position = Vector3.Lerp(currentPosition, _backmoveDest, DefaultSpeed * Managers.Time.FixedDeltaTime);

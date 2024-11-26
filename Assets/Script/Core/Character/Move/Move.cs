@@ -13,7 +13,7 @@ public abstract class Move
     public Action OnMove { get; set; }
     public Action OnStop { get; set; }
     
-    protected readonly float DefaultSpeed = 5f;
+    protected readonly float DefaultSpeed = 1f;
 
     protected readonly string Idle = "idle";
     protected readonly string Moving = "move";
