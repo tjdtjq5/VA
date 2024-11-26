@@ -16,6 +16,7 @@ public class MapLayer : MonoBehaviour
     
     public void Initialize(Transform target, float distanceX , int count)
     {
+        
         this._target = target;  
         this._distanceX = distanceX;  
         this._count = count;
@@ -31,6 +32,8 @@ public class MapLayer : MonoBehaviour
             Transform clone = Instantiate(structTransform, this.transform);
             _strList.Add(clone);
         }
+        
+        PositionSetting();
     }
 
     private void FixedUpdate()
