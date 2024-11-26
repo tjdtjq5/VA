@@ -49,6 +49,9 @@ public class UIBase : MonoBehaviour
                 case nameof(UIText):
                     objs[i] = gameObject.GetComponent<UIText>();
                     continue;
+                case nameof(UITextPro):
+                    objs[i] = gameObject.GetComponent<UITextPro>();
+                    continue;
                 case nameof(UISlider):
                     objs[i] = gameObject.GetComponent<UISlider>();
                     continue;
@@ -102,6 +105,10 @@ public class UIBase : MonoBehaviour
     protected UIText GetText(Enum _enumValue)
     {
         return Get<UIText>(_enumValue);
+    }
+    protected UITextPro GetTextPro(Enum _enumValue)
+    {
+        return Get<UITextPro>(_enumValue);
     }
     protected UIImage GetImage(Enum _enumValue)
     {
@@ -159,10 +166,6 @@ public class UIBase : MonoBehaviour
                 evt.eventHandlerClick -= _action;
                 evt.eventHandlerClick += _action;
                 break;
-            case UIEvent.Drag:
-                evt.eventHandlerOnDrag -= _action;
-                evt.eventHandlerOnDrag += _action;
-                break;
             case UIEvent.PointDown:
                 evt.eventHandlerPointDown -= _action;
                 evt.eventHandlerPointDown += _action;
@@ -182,9 +185,6 @@ public class UIBase : MonoBehaviour
             case UIEvent.Click:
                 evt.eventHandlerClick -= _action;
                 break;
-            case UIEvent.Drag:
-                evt.eventHandlerOnDrag -= _action;
-                break;
             case UIEvent.PointDown:
                 evt.eventHandlerPointDown -= _action;
                 break;
@@ -201,8 +201,6 @@ public class UIBase : MonoBehaviour
         {
             case UIEvent.Click:
                 return evt.eventHandlerClick;
-            case UIEvent.Drag:
-                return evt.eventHandlerOnDrag;
             case UIEvent.PointDown:
                 return evt.eventHandlerPointDown;
             case UIEvent.PointUp:

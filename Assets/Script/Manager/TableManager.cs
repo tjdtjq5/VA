@@ -5,13 +5,11 @@ public class TableManager
 {
     GameDefineTable _gameDefineTable = new GameDefineTable();
     FormulaTable _formulaTable = new FormulaTable();
-    CharacterTable _characterTable = new CharacterTable();
     ItemTable _itemTable = new ItemTable();
     public void Initialize()
     {
         _gameDefineTable.InitialData();
         _formulaTable.InitialData();
-        _characterTable.InitialData();
         _itemTable.InitialData();
     }
     public void DbGets(Action callback = null)
@@ -24,7 +22,6 @@ public class TableManager
                 {
                     case "GameDefine": _gameDefineTable.Push(CSharpHelper.DeserializeObject<List<GameDefineTableData>>(res.datas[i].tableDatas)); break;
                     case "Formula": _formulaTable.Push(CSharpHelper.DeserializeObject<List<FormulaTableData>>(res.datas[i].tableDatas)); break;
-                    case "Character": _characterTable.Push(CSharpHelper.DeserializeObject<List<CharacterTableData>>(res.datas[i].tableDatas)); break;
                     case "Item": _itemTable.Push(CSharpHelper.DeserializeObject<List<ItemTableData>>(res.datas[i].tableDatas)); break;
                 }
             }
@@ -34,7 +31,6 @@ public class TableManager
         });
     }
     public ItemTable ItemTable => _itemTable;
-    public CharacterTable CharacterTable => _characterTable;
     public FormulaTable FormulaTable => _formulaTable;
     public GameDefineTable GameDefineTable => _gameDefineTable;
 }

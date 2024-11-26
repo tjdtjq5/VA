@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class ItemTable : Table<ItemTableData>
 {
@@ -13,6 +14,9 @@ public class ItemTable : Table<ItemTableData>
             result.Invoke(_result.datas);
         });
     }
+
+    public override ItemTableData Get(object key)
+        => Gets().Where(d => d.itemCode.Equals(key.ToString())).FirstOrDefault();
 
     public override void InitialData()
     {

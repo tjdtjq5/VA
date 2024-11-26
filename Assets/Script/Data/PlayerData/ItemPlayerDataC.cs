@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class ItemPlayerDataC : PlayerDataC<PlayerItemData>
 {
@@ -10,11 +11,6 @@ public class ItemPlayerDataC : PlayerDataC<PlayerItemData>
             datas = res.Datas;
             result.Invoke(res.Datas);
         });
-    }
-
-    public override List<Stat> GetStats()
-    {
-        return null;
     }
 
     public PlayerItemData GetItem(ItemTableCodeDefine item)
@@ -42,5 +38,10 @@ public class ItemPlayerDataC : PlayerDataC<PlayerItemData>
             new PlayerItemData() { ItemCode = "MeteoriteDebris", SignValue = 500000 },
         };
         Sets(datas);
+    }
+
+    public override PlayerItemData Get(object key)
+    {
+        return Gets().Where(p => p.ItemCode.Equals(key.ToString())).FirstOrDefault();
     }
 }

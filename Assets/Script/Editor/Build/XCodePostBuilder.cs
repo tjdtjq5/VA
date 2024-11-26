@@ -62,12 +62,12 @@ class XCodePostBuilder
             plistDoc.root.SetBoolean("ITSAppUsesNonExemptEncryption", false);
 
             // URL Scheme
-            // var array = plistDoc.root.CreateArray("CFBundleURLTypes");
-            // var urlDict = array.AddDict();
-            // urlDict.SetString("CFBundleURLName", PlayerSettings.iPhoneBundleIdentifier);
-            // urlDict.SetString("CFBundleTypeRole", "Viewer");
-            // varurlInnerArray = urlDict.CreateArray("CFBundleURLSchemes");
-            // urlInnerArray.AddString("https");
+             var array = plistDoc.root.CreateArray("CFBundleURLTypes");
+             var urlDict = array.AddDict();
+             urlDict.SetString("CFBundleURLName", PlayerSettings.iPhoneBundleIdentifier);
+             urlDict.SetString("CFBundleTypeRole", "Viewer");
+             var varurlInnerArray = urlDict.CreateArray("CFBundleURLSchemes");
+             varurlInnerArray.AddString("simple.oauth");
 
             plistDoc.WriteToFile(infoPlistPath);
         }

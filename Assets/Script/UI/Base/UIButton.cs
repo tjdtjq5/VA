@@ -54,10 +54,6 @@ public class UIButton : UIFrame
     {
         BindEvent(Image.gameObject, _action, UIEvent.PointUp);
     }
-    public void AddDragEvent(Action<PointerEventData> _action)
-    {
-        BindEvent(Image.gameObject, _action, UIEvent.Drag);
-    }
     public void AddPressedEvent(Action<PointerEventData> _action)
     {
         isPressed = true;

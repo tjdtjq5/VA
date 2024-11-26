@@ -53,6 +53,7 @@ public class AppleLogin
         isInit = true;
 
         AppleAuth = new AppleAuth();
+        AppleAuth.DebugLog = false;
         AppleAuth.TryResume(OnSignIn, OnGetTokenResponse);
     }
 
@@ -61,6 +62,8 @@ public class AppleLogin
         Initialize();
 
         _callback = callback;
+
+        SignIn();
     }
     static public void SignIn()
     {
@@ -80,7 +83,29 @@ public class AppleLogin
 
     static private void OnSignIn(bool success, string error, UserInfo userInfo)
     {
-        UnityHelper.Log_H(success ? $"Hello, {userInfo.Name}!" : error);
+        if (success)
+        {
+            AccountLoginRequest req = new AccountLoginRequest()
+            {
+                ProviderType = ProviderType.Apple,
+                NetworkIdOrCode = $"[{ProviderType.Apple.ToString()}]{userInfo.Email}",
+            };
+
+            Managers.Web.SendPostRequest<AccountLoginResponce>("account/login", req, (res) => 
+            {
+                Managers.Web.JwtToken = res.JwtAccessToken;
+                Managers.Web.AccountId = res.AccountId;
+
+                AutoJwtToken = res.JwtAccessToken;
+                AutoProviderType = ProviderType.Apple;
+                AutoAccountId = res.AccountId;
+
+                if (_callback != null)
+                    _callback.Invoke();
+            });
+        }
+        else
+            UnityHelper.Log_H(error);
     }
 
     static private void OnGetTokenResponse(bool success, string error, TokenResponse tokenResponse)

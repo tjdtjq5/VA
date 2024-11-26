@@ -1,6 +1,7 @@
 using EasyButtons;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,7 +29,7 @@ public class UIFrame : UIBase
     }
     public void ChildNameSetting()
     {
-        List<RectTransform> childs = UnityHelper.FlindChilds<RectTransform>(this.gameObject, true);
+        List<RectTransform> childs = UnityHelper.FindChilds<RectTransform>(this.gameObject, true);
         for (int i = 0; i < childs.Count; i++)
         {
             RectTransform child = childs[i];
@@ -38,7 +39,7 @@ public class UIFrame : UIBase
     }
     public void ChildCheckAndAddUIBaseComponent(Transform parents)
     {
-        List<RectTransform> childs = UnityHelper.FlindChilds<RectTransform>(parents.gameObject);
+        List<RectTransform> childs = UnityHelper.FindChilds<RectTransform>(parents.gameObject);
 
         for (int i = 0; i < childs.Count; i++)
         {
@@ -56,6 +57,10 @@ public class UIFrame : UIBase
             if (child.GetComponent<Text>())
             {
                 UnityHelper.GetOrAddComponent<UIText>(child.gameObject);
+            }
+            if (child.GetComponent<TextMeshProUGUI>())
+            {
+                UnityHelper.GetOrAddComponent<UITextPro>(child.gameObject);
             }
             if (child.GetComponent<Slider>())
             {
@@ -80,7 +85,7 @@ public class UIFrame : UIBase
     }
     void AddChildPath(string parentsName, Transform parents)
     {
-        List<RectTransform> childs = UnityHelper.FlindChilds<RectTransform>(parents.gameObject);
+        List<RectTransform> childs = UnityHelper.FindChilds<RectTransform>(parents.gameObject);
 
         foreach (RectTransform child in childs)
         {

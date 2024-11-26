@@ -1,56 +1,98 @@
-using EasyButtons;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using Spine.Unity;
 using UnityEngine;
 
-[RequireComponent(typeof(Entity))]
-[RequireComponent(typeof(Stats))]
-[RequireComponent(typeof(MoveController))]
-[RequireComponent(typeof(EntityMovement))]
-[RequireComponent(typeof(EntityAnimator))]
-[RequireComponent(typeof(EntityStateMachine))]
-public abstract class Character : MonoBehaviour
+[RequireComponent(typeof(SpineAniController))]
+[RequireComponent(typeof(CharacterMove))]
+[RequireComponent(typeof(CharacterAttack))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D))]
+public class Character : MonoBehaviour
 {
-    public int Index { get; set; }
+    public CharacterTeam team;
+    public CharacterControllType control;
+    
+    SpineAniController _spineAniController;
+    CharacterMove _characterMove;
+    CharacterAttack _characterAttack;
+    SkeletonAnimation _skeletonAnimation;
+    Rigidbody2D _rigidbody2D;
+    BoxCollider2D _boxCollider2D;
 
-    protected Entity entity;
-    public Action<Entity> onDead;
-    public Action<Entity> onAllive;
-    public Action<Entity, Entity, object, BBNumber> onTakeDamage;
+    public bool IsDead { get; private set; } = false;
+    public CharacterMove CharacterMove => _characterMove;
+    public CharacterAttack CharacterAttack => _characterAttack;
+    public float BoxWeidth => _boxCollider2D.bounds.size.x;  
+    
+    protected readonly Vector3 LeftScale = new Vector3(-1f, 1f, 1f);
+    protected readonly Vector3 RightScale = new Vector3(1f, 1f, 1f);
 
-    protected int fuTickMaxCount = 10; protected int fuTickCount = 0;
-
-    protected virtual void Initialize()
+    private void Start()
     {
-        entity = GetComponent<Entity>();
+        _skeletonAnimation = this.GetComponentInChildren<SkeletonAnimation>();
+        
+        _spineAniController = this.GetComponent<SpineAniController>();
+        _spineAniController.Initialize(_skeletonAnimation);
+        
+        _characterAttack = this.GetComponent<CharacterAttack>();
+        _characterAttack?.Initialize(this, _spineAniController);
+        
+        _characterMove = this.GetComponent<CharacterMove>();
+        _characterMove?.Initialize(this, _spineAniController);
+        
+        _rigidbody2D = this.GetComponent<Rigidbody2D>();
+        _boxCollider2D = this.GetComponent<BoxCollider2D>();
+        
+        Setting();
 
-        entity.onTakeDamage -= OnTakeDamage;
-        entity.onTakeDamage += OnTakeDamage;
-
-        entity.onAlliave -= OnAllive;
-        entity.onAlliave += OnAllive;
-
-        entity.onDead -= OnDead;
-        entity.onDead += OnDead;
+        if (team == CharacterTeam.Player)
+        {
+            Test();
+        }
     }
-    public virtual void OnDead(Entity entity) => onDead?.Invoke(entity);
-    public virtual void OnAllive(Entity entity) => onAllive?.Invoke(entity);
-    public virtual void OnTakeDamage(Entity entity, Entity instigator, object causer, BBNumber damage) => onTakeDamage?.Invoke(entity, instigator, causer, damage);
-    public abstract void Play();
-    public abstract void Stop();
-    public abstract void Clear();
-    public abstract void MoveDirection(Vector3 direction);
-    public abstract void MoveDestination(Vector3 destination);
-    public abstract void MoveTrance(Transform target, Vector3 offset);
 
-    [Button]
-    public void DebugIsDead()
+    public Character SearchTarget(bool isLeft) => GameFunction.SearchTarget(this, isLeft);
+    public List<Character> SearchTargets(bool isLeft) => GameFunction.SearchTargets(this, isLeft);
+    public bool TargetCheck(bool isLeft)
     {
-        UnityHelper.Log_H($"IsDead : {entity.IsDead}");
+        Character target = SearchTarget(isLeft);
+        if (target is not null && this.transform.position.GetDistanceX(target.transform.position) < CharacterAttack.AttackRadius() )
+            return true;
+        else
+            return false;
+    }
+   
+
+    public void Look(bool isLeft) => this.transform.localScale = isLeft ? LeftScale : RightScale;
+
+    void Test()
+    {
+        CameraController cc = FindObjectOfType<CameraController>();
+        cc.Initialize(this.transform);
+        
+        Map map = FindObjectOfType<Map>();
+        map.Initialize(this.transform);
     }
 
-    [Button]
-    public void DebugEntityState()
+    void Setting()
     {
-        UnityHelper.Log_H(entity.StateMachine.GetCurrentState());
+        _rigidbody2D.gravityScale = 0;
+        _boxCollider2D.isTrigger = true;
     }
+ 
+}
+
+public enum CharacterTeam
+{
+    Player,
+    Enemy,
+}
+
+public enum CharacterControllType
+{
+    Input,
+    UI,
+    AI,
 }

@@ -7,7 +7,7 @@ public class MoveController : MonoBehaviour
     public Action onStop;
 
     float _speed;
-    float _adjustSpeed = .01f;
+    float _adjustSpeed = .0008f;
     public float Speed { get { return _speed / _adjustSpeed; } set { _speed = value * _adjustSpeed; } }
     public float NoneAdjustSpeed { get { return _speed; } }
 

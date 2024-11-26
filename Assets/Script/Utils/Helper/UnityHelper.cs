@@ -160,7 +160,7 @@ public static class UnityHelper
         Error_H($"Not Found Object\npath : {path}\nparents : {parentsName}");
         return default(T);
     }
-    public static List<T> FlindChilds<T>(GameObject _go, bool _recursive = false) where T : UnityEngine.Object
+    public static List<T> FindChilds<T>(GameObject _go, bool _recursive = false) where T : UnityEngine.Object
     {
         if (_go == null)
         {
@@ -286,6 +286,12 @@ public static class UnityHelper
     public static float GetDistance(this Vector3 originPos, Vector3 targetPos)
     {
         return Vector3.Distance(originPos, targetPos);
+    }
+
+    public static float GetDistanceX(this Vector3 originPos, Vector3 targetPos)
+    {
+        Vector3 tempTargetPos = new Vector3(targetPos.x, originPos.y, originPos.z);
+        return Vector3.Distance(originPos, tempTargetPos);
     }
     public static float GetSqrMagnitude(this Vector3 originPos, Vector3 targetPos)
     {

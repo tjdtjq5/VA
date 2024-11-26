@@ -41,6 +41,11 @@ public class AniController : MonoBehaviour
             }
         }
     }
+    public void RemoveEndFunc(string clipName)
+    {
+        if (OnAnimationCompleteDics.ContainsKey(clipName))
+            OnAnimationCompleteDics.Remove(clipName);
+    }
 
     public void AniSpeed(float _speed)
     {

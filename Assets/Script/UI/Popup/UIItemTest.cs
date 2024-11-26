@@ -31,10 +31,7 @@ public class UIItemTest : UIPopup
     }
     void OnClickCharacterTable(PointerEventData ped)
     {
-        Managers.Table.CharacterTable.DbGets((res) =>
-        {
-            UnityHelper.SerializeL(res);
-        });
+      
     }
     void OnClickItemGets(PointerEventData ped)
 	{

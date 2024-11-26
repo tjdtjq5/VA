@@ -98,6 +98,11 @@ public class {0}Table : Table<{0}TableData>
         }});
     }}
 
+    public override {0}TableData Get(object key)
+    {{
+        return null;
+    }}
+
     public override void InitialData()
     {{
         List<{0}TableData> datas = new List<{0}TableData>()

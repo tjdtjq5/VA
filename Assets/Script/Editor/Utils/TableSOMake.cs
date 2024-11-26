@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using log4net.Util;
+using System.Collections.Generic;
 using UnityEditor;
+using UnityEngine;
 
 public class TableSOMake : EditorWindow
 {
-   public static string TableName { get => "Character"; }
+   public static string TableName { get => ""; }
 
     public static void CreateSO(string tableName, string tableData)
     {
@@ -29,14 +31,19 @@ public class TableSOMake : EditorWindow
             string soName = DefinePath.TableSOName(tableName, code);
 
             path = DefinePath.TableSOPath(tableName, code);
-            var so = AssetDatabase.LoadAssetAtPath<CharacterSO>(path);
+            var so = AssetDatabase.LoadAssetAtPath<TTT>(path);
 
             if (so == null)
             {
-                so = CreateInstance<CharacterSO>();
+                so = CreateInstance<TTT>();
                 so.codeName = code;
                 AssetDatabase.CreateAsset(so, path);
             }
         }
     }
+}
+
+public class TTT : ScriptableObject
+{
+    public string codeName;
 }

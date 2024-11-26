@@ -1,7 +1,6 @@
 ﻿public enum TableCollection
 {
     Item,
-    Character,
     Formula,
     GameDefine,
 }

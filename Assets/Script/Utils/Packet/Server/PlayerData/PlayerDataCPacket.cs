@@ -51,9 +51,9 @@ public class {0}PlayerDataC : PlayerDataC<{0}PlayerData>
         }});
     }}
 
-    public override List<Stat> GetStats()
+    public override {0}PlayerData Get(object key)
     {{
-        throw new NotImplementedException();
+        return null;
     }}
 }}";
     #endregion
