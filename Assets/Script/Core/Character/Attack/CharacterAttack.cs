@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class CharacterAttack : MonoBehaviour
 {
-    private Character _character;
-    private SpineAniController _spineAniController;
     public Attack Attack;
 
     public float AttackRadius() => Attack.AttackRadius();
@@ -16,11 +14,8 @@ public class CharacterAttack : MonoBehaviour
     public void Clear() => Attack.Clear();
     
     private bool _isInitialized = false;
-    public void Initialize(Character character, SpineAniController spineAniController)
+    public void Initialize(Character character, SpineAniController characterAniController, SpineAniController fxAniController)
     {
-        this._character = character;
-        this._spineAniController = spineAniController;
-        
         Attack = null;
 
         if (character.team.Equals(CharacterTeam.Player))
@@ -43,7 +38,7 @@ public class CharacterAttack : MonoBehaviour
             Attack = new EnemyAttackNomal();
         }
         
-        Attack?.Initialize(character, this.transform, spineAniController);
+        Attack?.Initialize(character, this.transform, characterAniController, fxAniController);
         
         _isInitialized = true;
     }

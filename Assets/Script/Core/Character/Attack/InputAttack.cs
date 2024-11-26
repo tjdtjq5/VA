@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class InputAttack : PlayerAttack
 {
-    public override void Initialize(Character character, Transform transform, SpineAniController spineAniController)
+    public override void Initialize(Character character, Transform transform, SpineAniController characterAniController, SpineAniController fxAniController)
     {
-        base.Initialize(character, transform, spineAniController);
+        base.Initialize(character, transform, characterAniController,fxAniController);
         InputSet();
     }
 

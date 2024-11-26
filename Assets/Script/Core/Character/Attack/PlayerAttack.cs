@@ -26,24 +26,24 @@ public abstract class PlayerAttack : Attack
     private bool _isLeft = false;
     private Character _target;
 
-    public override void Initialize(Character character, Transform transform, SpineAniController spineAniController)
+    public override void Initialize(Character character, Transform transform, SpineAniController characterAniController, SpineAniController fxAniController)
     {
-        base.Initialize(character, transform, spineAniController);
+        base.Initialize(character, transform, characterAniController,fxAniController);
         
-        SpineAniController.SetEventFunc(_attackNames[0], _moveEvent, ()=> AttackMove(false));
-        SpineAniController.SetEventFunc(_attackNames[1], _moveEvent, ()=> AttackMove(false));
-        SpineAniController.SetEventFunc(_attackNames[2], _moveEvent, ()=> AttackMove(false));
-        SpineAniController.SetEventFunc(_attackNames[3], _moveEvent, ()=> AttackMove(true));
+        CharacterAniController.SetEventFunc(_attackNames[0], _moveEvent, ()=> AttackMove(false));
+        CharacterAniController.SetEventFunc(_attackNames[1], _moveEvent, ()=> AttackMove(false));
+        CharacterAniController.SetEventFunc(_attackNames[2], _moveEvent, ()=> AttackMove(false));
+        CharacterAniController.SetEventFunc(_attackNames[3], _moveEvent, ()=> AttackMove(true));
         
-        SpineAniController.SetEventFunc(_attackNames[0], _actionEvent, AttackActionHit);
-        SpineAniController.SetEventFunc(_attackNames[1], _actionEvent, AttackActionHit);
-        SpineAniController.SetEventFunc(_attackNames[2], _actionEvent, AttackActionHit);
-        SpineAniController.SetEventFunc(_attackNames[3], _actionEvent, AttackActionHit);
+        CharacterAniController.SetEventFunc(_attackNames[0], _actionEvent, AttackActionHit);
+        CharacterAniController.SetEventFunc(_attackNames[1], _actionEvent, AttackActionHit);
+        CharacterAniController.SetEventFunc(_attackNames[2], _actionEvent, AttackActionHit);
+        CharacterAniController.SetEventFunc(_attackNames[3], _actionEvent, AttackActionHit);
         
-        SpineAniController.SetEndFunc(_attackNames[0], AttackEnd);
-        SpineAniController.SetEndFunc(_attackNames[1], AttackEnd);
-        SpineAniController.SetEndFunc(_attackNames[2], AttackEnd);
-        SpineAniController.SetEndFunc(_attackNames[3], AttackEnd);
+        CharacterAniController.SetEndFunc(_attackNames[0], AttackEnd);
+        CharacterAniController.SetEndFunc(_attackNames[1], AttackEnd);
+        CharacterAniController.SetEndFunc(_attackNames[2], AttackEnd);
+        CharacterAniController.SetEndFunc(_attackNames[3], AttackEnd);
     }
 
     public override void AttackAction(bool isLeft)
@@ -83,7 +83,8 @@ public abstract class PlayerAttack : Attack
                 targetFinds = targets.FindAll(t => t.transform.position.x >= minPosX && t.transform.position.x <= maxPosX);
             }
         }
-        this.SpineAniController.Play(_attackNames[AttackIndex], false, true);
+        this.CharacterAniController.Play(_attackNames[AttackIndex], false, true);
+        this.FxAniController.Play(_attackNames[AttackIndex], false, true);
     }
 
     public override void Clear()

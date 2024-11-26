@@ -103,7 +103,6 @@ public class UIFrame : UIBase
             {
                 string key = $"{components.GetType() + "E"}";
                 BindDicsAdd(components.GetType(), key);
-                UnityHelper.Log_H($"[{key}] : {current}");
                 EnumDicsAdd(key, current);
             }
 

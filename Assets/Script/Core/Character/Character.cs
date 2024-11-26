@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Spine.Unity;
 using UnityEngine;
 
-[RequireComponent(typeof(SpineAniController))]
 [RequireComponent(typeof(CharacterMove))]
 [RequireComponent(typeof(CharacterAttack))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -14,10 +13,12 @@ public class Character : MonoBehaviour
     public CharacterTeam team;
     public CharacterControllType control;
     
-    SpineAniController _spineAniController;
+    SkeletonAnimation _characterAnimation;
+    SpineAniController _characterAniController;
+    SkeletonAnimation _fxAnimation;
+    SpineAniController _fxAniController;
     CharacterMove _characterMove;
     CharacterAttack _characterAttack;
-    SkeletonAnimation _skeletonAnimation;
     Rigidbody2D _rigidbody2D;
     BoxCollider2D _boxCollider2D;
 
@@ -31,16 +32,27 @@ public class Character : MonoBehaviour
 
     private void Start()
     {
-        _skeletonAnimation = this.GetComponentInChildren<SkeletonAnimation>();
+        _characterAnimation =  this.gameObject.FindChildByPath<SkeletonAnimation>("Character");
+
+        if (_characterAnimation)
+        {
+            _characterAniController = _characterAnimation.GetComponent<SpineAniController>();
+            _characterAniController.Initialize(_characterAnimation);
+        }
         
-        _spineAniController = this.GetComponent<SpineAniController>();
-        _spineAniController.Initialize(_skeletonAnimation);
+        _fxAnimation =  this.gameObject.FindChildByPath<SkeletonAnimation>("Fx");
+
+        if (_fxAnimation)
+        {
+            _fxAniController = _fxAnimation.GetComponent<SpineAniController>();
+            _fxAniController.Initialize(_fxAnimation);
+        }
         
         _characterAttack = this.GetComponent<CharacterAttack>();
-        _characterAttack?.Initialize(this, _spineAniController);
+        _characterAttack?.Initialize(this, _characterAniController, _fxAniController);
         
         _characterMove = this.GetComponent<CharacterMove>();
-        _characterMove?.Initialize(this, _spineAniController);
+        _characterMove?.Initialize(this, _characterAniController);
         
         _rigidbody2D = this.GetComponent<Rigidbody2D>();
         _boxCollider2D = this.GetComponent<BoxCollider2D>();

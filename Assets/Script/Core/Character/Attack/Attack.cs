@@ -11,11 +11,12 @@ public abstract class Attack
     public Action<int> OnAttack { get; set; }
     public Action<int> OnEnd { get; set; }
     
-    public virtual void Initialize(Character character, Transform transform, SpineAniController spineAniController)
+    public virtual void Initialize(Character character, Transform transform, SpineAniController characterAniController, SpineAniController fxAniController)
     {
         this.Character = character;
         this.Transform = transform;
-        this.SpineAniController = spineAniController;
+        this.CharacterAniController = characterAniController;
+        this.FxAniController = fxAniController;
     }
 
     public abstract void AttackAction(bool isLeft);
@@ -26,5 +27,6 @@ public abstract class Attack
 
     protected  Character Character;
     protected  Transform Transform;
-    protected  SpineAniController SpineAniController;
+    protected  SpineAniController CharacterAniController;
+    protected  SpineAniController FxAniController;
 }
