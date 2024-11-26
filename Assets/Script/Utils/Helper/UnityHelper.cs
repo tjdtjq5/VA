@@ -160,7 +160,7 @@ public static class UnityHelper
         Error_H($"Not Found Object\npath : {path}\nparents : {parentsName}");
         return default(T);
     }
-    public static List<T> FlindChilds<T>(GameObject _go, bool _recursive = false) where T : UnityEngine.Object
+    public static List<T> FindChilds<T>(GameObject _go, bool _recursive = false) where T : UnityEngine.Object
     {
         if (_go == null)
         {

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class UnityHelperExtention
@@ -18,6 +19,10 @@ public static class UnityHelperExtention
     public static T FindChildByPath<T>(this GameObject _go, string path) where T : UnityEngine.Object
     {
         return UnityHelper.FindChildByPath<T>(_go, path);
+    }
+    public static List<T> FindChilds<T>(this GameObject _go, bool _recursive = false) where T : UnityEngine.Object
+    {
+        return UnityHelper.FindChilds<T>(_go, _recursive);
     }
     #endregion
 }
