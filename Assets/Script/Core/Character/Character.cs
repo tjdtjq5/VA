@@ -75,6 +75,7 @@ public class Character : MonoBehaviour
         else
             return false;
     }
+    public Character NearestTarget() => GameFunction.SearchTarget(this, 10000, false);
    
 
     public void Look(bool isLeft) => this.transform.localScale = isLeft ? LeftScale : RightScale;
