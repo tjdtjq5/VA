@@ -71,6 +71,9 @@ public class Character : MonoBehaviour
     {
         CameraController cc = FindObjectOfType<CameraController>();
         cc.Initialize(this.transform);
+        
+        Map map = FindObjectOfType<Map>();
+        map.Initialize(this.transform);
     }
 
     void Setting()

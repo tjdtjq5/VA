@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using EasyButtons;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Map : MonoBehaviour
@@ -10,19 +11,18 @@ public class Map : MonoBehaviour
     private readonly string _numbering = "00";
     private readonly Vector3 _sizeValue = new Vector3(0.0575f, 0.0575f, 0); 
     private readonly Vector3 _posValue = new Vector3(0.0137f, -0.1044f, 1);
-    private readonly int _cloneCount = 100;
+    private readonly int _cloneCount = 5;
     
     [SerializeField]
     private List<float> layerDistances = new List<float>();
     [SerializeField]
     private List<float> CloneDistance = new List<float>();
 
-    private void Start()
+    public void Initialize(Transform target)
     {
         Sorting();
-        CreateClone();
+        CreateClone(target);
     }
-
     [Button]
     public void Naming()
     {
@@ -36,8 +36,12 @@ public class Map : MonoBehaviour
             int sort = children.Count - i;
             for (int j = 0; j < children2.Count; j++)
             {
-                children2[j].name = j.ToString(_numbering);
-                children2[j].sortingOrder = sort;
+                List<SpriteRenderer> children3 = children[i].gameObject.FindChilds<SpriteRenderer>();
+                for (int k = 0; k < children3.Count; k++)
+                {
+                    children3[k].name = k.ToString(_numbering);
+                    children3[k].sortingOrder = sort;
+                }
             }
         }
     }
@@ -69,25 +73,18 @@ public class Map : MonoBehaviour
             children[i].localScale = Vector3.one;
         }
     }
-
-    void CreateClone()
+    void CreateClone(Transform target)
     {
         List<Transform> children = this.gameObject.FindChilds<Transform>();
-        int min = -_cloneCount / 2;
-        int max = _cloneCount / 2;
         for (int i = 0; i < children.Count; i++)
         {
-            Transform child = children[i];
-            Vector3 originPos = child.position;
+            MapLayer childMapLayer = children[i].GetOrAddComponent<MapLayer>();
+            
             float cloneDistance = 0;
             if (i < CloneDistance.Count)
                 cloneDistance = CloneDistance[i];
             
-            for (int j = min; j < max; j++)
-            {
-                Transform clone = Instantiate(child, this.transform);
-                clone.position = new Vector3(originPos.x + j * cloneDistance, originPos.y, originPos.z);
-            }
+            childMapLayer.Initialize(target, cloneDistance, _cloneCount);
         }
     }
 }
