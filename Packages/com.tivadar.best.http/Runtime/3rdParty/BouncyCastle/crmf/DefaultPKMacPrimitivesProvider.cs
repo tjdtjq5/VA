@@ -1,26 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.X509;
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto;
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Security;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crmf
-{
-    public class DefaultPKMacPrimitivesProvider
-        : IPKMacPrimitivesProvider
-    {
-        public IDigest CreateDigest(AlgorithmIdentifier digestAlg)
-        {
-            return DigestUtilities.GetDigest(digestAlg.Algorithm);
-        }
-
-        public IMac CreateMac(AlgorithmIdentifier macAlg)
-        {
-            return MacUtilities.GetMac(macAlg.Algorithm);
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:2f711976591214eab9510804301edca3787eba3e09a9730c8c68ee138a88ad35
+size 787

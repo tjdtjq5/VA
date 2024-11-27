@@ -1,18 +1,3 @@
-using System;
-using System.Collections.Generic;
-
-public abstract class PlayerDataC<T>
-{
-    protected List<T> datas = new List<T>();
-    public List<T> Gets() => datas;
-    public abstract T Get(object key);
-    public void Sets(List<T> _datas)
-    {
-        if(_datas == null)
-            datas.Clear();
-        else
-            this.datas = _datas;
-    }
-    public abstract void DbGets(Action<List<T>> result);
-    public virtual void InitialData() { }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:4ed49bf7287878c2493a8957c3633a6ef204d7e6c99358b9b5a56857c72396cf
+size 476

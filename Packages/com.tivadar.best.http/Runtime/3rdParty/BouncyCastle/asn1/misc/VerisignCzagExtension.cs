@@ -1,22 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.Misc
-{
-    public class VerisignCzagExtension
-        : DerIA5String
-    {
-        public VerisignCzagExtension(DerIA5String str)
-			: base(str.GetString())
-        {
-        }
-
-        public override string ToString()
-        {
-            return "VerisignCzagExtension: " + this.GetString();
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:bcb81049971cc580d9b010c95c6ca0c8c7b94a38a3cb918872ca9f4012f3f1dd
+size 572

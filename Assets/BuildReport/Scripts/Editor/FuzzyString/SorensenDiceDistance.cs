@@ -1,20 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace FuzzyString
-{
-	public static partial class ComparisonMetrics
-	{
-		public static double SorensenDiceDistance(this string source, string target)
-		{
-			return 1 - source.SorensenDiceIndex(target);
-		}
-
-		public static double SorensenDiceIndex(this string source, string target)
-		{
-			return (2 * Convert.ToDouble(source.Intersect(target).Count())) / (Convert.ToDouble(source.Length + target.Length));
-		}
-	}
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:426e17fe692e7ce997a92bb26f7964e47837744a806d3064dab8e5beba282c1c
+size 509

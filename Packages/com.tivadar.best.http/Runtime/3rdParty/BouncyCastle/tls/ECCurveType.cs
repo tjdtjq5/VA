@@ -1,33 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
-{
-    /// <summary>RFC 4492 5.4</summary>
-    public abstract class ECCurveType
-    {
-        /**
-         * Indicates the elliptic curve domain parameters are conveyed verbosely, and the
-         * underlying finite field is a prime field.
-         */
-        public const short explicit_prime = 1;
-
-        /**
-         * Indicates the elliptic curve domain parameters are conveyed verbosely, and the
-         * underlying finite field is a characteristic-2 field.
-         */
-        public const short explicit_char2 = 2;
-
-        /**
-         * Indicates that a named curve is used. This option SHOULD be used when applicable.
-         */
-        public const short named_curve = 3;
-
-        /*
-         * Values 248 through 255 are reserved for private use.
-         */
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:f3defaca5563be617450e7292bb7ac52b6a863e77c092d219274a723a50ec033
+size 1013

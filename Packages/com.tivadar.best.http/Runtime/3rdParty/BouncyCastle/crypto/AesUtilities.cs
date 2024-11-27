@@ -1,27 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Engines;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
-{
-    public static class AesUtilities
-    {
-        public static IBlockCipher CreateEngine()
-        {
-#if NETCOREAPP3_0_OR_GREATER
-            if (AesEngine_X86.IsSupported)
-                return new AesEngine_X86();
-#endif
-
-            return new AesEngine();
-        }
-
-#if NETCOREAPP3_0_OR_GREATER
-        public static bool IsHardwareAccelerated => AesEngine_X86.IsSupported;
-#else
-        public static bool IsHardwareAccelerated => false;
-#endif
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:a87947b4a9fd617bcd3ee2fe4db5bceacb15bc71e2ce023513f0291afb56defb
+size 740

@@ -1,17 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-namespace Best.TLSSecurity.Databases.Shared
-{
-    public class DatabaseOptions
-    {
-        public string Name;
-        public bool UseHashFile;
-
-        public DiskManagerOptions DiskManager = new DiskManagerOptions();
-
-        public DatabaseOptions(string dbName)
-        {
-            this.Name = dbName;
-        }
-    }
-}
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:bac6e1485e11667d4e2b2f62e287ecddbc4c29a8ecfd16a64dd15a70d4a4ddce
+size 422

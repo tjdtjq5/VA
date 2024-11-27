@@ -1,18 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.X509;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
-{
-    /// <summary>Object Identifiers associated with TLS extensions.</summary>
-    public abstract class TlsObjectIdentifiers
-    {
-        /// <summary>RFC 7633</summary>
-        public static readonly DerObjectIdentifier id_pe_tlsfeature = X509ObjectIdentifiers.IdPE.Branch("24");
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:d85e1d0505d00edd6521b52c049c123a272d5badced7d934be7094cf3af437c8
+size 620

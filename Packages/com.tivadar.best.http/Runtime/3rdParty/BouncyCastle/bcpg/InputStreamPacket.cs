@@ -1,24 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg
-{
-    public class InputStreamPacket
-        : Packet
-    {
-        private readonly BcpgInputStream bcpgIn;
-
-		public InputStreamPacket(
-            BcpgInputStream bcpgIn)
-        {
-            this.bcpgIn = bcpgIn;
-        }
-
-		/// <summary>Note: you can only read from this once...</summary>
-		public BcpgInputStream GetInputStream()
-        {
-            return bcpgIn;
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:2e755fd4c5ea671ce4999d0633baf6c464ea9a766612810e8cd577aee7e43a0e
+size 599

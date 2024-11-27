@@ -1,35 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Utilities;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg.Sig
-{
-    /**
-    * packet giving signature expiration time.
-    */
-    public class SignatureExpirationTime
-        : SignatureSubpacket
-    {
-        protected static byte[] TimeToBytes(long t)
-        {
-            return Pack.UInt32_To_BE((uint)t);
-        }
-
-        public SignatureExpirationTime(bool critical, bool isLongLength, byte[] data)
-            : base(SignatureSubpacketTag.ExpireTime, critical, isLongLength, data)
-        {
-        }
-
-        public SignatureExpirationTime(bool critical, long seconds)
-            : base(SignatureSubpacketTag.ExpireTime, critical, false, TimeToBytes(seconds))
-        {
-        }
-
-        /**
-        * return time in seconds before signature expires after creation time.
-        */
-        public long Time => Pack.BE_To_UInt32(data, 0);
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:a96d5b566e18e3a7fc59a26a48367c15730c5084e8ee2ed69bbcd883d9e9ab6f
+size 1085

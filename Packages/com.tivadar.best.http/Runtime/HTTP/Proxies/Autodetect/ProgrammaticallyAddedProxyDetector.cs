@@ -1,16 +1,3 @@
-#if !UNITY_WEBGL || UNITY_EDITOR
-using Best.HTTP.Shared;
-
-namespace Best.HTTP.Proxies.Autodetect
-{
-    /// <summary>
-    /// This one just returns with HTTPManager.Proxy,
-    /// so when ProgrammaticallyAddedProxyDetector is used in the first place for the ProxyDetector,
-    /// HTTPManager.Proxy gets the highest priority.
-    /// </summary>
-    public sealed class ProgrammaticallyAddedProxyDetector : IProxyDetector
-    {
-        Proxy IProxyDetector.GetProxy(HTTPRequest request) => HTTPManager.Proxy;
-    }
-}
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:c613b76ad345f55566a59b5a757e22ce40a7545321bd847151013cf50cf69407
+size 538

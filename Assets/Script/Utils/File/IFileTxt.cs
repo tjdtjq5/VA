@@ -1,17 +1,3 @@
-using System.Collections.Generic;
-
-public interface IFileTxt
-{
-    public string FileName { get; }
-
-
-    string GetFile();
-    Dictionary<string, string> GetFileData();
-
-    public bool Exist();
-    public T Read<T>(string key) where T : new();
-    public string Read(string key);
-    public void Add(string key, object value);
-    public void Remove(string key);
-    public List<string> Keys();
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:af2a2a4d76fdb1320c4dfe9d6fda633241602825d472f69f868323f68a2392a7
+size 415

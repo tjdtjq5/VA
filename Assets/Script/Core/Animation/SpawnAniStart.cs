@@ -1,32 +1,3 @@
-using Spine.Unity;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class SpawnAniStart : MonoBehaviour
-{
-    [SerializeField] string startAniName;
-    [SerializeField] bool isLoop;
-
-    private void OnEnable()
-    {
-        AniStart();
-    }
-
-    void AniStart()
-    {
-        Animator animator = GetComponent<Animator>();
-        SkeletonAnimation sa = GetComponent<SkeletonAnimation>();
-
-        if (animator)
-        {
-            AniController aniController = animator.Initialize();
-            aniController.anim.SetTrigger(startAniName);
-        }
-        else if (sa)
-        {
-            SpineAniController spineAniController = sa.Initialize();
-            spineAniController.Play(startAniName,isLoop, true);
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:77d364f898ab9c62462ad94078a4258dcd6b9d7c2f3ed77195feb97902a72d62
+size 807

@@ -1,22 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
-{
-    /// <summary>Base interface for an object that can return login parameters from an SRP identity.</summary>
-    public interface TlsSrpIdentityManager
-    {
-        /// <summary>Lookup the <see cref="TlsSrpLoginParameters"/> corresponding to the specified identity.</summary>
-        /// <remarks>
-        /// NOTE: To avoid "identity probing", unknown identities SHOULD be handled as recommended in RFC 5054 2.5.1.3.
-        /// <see cref="SimulatedTlsSrpIdentityManager"/> is provided for this purpose.
-        /// </remarks>
-        /// <param name="identity">the SRP identity sent by the connecting client.</param>
-        /// <returns>the <see cref="TlsSrpLoginParameters"/> for the specified identity, or else 'simulated' parameters
-        /// if the identity is not recognized. A null value is also allowed, but not recommended.</returns>
-        TlsSrpLoginParameters GetLoginParameters(byte[] identity);
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:157091e579942d1a502ff2541e3418870db1e26ab3dd0849f258df7d72ba3c8e
+size 1145

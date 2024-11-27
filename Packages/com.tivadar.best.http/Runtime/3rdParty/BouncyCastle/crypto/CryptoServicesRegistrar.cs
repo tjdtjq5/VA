@@ -1,21 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Security;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
-{
-    public static class CryptoServicesRegistrar
-    {
-        public static SecureRandom GetSecureRandom()
-        {
-            return new SecureRandom();
-        }
-
-        public static SecureRandom GetSecureRandom(SecureRandom secureRandom)
-        {
-            return secureRandom ?? new SecureRandom();
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:f6e17f49fbc48dc9fc17fe2969f5ea3a163577e693ebf25720fc79402742d439
+size 594

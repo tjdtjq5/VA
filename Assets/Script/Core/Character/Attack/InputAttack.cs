@@ -1,27 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class InputAttack : PlayerAttack
-{
-    public override void Initialize(Character character, Transform transform, SpineAniController characterAniController, SpineAniController fxAniController)
-    {
-        base.Initialize(character, transform, characterAniController,fxAniController);
-        InputSet();
-    }
-
-    void InputSet()
-    {
-        Managers.Input.AddKeyDownAction(KeyCode.LeftArrow, InputDownLeft);
-        Managers.Input.AddKeyDownAction(KeyCode.RightArrow, InputDownRight);
-    }
-
-    void InputDownLeft()
-    {
-        AttackAction(true);
-    }
-    void InputDownRight()
-    {
-        AttackAction(false);
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:55c9a3ff71deb379bca95c7983c05bcb0f1d900dacaadb64b9063dd67d69707a
+size 745

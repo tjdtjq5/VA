@@ -1,15 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace FuzzyString
-{
-	public static partial class ComparisonMetrics
-	{
-		public static double RatcliffObershelpSimilarity(this string source, string target)
-		{
-			return (2 * Convert.ToDouble(source.Intersect(target).Count())) / (Convert.ToDouble(source.Length + target.Length));
-		}
-	}
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:938459c576db8cc65a2aba2bd8b86fe902878776eea99d92a265d2264f6d474f
+size 383

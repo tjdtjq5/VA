@@ -1,19 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto
-{
-    public abstract class CryptoHashAlgorithm
-    {
-        public const int md5 = 1;
-        public const int sha1 = 2;
-        public const int sha224 = 3;
-        public const int sha256 = 4;
-        public const int sha384 = 5;
-        public const int sha512 = 6;
-        public const int sm3 = 7;
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:157dba8d39afbf4cc28ffb2cd09fab0e7794603c5ba92aa263419d657ddf4de9
+size 535

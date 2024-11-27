@@ -1,15 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Prng.Drbg;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Prng
-{
-    internal interface IDrbgProvider
-    {
-        ISP80090Drbg Get(IEntropySource entropySource);
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:a16cc31afdd6e152773d3657d4e1756d7f87db4cbb7ba265fb1b702995d040c6
+size 395

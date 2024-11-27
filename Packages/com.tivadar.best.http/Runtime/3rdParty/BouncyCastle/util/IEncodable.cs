@@ -1,16 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System.IO;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities
-{
-    public interface IEncodable
-    {
-        /// <summary>Return a byte array representing the implementing object.</summary>
-        /// <returns>An encoding of this object as a byte array.</returns>
-        /// <exception cref="IOException"/>
-        byte[] GetEncoded();
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:c7f2784d2b4cf83e190177f02b539022d1e64c4071c10e2de339eb23e0d53cf7
+size 506

@@ -1,32 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
-
-public class UIAttack : PlayerAttack
-{
-    public override void Initialize(Character character, Transform transform, SpineAniController characterAniController, SpineAniController fxAniController)
-    {
-        base.Initialize(character, transform, characterAniController,fxAniController);
-        UISet();
-    }
-    
-    void UISet()
-    {
-        UIPlayer UIPlayer = GameObject.FindObjectOfType<UIPlayer>();
-
-        UIPlayer.SetLeftDown(InputDownLeft);
-        UIPlayer.SetRightDown(InputDownRight);
-    }
-    
-    void InputDownLeft(PointerEventData ped)
-    {
-        AttackAction(true);
-    }
- 
-    void InputDownRight(PointerEventData ped)
-    {
-        AttackAction(false);
-    }
- 
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:f5654c31523dd2452e27bdf966f26b15717df0f9c620b3d1b3ba242662383746
+size 835

@@ -1,32 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.X509
-{
-	/**
-	 * PolicyQualifierId, used in the CertificatePolicies
-	 * X509V3 extension.
-	 *
-	 * <pre>
-	 *    id-qt          OBJECT IDENTIFIER ::=  { id-pkix 2 }
-	 *    id-qt-cps      OBJECT IDENTIFIER ::=  { id-qt 1 }
-	 *    id-qt-unotice  OBJECT IDENTIFIER ::=  { id-qt 2 }
-	 *  PolicyQualifierId ::=
-	 *       OBJECT IDENTIFIER ( id-qt-cps | id-qt-unotice )
-	 * </pre>
-	 */
-	public sealed class PolicyQualifierID : DerObjectIdentifier
-	{
-		private const string IdQt = "1.3.6.1.5.5.7.2";
-
-		private PolicyQualifierID(
-			string id)
-			: base(id)
-		{
-		}
-
-		public static readonly PolicyQualifierID IdQtCps = new PolicyQualifierID(IdQt + ".1");
-		public static readonly PolicyQualifierID IdQtUnotice = new PolicyQualifierID(IdQt + ".2");
-	}
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:cfddb31afc9e9f8c45cd132160ad904181e9725c95cec4dc46f62fcf1129fe33
+size 958

@@ -1,16 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
-{
-    public abstract class RecordFormat
-    {
-        public const int TypeOffset = 0;
-        public const int VersionOffset = 1;
-        public const int LengthOffset = 3;
-        public const int FragmentOffset = 5;
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:e8afbc05195632be1371fcd70d2db8f1a7fa95699826435da6524fbd83ae09bc
+size 440

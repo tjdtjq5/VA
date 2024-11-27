@@ -1,13 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg
-{
-    public enum RevocationKeyTag
-		: byte
-    {
-		ClassDefault = 0x80,
-		ClassSensitive = 0x40
-	}
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:b79b65a53dfaebf87e88f255220e1730a97e081e388ba62af827c4b5abc595ab
+size 297

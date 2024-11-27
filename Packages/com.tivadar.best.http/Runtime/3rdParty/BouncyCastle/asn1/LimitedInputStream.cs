@@ -1,36 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System.IO;
-
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities.IO;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1
-{
-    internal abstract class LimitedInputStream
-        : BaseInputStream
-    {
-        protected readonly Stream _in;
-        private int _limit;
-
-        internal LimitedInputStream(Stream inStream, int limit)
-        {
-            this._in = inStream;
-            this._limit = limit;
-        }
-
-        internal virtual int Limit
-        {
-            get { return _limit; }
-        }
-
-        protected void SetParentEofDetect()
-        {
-            if (_in is IndefiniteLengthInputStream)
-            {
-                ((IndefiniteLengthInputStream)_in).SetEofOn00(true);
-            }
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:2e172171121ffc0a22d4342e4ab6bae25bc45c9142e4656db65761c13a149644
+size 911

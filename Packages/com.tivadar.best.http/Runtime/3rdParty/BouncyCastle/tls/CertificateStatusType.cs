@@ -1,21 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
-{
-    public abstract class CertificateStatusType
-    {
-        /*
-         *  RFC 6066
-         */
-        public const short ocsp = 1;
-
-        /*
-         *  RFC 6961
-         */
-        public const short ocsp_multi = 2;
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:61aad63a4fbf586c76690db259df679192d3bf458f198c4d1dc03f5d9bee754e
+size 450

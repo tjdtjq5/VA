@@ -1,15 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Math.EC.Endo
-{
-    public interface ECEndomorphism
-    {
-        ECPointMap PointMap { get; }
-
-        bool HasEfficientPointMap { get; }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:07587f2a9e391bd0468d27e75e080a1cb32c4500941115d830cc7c49e08512dc
+size 353

@@ -1,15 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
-{
-    /**
-     * Parameters for key/byte stream derivation classes
-     */
-    public interface IDerivationParameters
-    {
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:b7076bb0f620299f53a41b528a5f0369961078e3eb55c2a2b7e620e5c2ead572
+size 346

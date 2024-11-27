@@ -1,30 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math.EC.Multiplier;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Math.EC.Endo
-{
-    public class EndoPreCompInfo
-        : PreCompInfo
-    {
-        protected ECEndomorphism m_endomorphism;
-
-        protected ECPoint m_mappedPoint;
-
-        public virtual ECEndomorphism Endomorphism
-        {
-            get { return m_endomorphism; }
-            set { this.m_endomorphism = value; }
-        }
-
-        public virtual ECPoint MappedPoint
-        {
-            get { return m_mappedPoint; }
-            set { this.m_mappedPoint = value; }
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:f5d34b2e79f31415f92ee902504ddb964b61cb8ba00f14f2ab1b2ef021d75730
+size 784

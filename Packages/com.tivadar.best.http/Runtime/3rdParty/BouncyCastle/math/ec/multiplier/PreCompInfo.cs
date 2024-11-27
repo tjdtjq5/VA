@@ -1,15 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Math.EC.Multiplier
-{
-	/**
-	* Interface for classes storing precomputation data for multiplication
-	* algorithms. Used as a Memento (see GOF patterns) for
-	* <code>WNafMultiplier</code>.
-	*/
-	public interface PreCompInfo
-	{
-	}
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:bbc150b4eb21fa25d0da64042419ccbbd1c7d49eb4989d3d085f0d07d40cbd06
+size 420

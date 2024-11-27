@@ -1,13 +1,3 @@
-﻿namespace GUPS.EasyPerformanceMonitor.Renderer
-{
-    /// <summary>
-    /// Represents an interface for bar renderers, defining the contract for rendering bar-based information.
-    /// </summary>
-    public interface IBarRenderer : IRenderer
-    {
-        /// <summary>
-        /// Refresh the bar renderer on editor value changed by the user.
-        /// </summary>
-        void RefreshBar();
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:d471f9743f985a9a1ba5852f81ec6ab954ea0fab2bd2dce0fec1e4d40ad50969
+size 418

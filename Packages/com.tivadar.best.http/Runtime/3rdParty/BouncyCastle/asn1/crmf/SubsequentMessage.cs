@@ -1,31 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.Crmf
-{
-    public class SubsequentMessage
-        : DerInteger
-    {
-        public static readonly SubsequentMessage encrCert = new SubsequentMessage(0);
-        public static readonly SubsequentMessage challengeResp = new SubsequentMessage(1);
-    
-        private SubsequentMessage(int value)
-            : base(value)
-        {
-        }
-
-        public static SubsequentMessage ValueOf(int value)
-        {
-            if (value == 0)
-                return encrCert;
-
-            if (value == 1)
-                return challengeResp;
-
-            throw new ArgumentException("unknown value: " + value, "value");
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:461d8b139e53ff26284335d805ecea86fc16bf1014c82afcb916b460cb95f30b
+size 864

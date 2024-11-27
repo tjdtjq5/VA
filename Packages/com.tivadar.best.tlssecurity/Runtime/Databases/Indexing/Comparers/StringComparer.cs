@@ -1,15 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-using System;
-using System.Collections.Generic;
-
-namespace Best.TLSSecurity.Databases.Indexing.Comparers
-{
-    public sealed class StringComparer : IComparer<string>
-    {
-        public int Compare(string x, string y)
-        {
-            return x.CompareTo(y);
-        }
-    }
-}
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:f958135b5b2aa12dac7f968ad02bb06c57368489dc610ae46f00c02960da0f2a
+size 374

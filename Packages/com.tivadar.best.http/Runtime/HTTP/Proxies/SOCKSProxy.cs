@@ -1,29 +1,3 @@
-#if !UNITY_WEBGL || UNITY_EDITOR
-using System;
-
-using Best.HTTP.Proxies.Implementations;
-using Best.HTTP.Request.Authentication;
-using Best.HTTP.Shared.Extensions;
-
-namespace Best.HTTP.Proxies
-{
-    /// <summary>
-    /// Represents a SOCKS proxy used for making HTTP requests, supporting SOCKS version 5 (v5).
-    /// </summary>
-    public sealed class SOCKSProxy : Proxy
-    {
-        /// <summary>
-        /// Initializes a new instance of the SOCKSProxy class with the specified proxy address and credentials.
-        /// </summary>
-        /// <param name="address">The address of the SOCKS proxy server.</param>
-        /// <param name="credentials">The credentials for proxy authentication (if required).</param>
-        public SOCKSProxy(Uri address, Credentials credentials)
-            : base(address, credentials)
-        { }
-
-        public override string GetRequestPath(Uri uri) => uri.GetRequestPathAndQueryURL();
-        internal override bool SetupRequest(HTTPRequest request) => false;
-        internal override void BeginConnect(ProxyConnectParameters parameters) => new SOCKSV5Negotiator(this, parameters);
-    }
-}
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:19d14827c1f6beaabf6d6d93300d36a9bbfaee12b9cc843354d2f6a53766fdf5
+size 1170

@@ -1,31 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
-{
-    internal sealed class TlsServerCertificateImpl
-        : TlsServerCertificate
-    {
-        private readonly Certificate m_certificate;
-        private readonly CertificateStatus m_certificateStatus;
-
-        internal TlsServerCertificateImpl(Certificate certificate, CertificateStatus certificateStatus)
-        {
-            this.m_certificate = certificate;
-            this.m_certificateStatus = certificateStatus;
-        }
-
-        public Certificate Certificate
-        {
-            get { return m_certificate; }
-        }
-
-        public CertificateStatus CertificateStatus
-        {
-            get { return m_certificateStatus; }
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:b576d3f12bd31183270a215e316950801b4ee538a6dc56f9af83a0dc34ef9561
+size 892

@@ -1,31 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters
-{
-    public class RC5Parameters
-		: KeyParameter
-    {
-        private readonly int rounds;
-
-		public RC5Parameters(
-            byte[]	key,
-            int		rounds)
-			: base(key)
-        {
-            if (key.Length > 255)
-                throw new ArgumentException("RC5 key length can be no greater than 255");
-
-			this.rounds = rounds;
-        }
-
-		public int Rounds
-        {
-			get { return rounds; }
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:d95b50822ba9beea8d8a59e0e50c3ac34b8acc064fb52f9abc0f34ef63c6cc61
+size 724

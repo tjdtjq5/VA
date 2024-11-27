@@ -1,25 +1,3 @@
-#if BESTHTTP_PROFILE && UNITY_2021_2_OR_NEWER
-using Best.HTTP.Profiler.Memory;
-
-using Unity.Profiling.Editor;
-
-namespace Best.HTTP.Editor.Profiler.Memory
-{
-    [System.Serializable]
-    [ProfilerModuleMetadata(MemoryStats.CategoryName)]
-    public sealed class MemoryStatsProfilerModule : ProfilerModule
-    {
-        static readonly ProfilerCounterDescriptor[] k_Counters =
-        {
-            new ProfilerCounterDescriptor(MemoryStats.BorrowedName, MemoryStats.Category),
-            new ProfilerCounterDescriptor(MemoryStats.PooledName, MemoryStats.Category),
-            new ProfilerCounterDescriptor(MemoryStats.CacheHitsName, MemoryStats.Category),
-            new ProfilerCounterDescriptor(MemoryStats.ArrayAllocationsName, MemoryStats.Category)
-        };
-
-        public MemoryStatsProfilerModule() : base(k_Counters)
-        {
-        }
-    }
-}
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:1bdd1b9151bb66d6320be3565bdeeec7f9c26cc99b9f16b485235fac8477e6f3
+size 889

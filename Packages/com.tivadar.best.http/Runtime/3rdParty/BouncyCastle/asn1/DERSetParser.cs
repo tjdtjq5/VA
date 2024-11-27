@@ -1,30 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1
-{
-    // TODO[asn1] Should be renamed/replaced with DLSetParser
-	public class DerSetParser
-		: Asn1SetParser
-	{
-		private readonly Asn1StreamParser m_parser;
-
-		internal DerSetParser(Asn1StreamParser parser)
-		{
-			this.m_parser = parser;
-		}
-
-		public IAsn1Convertible ReadObject()
-		{
-			return m_parser.ReadObject();
-		}
-
-		public Asn1Object ToAsn1Object()
-		{
-			return DLSet.FromVector(m_parser.ReadVector());
-		}
-	}
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:9e7816d756a27b27d29cf16a02d4acdc9d0b5465f57674254d3519614ba2c40f
+size 651

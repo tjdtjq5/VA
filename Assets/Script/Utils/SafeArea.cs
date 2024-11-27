@@ -1,24 +1,3 @@
-using UnityEngine;
-public class SafeArea : MonoBehaviour
-{
-    RectTransform _rectTransform;
-    Rect _safeArea;
-    Vector2 _minAnchor;
-    Vector2 _maxAnchor;
-
-    void Awake()
-    {
-        _rectTransform = GetComponent<RectTransform>();
-        _safeArea = Screen.safeArea;
-        _minAnchor = _safeArea.position;
-        _maxAnchor = _minAnchor + _safeArea.size;
-
-        _minAnchor.x /= Screen.width;
-        _minAnchor.y /= Screen.height;
-        _maxAnchor.x /= Screen.width;
-        _maxAnchor.y /= Screen.height;
-
-        _rectTransform.anchorMin = _minAnchor;
-        _rectTransform.anchorMax = _maxAnchor;
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:1a5451dd6f5b76512964d80df1da5ef5b44a25a15ae334e03ec21836cd493352
+size 649

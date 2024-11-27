@@ -1,13 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
-{
-    public interface TlsPskExternal
-        : TlsPsk
-    {
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:cb7a96afafb2b6af0d2a90c0ccc8613e54b4bf26f3692e65952ee37ce3344e6e
+size 278

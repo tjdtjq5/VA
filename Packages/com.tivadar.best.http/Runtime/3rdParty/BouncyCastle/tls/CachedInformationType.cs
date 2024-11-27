@@ -1,32 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
-{
-    public abstract class CachedInformationType
-    {
-        public const short cert = 1;
-        public const short cert_req = 2;
-
-        public static string GetName(short cachedInformationType)
-        {
-            switch (cachedInformationType)
-            {
-            case cert:
-                return "cert";
-            case cert_req:
-                return "cert_req";
-            default:
-                return "UNKNOWN";
-            }
-        }
-
-        public static string GetText(short cachedInformationType)
-        {
-            return GetName(cachedInformationType) + "(" + cachedInformationType + ")";
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:a20f66e0d04f69aa4895f97e56e2071919d30dd72a46216d8aa10a7177e63ba9
+size 873

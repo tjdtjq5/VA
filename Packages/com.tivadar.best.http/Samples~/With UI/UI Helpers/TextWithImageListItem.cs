@@ -1,27 +1,3 @@
-using Best.HTTP.Examples.Helpers;
-
-using UnityEngine;
-using UnityEngine.UI;
-
-namespace Best.HTTP.Examples
-{
-    class TextWithImageListItem : MultiTextListItem
-    {
-#pragma warning disable 0649
-        [SerializeField]
-        protected RawImage _image;
-#pragma warning restore
-
-        public new TextWithImageListItem SetStatusText(string text)
-        {
-            this._statusText.text = text;
-            return this;
-        }
-
-        public TextWithImageListItem SetImage(Texture2D texture)
-        {
-            this._image.texture = texture;
-            return this;
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:a02b43dbb0b06930a45e03d1fc11e22e3695d7bdf532c03c82d6ec0fbe024088
+size 624

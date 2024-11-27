@@ -1,17 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class UnderlineTitleAttribute : PropertyAttribute
-{
-    // Title Text
-    public string Title { get; private set; }
-    // 拉率 GUI客 剁况临 傍埃
-    public int Space { get; private set; }
-
-    public UnderlineTitleAttribute(string title, int space = 12)
-    {
-        Title = title;
-        Space = space;
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:20503b41dc0757852aefe1770ae2b007b1d588d8ad72bd636bc62cf142b44b3d
+size 419

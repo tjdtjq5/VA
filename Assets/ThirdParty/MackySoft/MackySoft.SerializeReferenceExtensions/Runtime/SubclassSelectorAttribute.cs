@@ -1,12 +1,3 @@
-﻿#if UNITY_2019_3_OR_NEWER
-using System;
-using UnityEngine;
-
-/// <summary>
-/// Attribute to specify the type of the field serialized by the SerializeReference attribute in the inspector.
-/// </summary>
-[AttributeUsage(AttributeTargets.Field,AllowMultiple = false)]
-public sealed class SubclassSelectorAttribute : PropertyAttribute {
-	
-}
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:f36cb946b64b8ff06396bd5951f56c0f7d2e1697ff64dff9ffc9d773ac7f5a75
+size 356

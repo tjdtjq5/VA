@@ -1,35 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-using System.Runtime.Serialization;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto
-{
-	/// <summary>Basic exception class for crypto services to pass back a cause.</summary>
-	[Serializable]
-	public class TlsCryptoException
-        : TlsException
-    {
-		public TlsCryptoException()
-			: base()
-		{
-		}
-
-		public TlsCryptoException(string message)
-			: base(message)
-		{
-		}
-
-		public TlsCryptoException(string message, Exception innerException)
-			: base(message, innerException)
-		{
-		}
-
-		protected TlsCryptoException(SerializationInfo info, StreamingContext context)
-			: base(info, context)
-		{
-		}
-	}
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:e2855a5099237e8a084c6bc8476be3b546ff99b7315d2e6c6b8fe1f34e636a5a
+size 798

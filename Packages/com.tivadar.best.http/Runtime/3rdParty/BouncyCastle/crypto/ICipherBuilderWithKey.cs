@@ -1,20 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
-{
-    /// <summary>
-    /// A cipher builder that can also return the key it was initialized with.
-    /// </summary>
-    public interface ICipherBuilderWithKey
-        : ICipherBuilder
-    {
-        /// <summary>
-        /// Return the key we were initialized with.
-        /// </summary>
-        ICipherParameters Key { get; }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:8abc3b60bbaf0464b1db1f2d2cc9223ac08b2c8f67c65578b250e1c4e7227b27
+size 556

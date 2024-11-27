@@ -1,13 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Math.EC.Multiplier
-{
-    public interface IPreCompCallback
-    {
-        PreCompInfo Precompute(PreCompInfo existing);
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:0a4f5024aea709f5b3bc453c7768f6dde2a75145cf2461297b19f26bd2cf557f
+size 332

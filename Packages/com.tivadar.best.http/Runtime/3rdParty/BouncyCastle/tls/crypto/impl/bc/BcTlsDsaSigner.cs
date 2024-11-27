@@ -1,33 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto;
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters;
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Signers;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto.Impl.BC
-{
-    /// <summary>Implementation class for generation of the raw DSA signature type using the BC light-weight API.
-    /// </summary>
-    public class BcTlsDsaSigner
-        : BcTlsDssSigner
-    {
-        public BcTlsDsaSigner(BcTlsCrypto crypto, DsaPrivateKeyParameters privateKey)
-            : base(crypto, privateKey)
-        {
-        }
-
-        protected override IDsa CreateDsaImpl(int cryptoHashAlgorithm)
-        {
-            return new DsaSigner(new HMacDsaKCalculator(m_crypto.CreateDigest(cryptoHashAlgorithm)));
-        }
-
-        protected override short SignatureAlgorithm
-        {
-            get { return Tls.SignatureAlgorithm.dsa; }
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:4efd6c3507484515d147aef6d9e747caf18ffd349be0f05470e4da5d284e1fdf
+size 1105

@@ -1,21 +1,3 @@
-using System;
-
-namespace Best.HTTP.Shared.PlatformSupport.IL2CPP
-{
-    /// <summary>
-    /// https://docs.unity3d.com/Manual/ManagedCodeStripping.html
-    /// </summary>
-    [AttributeUsage(
-        AttributeTargets.Assembly |
-        AttributeTargets.Class |
-        AttributeTargets.Constructor |
-        AttributeTargets.Delegate |
-        AttributeTargets.Enum |
-        AttributeTargets.Event |
-        AttributeTargets.Field |
-        AttributeTargets.Interface |
-        AttributeTargets.Method |
-        AttributeTargets.Property |
-        AttributeTargets.Struct)]
-    public sealed class PreserveAttribute : Attribute {}
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:20c9f4e60956112489ea565a48948cc5bbe6388a48af47b95a66c9439b6a5ed7
+size 654

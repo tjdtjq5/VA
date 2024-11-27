@@ -1,29 +1,3 @@
-using System;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
-
-public class UIEventHandler : UIBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
-{
-    public Action<PointerEventData> eventHandlerClick;
-    public Action<PointerEventData> eventHandlerPointDown;
-    public Action<PointerEventData> eventHandlerPointUp;
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (eventHandlerClick != null)
-            eventHandlerClick.Invoke(eventData);
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        if (eventHandlerPointDown != null)
-            eventHandlerPointDown.Invoke(eventData);
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        if (eventHandlerPointUp != null)
-            eventHandlerPointUp.Invoke(eventData);
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:209ae8bc50cfb35a6a80f353403a2d2585071670da7f4a1654987b8ca0326598
+size 884

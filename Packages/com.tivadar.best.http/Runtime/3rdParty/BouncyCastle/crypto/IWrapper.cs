@@ -1,18 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
-{
-    public interface IWrapper
-    {
-		/// <summary>The name of the algorithm this cipher implements.</summary>
-		string AlgorithmName { get; }
-
-		void Init(bool forWrapping, ICipherParameters parameters);
-
-		byte[] Wrap(byte[] input, int inOff, int length);
-
-        byte[] Unwrap(byte[] input, int inOff, int length);
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:1f3066c55d2028d5188383a14aa7da41b9bfdc1e9a41087db1a49e19c15b8f24
+size 531

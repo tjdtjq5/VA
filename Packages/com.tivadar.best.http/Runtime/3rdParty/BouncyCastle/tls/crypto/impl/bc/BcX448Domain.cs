@@ -1,24 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto.Impl.BC
-{
-    public class BcX448Domain
-        : TlsECDomain
-    {
-        protected readonly BcTlsCrypto m_crypto;
-
-        public BcX448Domain(BcTlsCrypto crypto)
-        {
-            this.m_crypto = crypto;
-        }
-
-        public virtual TlsAgreement CreateECDH()
-        {
-            return new BcX448(m_crypto);
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:f0bae50c19293670e111d4989dcdcf8c26ca1cd3038f76b2c1b7d2c9994b83cd
+size 568

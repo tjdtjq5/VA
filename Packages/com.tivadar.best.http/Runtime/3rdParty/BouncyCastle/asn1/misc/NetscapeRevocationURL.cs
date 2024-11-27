@@ -1,22 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.Misc
-{
-    public class NetscapeRevocationUrl
-        : DerIA5String
-    {
-        public NetscapeRevocationUrl(DerIA5String str)
-			: base(str.GetString())
-        {
-        }
-
-        public override string ToString()
-        {
-            return "NetscapeRevocationUrl: " + this.GetString();
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:645a1e9018023cd65cfbf32dbe9dfd93702b3f9a40af0d15bcb78fe1660e042a
+size 572

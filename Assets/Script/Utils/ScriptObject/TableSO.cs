@@ -1,21 +1,3 @@
-using System;
-using System.ComponentModel;
-using UnityEngine;
-
-public class TableSO : ScriptableObject, ICloneable
-{
-    [SerializeField]
-    private Sprite icon;
-    public string codeName;
-    [SerializeField]
-    private string displayName;
-    [SerializeField]
-    private string description;
-
-    public Sprite Icon => icon;
-    public string DisplayName => displayName;
-    public virtual string Description => description;
-
-    public virtual object Clone() => Instantiate(this);
-    protected virtual object TableDataObject => default;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:3e55c9c234c1d4f7ad8ce31e7856cbb1debbd57946085158934a0fbb7dab42e6
+size 567

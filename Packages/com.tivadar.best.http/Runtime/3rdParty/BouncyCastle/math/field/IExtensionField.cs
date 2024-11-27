@@ -1,16 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Math.Field
-{
-    public interface IExtensionField
-        : IFiniteField
-    {
-        IFiniteField Subfield { get; }
-
-        int Degree { get; }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:84ec588985091316a6da05b169d44a8eafa162d8c291445ad19ebcc4f07c82b9
+size 363

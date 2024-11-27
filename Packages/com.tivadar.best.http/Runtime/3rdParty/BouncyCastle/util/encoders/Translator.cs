@@ -1,23 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities.Encoders
-{
-    /// <summary>
-    /// Translator interface.
-    /// </summary>
-    public interface ITranslator
-    {
-        int GetEncodedBlockSize();
-
-        int Encode(byte[] input, int inOff, int length, byte[] outBytes, int outOff);
-
-        int GetDecodedBlockSize();
-
-        int Decode(byte[] input, int inOff, int length, byte[] outBytes, int outOff);
-    }
-
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:a1119359b2592c6aed6aacbda279973ca6d356bc346fa3ff00bb59b8ea1e73ad
+size 596

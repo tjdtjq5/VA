@@ -1,31 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-using System.Collections.Generic;
-
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.Cms;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Cms
-{
-	/**
-	 * Basic generator that just returns a preconstructed attribute table
-	 */
-	public class SimpleAttributeTableGenerator
-		: CmsAttributeTableGenerator
-	{
-		private readonly AttributeTable attributes;
-
-		public SimpleAttributeTableGenerator(
-			AttributeTable attributes)
-		{
-			this.attributes = attributes;
-		}
-
-		public virtual AttributeTable GetAttributes(IDictionary<CmsAttributeTableParameter, object> parameters)
-		{
-			return attributes;
-		}
-	}
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:9efc21006e5ace953ea284e7b3f73e5f78df5ae1b712a2e96bb3672f31dc5eb8
+size 781

@@ -1,12 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.Kisa
-{
-	public abstract class KisaObjectIdentifiers
-	{
-		public static readonly DerObjectIdentifier IdSeedCbc = new DerObjectIdentifier("1.2.410.200004.1.4");
-		public static readonly DerObjectIdentifier IdNpkiAppCmsSeedWrap = new DerObjectIdentifier("1.2.410.200004.7.1.1.1");
-	}
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:6763d3e5d3ea05ecd6d7b4128998d8eb3f470c1c0b7305cb039e99667063d17b
+size 477

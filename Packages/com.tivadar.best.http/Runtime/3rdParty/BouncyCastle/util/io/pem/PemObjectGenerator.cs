@@ -1,17 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities.IO.Pem
-{
-	public interface PemObjectGenerator
-	{
-		/// <returns>
-		/// A <see cref="PemObject"/>
-		/// </returns>
-		/// <exception cref="PemGenerationException"></exception>
-		PemObject Generate();
-	}
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:6baf5c3e24240ddb456987de1206fed58bcb1e460058c81cad1d18d560e24af5
+size 422
