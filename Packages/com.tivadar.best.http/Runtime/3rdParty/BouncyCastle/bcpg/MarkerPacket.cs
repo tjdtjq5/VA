@@ -1,28 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System.IO;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg
-{
-	/// <remarks>Basic type for a marker packet.</remarks>
-    public class MarkerPacket
-        : ContainedPacket
-    {
-        // "PGP"
-        byte[] marker = { (byte)0x50, (byte)0x47, (byte)0x50 };
-
-        public MarkerPacket(
-            BcpgInputStream bcpgIn)
-        {
-            bcpgIn.ReadFully(marker);
-        }
-
-        public override void Encode(
-            BcpgOutputStream bcpgOut)
-        {
-            bcpgOut.WritePacket(PacketTag.Marker, marker, true);
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:ce6cb03e625863308e1982e531b1383b36deeeddc260c896510598337885e743
+size 722

@@ -1,28 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Prng;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto.Impl.BC
-{
-    internal sealed class BcTlsNonceGenerator
-        : TlsNonceGenerator
-    {
-        private readonly IRandomGenerator m_randomGenerator;
-
-        internal BcTlsNonceGenerator(IRandomGenerator randomGenerator)
-        {
-            this.m_randomGenerator = randomGenerator;
-        }
-
-        public byte[] GenerateNonce(int size)
-        {
-            byte[] nonce = new byte[size];
-            m_randomGenerator.NextBytes(nonce);
-            return nonce;
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:6c02b2170bcd9b4c4f9d3ef7ef062b5678362c0751bed03b4a83c96de9071729
+size 782

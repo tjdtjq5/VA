@@ -1,22 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class DestroyCallback : MonoBehaviour
-{
-    Action _callback;
-    public void DestroyCallbackSetting(Action callback)
-    {
-        _callback = callback;
-    }
-
-    private void OnDestroy()
-    {
-        if ( _callback != null)
-        {
-            _callback.Invoke();
-            _callback = null;
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:8262619ecb64ed6b23b576cc61f7c67a4f6103f117bbaaa4f218d111acb968b5
+size 441

@@ -1,26 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Generators
-{
-	/**
-	 * KDF2 generator for derived keys and ivs as defined by IEEE P1363a/ISO 18033
-	 * <br/>
-	 * This implementation is based on IEEE P1363/ISO 18033.
-	 */
-	public sealed class Kdf2BytesGenerator
-		: BaseKdfBytesGenerator
-	{
-		/**
-		* Construct a KDF2 bytes generator. Generates key material
-		* according to IEEE P1363 or ISO 18033 depending on the initialisation.
-		*
-		* @param digest the digest to be used as the source of derived keys.
-		*/
-		public Kdf2BytesGenerator(IDigest digest)
-			: base(1, digest)
-		{
-		}
-	}
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:ca329c00a1aa2275d7a1ecb76285df62e0675612470c65b0d4cd906a72e10f83
+size 749

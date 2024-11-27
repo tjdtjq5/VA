@@ -1,20 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.X509;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.Smime
-{
-    public class SmimeCapabilitiesAttribute
-        : AttributeX509
-    {
-        public SmimeCapabilitiesAttribute(
-            SmimeCapabilityVector capabilities)
-            : base(SmimeAttributes.SmimeCapabilities,
-                    new DerSet(new DerSequence(capabilities.ToAsn1EncodableVector())))
-        {
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:7eb04d83d4cc6703ae427cb759c25eebf25a1176faedbf76ac8adb91ce002d20
+size 658

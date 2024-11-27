@@ -1,28 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Math.EC.Multiplier
-{
-    /**
-     * Class holding precomputation data for the WTNAF (Window
-     * <code>&#964;</code>-adic Non-Adjacent Form) algorithm.
-     */
-    public class WTauNafPreCompInfo
-        : PreCompInfo
-    {
-        /**
-         * Array holding the precomputed <code>AbstractF2mPoint</code>s used for the
-         * WTNAF multiplication in <code>
-         * {@link org.bouncycastle.math.ec.multiplier.WTauNafMultiplier.multiply()
-         * WTauNafMultiplier.multiply()}</code>.
-         */
-        protected AbstractF2mPoint[] m_preComp;
-
-        public virtual AbstractF2mPoint[] PreComp
-        {
-            get { return m_preComp; }
-            set { this.m_preComp = value; }
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:a8aaccb257c1e615bfd8d9571ce51381a4344595dd0ea5d809b00ae8fe1dcb5e
+size 923

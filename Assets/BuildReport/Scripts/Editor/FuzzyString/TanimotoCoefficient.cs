@@ -1,19 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace FuzzyString
-{
-	public static partial class ComparisonMetrics
-	{
-		public static double TanimotoCoefficient(this string source, string target)
-		{
-			double Na = source.Length;
-			double Nb = target.Length;
-			double Nc = source.Intersect(target).Count();
-
-			return Nc / (Na + Nb - Nc);
-		}
-	}
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:12f5aa2cc7b33dd46ba665d6ddbb47b178b8b21bc2e75a571dc94e8976218040
+size 396

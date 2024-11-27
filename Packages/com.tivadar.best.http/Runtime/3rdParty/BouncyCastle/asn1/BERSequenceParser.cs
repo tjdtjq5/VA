@@ -1,34 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1
-{
-    public class BerSequenceParser
-        : Asn1SequenceParser
-    {
-        private readonly Asn1StreamParser _parser;
-
-        internal BerSequenceParser(Asn1StreamParser parser)
-        {
-            this._parser = parser;
-        }
-
-        public IAsn1Convertible ReadObject()
-        {
-            return _parser.ReadObject();
-        }
-
-        public Asn1Object ToAsn1Object()
-        {
-            return Parse(_parser);
-        }
-
-        internal static BerSequence Parse(Asn1StreamParser sp)
-        {
-            return new BerSequence(sp.ReadVector());
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:37227906f970f72afbc333db6c28a99d921e635543623140f237ab81b66aac09
+size 819

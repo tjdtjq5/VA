@@ -1,10 +1,3 @@
-using System.Reflection;
-
-[assembly: AssemblyVersion("3.0.10")]
-[assembly: AssemblyCompany("Tivadar György Nagy")]
-[assembly: AssemblyCopyright("Copyright © 2024 Tivadar György Nagy")]
-[assembly: AssemblyDescription("Best HTTP is a versatile and efficient HTTP client library for Unity, designed for making HTTP requests, handling responses, and providing advanced features such as asynchronous requests, compression, timing analysis, and more.")]
-
-#if BESTHTTP_WITH_BURST
-[assembly: Unity.Burst.BurstCompile(CompileSynchronously = true, OptimizeFor = Unity.Burst.OptimizeFor.Performance)]
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:888232844f33606fa99119d3b65492dde28173880c18bdc3f93a967a82418e44
+size 610

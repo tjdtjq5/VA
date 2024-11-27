@@ -1,24 +1,3 @@
-using System.Collections.Generic;
-
-namespace Best.HTTP.Shared.Databases.Indexing.Comparers
-{
-    public sealed class ByteArrayComparer : IComparer<byte[]>
-    {
-        public int Compare(byte[] x, byte[] y)
-        {
-            int result = x.Length.CompareTo(y.Length);
-            if (result != 0)
-                return result;
-
-            for (int i = 0; i < x.Length; ++i)
-            {
-                result = x[i].CompareTo(y[i]);
-
-                if (result != 0)
-                    return result;
-            }
-
-            return 0;
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:577c6a94d2ec5d3d59d5488f97626b67971730fd80f2383ab845daf799363d3e
+size 590

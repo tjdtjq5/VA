@@ -1,21 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
-{
-    /// <summary>
-    /// Base interface describing a provider of entropy sources.
-    /// </summary>
-    public interface IEntropySourceProvider
-    {
-        /// <summary>
-        /// Return an entropy source providing a block of entropy.
-        /// </summary>
-        /// <param name="bitsRequired">The size of the block of entropy required.</param>
-        /// <returns>An entropy source providing bitsRequired blocks of entropy.</returns>
-        IEntropySource Get(int bitsRequired);
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:db841f202c8b543148edb5a566154fccfa6dc99b95a4f85aa50ff7cbe4fef9c9
+size 721

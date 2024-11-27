@@ -1,32 +1,3 @@
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
-namespace Best.HTTP.Examples.Helpers.SelectorUI
-{
-    sealed class ExampleListItem : MonoBehaviour
-    {
-#pragma warning disable 0649
-        [SerializeField]
-        private Text _text;
-#pragma warning restore
-
-        public SampleSelectorUI ParentUI { get; private set; }
-
-        public SampleBase ExamplePrefab { get; private set; }
-
-        public void Setup(SampleSelectorUI parentUI, SampleBase prefab)
-        {
-            this.ParentUI = parentUI;
-            this.ExamplePrefab = prefab;
-
-            this._text.text = prefab.DisplayName;
-        }
-
-        public void OnButton()
-        {
-            this.ParentUI.SelectSample(this);
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:ce24726e8a701ec54cc5e7f5ba1ea7f5a9c84e6592f455dabfbf858fe979e07c
+size 789

@@ -1,22 +1,3 @@
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
-namespace Best.HTTP.Examples.Helpers.SelectorUI
-{
-    sealed class Category : MonoBehaviour
-    {
-#pragma warning disable 0649
-
-        [SerializeField]
-        private Text _text;
-
-#pragma warning restore
-
-        public void SetLabel(string category)
-        {
-            this._text.text = category;
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:0eb0e961d595e87a838ad2d73ce8b4e26352be2a90a091391387c6e401ec4aea
+size 433

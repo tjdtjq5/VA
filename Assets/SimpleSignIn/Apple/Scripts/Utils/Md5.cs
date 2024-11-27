@@ -1,34 +1,3 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-
-namespace Assets.SimpleSignIn.Apple.Scripts.Utils
-{
-    /// <summary>
-    /// Md5 helper.
-    /// </summary>
-    public static class Md5
-    {
-        /// <summary>
-        /// Compute Md5-hash from string.
-        /// </summary>
-        public static string ComputeHash(string input)
-        {
-            var inputBytes = Encoding.UTF8.GetBytes(input);
-
-            return ComputeHash(inputBytes);
-        }
-
-        public static string ComputeHash(byte[] inputBytes)
-        {
-            var hash = MD5.Create().ComputeHash(inputBytes);
-            var stringBuilder = new StringBuilder();
-
-            foreach (var @byte in hash)
-            {
-                stringBuilder.Append(@byte.ToString("X2"));
-            }
-
-            return stringBuilder.ToString().ToLower();
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:725b3e523adf50bca88a4b127d2e0c35b49a516e3864c41348b7392017fcc98d
+size 889

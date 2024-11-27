@@ -1,24 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
-{
-    internal class TlsClientContextImpl
-        : AbstractTlsContext, TlsClientContext
-    {
-        internal TlsClientContextImpl(TlsCrypto crypto)
-            : base(crypto, ConnectionEnd.client)
-        {
-        }
-
-        public override bool IsServer
-        {
-            get { return false; }
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:25fb141fce13103c343fea8bdaace3ff968168657fb4f432330dee0fcb937ce7
+size 602

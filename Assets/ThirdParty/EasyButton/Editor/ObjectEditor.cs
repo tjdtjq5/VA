@@ -1,26 +1,3 @@
-﻿namespace EasyButtons.Editor
-{
-    using UnityEditor;
-    using Object = UnityEngine.Object;
-
-    /// <summary>
-    /// Custom inspector for <see cref="UnityEngine.Object"/> including derived classes.
-    /// </summary>
-    [CustomEditor(typeof(Object), true)]
-    [CanEditMultipleObjects]
-    internal class ObjectEditor : Editor
-    {
-        private ButtonsDrawer _buttonsDrawer;
-
-        private void OnEnable()
-        {
-            _buttonsDrawer = new ButtonsDrawer(target);
-        }
-
-        public override void OnInspectorGUI()
-        {
-            DrawDefaultInspector();
-            _buttonsDrawer.DrawButtons(targets);
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:4dcfc3d1f1aaa1c23fc2c6a5100a6c5124ee39840951199a263474aa46a58f52
+size 681

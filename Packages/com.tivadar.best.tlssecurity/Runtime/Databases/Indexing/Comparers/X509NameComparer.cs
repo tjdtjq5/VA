@@ -1,17 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-using System;
-using System.Collections.Generic;
-
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.X509;
-
-namespace Best.TLSSecurity.Databases.Indexing.Comparers
-{
-    public sealed class X509NameComparer : IComparer<X509Name>
-    {
-        public int Compare(X509Name x, X509Name y)
-        {
-            return string.CompareOrdinal(x.ToString(), y.ToString());
-        }
-    }
-}
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:fa5b2cb336488e40d858f757489be35fcde771e0c7b43ecc91894c0cd4bbfa53
+size 479

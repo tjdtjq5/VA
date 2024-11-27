@@ -1,29 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public enum AnimatorParameterType
-{
-    Bool,
-    Trigger
-}
-
-[System.Serializable]
-public struct AnimatorParameter
-{
-    public AnimatorParameterType type;
-    public string name;
-
-    private int hash;
-
-    public bool IsValid => !string.IsNullOrEmpty(name);
-    public int Hash
-    {
-        get
-        {
-            if (hash == 0 && IsValid)
-                hash = Animator.StringToHash(name);
-            return hash;
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:969f57f12a7143c2ca94e72ea29b32cbeabdca460c3291cbfe49bae8fafd5df0
+size 550

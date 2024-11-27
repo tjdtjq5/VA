@@ -1,29 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-using System.Collections.Generic;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities.Collections
-{
-    internal sealed class StoreImpl<T>
-        : IStore<T>
-    {
-        private readonly List<T> m_contents;
-
-        internal StoreImpl(IEnumerable<T> e)
-        {
-            m_contents = new List<T>(e);
-        }
-
-        IEnumerable<T> IStore<T>.EnumerateMatches(ISelector<T> selector)
-        {
-            foreach (T candidate in m_contents)
-            {
-                if (selector == null || selector.Match(candidate))
-                    yield return candidate;
-            }
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:0a01bb81c1068ae3d032ccf14ec47cdef66253471d9f3cedbacc87109365379c
+size 785

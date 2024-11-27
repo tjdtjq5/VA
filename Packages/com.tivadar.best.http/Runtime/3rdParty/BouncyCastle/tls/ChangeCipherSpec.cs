@@ -1,13 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
-{
-    public abstract class ChangeCipherSpec
-    {
-        public const short change_cipher_spec = 1;
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:399454a04ac064b7b2b32e03f331a250ad9019f471beb56f8b9dc974aeff7a41
+size 319

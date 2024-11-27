@@ -1,21 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-public class PlayerDataManager
-{
-    ItemPlayerDataC _item = new ItemPlayerDataC(); 
-    public void Initialize()
-    {
-        _item.InitialData();
-    }
-    public void DbGets(Action callback = null)
-    {
-        Managers.Web.SendGetRequest<PlayerDataGetsResponse>("playerData/gets", (_result) =>
-        {
-            _item.Sets(_result.Items);
-            callback.Invoke();
-        });
-    }
-    public ItemPlayerDataC Item => _item;
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:5fae7dceff2a26fa8754cf2262d3210206f0ff714d5f403dd3379407c497683c
+size 512

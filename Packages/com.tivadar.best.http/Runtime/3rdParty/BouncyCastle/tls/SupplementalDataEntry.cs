@@ -1,30 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
-{
-    public sealed class SupplementalDataEntry
-    {
-        private readonly int m_dataType;
-        private readonly byte[] m_data;
-
-        public SupplementalDataEntry(int dataType, byte[] data)
-        {
-            this.m_dataType = dataType;
-            this.m_data = data;
-        }
-
-        public int DataType
-        {
-            get { return m_dataType; }
-        }
-
-        public byte[] Data
-        {
-            get { return m_data; }
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:093924e87c8598a8dfdb7dc1ee9c35c802ef2d369bfe3a91755d3f1ad886e0aa
+size 697

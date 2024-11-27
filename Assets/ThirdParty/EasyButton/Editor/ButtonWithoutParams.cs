@@ -1,23 +1,3 @@
-﻿namespace EasyButtons.Editor
-{
-    using System.Reflection;
-    using UnityEngine;
-    using System.Collections.Generic;
-
-    internal class ButtonWithoutParams : Button
-    {
-        public ButtonWithoutParams(MethodInfo method, ButtonAttribute buttonAttribute)
-            : base(method, buttonAttribute) { }
-
-        protected override void DrawInternal(IEnumerable<object> targets)
-        {
-            if ( ! GUILayout.Button(DisplayName))
-                return;
-
-            foreach (object obj in targets)
-            {
-                Method.Invoke(obj, null);
-            }
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:ac793a585df4d66de0ddb8905066b8aa970c486fd5c394e78437e3b5e512de86
+size 627

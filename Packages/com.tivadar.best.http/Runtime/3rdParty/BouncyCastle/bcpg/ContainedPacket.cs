@@ -1,26 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-using System.IO;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg
-{
-	/// <remarks>Basic type for a PGP packet.</remarks>
-    public abstract class ContainedPacket
-        : Packet
-    {
-        public byte[] GetEncoded()
-        {
-            MemoryStream bOut = new MemoryStream();
-            BcpgOutputStream pOut = new BcpgOutputStream(bOut);
-
-			pOut.WritePacket(this);
-
-			return bOut.ToArray();
-        }
-
-		public abstract void Encode(BcpgOutputStream bcpgOut);
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:a27c4aa852c43a5dd5cb6447b8be62d0cf4ef1844c0abb3868d97e705a15e058
+size 652

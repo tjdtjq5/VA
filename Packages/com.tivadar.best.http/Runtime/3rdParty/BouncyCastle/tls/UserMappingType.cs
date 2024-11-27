@@ -1,17 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
-{
-    /// <summary>RFC 4681</summary>
-    public abstract class UserMappingType
-    {
-        /*
-         * RFC 4681
-         */
-        public const short upn_domain_hint = 64;
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:c99da45672a6e45e83d24a083956d9cd295bb176d52b234b61c1347363159808
+size 399

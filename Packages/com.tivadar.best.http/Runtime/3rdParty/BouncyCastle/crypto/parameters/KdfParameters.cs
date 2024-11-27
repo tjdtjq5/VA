@@ -1,35 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters
-{
-    /**
-     * parameters for Key derivation functions for IEEE P1363a
-     */
-    public class KdfParameters
-        : IDerivationParameters
-    {
-        private readonly byte[] m_iv;
-        private readonly byte[] m_shared;
-
-        public KdfParameters(byte[] shared, byte[] iv)
-        {
-            m_shared = shared;
-            m_iv = iv;
-        }
-
-        public byte[] GetSharedSecret()
-        {
-            return m_shared;
-        }
-
-        public byte[] GetIV()
-        {
-            return m_iv;
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:7df6525d04fe02983a11c451f5dc9a91f95d57f3e9a2f4b4700165b748091f9d
+size 835

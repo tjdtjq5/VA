@@ -1,32 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-using System.IO;
-using System.Runtime.Serialization;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
-{
-    /// <summary>This exception will be thrown (only) when the connection is closed by the peer without sending a
-    /// <see cref="AlertDescription.close_notify">close_notify</see> warning alert.</summary>
-    /// <remarks>
-    /// If this happens, the TLS protocol cannot rule out truncation of the connection data (potentially
-    /// malicious). It may be possible to check for truncation via some property of a higher level protocol
-    /// built upon TLS, e.g.the Content-Length header for HTTPS.
-    /// </remarks>
-    [Serializable]
-    public class TlsNoCloseNotifyException
-        : EndOfStreamException
-    {
-        public TlsNoCloseNotifyException()
-            : base("No close_notify alert received before connection closed")
-        {
-        }
-
-		protected TlsNoCloseNotifyException(SerializationInfo info, StreamingContext context)
-			: base(info, context)
-		{
-		}
-	}
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:d47c903c844b581364e717e19d54556a5bcb83d20524d74c2d41ad4ed94d2251
+size 1173

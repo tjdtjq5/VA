@@ -1,28 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace FuzzyString
-{
-	public static partial class ComparisonMetrics
-	{
-		public static int HammingDistance(this string source, string target)
-		{
-			int distance = 0;
-
-			if (source.Length == target.Length)
-			{
-				for (int i = 0; i < source.Length; i++)
-				{
-					if (!source[i].Equals(target[i]))
-					{
-						distance++;
-					}
-				}
-				return distance;
-			}
-			else { return 99999; }
-		}
-	}
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:d26dcad6a1932640554e25d9f5ea45875a4c46f251c55575738937162e967111
+size 493

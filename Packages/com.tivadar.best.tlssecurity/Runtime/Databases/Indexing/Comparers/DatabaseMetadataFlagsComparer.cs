@@ -1,17 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-using System;
-using System.Collections.Generic;
-
-using Best.TLSSecurity.Databases.Shared;
-
-namespace Best.TLSSecurity.Databases.Indexing.Comparers
-{
-    public sealed class DatabaseMetadataFlagsComparer : IComparer<MetadataFlags>
-    {
-        public int Compare(MetadataFlags x, MetadataFlags y)
-        {
-            return ((byte)x).CompareTo((byte)y);
-        }
-    }
-}
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:7c60495bc63caf83030a7277c3a2f1e5dee95ae5ccce4377a9b8ad75290eab39
+size 468

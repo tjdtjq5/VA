@@ -1,27 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-using System.IO;
-
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
-{
-    internal class DigestInputBuffer
-        : MemoryStream
-    {
-        internal void UpdateDigest(TlsHash hash)
-        {
-            WriteTo(new TlsHashSink(hash));
-        }
-
-        /// <exception cref="IOException"/>
-        internal void CopyInputTo(Stream output)
-        {
-            // TODO[tls] Consider defensive copy if 'output' might be external code
-            WriteTo(output);
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:259e3bfd028df587c14de981584f7a1dfcaae1a3feca81b938cf480ba5fd7145
+size 717

@@ -1,25 +1,3 @@
-using UnityEngine;
-using UnityEngine.UI;
-
-namespace Best.HTTP.Examples.Helpers
-{
-    class TextListItem : MonoBehaviour
-    {
-#pragma warning disable 0649
-        [SerializeField]
-        protected Text _text;
-#pragma warning restore
-
-        public TextListItem SetText(string text)
-        {
-            this._text.text = text;
-            return this;
-        }
-
-        public TextListItem AddLeftPadding(int padding)
-        {
-            this.GetComponent<LayoutGroup>().padding.left += padding;
-            return this;
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:97953a082b70e9a0b13070c317b611a9be4ac7b490ae9d7a85fd645da5f93380
+size 570

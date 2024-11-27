@@ -1,25 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class TableFunction
-{
-	public static string GetUpdateTableName { get => "Formula"; }
-
-    public static async void UpdateTable(string tableName, string tableData)
-	{
-        if (!tableName.Equals(GetUpdateTableName))
-        {
-            UnityHelper.Error_H($"Error Deference Table Function");
-            return;
-        }
-
-        List<FormulaTableData> tableDatas = GoogleSpreadSheetUtils.GetListTableDatas<FormulaTableData>(tableName, tableData);
-
-        string addUrl = $"{tableName.ToLower_H()}Table/update";
-        var result = await WebTaskCall.Post<FormulaTableUpdateResponse>(true, addUrl, tableDatas);
-
-        string resultSeri = CSharpHelper.SerializeObject(result);
-        UnityHelper.Log_H(resultSeri);
-	}
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:c6842c306cdf91bd5f88d93bd40475c458aeaa2fabf4d9c6e886a0a42041d8e0
+size 842

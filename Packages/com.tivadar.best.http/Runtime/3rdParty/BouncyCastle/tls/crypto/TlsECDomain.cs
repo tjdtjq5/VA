@@ -1,16 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto
-{
-    /// <summary>Domain interface to service factory for creating Elliptic-Curve (EC) based operators.</summary>
-    public interface TlsECDomain
-    {
-        /// <summary>Return an agreement operator suitable for ephemeral EC Diffie-Hellman.</summary>
-        /// <returns>a key agreement operator.</returns>
-        TlsAgreement CreateECDH();
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:4bd2da1b293410fb30a0c45440e6e2c741944b1c137ab7ee96cd4c4ed37f36cc
+size 575

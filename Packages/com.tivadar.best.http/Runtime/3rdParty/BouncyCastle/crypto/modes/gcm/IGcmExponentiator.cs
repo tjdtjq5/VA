@@ -1,14 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Modes.Gcm
-{
-	public interface IGcmExponentiator
-	{
-		void Init(byte[] x);
-		void ExponentiateX(long pow, byte[] output);
-	}
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:bbd170a6ea8b79a6d9af0b70d903ee91cb97aa8008820593a87bd5285477ab3f
+size 339

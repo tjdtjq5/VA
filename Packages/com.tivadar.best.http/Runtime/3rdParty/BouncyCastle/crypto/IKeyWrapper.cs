@@ -1,26 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
-{
-    /// <summary>
-    /// Base interface for a key wrapper.
-    /// </summary>
-    public interface IKeyWrapper
-    {
-        /// <summary>
-        /// The parameter set used to configure this key wrapper.
-        /// </summary>
-        object AlgorithmDetails { get; }
-
-        /// <summary>
-        /// Wrap the passed in key data.
-        /// </summary>
-        /// <param name="keyData">The key data to be wrapped.</param>
-        /// <returns>an IBlockResult containing the wrapped key data.</returns>
-        IBlockResult Wrap(byte[] keyData);
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:69b79901318e06a4e4def69e1f03c193ec41e27bc5344e7a6bb43792fdb5209e
+size 785

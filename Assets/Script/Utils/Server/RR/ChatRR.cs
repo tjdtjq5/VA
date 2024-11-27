@@ -1,19 +1,3 @@
-﻿using System.Collections.Generic;
-public class ChatSendRequest
-{
-    public ChatChannel Channel { get; set; }
-    public ChatData ChatData { get; set; }
-}
-public class ChatGetRequest
-{
-    public ChatChannel Channel { get; set; }
-}
-public class ChatResponse
-{
-    public List<ChatData> ChatDatas { get; set; }
-}
-public class ChatData
-{
-    public int AccountId { get; set; }
-    public string Message { get; set; }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:f6093206c3858c8079f43fcf6fd877ac455cf006660dba58a0da18980785e062
+size 439

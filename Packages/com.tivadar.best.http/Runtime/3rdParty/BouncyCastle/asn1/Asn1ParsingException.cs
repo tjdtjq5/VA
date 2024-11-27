@@ -1,34 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-using System.Runtime.Serialization;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1
-{
-    [Serializable]
-    public class Asn1ParsingException
-		: InvalidOperationException
-	{
-		public Asn1ParsingException()
-			: base()
-		{
-		}
-
-		public Asn1ParsingException(string message)
-			: base(message)
-		{
-		}
-
-		public Asn1ParsingException(string message, Exception innerException)
-			: base(message, innerException)
-		{
-		}
-
-		protected Asn1ParsingException(SerializationInfo info, StreamingContext context)
-			: base(info, context)
-		{
-		}
-	}
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:ae1ecf956897de72dc361b5157293b97dc46ff7e9ee5827277d066cc2c1a180e
+size 723

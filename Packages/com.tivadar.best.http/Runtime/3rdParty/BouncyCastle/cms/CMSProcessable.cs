@@ -1,20 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-using System.IO;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Cms
-{
-	public interface CmsProcessable
-	{
-		/// <summary>
-		/// Generic routine to copy out the data we want processed.
-		/// </summary>
-		/// <remarks>
-		/// This routine may be called multiple times.
-		/// </remarks>
-		void Write(Stream outStream);
-	}
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:c2e657699be9ef0821563ad88e943f3ee52cc05e72f120b99255c157252c8a9c
+size 485

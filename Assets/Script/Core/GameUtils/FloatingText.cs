@@ -1,21 +1,3 @@
-using TMPro;
-using UnityEngine;
-
-public class FloatingText : MonoBehaviour
-{
-    [SerializeField] TextMeshProUGUI text;
-    public TextMeshProUGUI Text { get { return text; } }
-    Animator animator;
-
-    private readonly static int kfloatingHash = Animator.StringToHash("floating");
-
-    void Awake()
-    {
-        animator = UnityHelper.FindChild<Animator>(this.gameObject, true);
-    }
-    public void Play(Vector3 pos)
-    {
-        this.transform.position = pos;
-        animator.SetTrigger(kfloatingHash);
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:3cd2bf1e1fc33e4d8093082dab3eb589b50a46ce445392c709b442e3e6fa43e5
+size 541

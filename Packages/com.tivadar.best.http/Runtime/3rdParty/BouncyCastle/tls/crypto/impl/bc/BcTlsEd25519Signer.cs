@@ -1,31 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters;
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Signers;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto.Impl.BC
-{
-    public class BcTlsEd25519Signer
-        : BcTlsSigner
-    {
-        public BcTlsEd25519Signer(BcTlsCrypto crypto, Ed25519PrivateKeyParameters privateKey)
-            : base(crypto, privateKey)
-        {
-        }
-
-        public override TlsStreamSigner GetStreamSigner(SignatureAndHashAlgorithm algorithm)
-        {
-            if (algorithm == null || SignatureScheme.From(algorithm) != SignatureScheme.ed25519)
-                throw new InvalidOperationException("Invalid algorithm: " + algorithm);
-
-            Ed25519Signer signer = new Ed25519Signer();
-            signer.Init(true, m_privateKey);
-
-            return new BcTlsStreamSigner(signer);
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:a835b50a06da56cf13dd5445087fdf61d696702f8fa4e5449f98243b2d6c681f
+size 1053

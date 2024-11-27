@@ -1,14 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-using System.IO;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Cms
-{
-	public interface CmsReadable
-	{
-		Stream GetInputStream();
-	}
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:a80d5a3a4d3a189edca23e8601543a4aea45a74579e5796b84482f469fe8139a
+size 294

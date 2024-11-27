@@ -1,34 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-using System.Runtime.Serialization;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Security.Certificates
-{
-    [Serializable]
-    public class CertificateException
-		: GeneralSecurityException
-	{
-		public CertificateException()
-			: base()
-		{
-		}
-
-		public CertificateException(string message)
-			: base(message)
-		{
-		}
-
-		public CertificateException(string message, Exception innerException)
-			: base(message, innerException)
-		{
-		}
-
-		protected CertificateException(SerializationInfo info, StreamingContext context)
-			: base(info, context)
-		{
-		}
-	}
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:d3d32433d35e5b6c10a17e2d7fd8300da6257de6d3bf1789b3a59ac53a3fad9f
+size 739

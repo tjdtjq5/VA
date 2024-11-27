@@ -1,15 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-using Best.TLSSecurity.Databases.Shared;
-
-namespace Best.TLSSecurity.Databases.X509
-{
-    public sealed class X509DatabaseOptions : DatabaseOptions
-    {
-        public X509DatabaseOptions(string dbName)
-            :base(dbName)
-        {
-            this.UseHashFile = true;
-        }
-    }
-}
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:81e8fac1471ec5c9f38c0c6f2eaa1d1b2f92ff00f636756fd2abf82738cccdcc
+size 387

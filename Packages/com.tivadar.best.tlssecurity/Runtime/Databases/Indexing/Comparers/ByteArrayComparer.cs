@@ -1,28 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-using System;
-using System.Collections.Generic;
-
-namespace Best.TLSSecurity.Databases.Indexing.Comparers
-{
-    public sealed class ByteArrayComparer : IComparer<byte[]>
-    {
-        public int Compare(byte[] x, byte[] y)
-        {
-            int result = x.Length.CompareTo(y.Length);
-            if (result != 0)
-                return result;
-
-            for (int i = 0; i < x.Length; ++i)
-            {
-                result = x[i].CompareTo(y[i]);
-
-                if (result != 0)
-                    return result;
-            }
-
-            return 0;
-        }
-    }
-}
-
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:bc445a98073de0a8b42de2804a4020ba9483a0f506a6df015578c17886c7fc84
+size 686

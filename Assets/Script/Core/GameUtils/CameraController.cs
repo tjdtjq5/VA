@@ -1,29 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class CameraController : MonoBehaviour
-{
-    private Transform _target;
-
-    private float _noneLength = 0.1f;
-    private float _speed = 4f;
-    
-    public void Initialize(Transform target)
-    {
-        this._target = target;
-    }
-
-    void Update()
-    {
-        if (_target is not null)
-        {
-            Vector3 destPos = this.transform.position;
-            destPos.x = _target.position.x; 
-            if (this.transform.position.GetDistance(destPos) > _noneLength)
-            {
-                this.transform.position = Vector3.Lerp(this.transform.position, destPos, _speed * Managers.Time.DeltaTime);
-            }
-        }
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:663cc29ade4613f6120bfa21700c19dcf109d0dc23ba643f6df14496eada9f7e
+size 765

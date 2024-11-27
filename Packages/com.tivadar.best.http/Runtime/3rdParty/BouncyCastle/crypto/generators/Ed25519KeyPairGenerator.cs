@@ -1,29 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-using System;
-
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters;
-using Best.HTTP.SecureProtocol.Org.BouncyCastle.Security;
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Generators
-{
-    public class Ed25519KeyPairGenerator
-        : IAsymmetricCipherKeyPairGenerator
-    {
-        private SecureRandom random;
-
-        public virtual void Init(KeyGenerationParameters parameters)
-        {
-            this.random = parameters.Random;
-        }
-
-        public virtual AsymmetricCipherKeyPair GenerateKeyPair()
-        {
-            Ed25519PrivateKeyParameters privateKey = new Ed25519PrivateKeyParameters(random);
-            Ed25519PublicKeyParameters publicKey = privateKey.GeneratePublicKey();
-            return new AsymmetricCipherKeyPair(publicKey, privateKey);
-        }
-    }
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:2ec3b1a98c53e2be8dab57f602dbfbf948429043693993d016052352bac88b96
+size 972

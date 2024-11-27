@@ -1,21 +1,3 @@
-#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
-#pragma warning disable
-
-namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1
-{
-	/**
-	 * Marker interface for CHOICE objects - if you implement this in a roll-your-own
-	 * object, any attempt to tag the object implicitly will convert the tag to an
-	 * explicit one as the encoding rules require.
-	 * <p>
-	 * If you use this interface your class should also implement the getInstance
-	 * pattern which takes a tag object and the tagging mode used. 
-	 * </p>
-	 */
-	public interface IAsn1Choice
-	{
-		// marker interface
-	}
-}
-#pragma warning restore
-#endif
+version https://git-lfs.github.com/spec/v1
+oid sha256:3409231651dc1683b6e45b568f764128ad4882d68ebf2dd12d69963ac8999704
+size 648
