@@ -1,4 +1,4 @@
-Shader "Makeway/Additive"
+Shader "Makeway/AdditiveAndTiling"
 {
 	Properties
 	{
@@ -12,7 +12,11 @@ Shader "Makeway/Additive"
 		_StencilReadMask ("Stencil Read Mask", Float) = 255
 
 		_ColorMask ("Color Mask", Float) = 15
-		 _ClipRect ("Clip Rect", Vector) = (-32767, -32767, 32767, 32767)
+		_ClipRect ("Clip Rect", Vector) = (-32767, -32767, 32767, 32767)
+		
+		_UVFO("TilingOfsset", Vector) = (1,1,0,0)
+        _TimeSpeedX("TimeSpeedX", Range(0, 100)) = 10
+        _TimeSpeedY("TimeSpeedY", Range(0, 100)) = 10
 	}
 
 	SubShader
@@ -70,7 +74,10 @@ Shader "Makeway/Additive"
 			fixed4 _Color;
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
-			 float4 _ClipRect;
+			float4 _ClipRect;
+			half _TimeSpeedX;
+            half _TimeSpeedY;
+			float4 _UVFO;
 
 			v2f vert(appdata_t IN)
 			{
@@ -87,12 +94,13 @@ Shader "Makeway/Additive"
 
 			fixed4 frag(v2f IN) : SV_Target
 			{
-				half4 color = tex2D(_MainTex, IN.texcoord) * IN.color;
+				half4 color = tex2D(_MainTex, IN.texcoord * float2(_UVFO.x, _UVFO.y) + float2(_UVFO.z + (_Time.x * _TimeSpeedX), _UVFO.w + (_Time.x * _TimeSpeedY))) * IN.color;
 				color.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
 				color.rgb *= color.a;
 #ifdef UNITY_UI_ALPHACLIP
 				clip (color.a - 0.01);
 #endif
+
 				return color;
 			}
 		ENDCG
