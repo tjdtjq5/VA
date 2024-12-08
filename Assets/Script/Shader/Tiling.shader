@@ -1,4 +1,4 @@
-﻿Shader "Slitz/Tiling"
+﻿Shader "Makeway/Tiling"
 {
     Properties
     {
