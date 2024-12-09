@@ -5,7 +5,7 @@ Shader "Makeway/Additive"
 		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
 		_Color ("Tint", Color) = (1,1,1,1)
 		
-		_AdditiveValue("Additive Value", Float) = 1
+		_AdditiveValue("Additive Value", Range(0, 6)) = 1
 		_StencilComp ("Stencil Comparison", Float) = 8
 		_Stencil ("Stencil ID", Float) = 0
 		_StencilOp ("Stencil Operation", Float) = 0
