@@ -1,16 +1,14 @@
 Shader "Makeway/Unlit"
 {
-	Properties
-	{
-		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
-		_UnlitValue("Unlit Value", Range(0, 6)) = 1
-		_Color ("Tint", Color) = (1,1,1,1)
-		[MaterialToggle] PixelSnap ("Pixel snap", Float) = 0
-	}
+     Properties
+    {
+        [PerRendererData] _MainTex ("Texture", 2D) = "white" {}
+        _Value("Value", Range(0, 6)) = 1
+    }
+    SubShader
+    {
 
-	SubShader
-	{
-		Tags
+      	Tags
 		{ 
 			"Queue"="Transparent" 
 			"IgnoreProjector"="True" 
@@ -18,45 +16,62 @@ Shader "Makeway/Unlit"
 			"PreviewType"="Plane"
 			"CanUseSpriteAtlas"="True"
 		}
+        LOD 100
+        Color [_Color]
+        Blend DstColor OneMinusSrcAlpha
+       
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            // make fog work
+            #pragma multi_compile_fog
+			#include "UnityCG.cginc"
+			#include "UnityUI.cginc"
+   
+          
+            struct appdata
+            {
+                float4 vertex : POSITION;
+                float2 uv : TEXCOORD0;
+            };
 
-		Cull Off
-		Lighting Off
-		ZWrite Off
-		ZTest Always	// Always rendered in front
-		Fog { Mode Off }
-		Blend SrcAlpha OneMinusSrcAlpha
+            struct v2f
+            {
+                float2 uv : TEXCOORD0;
+                UNITY_FOG_COORDS(1)
+                float4 vertex : SV_POSITION;
+                float4 worldPosition : TEXCOORD1;
+            };
 
-		CGPROGRAM
-		#pragma surface surf Lambert alpha vertex:vert
-		#pragma multi_compile DUMMY PIXELSNAP_ON
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+            float _Value;
 
-		sampler2D _MainTex;
-		fixed4 _Color;
-		float _UnlitValue;
+            v2f vert (appdata v)
+            {
+                v2f o;
+                o.worldPosition = v.vertex;
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                UNITY_TRANSFER_FOG(o,o.vertex);
+                
+                return o;
+            }
 
-		struct Input
-		{
-			float2 uv_MainTex;
-			fixed4 color;
-		};
-		
-		void vert (inout appdata_full v, out Input o)
-		{
-			v.normal = float3(0,0, -1);
-			
-			UNITY_INITIALIZE_OUTPUT(Input, o);
-			o.color = _Color;
-		}
-
-		void surf (Input IN, inout SurfaceOutput o)
-		{
-			fixed4 c = tex2D(_MainTex, IN.uv_MainTex);//tex2D(_MainTex, IN.uv_MainTex) * IN.color;
-			o.Albedo = c.rgb;
-			//o.Alpha = c.a * _UnlitValue;
-			o.Alpha = c.a * _UnlitValue;
-		}
-		ENDCG
-	}
-
-Fallback "Transparent/VertexLit"
+            fixed4 frag (v2f i) : SV_Target
+            {
+                // sample the texture
+                fixed4 col = tex2D(_MainTex, i.uv);
+                col.rgb *= col.a;
+                col.rgb *= _Value;
+                col.a *= _Value;
+                return col;
+            }
+          
+           
+            ENDCG
+        }
+    }
 }

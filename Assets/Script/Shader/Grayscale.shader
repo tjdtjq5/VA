@@ -113,8 +113,6 @@ Shader "Makeway/Grayscale"
 				return c;
 			}
 
-			
-
 			ENDCG
 		}
 	}
