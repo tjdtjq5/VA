@@ -8,11 +8,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: fx_hit_ani 1
-  m_Shader: {fileID: 4800000, guid: 64005298b9a80bb4899eabd5140dc4a8, type: 3}
-  m_ValidKeywords:
+  m_Shader: {fileID: 4800000, guid: aea75d62413c19a4d84aadc2b372c442, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - PIXELSNAP_ON
   - _ADDITIVEBLEND
-  m_InvalidKeywords:
   - _COLOROVERLAY_ON
   - _ENVIRONMENTREFLECTIONS_OFF
   - _FULLRANGE_HARD_RAMP
@@ -23,11 +23,10 @@ Material:
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap:
     AlphaDepth: true
     IGNOREPROJECTOR: true
-    RenderType: Transparent
   disabledShaderPasses:
   - DepthOnly
   - SHADOWCASTER
@@ -139,6 +138,7 @@ Material:
     - _Iterations: 5
     m_Floats:
     - PixelSnap: 1
+    - _AdditiveValue: 1.5
     - _AlphaClip: 0
     - _Amount: 0.291
     - _Amount2: 0.545
