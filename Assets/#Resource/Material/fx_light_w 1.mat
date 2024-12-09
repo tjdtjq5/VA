@@ -7,12 +7,12 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: fx_hit_ani
-  m_Shader: {fileID: 4800000, guid: aea75d62413c19a4d84aadc2b372c442, type: 3}
-  m_ValidKeywords: []
-  m_InvalidKeywords:
+  m_Name: fx_light_w 1
+  m_Shader: {fileID: 4800000, guid: 64005298b9a80bb4899eabd5140dc4a8, type: 3}
+  m_ValidKeywords:
   - PIXELSNAP_ON
-  - _ADDITIVEBLEND
+  - _ALPHAPREMULTIPLY_VERTEX_ONLY
+  m_InvalidKeywords:
   - _COLOROVERLAY_ON
   - _ENVIRONMENTREFLECTIONS_OFF
   - _FULLRANGE_HARD_RAMP
@@ -23,10 +23,11 @@ Material:
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap:
     AlphaDepth: true
     IGNOREPROJECTOR: true
+    RenderType: Transparent
   disabledShaderPasses:
   - DepthOnly
   - SHADOWCASTER
@@ -82,7 +83,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: e47faef4c9891e047a3bb4d40ac631e2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1ab492e7b1c2c3e49aab6e7f93962cb2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -169,7 +170,7 @@ Material:
     - _DistortionStrength: 1
     - _DistortionStrengthScaled: 0
     - _Distribution: 0
-    - _DstBlend: 1
+    - _DstBlend: 10
     - _EffectAmount: 0.621
     - _EmissionEnabled: 0
     - _EnableExternalAlpha: 0
@@ -211,7 +212,7 @@ Material:
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 0
     - _Spread: 13.23
-    - _SrcBlend: 5
+    - _SrcBlend: 1
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
