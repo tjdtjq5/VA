@@ -3,7 +3,7 @@ Shader "Makeway/Unlit"
      Properties
     {
         [PerRendererData] _MainTex ("Texture", 2D) = "white" {}
-        _Value("Value", Range(0, 6)) = 1
+        _Color ("Main Color", Color) = (1,1,1,1)
     }
     SubShader
     {
@@ -47,7 +47,7 @@ Shader "Makeway/Unlit"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            float _Value;
+            float4 _Color;
 
             v2f vert (appdata v)
             {
@@ -63,10 +63,8 @@ Shader "Makeway/Unlit"
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv);
+                fixed4 col = tex2D(_MainTex, i.uv) * _Color;
                 col.rgb *= col.a;
-                col.rgb *= _Value;
-                col.a *= _Value;
                 return col;
             }
           
