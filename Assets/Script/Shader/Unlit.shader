@@ -3,7 +3,7 @@ Shader "Makeway/Unlit"
      Properties
     {
         [PerRendererData] _MainTex ("Texture", 2D) = "white" {}
-        _Color ("Main Color", Color) = (1,1,1,1)
+        _Color ("Tint", Color) = (1,1,1,1)
     }
     SubShader
     {
@@ -35,6 +35,7 @@ Shader "Makeway/Unlit"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+                fixed4 color    : COLOR;
             };
 
             struct v2f
@@ -43,6 +44,7 @@ Shader "Makeway/Unlit"
                 UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
                 float4 worldPosition : TEXCOORD1;
+                fixed4 color    : COLOR;
             };
 
             sampler2D _MainTex;
@@ -55,6 +57,7 @@ Shader "Makeway/Unlit"
                 o.worldPosition = v.vertex;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.color = v.color * _Color;
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 
                 return o;
@@ -63,7 +66,7 @@ Shader "Makeway/Unlit"
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv) * _Color;
+                fixed4 col = tex2D(_MainTex, i.uv) * i.color;
                 col.rgb *= col.a;
                 return col;
             }
