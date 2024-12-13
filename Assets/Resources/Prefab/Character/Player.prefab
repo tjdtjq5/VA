@@ -647,6 +647,7 @@ GameObject:
   - component: {fileID: 6349231817101938996}
   - component: {fileID: 2603933324433166181}
   - component: {fileID: 2603933324433166180}
+  - component: {fileID: 3417162014080421966}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -721,7 +722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 0
-  control: 2
+  control: 0
   IsBoss: 0
   stats:
   - {fileID: 11400000, guid: 31038d8d568c46a4fa5e1dc9a97f1ac9, type: 2}
@@ -856,6 +857,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.3}
   m_EdgeRadius: 0
+--- !u!114 &3417162014080421966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2603933324433166191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 773ff3ecc828cb14e9c7fbc4c0d57100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initialSkills:
+  - {fileID: 11400000, guid: 2647ad4cbc58bf146a2692fa57db63e5, type: 2}
 --- !u!1 &2624967910744088762
 GameObject:
   m_ObjectHideFlags: 0
