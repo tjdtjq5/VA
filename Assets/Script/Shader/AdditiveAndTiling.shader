@@ -3,6 +3,7 @@ Shader "Makeway/AdditiveAndTiling"
 	Properties
 	{
 		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
+		_BaseMap("Sprite Texture", 2D) = "white"{}
 		_Color ("Tint", Color) = (1,1,1,1)
 		
 		_StencilComp ("Stencil Comparison", Float) = 8
@@ -74,6 +75,8 @@ Shader "Makeway/AdditiveAndTiling"
 			fixed4 _Color;
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
+			sampler2D _BaseMap;
+			float4 _BaseMap_ST;
 			float4 _ClipRect;
 			half _TimeSpeedX;
             half _TimeSpeedY;
@@ -95,12 +98,12 @@ Shader "Makeway/AdditiveAndTiling"
 			fixed4 frag(v2f IN) : SV_Target
 			{
 				half4 color = tex2D(_MainTex, IN.texcoord * float2(_UVFO.x, _UVFO.y) + float2(_UVFO.z + (_Time.x * _TimeSpeedX), _UVFO.w + (_Time.x * _TimeSpeedY))) * IN.color;
-				color.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
-				color.rgb *= color.a;
+				half4 color2 = tex2D(_BaseMap, IN.texcoord) * IN.color;
+				color2.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
+				color.rgb *= color2.a;
 #ifdef UNITY_UI_ALPHACLIP
 				clip (color.a - 0.01);
 #endif
-
 				return color;
 			}
 		ENDCG
