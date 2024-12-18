@@ -11,8 +11,8 @@ Shader "Makeway/Unlit"
 	    [PerRendererData]	_StencilWriteMask ("Stencil Write Mask", Float) = 255
 	    [PerRendererData]	_StencilReadMask ("Stencil Read Mask", Float) = 255
         
-       [PerRendererData]     _ColorMask ("Color Mask", Float) = 15
-       [PerRendererData]     _ClipRect ("Clip Rect", Vector) = (-32767, -32767, 32767, 32767)
+        [PerRendererData]     _ColorMask ("Color Mask", Float) = 15
+        [PerRendererData]     _ClipRect ("Clip Rect", Vector) = (-32767, -32767, 32767, 32767)
     }
     SubShader
     {
@@ -37,6 +37,8 @@ Shader "Makeway/Unlit"
       	
         LOD 100
         Color [_Color]
+        Lighting Off
+		ZWrite Off
         Blend DstColor OneMinusSrcAlpha
         ColorMask [_ColorMask]
        
