@@ -4,6 +4,15 @@ Shader "Makeway/Unlit"
     {
         [PerRendererData] _MainTex ("Texture", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
+    	
+        [PerRendererData]	_StencilComp ("Stencil Comparison", Float) = 8
+	    [PerRendererData]	_Stencil ("Stencil ID", Float) = 0
+	    [PerRendererData]	_StencilOp ("Stencil Operation", Float) = 0
+	    [PerRendererData]	_StencilWriteMask ("Stencil Write Mask", Float) = 255
+	    [PerRendererData]	_StencilReadMask ("Stencil Read Mask", Float) = 255
+        
+       [PerRendererData]     _ColorMask ("Color Mask", Float) = 15
+       [PerRendererData]     _ClipRect ("Clip Rect", Vector) = (-32767, -32767, 32767, 32767)
     }
     SubShader
     {
@@ -16,9 +25,20 @@ Shader "Makeway/Unlit"
 			"PreviewType"="Plane"
 			"CanUseSpriteAtlas"="True"
 		}
+      	
+      	Stencil
+		{
+			Ref [_Stencil]
+			Comp [_StencilComp]
+			Pass [_StencilOp] 
+			ReadMask [_StencilReadMask]
+			WriteMask [_StencilWriteMask]
+		}
+      	
         LOD 100
         Color [_Color]
         Blend DstColor OneMinusSrcAlpha
+        ColorMask [_ColorMask]
        
         Pass
         {
@@ -50,6 +70,7 @@ Shader "Makeway/Unlit"
             sampler2D _MainTex;
             float4 _MainTex_ST;
             float4 _Color;
+            float4 _ClipRect;
 
             v2f vert (appdata v)
             {
@@ -67,11 +88,10 @@ Shader "Makeway/Unlit"
             {
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv) * i.color;
+                col.a *= UnityGet2DClipping(i.worldPosition.xy, _ClipRect);
                 col.rgb *= col.a;
                 return col;
             }
-          
-           
             ENDCG
         }
     }

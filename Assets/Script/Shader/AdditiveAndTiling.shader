@@ -6,14 +6,14 @@ Shader "Makeway/AdditiveAndTiling"
 		_BaseMap("Sprite Texture", 2D) = "white"{}
 		_Color ("Tint", Color) = (1,1,1,1)
 		
-		_StencilComp ("Stencil Comparison", Float) = 8
-		_Stencil ("Stencil ID", Float) = 0
-		_StencilOp ("Stencil Operation", Float) = 0
-		_StencilWriteMask ("Stencil Write Mask", Float) = 255
-		_StencilReadMask ("Stencil Read Mask", Float) = 255
+	    [PerRendererData]	_StencilComp ("Stencil Comparison", Float) = 8
+	    [PerRendererData]	_Stencil ("Stencil ID", Float) = 0
+	    [PerRendererData]	_StencilOp ("Stencil Operation", Float) = 0
+	    [PerRendererData]	_StencilWriteMask ("Stencil Write Mask", Float) = 255
+	    [PerRendererData]	_StencilReadMask ("Stencil Read Mask", Float) = 255
 
-		_ColorMask ("Color Mask", Float) = 15
-		_ClipRect ("Clip Rect", Vector) = (-32767, -32767, 32767, 32767)
+	    [PerRendererData]	_ColorMask ("Color Mask", Float) = 15
+	    [PerRendererData]	_ClipRect ("Clip Rect", Vector) = (-32767, -32767, 32767, 32767)
 		
 		_UVFO("TilingOfsset", Vector) = (1,1,0,0)
         _TimeSpeedX("TimeSpeedX", Range(0, 100)) = 10
