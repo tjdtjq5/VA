@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: Gasi
+  m_Name: LastAttackFire
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  codeName: Gasi
+  codeName: LastAttackFire
   displayName: 
   description: 
-  skillKeyCode: 0
+  skillKeyCode: 1
   behaviour:
-    rid: 1982496730640809984
+    rid: 1982496850479415296
   timing: 0
   attackStartTimingSkill: 0
   attackTimingSkill: 0
@@ -29,7 +29,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 1982496730640809984
-      type: {class: SkillGasi, ns: , asm: Assembly-CSharp}
+    - rid: 1982496850479415296
+      type: {class: SkillTriggerPassiveBuff, ns: , asm: Assembly-CSharp}
       data:
-        duration: 3
+        _triggerPassiveBuff: 1
