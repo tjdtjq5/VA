@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: LastAttackPoison
+  m_Name: LastAttackPadong
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  codeName: LastAttackPoison
+  codeName: LastAttackPadong
   displayName: 
   description: 
-  skillKeyCode: 3
+  skillKeyCode: 5
   behaviour:
-    rid: 1982496850479415298
-  timing: 1
-  attackStartTimingSkill: 0
+    rid: 1982496888396447744
+  timing: 0
+  attackStartTimingSkill: 3
   attackTimingSkill: 0
   attackEndTimingSkill: 0
   skillStartTimingSkill: {fileID: 0}
@@ -32,7 +32,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 1982496850479415298
-      type: {class: SkillTriggerPassiveBuff, ns: , asm: Assembly-CSharp}
+    - rid: 1982496888396447744
+      type: {class: SkillPadong, ns: , asm: Assembly-CSharp}
       data:
-        _triggerPassiveBuff: 3
+        radiusType: 1
+        radius: 8
