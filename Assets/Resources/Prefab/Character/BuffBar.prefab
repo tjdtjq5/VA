@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 898504668460045896}
   - component: {fileID: 898504668460045897}
   - component: {fileID: 8228406105205825869}
+  - component: {fileID: 8886151912295741028}
+  - component: {fileID: 1714690678860603413}
   m_Layer: 5
   m_Name: BuffBar
   m_TagString: Untagged
@@ -60,7 +62,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 90
+  m_SortingOrder: 81
   m_TargetDisplay: 0
 --- !u!114 &898504668460045896
 MonoBehaviour:
@@ -84,7 +86,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &898504668460045897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,3 +116,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 247341bdfe3074740941134b63430cc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8886151912295741028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898504668460045898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a87f5d5b15a38f14ea7a9987128ace54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  poolObjectType: 0
+  time: 0
+  animator: {fileID: 0}
+  endAniName: 
+  spineAnimation: {fileID: 0}
+  spineEndAniName: 
+--- !u!114 &1714690678860603413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898504668460045898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
