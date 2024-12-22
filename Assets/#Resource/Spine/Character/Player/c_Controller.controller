@@ -286,27 +286,6 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 1
-  - time: 0.1667
-    functionName: action
-    data: SpineEvent
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 1
-  - time: 0.1667
-    functionName: move
-    data: SpineEvent
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 1
-  - time: 0.2667
-    functionName: end
-    data: SpineEvent
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 1
 --- !u!1107 &-4626812094781875196
 AnimatorStateMachine:
   serializedVersion: 6
@@ -670,20 +649,27 @@ AnimationClip:
     intParameter: 0
     messageOptions: 1
   - time: 0.1667
+    functionName: string
+    data: sound/at
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
+  - time: 0.2
     functionName: action
     data: SpineEvent
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 1
-  - time: 0.1667
+  - time: 0.2
     functionName: move
     data: SpineEvent
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 1
-  - time: 0.2667
+  - time: 0.3
     functionName: end
     data: SpineEvent
     objectReferenceParameter: {fileID: 0}
