@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 7337520366011237670}
   - component: {fileID: 8829216178219192403}
   m_Layer: 5
-  m_Name: onBg1
+  m_Name: OutBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -501,7 +501,6 @@ GameObject:
   - component: {fileID: 3764176202349792861}
   - component: {fileID: 6466412247016443093}
   - component: {fileID: 6948712934468172209}
-  - component: {fileID: 2130951214922196825}
   m_Layer: 5
   m_Name: Anger
   m_TagString: Untagged
@@ -606,19 +605,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258a56004ec42b54c84f30867b721093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2130951214922196825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3764176202349792863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d330144df17c0604cab4bcc3f456ebcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isRaycast: 0
 --- !u!1 &3764176203441806876
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,6 +848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67bc90b8d1bfa314798a4914e5f30ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fillImage: {fileID: 3562931254261129025}
 --- !u!1 &4122799223027700660
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,7 +1047,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4007520726369244926
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1114,7 +1101,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 0.72
+  m_FillAmount: 0.106
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -1325,7 +1312,7 @@ GameObject:
   - component: {fileID: 8324042132519611487}
   - component: {fileID: 9110416504744228958}
   m_Layer: 5
-  m_Name: onback
+  m_Name: Additive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1380,7 +1367,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: c9b2be0e25d98a147a603065c42b5698, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
