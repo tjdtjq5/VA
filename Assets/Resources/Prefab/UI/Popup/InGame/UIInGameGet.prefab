@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 7344563249873826040}
   - component: {fileID: 2691344298488365885}
   - component: {fileID: 4847892269115395381}
+  - component: {fileID: 7193050670850549968}
   m_Layer: 5
   m_Name: Light
   m_TagString: Untagged
@@ -222,6 +223,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRaycast: 0
+--- !u!95 &7193050670850549968
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851598448487780417}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 93e44f75e2e402e489c36c6b0509abd5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3966693656442952942
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +272,7 @@ RectTransform:
   m_GameObject: {fileID: 3966693656442952942}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8376330099142648619}
@@ -259,7 +281,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 206.923, y: 210.0345}
+  m_SizeDelta: {x: 101, y: 104}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3966693656442952941
 CanvasRenderer:
@@ -289,7 +311,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 61386c6276da5d74bb7fc70f35423dbc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6107201e93c42b443afd02aaa030f7d9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -324,8 +346,8 @@ GameObject:
   - component: {fileID: 7350164665795886164}
   - component: {fileID: 7350164665795886171}
   - component: {fileID: 7350164665795886170}
-  - component: {fileID: 1924419130004765636}
   - component: {fileID: 4716664504619313174}
+  - component: {fileID: 3700835539230487529}
   m_Layer: 5
   m_Name: UIInGameGet
   m_TagString: Untagged
@@ -417,19 +439,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1924419130004765636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7350164665795886169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3aa4b94b2f3b3e04ba8ca871e2ed74c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  productSkills: []
 --- !u!95 &4716664504619313174
 Animator:
   serializedVersion: 5
@@ -451,6 +460,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3700835539230487529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7350164665795886169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05f5a43afcac2674d812f430ddf40f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gessoSprite: {fileID: 21300000, guid: 6107201e93c42b443afd02aaa030f7d9, type: 3}
 --- !u!1 &7350164666098240731
 GameObject:
   m_ObjectHideFlags: 0
