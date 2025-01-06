@@ -1,8 +1,4 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader "Makeway/Tiling"
+﻿Shader "Makeway/Tiling"
 {
     Properties
     {
@@ -91,6 +87,7 @@ Shader "Makeway/Tiling"
             half4 frag(Varyings IN) : SV_Target
             {
              	half4 color = tex2D(_MainTex, IN.uv * float2(_UVFO.x, _UVFO.y) + float2(_UVFO.z + (_Time.x * _TimeSpeedX), _UVFO.w + (_Time.x * _TimeSpeedY))) * IN.color;
+                color.rgb *= color.a;
                 return color;
             }
             ENDCG
