@@ -1,8 +1,9 @@
-Shader "Makeway/AdditiveAndTiling"
+Shader "Makeway/AdditiveAndTilingAndMask"
 {
 	Properties
 	{
 		[PerRendererData] _MainTex("BaseMap",2D) = "white"{}
+		_MaskMap("Mask", 2D) = "white"{}
 		_Color ("Tint", Color) = (1,1,1,1)
 		
 		_UVFO("TilingOfsset", Vector) = (1,1,0,0)
@@ -74,6 +75,8 @@ Shader "Makeway/AdditiveAndTiling"
 			fixed4 _Color;
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
+			sampler2D _MaskMap;
+			float4 _MaskMap_ST;
 			float4 _ClipRect;
 			half _TimeSpeedX;
             half _TimeSpeedY;
@@ -95,10 +98,13 @@ Shader "Makeway/AdditiveAndTiling"
 			fixed4 frag(v2f IN) : SV_Target
 			{
 				half4 color = tex2D(_MainTex, IN.texcoord * float2(_UVFO.x, _UVFO.y) + float2(_UVFO.z + (_Time.x * _TimeSpeedX), _UVFO.w + (_Time.x * _TimeSpeedY))) * IN.color;
-				#ifdef UNITY_UI_ALPHACLIP
+				half4 color2 = tex2D(_MaskMap, IN.texcoord);
+				color2.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
+				color.rgb *= color2.a;
+				color.rgb *= color.a;
+#ifdef UNITY_UI_ALPHACLIP
 				clip (color.a - 0.01);
 #endif
-				color.rgb *= color.a;
 				return color;
 			}
 		ENDCG
