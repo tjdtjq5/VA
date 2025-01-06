@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6341873807576855749}
   - component: {fileID: 4231811011352518014}
   - component: {fileID: 7916205545844199255}
+  - component: {fileID: 6757726727865142259}
   m_Layer: 5
   m_Name: UIInGameFlipOverCard
   m_TagString: Untagged
@@ -69,6 +70,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6757726727865142259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2755541097588327843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 613457757747e1e4fb29d0c1c61e8fca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 7916205545844199255}
+  basicSprite: {fileID: 21300000, guid: 8dbefd61e7cefd4488e38a3c8ddb4a27, type: 3}
+  rareSprite: {fileID: 21300000, guid: cb9d704d2b277ba45a35ed749f32e204, type: 3}
+  legendSprite: {fileID: 21300000, guid: e18c5975e144d4f4da524de405bc3c97, type: 3}
 --- !u!1 &6251854286520150674
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,8 +187,9 @@ GameObject:
   - component: {fileID: 4175576914669114667}
   - component: {fileID: 7069291380383409480}
   - component: {fileID: 7578738977216611121}
-  - component: {fileID: 2098501128815945958}
   - component: {fileID: 3917544296709518937}
+  - component: {fileID: 4604076778276703270}
+  - component: {fileID: 176524213131292647}
   m_Layer: 5
   m_Name: Bg
   m_TagString: Untagged
@@ -239,19 +257,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2098501128815945958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6526416892598392080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d330144df17c0604cab4bcc3f456ebcb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isRaycast: 0
 --- !u!114 &3917544296709518937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +270,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!95 &4604076778276703270
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6526416892598392080}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &176524213131292647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6526416892598392080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 258a56004ec42b54c84f30867b721093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6782524258316783464
 GameObject:
   m_ObjectHideFlags: 0
