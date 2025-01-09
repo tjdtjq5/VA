@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -207,9 +206,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1375001014}
-        m_TargetAssemblyTypeName: Test, Assembly-CSharp
-        m_MethodName: AppleLogoutFunc
+      - m_Target: {fileID: 1375001015}
+        m_TargetAssemblyTypeName: LoginTest, Assembly-CSharp
+        m_MethodName: AppleSignOut
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -616,9 +615,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1375001014}
-        m_TargetAssemblyTypeName: Test, Assembly-CSharp
-        m_MethodName: AppleLoginFunc
+      - m_Target: {fileID: 1375001015}
+        m_TargetAssemblyTypeName: LoginTest, Assembly-CSharp
+        m_MethodName: AppleSignIn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -830,9 +829,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1375001014}
-        m_TargetAssemblyTypeName: Test, Assembly-CSharp
-        m_MethodName: GoogleLogoutFunc
+      - m_Target: {fileID: 1375001015}
+        m_TargetAssemblyTypeName: LoginTest, Assembly-CSharp
+        m_MethodName: GoogleSignOut
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -964,9 +963,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1375001014}
-        m_TargetAssemblyTypeName: Test, Assembly-CSharp
-        m_MethodName: AppleTokenFunc
+      - m_Target: {fileID: 1375001015}
+        m_TargetAssemblyTypeName: LoginTest, Assembly-CSharp
+        m_MethodName: AppleToken
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1485,9 +1484,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1375001014}
-        m_TargetAssemblyTypeName: Test, Assembly-CSharp
-        m_MethodName: GoogleLoginFunc
+      - m_Target: {fileID: 1375001015}
+        m_TargetAssemblyTypeName: LoginTest, Assembly-CSharp
+        m_MethodName: GoogleSignIn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1548,6 +1547,7 @@ GameObject:
   - component: {fileID: 1375001011}
   - component: {fileID: 1375001010}
   - component: {fileID: 1375001014}
+  - component: {fileID: 1375001015}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1612,6 +1612,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1647,6 +1648,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52052769f39e44245a59a19c2393dd5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1375001015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375001009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c53cedce8d4924344900bef960e462ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1522121441
@@ -1874,9 +1887,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1375001014}
-        m_TargetAssemblyTypeName: Test, Assembly-CSharp
-        m_MethodName: GoogleTokenFunc
+      - m_Target: {fileID: 1375001015}
+        m_TargetAssemblyTypeName: LoginTest, Assembly-CSharp
+        m_MethodName: GoogleToken
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
