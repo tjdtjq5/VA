@@ -584,6 +584,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eeeaa81a5701fa40b584fd6277649fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  move:
+    rid: 8392796874057187334
+  references:
+    version: 2
+    RefIds:
+    - rid: 8392796874057187334
+      type: {class: EnemyMoveNomal, ns: , asm: Assembly-CSharp}
+      data:
+        IsBackMove: 0
+        searchTeam: 2
 --- !u!114 &5549523648780327327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,6 +606,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f3b1eb1215e394994ab0e1446ff41b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack:
+    rid: 8392796874057187349
+  references:
+    version: 2
+    RefIds:
+    - rid: 8392796874057187349
+      type: {class: EnemyAttackBuff, ns: , asm: Assembly-CSharp}
+      data:
+        buff: {fileID: 11400000, guid: 81816bdca4a1b244c9924402c1668cec, type: 2}
 --- !u!114 &5549523648780327324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -623,8 +642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
-  control: 2
-  IsBoss: 0
+  isBoss: 0
   stats:
   - {fileID: 11400000, guid: 31038d8d568c46a4fa5e1dc9a97f1ac9, type: 2}
   - {fileID: 11400000, guid: 990daac2810055d4baf7cb8bd9481f18, type: 2}
@@ -716,7 +734,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.6}
+  m_Offset: {x: 0, y: 0.722}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -727,7 +745,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.9, y: 1.2}
+  m_Size: {x: 1.9, y: 1.5}
   m_EdgeRadius: 0
 --- !u!114 &-3574047513719686767
 MonoBehaviour:

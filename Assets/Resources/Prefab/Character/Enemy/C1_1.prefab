@@ -743,6 +743,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eeeaa81a5701fa40b584fd6277649fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  move:
+    rid: 8392796874057187330
+  references:
+    version: 2
+    RefIds:
+    - rid: 8392796874057187330
+      type: {class: EnemyMoveNomal, ns: , asm: Assembly-CSharp}
+      data:
+        IsBackMove: 0
 --- !u!114 &5549523648780327327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -755,6 +764,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f3b1eb1215e394994ab0e1446ff41b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack:
+    rid: 8392796874057187338
+  references:
+    version: 2
+    RefIds:
+    - rid: 8392796874057187338
+      type: {class: EnemyAttackNomal, ns: , asm: Assembly-CSharp}
+      data: 
 --- !u!114 &5549523648780327324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,8 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
-  control: 2
-  IsBoss: 0
+  isBoss: 0
   stats:
   - {fileID: 11400000, guid: 31038d8d568c46a4fa5e1dc9a97f1ac9, type: 2}
   - {fileID: 11400000, guid: 990daac2810055d4baf7cb8bd9481f18, type: 2}
@@ -907,6 +923,8 @@ MonoBehaviour:
   endAniName: 
   spineAnimation: {fileID: 0}
   spineEndAniName: 
+  graphicAnimation: {fileID: 0}
+  graphicEndAniName: 
 --- !u!114 &5110112864714380872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -919,7 +937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 773ff3ecc828cb14e9c7fbc4c0d57100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialSkills: []
+  overrideSkills: []
 --- !u!114 &1989207871885464769
 MonoBehaviour:
   m_ObjectHideFlags: 0
