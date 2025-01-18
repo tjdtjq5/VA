@@ -7,11 +7,12 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: speed 5
-  m_Shader: {fileID: 4800000, guid: 28df8d5cfa9ee6342aea202403f98fc9, type: 3}
-  m_ValidKeywords: []
+  m_Name: fx_light_2 30
+  m_Shader: {fileID: 4800000, guid: 64005298b9a80bb4899eabd5140dc4a8, type: 3}
+  m_ValidKeywords:
+  - PIXELSNAP_ON
+  - _ALPHABLEND_ON
   m_InvalidKeywords:
-  - _ADDITIVEBLEND
   - _COLOROVERLAY_ON
   - _ENVIRONMENTREFLECTIONS_OFF
   - _FULLRANGE_HARD_RAMP
@@ -22,10 +23,11 @@ Material:
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap:
     AlphaDepth: true
     IGNOREPROJECTOR: true
+    RenderType: Transparent
   disabledShaderPasses:
   - DepthOnly
   - SHADOWCASTER
@@ -37,11 +39,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 9.98, y: 0}
     - _AlphaTex:
-        m_Texture: {fileID: 2800000, guid: 2fbb583d1c161314dbe0e99b70d3b4f1, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: 8f45f0324b8212c43b271648a857b533, type: 3}
+        m_Scale: {x: 5.78, y: 1}
+        m_Offset: {x: 0.38, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 350eb4df263e714418cd1bdef9b5442a, type: 3}
+        m_Texture: {fileID: 2800000, guid: f1aba3047b4fbfa46b5bfed8c3424ea2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap2:
@@ -58,10 +60,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 9389f88a278c7f54a9af8c869d752946, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DecalTex:
-        m_Texture: {fileID: 2800000, guid: f87073d260a4eef4ab90a0db768d1cd8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -85,11 +83,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 8c5c89794e7e55b43a836c91ad637e7b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MaskMap:
-        m_Texture: {fileID: 2800000, guid: 1e0aad8379bd74846bc308dbc3993751, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3058796c65777464d9f1b90a68c4e574, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -144,12 +138,12 @@ Material:
     - _GridSize: 20
     - _Iterations: 5
     m_Floats:
-    - PixelSnap: 0
-    - _AdditiveValue: 1.88
+    - PixelSnap: 1
+    - _AdditiveValue: 1.5
     - _AlphaClip: 0
     - _Amount: 0.291
     - _Amount2: 0.545
-    - _Blend: 1
+    - _Blend: 2
     - _BlendAmount: 0
     - _BlendOp: 0
     - _BlurSize: 0.0405
@@ -170,14 +164,14 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _Distance: 1
+    - _Distance: 1.33
     - _DistortionBlend: 0.5
     - _DistortionEnabled: 0
     - _DistortionStrength: 1
     - _DistortionStrengthScaled: 0
     - _Distribution: 0
-    - _DstBlend: 1
-    - _EffectAmount: 0.263
+    - _DstBlend: 10
+    - _EffectAmount: 0.621
     - _EmissionEnabled: 0
     - _EnableExternalAlpha: 0
     - _EnvironmentReflections: 0
@@ -200,7 +194,6 @@ Material:
     - _OutlineWidth: 3
     - _Parallax: 0.005
     - _Progress: 0.299
-    - _QueueControl: -1
     - _QueueOffset: -16
     - _Rad: -0.45
     - _Radius: 80.5
@@ -219,7 +212,7 @@ Material:
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 0
     - _Spread: 13.23
-    - _SrcBlend: 5
+    - _SrcBlend: 1
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -230,14 +223,12 @@ Material:
     - _TestFloat: 3
     - _ThresholdEnd: 0.25
     - _TimeSpeed: 20
-    - _TimeSpeedX: 0
-    - _TimeSpeedY: 8.2
+    - _TimeSpeedX: 2.6
+    - _TimeSpeedY: 3.9
     - _TintBlack: 0
-    - _UnlitValue: 2.15
     - _Use8Neighbourhood: 1
     - _UseScreenSpaceOutlineWidth: 0
     - _UseUIAlphaClip: 1
-    - _Value: 1.58
     - _Vibrancy: 0.5
     - _WorkflowMode: 1
     - _ZWrite: 0
@@ -263,5 +254,5 @@ Material:
     - _TestVector: {r: 1, g: 1, b: 1, a: 1}
     - _Time: {r: 1, g: 1, b: 0, a: 0}
     - _TintColor: {r: 1, g: 1, b: 1, a: 0.2}
-    - _UVFO: {r: 7, g: 5, b: 0, a: 0}
+    - _UVFO: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
