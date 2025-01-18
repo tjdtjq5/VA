@@ -20,8 +20,11 @@ MonoBehaviour:
   skillGrade: 0
   behaviour:
     rid: 8392796976337911808
-  timing: 6
+  timing: 7
   attackTimingSkill: 0
+  attackTimingSkillBehaviourAfter:
+    rid: -2
+  percent: 100
   applyCount: 1
   removeSkills: []
   conditionSkills: []
@@ -29,6 +32,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 8392796976337911808
       type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
       data:
