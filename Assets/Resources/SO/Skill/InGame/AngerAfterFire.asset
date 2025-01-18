@@ -10,22 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: LastAttackFire
+  m_Name: AngerAfterFire
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 61386c6276da5d74bb7fc70f35423dbc, type: 3}
   codeName: LastAttackFire
-  displayName: 
-  description: 
-  skillKeyCode: 1
+  displayName: "\uC77C\uBC18 \uACF5\uACA9 4\uD0C0 | \uD654\uC0C1"
+  description: "\uC77C\uBC18 \uACF5\uACA9 4\uD0C0 | \uD654\uC0C1"
+  skillKeyCode: 0
   skillGrade: 0
   behaviour:
-    rid: 1982496850479415296
-  timing: 1
-  attackStartTimingSkill: 0
-  attackTimingSkill: 0
-  attackEndTimingSkill: 0
-  skillStartTimingSkill: {fileID: 0}
-  skillEndTimingSkill: {fileID: 0}
+    rid: 8392796974957985796
+  timing: 4
+  attackTimingSkill: 3
   applyCount: 1
   removeSkills: []
   conditionSkills: []
@@ -33,7 +29,10 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 1982496850479415296
-      type: {class: SkillTriggerPassiveBuff, ns: , asm: Assembly-CSharp}
+    - rid: 8392796974957985796
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
       data:
-        _triggerPassiveBuff: 1
+        radiusType: 0
+        radius: 0
+        buff: {fileID: 11400000, guid: 37d6b4a42e1002747b3ecc6e483dd018, type: 2}
+        isAddTargets: 1
