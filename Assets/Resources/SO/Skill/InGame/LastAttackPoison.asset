@@ -17,15 +17,11 @@ MonoBehaviour:
   displayName: "\uC77C\uBC18 \uACF5\uACA9 4\uD0C0 | \uC911\uB3C5"
   description: "\uC77C\uBC18 \uACF5\uACA9 4\uD0C0 | \uC911\uB3C5"
   skillKeyCode: 0
-  skillGrade: 6
+  skillGrade: 0
   behaviour:
-    rid: 1982496850479415298
-  timing: 1
-  attackStartTimingSkill: 0
-  attackTimingSkill: 0
-  attackEndTimingSkill: 0
-  skillStartTimingSkill: {fileID: 0}
-  skillEndTimingSkill: {fileID: 0}
+    rid: 8392796976337911809
+  timing: 4
+  attackTimingSkill: 3
   applyCount: 1
   removeSkills: []
   conditionSkills: []
@@ -33,7 +29,9 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 1982496850479415298
-      type: {class: SkillTriggerPassiveBuff, ns: , asm: Assembly-CSharp}
+    - rid: 8392796976337911809
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
       data:
-        _triggerPassiveBuff: 3
+        radiusType: 2
+        radius: 0
+        buff: {fileID: 11400000, guid: d7c5fd9c2934c4c499ceb11794c21ec4, type: 2}
