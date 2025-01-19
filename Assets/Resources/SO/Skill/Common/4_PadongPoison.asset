@@ -10,21 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: LastAttackChang
+  m_Name: 4_PadongPoison
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 61386c6276da5d74bb7fc70f35423dbc, type: 3}
-  codeName: LastAttackChang
-  displayName: "\uC77C\uBC18 \uACF5\uACA9 4\uD0C0 | \uCC3D \uD22C\uCC99"
-  description: "\uC77C\uBC18 \uACF5\uACA9 4\uD0C0 | \uCC3D \uD22C\uCC99"
+  codeName: 4_PadongPoison
+  displayName: "\uD30C\uB3D9 \uBC1C\uB3D9 | \uC911\uB3C5"
+  description: "\uD30C\uB3D9 \uBC1C\uB3D9 | \uC911\uB3C5"
   skillKeyCode: 0
   skillGrade: 0
+  skillAttackType: 0
   behaviour:
-    rid: 1982496885127774209
-  timing: 4
+    rid: 8392796986348666897
+  timing: 8
   attackTimingSkill: 3
   attackTimingSkillBehaviourAfter:
-    rid: -2
+    rid: 8392796986348666888
   percent: 100
+  delay: 0
   applyCount: 1
   removeSkills: []
   conditionSkills: []
@@ -32,10 +34,14 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1982496885127774209
-      type: {class: SkillChang, ns: , asm: Assembly-CSharp}
+    - rid: 8392796986348666888
+      type: {class: SkillPadong, ns: , asm: Assembly-CSharp}
+      data:
+        radiusType: 0
+        radius: 0
+    - rid: 8392796986348666897
+      type: {class: SkillTargetBuff, ns: , asm: Assembly-CSharp}
       data:
         radiusType: 2
         radius: 0
+        buff: {fileID: 11400000, guid: d7c5fd9c2934c4c499ceb11794c21ec4, type: 2}
