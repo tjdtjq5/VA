@@ -10,30 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29c04b177e2e4b04fb72945db871888b, type: 3}
-  m_Name: EnemyAtkBuff
+  m_Name: InGameSkillStat_AtkSpeed
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 61386c6276da5d74bb7fc70f35423dbc, type: 3}
-  codeName: EnemyAtkBuff
+  codeName: InGameSkillStat_AtkSpeed
   displayName: 
-  description: "$[Value]% \uACF5\uACA9\uB825 \uC0DD\uC131"
+  description: "$[Value]% \uACF5\uACA9 \uC18D\uB3C4 \uC99D\uAC00"
   buffGrade: 0
   behaviour:
-    rid: 8392796881484513281
+    rid: 8392796986348666906
   buffIcon: {fileID: 0}
   buffCountType: 0
-  buffDuration: 10
+  buffDuration: 0
   references:
     version: 2
     RefIds:
-    - rid: 8392796881484513281
+    - rid: 8392796986348666906
       type: {class: BuffStat, ns: , asm: Assembly-CSharp}
       data:
-        buffBonusKey: EnemyAtkBuff
-        stat: {fileID: 11400000, guid: 1dd140b1eaeabc24c8ca3baf230c4420, type: 2}
+        buffBonusKey: InGameSkillStat_AtkSpeed
+        stat: {fileID: 11400000, guid: ae0a7898250266e43aafd5f0fe920940, type: 2}
         value:
           significand:
-            hash: 1011317177
-            hiddenValue: 67623263643107328
+            hash: 1043823033
+            hiddenValue: 70368744177664
             currentCryptoKey: 0
             hiddenValueOldByte8:
               b1: 0
@@ -61,4 +61,5 @@ MonoBehaviour:
               b8: 0
             version: 0
             migratedVersion: 
-        effectPool: {fileID: 155170849685753484, guid: 31037e84421786040bec2357c1b53bcc, type: 3}
+        isInfinite: 1
+        effectPool: {fileID: 0}
