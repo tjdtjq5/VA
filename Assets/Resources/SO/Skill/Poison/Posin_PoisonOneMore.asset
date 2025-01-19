@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: Posin_PoisonOneMore
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 61386c6276da5d74bb7fc70f35423dbc, type: 3}
+  codeName: Posin_PoisonOneMore
+  displayName: "\uC911\uB3C5 \uC801\uC6A9 | \uD55C\uBC88 \uB354 \uC911\uB3C5 \uC801\uC6A9"
+  description: "\uC911\uB3C5 \uC801\uC6A9 | \uD55C\uBC88 \uB354 \uC911\uB3C5 \uC801\uC6A9"
+  skillKeyCode: 0
+  skillGrade: 3
+  skillAttackType: 0
+  behaviour:
+    rid: 8392796986348666913
+  timing: 1
+  attackTimingSkill: 0
+  attackTimingSkillBehaviourAfter:
+    rid: -2
+  percent: 100
+  delay: 0
+  applyCount: 1
+  removeSkills: []
+  conditionSkills: []
+  ignoreSkills: []
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 8392796986348666913
+      type: {class: SkillTriggerPassiveBuff, ns: , asm: Assembly-CSharp}
+      data:
+        triggerPassiveBuff: 5
