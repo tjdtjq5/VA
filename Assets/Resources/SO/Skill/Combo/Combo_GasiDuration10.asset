@@ -10,18 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: Gasi
+  m_Name: Combo_GasiDuration10
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 61386c6276da5d74bb7fc70f35423dbc, type: 3}
-  codeName: Gasi
-  displayName: 
-  description: 
+  codeName: Combo_GasiDuration10
+  displayName: "$[Duration]\uCD08 \uB3D9\uC548 \uAC00\uC2DC \uBC29\uD328 \uC0DD\uC131"
+  description: "$[Duration]\uCD08 \uB3D9\uC548 \uAC00\uC2DC \uBC29\uD328 \uC0DD\uC131"
   skillKeyCode: 0
-  skillGrade: 0
+  skillGrade: 3
+  skillAttackType: 0
   behaviour:
     rid: 1982496730640809984
-  timing: 5
+  timing: 6
   attackTimingSkill: 0
+  attackTimingSkillBehaviourAfter:
+    rid: -2
+  percent: 100
+  delay: 0
   applyCount: 1
   removeSkills: []
   conditionSkills: []
@@ -29,7 +34,9 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1982496730640809984
       type: {class: SkillGasi, ns: , asm: Assembly-CSharp}
       data:
-        duration: 3
+        duration: 10
