@@ -2,7 +2,7 @@ Shader "Makeway/Unlit"
 {
      Properties
     {
-        [PerRendererData] _MainTex ("Texture", 2D) = "white" {}
+        _MainTex ("Texture", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
     	
         [PerRendererData]	_StencilComp ("Stencil Comparison", Float) = 8

@@ -2,7 +2,7 @@ Shader "Makeway/AdditiveAndTilingAndMask"
 {
 	Properties
 	{
-		[PerRendererData] _MainTex("BaseMap",2D) = "white"{}
+		_MainTex("BaseMap",2D) = "white"{}
 		_MaskMap("Mask", 2D) = "white"{}
 		_Color ("Tint", Color) = (1,1,1,1)
 		

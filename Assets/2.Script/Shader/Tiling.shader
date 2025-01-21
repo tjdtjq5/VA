@@ -2,7 +2,7 @@
 {
     Properties
     {
-        [PerRendererData] _MainTex("BaseMap",2D) = "white"{}
+        _MainTex("BaseMap",2D) = "white"{}
         _Color ("Tint", Color) = (1,1,1,1)
         _UVFO("TilingOfsset", Vector) = (1,1,0,0)
         _TimeSpeedX("TimeSpeedX", Range(0, 100)) = 10

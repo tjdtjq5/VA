@@ -2,7 +2,7 @@ Shader "Makeway/Additive"
 {
 	Properties
 	{
-		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
+		_MainTex ("Sprite Texture", 2D) = "white" {}
 		_Color ("Tint", Color) = (1,1,1,1)
 		
 		_AdditiveValue("Additive Value", Range(0, 6)) = 1

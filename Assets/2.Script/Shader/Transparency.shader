@@ -4,7 +4,7 @@ Shader "Makeway/Transparency"
 {
 	Properties
 	{
-		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
+		_MainTex ("Sprite Texture", 2D) = "white" {}
 		_Color ("Tint", Color) = (1,1,1,1)
 		_AlphaTex("Alpha Texture", 2D) = "white" {}
 		_Amount("Amount", Range(0,1)) = 1.0
