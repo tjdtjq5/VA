@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: InGameRestHpRecovery
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 61386c6276da5d74bb7fc70f35423dbc, type: 3}
-  codeName: InGameRestHpRecovery
   displayName: 
   description: "$[HpRecoveryValue]% HP \uD68C\uBCF5"
   buffGrade: 0
@@ -29,3 +28,5 @@ MonoBehaviour:
       type: {class: BuffHpRecovery, ns: , asm: Assembly-CSharp}
       data:
         hpRecoveryValue: 15
+        isAdjustRestStat: 1
+        effectPool: {fileID: 0}
