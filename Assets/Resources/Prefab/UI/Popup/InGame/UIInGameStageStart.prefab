@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 1635258166809626356}
   - component: {fileID: 8591127006868659788}
   - component: {fileID: 8724257785360735106}
+  - component: {fileID: -6438227216596574057}
   m_Layer: 5
-  m_Name: StageStart
+  m_Name: UIInGameStageStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,6 +125,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-6438227216596574057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55150330439880315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c220dc728a3c71343b457bde33b0cb1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 8724257785360735106}
 --- !u!1 &96374393255546375
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,8 +174,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 81}
-  m_SizeDelta: {x: 742.187, y: -67.2}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &96374393255546379
 CanvasRenderer:
@@ -224,7 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6430378854557711890}
   m_Layer: 5
-  m_Name: ChapterName
+  m_Name: Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -249,8 +263,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 333.7}
-  m_SizeDelta: {x: 569.0962, y: 197.77602}
+  m_AnchoredPosition: {x: 0, y: 415.5}
+  m_SizeDelta: {x: 1320, y: 119}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4003588740692968907
 GameObject:
@@ -263,8 +277,9 @@ GameObject:
   - component: {fileID: 238752612703903715}
   - component: {fileID: 7908125026679738552}
   - component: {fileID: 6326429156315449112}
+  - component: {fileID: 28281562084662306}
   m_Layer: 5
-  m_Name: Chapter
+  m_Name: Stage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -285,10 +300,10 @@ RectTransform:
   m_Father: {fileID: 6430378854557711890}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 79.7}
-  m_SizeDelta: {x: 569.0962, y: 113.176}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7908125026679738552
 CanvasRenderer:
@@ -332,3 +347,15 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: STAGE 1
+--- !u!114 &28281562084662306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4003588740692968907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d29a4058a4e61b1478ccbc4ffbab8226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
