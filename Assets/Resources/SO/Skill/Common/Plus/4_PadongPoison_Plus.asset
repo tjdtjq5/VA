@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: 4_PadongPoison_Plus
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 273c644eb6048d944bdb9c6b3c488578, type: 3}
+  displayName: "<color=#67E828>\uD30C\uB3D9 \uC911\uB3C5+</color>"
+  description: "\uD30C\uB3D9 \uBC1C\uB3D9 \uC2DC \uC911\uB3C5 <color=#67E828>$[ApplyCount]</color>\uD68C
+    \uBD80\uC5EC"
+  skillKeyCode: 0
+  skillGrade: 0
+  skillAttackType: 2
+  behaviour:
+    rid: 8392796986348666897
+  timing: 8
+  attackTimingSkill: 3
+  attackTimingSkillBehaviourAfter:
+    rid: 8392796986348666888
+  attackTimingSkillAttackType: 0
+  percent: 100
+  applyCount: 2
+  nextApplyDelay: 0.2
+  removeSkills:
+  - {fileID: 11400000, guid: 73067614d39440e4c86937d034f2d435, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: 73067614d39440e4c86937d034f2d435, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 8392796986348666888
+      type: {class: SkillPadong, ns: , asm: Assembly-CSharp}
+      data:
+        radiusType: 0
+        radius: 0
+    - rid: 8392796986348666897
+      type: {class: SkillTargetBuff, ns: , asm: Assembly-CSharp}
+      data:
+        radiusType: 2
+        radius: 0
+        buff: {fileID: 11400000, guid: d7c5fd9c2934c4c499ceb11794c21ec4, type: 2}
