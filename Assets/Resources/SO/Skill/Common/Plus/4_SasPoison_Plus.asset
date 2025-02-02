@@ -10,27 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: 5_SasPoisonHp
+  m_Name: 4_SasPoison_Plus
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 232165ac25dbe8b469e65d63b2e96ac0, type: 3}
-  displayName: "\uC0AC\uC2AC \uD68C\uBCF5"
-  description: "\uC0AC\uC2AC \uC2DC\uC804\uC2DC \uB0AE\uC740 \uD655\uB960\uB85C $[HpRecoveryValue]%
-    \uCCB4\uB825 \uD68C\uBCF5"
+  displayName: "<color=#67E828>\uC0AC\uC2AC \uC911\uB3C5+</color>"
+  description: "\uC0AC\uC2AC \uC2DC\uC804 \uC2DC \uC911\uB3C5 <color=#67E828>$[ApplyCount]</color>\uD68C
+    \uBD80\uC5EC"
   skillKeyCode: 0
   skillGrade: 0
   skillAttackType: 2
   behaviour:
-    rid: 8392796986348666903
+    rid: 8392796986348666898
   timing: 8
   attackTimingSkill: 3
   attackTimingSkillBehaviourAfter:
     rid: 8392796986348666889
   attackTimingSkillAttackType: 0
-  percent: 15
-  applyCount: 1
-  nextApplyDelay: 0
-  removeSkills: []
-  conditionSkills: []
+  percent: 100
+  applyCount: 2
+  nextApplyDelay: 0.2
+  removeSkills:
+  - {fileID: 11400000, guid: eb1c12a4d932b5146b0d1eed421791c5, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: eb1c12a4d932b5146b0d1eed421791c5, type: 2}
   references:
     version: 2
     RefIds:
@@ -39,7 +41,9 @@ MonoBehaviour:
       data:
         radiusType: 0
         radius: 0
-    - rid: 8392796986348666903
-      type: {class: SkillOwnerBuff, ns: , asm: Assembly-CSharp}
+    - rid: 8392796986348666898
+      type: {class: SkillTargetBuff, ns: , asm: Assembly-CSharp}
       data:
-        buff: {fileID: 11400000, guid: 7aaeb7004c8dfd145a670103370a6a22, type: 2}
+        radiusType: 2
+        radius: 0
+        buff: {fileID: 11400000, guid: d7c5fd9c2934c4c499ceb11794c21ec4, type: 2}

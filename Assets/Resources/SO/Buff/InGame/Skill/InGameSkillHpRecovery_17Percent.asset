@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c04b177e2e4b04fb72945db871888b, type: 3}
+  m_Name: InGameSkillHpRecovery_17Percent
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 61386c6276da5d74bb7fc70f35423dbc, type: 3}
+  displayName: 
+  description: "$[HpRecoveryValue]% HP \uD68C\uBCF5"
+  buffGrade: 0
+  behaviour:
+    rid: 8392796660976058368
+  buffIcon: {fileID: 0}
+  buffCountType: 0
+  buffDuration: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 8392796660976058368
+      type: {class: BuffHpRecovery, ns: , asm: Assembly-CSharp}
+      data:
+        hpRecoveryValue: 17
+        isAdjustRestStat: 0
+        effectPool: {fileID: 0}

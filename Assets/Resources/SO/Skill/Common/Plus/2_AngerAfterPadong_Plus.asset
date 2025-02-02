@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: 2_AngerAfterPadong_Plus
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 60d11a36093ed5b43b1c50696b5a8922, type: 3}
+  displayName: "<color=#67E828>\uBD84\uB178 \uD30C\uB3D9+</color>"
+  description: "\uBD84\uB178 \uBC1C\uB3D9 \uD6C4 \uD30C\uB3D9 <color=#67E828>$[ApplyCount]</color>\uD68C
+    \uBC1C\uB3D9"
+  skillKeyCode: 0
+  skillGrade: 0
+  skillAttackType: 2
+  behaviour:
+    rid: 1982496888396447744
+  timing: 7
+  attackTimingSkill: 3
+  attackTimingSkillBehaviourAfter:
+    rid: -2
+  attackTimingSkillAttackType: 0
+  percent: 100
+  applyCount: 2
+  nextApplyDelay: 0.2
+  removeSkills:
+  - {fileID: 11400000, guid: e4d9d65935b11e6418b18a071f206a48, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: e4d9d65935b11e6418b18a071f206a48, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 1982496888396447744
+      type: {class: SkillPadong, ns: , asm: Assembly-CSharp}
+      data:
+        radiusType: 2
+        radius: 0

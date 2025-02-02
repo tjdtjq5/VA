@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: 5_PadongPoisonHp
+  m_Name: 5_PadongPoisonHp_Plus
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 273c644eb6048d944bdb9c6b3c488578, type: 3}
-  displayName: "\uD30C\uB3D9 \uD68C\uBCF5"
-  description: "\uD30C\uB3D9 \uBC1C\uB3D9\uC2DC \uB0AE\uC740 \uD655\uB960\uB85C $[HpRecoveryValue]%
+  displayName: "<color=#67E828>\uD30C\uB3D9 \uD68C\uBCF5+</color>"
+  description: "\uD30C\uB3D9 \uBC1C\uB3D9\uC2DC \uB0AE\uC740 \uD655\uB960\uB85C <color=#67E828>$[HpRecoveryValue]%</color>
     \uCCB4\uB825 \uD68C\uBCF5"
   skillKeyCode: 0
   skillGrade: 0
@@ -29,8 +29,10 @@ MonoBehaviour:
   percent: 15
   applyCount: 1
   nextApplyDelay: 0
-  removeSkills: []
-  conditionSkills: []
+  removeSkills:
+  - {fileID: 11400000, guid: 4cc8200b21712c74fb99491ecff066fc, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: 4cc8200b21712c74fb99491ecff066fc, type: 2}
   references:
     version: 2
     RefIds:
@@ -42,4 +44,4 @@ MonoBehaviour:
     - rid: 8392796986348666902
       type: {class: SkillOwnerBuff, ns: , asm: Assembly-CSharp}
       data:
-        buff: {fileID: 11400000, guid: 7aaeb7004c8dfd145a670103370a6a22, type: 2}
+        buff: {fileID: 11400000, guid: 6b4322f309a1dd24fa1c376f022bdf3c, type: 2}
