@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: 5_PadongPoisonHp
+  m_Name: 5_PadongHp
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 273c644eb6048d944bdb9c6b3c488578, type: 3}
+  icon: {fileID: 21300000, guid: 03ccbb4f3239de247afe2502a9fd6f42, type: 3}
   displayName: "\uD30C\uB3D9 \uD68C\uBCF5"
   description: "\uD30C\uB3D9 \uBC1C\uB3D9\uC2DC \uB0AE\uC740 \uD655\uB960\uB85C $[HpRecoveryValue]%
     \uCCB4\uB825 \uD68C\uBCF5"
   skillKeyCode: 0
   skillGrade: 0
-  skillAttackType: 2
+  skillAttackType: 0
   behaviour:
     rid: 8392796986348666902
   timing: 8
@@ -30,7 +30,10 @@ MonoBehaviour:
   applyCount: 1
   nextApplyDelay: 0
   removeSkills: []
-  conditionSkills: []
+  conditionSkills:
+  - {fileID: 11400000, guid: 6d340f96f6b7f164da7785015e89c62f, type: 2}
+  - {fileID: 11400000, guid: e4d9d65935b11e6418b18a071f206a48, type: 2}
+  - {fileID: 11400000, guid: baea668dc8fbe2146be3fd8b35d4d12a, type: 2}
   references:
     version: 2
     RefIds:

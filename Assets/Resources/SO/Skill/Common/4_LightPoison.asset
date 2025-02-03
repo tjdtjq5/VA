@@ -17,7 +17,7 @@ MonoBehaviour:
   description: "\uBE5B\uBD80\uB9BC \uC2DC\uC804 \uC2DC \uC911\uB3C5 \uBD80\uC5EC"
   skillKeyCode: 0
   skillGrade: 0
-  skillAttackType: 2
+  skillAttackType: 4
   behaviour:
     rid: 8392796986348666896
   timing: 8
@@ -26,11 +26,13 @@ MonoBehaviour:
     rid: 8392796986348666887
   attackTimingSkillAttackType: 0
   percent: 100
-  delay: 0
   applyCount: 1
+  nextApplyDelay: 0
   removeSkills: []
-  conditionSkills: []
-  ignoreSkills: []
+  conditionSkills:
+  - {fileID: 11400000, guid: 448e94d8d79ef424ab43eb62e06d1f21, type: 2}
+  - {fileID: 11400000, guid: 3b8538108e01f924cb0e8bb7e49bbc79, type: 2}
+  - {fileID: 11400000, guid: c15e9cba4019d254a9d269e3f29a1f37, type: 2}
   references:
     version: 2
     RefIds:
