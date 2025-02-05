@@ -10,36 +10,39 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: 5_LightPoisonHp
+  m_Name: 5_KalHp
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 04015b1dbb09cc340a78a8a40c855031, type: 3}
-  displayName: "\uBE5B\uBD80\uB9BC \uD68C\uBCF5"
-  description: "\uBE5B\uBD80\uB9BC \uC2DC\uC804\uC2DC \uB0AE\uC740 \uD655\uB960\uB85C
-    $[HpRecoveryValue]% \uCCB4\uB825 \uD68C\uBCF5"
+  icon: {fileID: 21300000, guid: a5de7d4213fc59a469cea590aff51406, type: 3}
+  displayName: "\uCC38\uACA9 \uD68C\uBCF5"
+  description: "\uCC38\uACA9 \uC2DC\uC804\uC2DC \uB0AE\uC740 \uD655\uB960\uB85C $[HpRecoveryValue]%
+    \uCCB4\uB825 \uD68C\uBCF5"
   skillKeyCode: 0
   skillGrade: 0
-  skillAttackType: 2
+  skillAttackType: 0
   behaviour:
-    rid: 8392796986348666901
+    rid: 8392796986348666900
   timing: 8
   attackTimingSkill: 3
   attackTimingSkillBehaviourAfter:
-    rid: 8392796986348666887
+    rid: 8392796986348666886
   attackTimingSkillAttackType: 0
   percent: 15
   applyCount: 1
   nextApplyDelay: 0
   removeSkills: []
-  conditionSkills: []
+  conditionSkills:
+  - {fileID: 11400000, guid: 8d4b3a9a2f6ab3646ab7f27996dae79b, type: 2}
+  - {fileID: 11400000, guid: 739f2df96adcbef4298de0fb5e410225, type: 2}
+  - {fileID: 11400000, guid: d16c03fc8dab58445bbc84665f9a7456, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 8392796986348666887
-      type: {class: SkillLight, ns: , asm: Assembly-CSharp}
+    - rid: 8392796986348666886
+      type: {class: SkillKal, ns: , asm: Assembly-CSharp}
       data:
         radiusType: 0
         radius: 0
-    - rid: 8392796986348666901
+    - rid: 8392796986348666900
       type: {class: SkillOwnerBuff, ns: , asm: Assembly-CSharp}
       data:
         buff: {fileID: 11400000, guid: 7aaeb7004c8dfd145a670103370a6a22, type: 2}
