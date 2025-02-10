@@ -449,7 +449,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.9
+        time: 1.5
         value: 0
         inSlope: 0
         outSlope: 0
@@ -485,7 +485,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.9
+    m_StopTime: 1.5
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -519,7 +519,35 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 1
-  - time: 0.2333
+  - time: 0.0333
+    functionName: action
+    data: SpineEvent
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
+  - time: 0.0333
+    functionName: string
+    data: sound/at
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
+  - time: 0.0667
+    functionName: action
+    data: SpineEvent
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
+  - time: 0.1
+    functionName: end
+    data: SpineEvent
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
+  - time: 0.1333
     functionName: end
     data: SpineEvent
     objectReferenceParameter: {fileID: 0}
@@ -555,22 +583,8 @@ AnimationClip:
     intParameter: 0
     messageOptions: 1
   - time: 0.7
-    functionName: end
-    data: SpineEvent
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 1
-  - time: 0.7
     functionName: string
     data: effect/smoksmall/fx_root/n
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 1
-  - time: 0.9
-    functionName: end
-    data: SpineEvent
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
@@ -1380,6 +1394,13 @@ AnimationClip:
     intParameter: 0
     messageOptions: 1
   - time: 0.2333
+    functionName: move
+    data: SpineEvent
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
+  - time: 0.2333
     functionName: string
     data: effect/smoksmall/fx_root/n
     objectReferenceParameter: {fileID: 0}
@@ -1473,27 +1494,34 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: move
-    data: SpineEvent
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 1
-  - time: 0
     functionName: string
     data: effect/smokbig/fx_root/n
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 1
-  - time: 0.2333
-    functionName: end
+  - time: 0.0333
+    functionName: action
     data: SpineEvent
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 1
+  - time: 0.2333
+    functionName: string
+    data: effect/smokbig/fx_root/n
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
   - time: 0.2667
+    functionName: string
+    data: effect/smoksmall/fx_root/n
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
+  - time: 0.3
     functionName: string
     data: effect/smoksmall/fx_root/n
     objectReferenceParameter: {fileID: 0}
@@ -1507,6 +1535,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 1
+  - time: 0.4333
+    functionName: string
+    data: effect/smoksmall/fx_root/n
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
   - time: 0.4667
     functionName: string
     data: effect/smoksmall/fx_root/n
@@ -1514,7 +1549,21 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 1
+  - time: 0.5
+    functionName: string
+    data: effect/smoksmall/fx_root/n
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
   - time: 0.5667
+    functionName: string
+    data: effect/smoksmall/fx_root/n
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
+  - time: 0.6333
     functionName: string
     data: effect/smoksmall/fx_root/n
     objectReferenceParameter: {fileID: 0}
@@ -1535,8 +1584,8 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 1
-  - time: 0.9
-    functionName: end
+  - time: 0.7333
+    functionName: move
     data: SpineEvent
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
