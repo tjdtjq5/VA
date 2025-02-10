@@ -100,6 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4797851526884772509}
   - component: {fileID: 6287700198877509312}
+  - component: {fileID: 4102794283125259277}
   m_Layer: 5
   m_Name: InGameRewardCard
   m_TagString: Untagged
@@ -129,7 +130,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 700, y: 700}
+  m_SizeDelta: {x: 350, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6287700198877509312
 MonoBehaviour:
@@ -143,6 +144,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e5fd68a8ee50e4cb2059bc03d38a2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &4102794283125259277
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683694714130950324}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 648170fc5fc16e94f804e98a727daf3a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3393996311786191351
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,7 +177,7 @@ GameObject:
   - component: {fileID: 6000754100132190542}
   - component: {fileID: 1437286212999785099}
   - component: {fileID: 8497442601073075331}
-  - component: {fileID: 6158969542692929894}
+  - component: {fileID: 1359094628107222479}
   m_Layer: 5
   m_Name: Light
   m_TagString: Untagged
@@ -234,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRaycast: 0
---- !u!95 &6158969542692929894
+--- !u!95 &1359094628107222479
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -1663,10 +1685,10 @@ RectTransform:
   m_Father: {fileID: 4797851526884772509}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -200}
-  m_SizeDelta: {x: -275.1695, y: 81}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: -25}
+  m_SizeDelta: {x: 0, y: 81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2749293729530063844
 CanvasRenderer:
