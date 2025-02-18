@@ -10,38 +10,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: 3_AttackPoison_Plus
+  m_Name: LightPoisonPlus
   m_EditorClassIdentifier: 
-  codeName: AttackPoison
-  id: 54
-  icon: {fileID: 21300000, guid: 0de99443cabe3ec4e8f76a9d09049cb9, type: 3}
-  displayName: "<color=#67E828>\uC77C\uBC18 \uACF5\uACA9 \uC911\uB3C5+</color>"
-  description: "\uC77C\uBC18 \uACF5\uACA9 \uC2DC \uB0AE\uC740 \uD655\uB960\uB85C
-    \uC911\uB3C5 <color=#67E828>$[ApplyCount]</color>\uD68C \uBD80\uC5EC"
+  codeName: LightPoisonPlus
+  id: 58
+  icon: {fileID: 21300000, guid: 04015b1dbb09cc340a78a8a40c855031, type: 3}
+  displayName: "<color=#67E828>\uBE5B\uBD80\uB9BC \uC911\uB3C5+</color>"
+  description: "\uBE5B\uBD80\uB9BC \uC2DC\uC804 \uC2DC \uC911\uB3C5 <color=#67E828>$[ApplyCount]</color>\uD68C
+    \uBD80\uC5EC"
   skillKeyCode: 0
   isPlus: 1
   skillGrade: 1
   skillAttackType: 4
   behaviour:
-    rid: 8392796986348666893
-  timing: 5
-  attackTimingSkill: 0
+    rid: 8392796986348666896
+  timing: 8
+  attackTimingSkill: 3
   attackTimingSkillBehaviourAfter:
-    rid: -2
+    rid: 8392796986348666887
   attackTimingSkillAttackType: 0
-  percent: 8
+  percent: 100
   applyCount: 2
   nextApplyDelay: 0.2
   removeSkills:
-  - {fileID: 11400000, guid: 684c5d70ee9c8a348aa1f8163ff2cdd7, type: 2}
+  - {fileID: 11400000, guid: 6232e4cfb48addd4e9e87fa17059819d, type: 2}
   conditionSkills:
-  - {fileID: 11400000, guid: 684c5d70ee9c8a348aa1f8163ff2cdd7, type: 2}
+  - {fileID: 11400000, guid: 6232e4cfb48addd4e9e87fa17059819d, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 8392796986348666893
+    - rid: 8392796986348666887
+      type: {class: SkillLight, ns: , asm: Assembly-CSharp}
+      data:
+        radiusType: 0
+        radius: 0
+    - rid: 8392796986348666896
       type: {class: SkillTargetBuff, ns: , asm: Assembly-CSharp}
       data:
         radiusType: 2

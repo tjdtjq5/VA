@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: 1_LastAttackLight_Plus
+  m_Name: LastAttackPadongPlus
   m_EditorClassIdentifier: 
-  codeName: LastAttackLight
-  id: 40
-  icon: {fileID: 21300000, guid: 93f9839f7ce293c459e8154b0fefecb3, type: 3}
-  displayName: "<color=#67E828>\uAC15\uD0C0 \uBE5B\uBD80\uB9BC+</color>"
-  description: "\uC77C\uBC18 \uACF5\uACA9 4\uD0C0 \uC2DC \uBE5B\uBD80\uB9BC <color=#67E828>$[ApplyCount]</color>\uD68C
-    \uC2DC\uC804"
+  codeName: LastAttackPadongPlus
+  id: 41
+  icon: {fileID: 21300000, guid: 51da912dd92c8084a8d5bc1f956d17ee, type: 3}
+  displayName: "<color=#67E828>\uAC15\uD0C0 \uD30C\uB3D9+</color>"
+  description: "\uC77C\uBC18 \uACF5\uACA9 4\uD0C0 \uC2DC \uD30C\uB3D9 <color=#67E828>$[ApplyCount]</color>\uD68C
+    \uBC1C\uB3D9"
   skillKeyCode: 0
   isPlus: 1
   skillGrade: 1
-  skillAttackType: 3
+  skillAttackType: 2
   behaviour:
-    rid: 1982496885127774210
+    rid: 1982496888396447744
   timing: 4
   attackTimingSkill: 3
   attackTimingSkillBehaviourAfter:
@@ -33,16 +33,16 @@ MonoBehaviour:
   applyCount: 2
   nextApplyDelay: 0.2
   removeSkills:
-  - {fileID: 11400000, guid: 448e94d8d79ef424ab43eb62e06d1f21, type: 2}
+  - {fileID: 11400000, guid: 6d340f96f6b7f164da7785015e89c62f, type: 2}
   conditionSkills:
-  - {fileID: 11400000, guid: 448e94d8d79ef424ab43eb62e06d1f21, type: 2}
+  - {fileID: 11400000, guid: 6d340f96f6b7f164da7785015e89c62f, type: 2}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1982496885127774210
-      type: {class: SkillLight, ns: , asm: Assembly-CSharp}
+    - rid: 1982496888396447744
+      type: {class: SkillPadong, ns: , asm: Assembly-CSharp}
       data:
         radiusType: 2
         radius: 0

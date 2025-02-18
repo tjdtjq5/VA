@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: 2_AngerAfterPoison_Plus
+  m_Name: AngerAfterPadongPlus
   m_EditorClassIdentifier: 
-  codeName: AngerAfterPoison
-  id: 48
-  icon: {fileID: 21300000, guid: eb19c0cf9b27284439402e10d9f72fee, type: 3}
-  displayName: "<color=#67E828>\uBD84\uB178 \uC911\uB3C5+</color>"
-  description: "\uBD84\uB178 \uBC1C\uB3D9 \uD6C4 \uC911\uB3C5 <color=#67E828>$[ApplyCount]</color>\uD68C
-    \uBD80\uC5EC"
+  codeName: AngerAfterPadongPlus
+  id: 47
+  icon: {fileID: 21300000, guid: 60d11a36093ed5b43b1c50696b5a8922, type: 3}
+  displayName: "<color=#67E828>\uBD84\uB178 \uD30C\uB3D9+</color>"
+  description: "\uBD84\uB178 \uBC1C\uB3D9 \uD6C4 \uD30C\uB3D9 <color=#67E828>$[ApplyCount]</color>\uD68C
+    \uBC1C\uB3D9"
   skillKeyCode: 0
   isPlus: 1
   skillGrade: 1
-  skillAttackType: 4
+  skillAttackType: 2
   behaviour:
-    rid: 8392796986348666891
+    rid: 1982496888396447744
   timing: 7
-  attackTimingSkill: 0
+  attackTimingSkill: 3
   attackTimingSkillBehaviourAfter:
     rid: -2
   attackTimingSkillAttackType: 0
@@ -33,17 +33,16 @@ MonoBehaviour:
   applyCount: 2
   nextApplyDelay: 0.2
   removeSkills:
-  - {fileID: 11400000, guid: 7e5ad70631ffb5e4daa6c504958190e5, type: 2}
+  - {fileID: 11400000, guid: e4d9d65935b11e6418b18a071f206a48, type: 2}
   conditionSkills:
-  - {fileID: 11400000, guid: 7e5ad70631ffb5e4daa6c504958190e5, type: 2}
+  - {fileID: 11400000, guid: e4d9d65935b11e6418b18a071f206a48, type: 2}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 8392796986348666891
-      type: {class: SkillTargetBuff, ns: , asm: Assembly-CSharp}
+    - rid: 1982496888396447744
+      type: {class: SkillPadong, ns: , asm: Assembly-CSharp}
       data:
         radiusType: 2
         radius: 0
-        buff: {fileID: 11400000, guid: d7c5fd9c2934c4c499ceb11794c21ec4, type: 2}

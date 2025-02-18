@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: 2_AngerAfterKal_Plus
+  m_Name: LastAttackSasPlus
   m_EditorClassIdentifier: 
-  codeName: AngerAfterKal
-  id: 45
-  icon: {fileID: 21300000, guid: 202823c63f11cc14b959792b0f100528, type: 3}
-  displayName: "<color=#67E828>\uBD84\uB178 \uCC38\uACA9+</color>"
-  description: "\uBD84\uB178 \uBC1C\uB3D9 \uD6C4 \uCC38\uACA9 <color=#67E828>$[ApplyCount]</color>\uD68C
+  codeName: LastAttackSasPlus
+  id: 43
+  icon: {fileID: 21300000, guid: 7ea7ba24f2b81ca42bad93ad9c550b1c, type: 3}
+  displayName: "<color=#67E828>\uAC15\uD0C0 \uC0AC\uC2AC+</color>"
+  description: "\uC77C\uBC18 \uACF5\uACA9 4\uD0C0 \uC2DC \uC0AC\uC2AC <color=#67E828>$[ApplyCount]</color>\uD68C
     \uC2DC\uC804"
   skillKeyCode: 0
   isPlus: 1
   skillGrade: 1
   skillAttackType: 3
   behaviour:
-    rid: 1982496885127774208
-  timing: 7
+    rid: 1982496885127774211
+  timing: 4
   attackTimingSkill: 3
   attackTimingSkillBehaviourAfter:
     rid: -2
@@ -33,16 +33,16 @@ MonoBehaviour:
   applyCount: 2
   nextApplyDelay: 0.2
   removeSkills:
-  - {fileID: 11400000, guid: 739f2df96adcbef4298de0fb5e410225, type: 2}
+  - {fileID: 11400000, guid: f275e42f544387d46ace44214a77f967, type: 2}
   conditionSkills:
-  - {fileID: 11400000, guid: 739f2df96adcbef4298de0fb5e410225, type: 2}
+  - {fileID: 11400000, guid: f275e42f544387d46ace44214a77f967, type: 2}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1982496885127774208
-      type: {class: SkillKal, ns: , asm: Assembly-CSharp}
+    - rid: 1982496885127774211
+      type: {class: SkillSas, ns: , asm: Assembly-CSharp}
       data:
         radiusType: 2
         radius: 0

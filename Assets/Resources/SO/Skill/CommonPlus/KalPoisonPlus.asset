@@ -10,41 +10,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: 4_LightPoison_Plus
+  m_Name: KalPoisonPlus
   m_EditorClassIdentifier: 
-  codeName: LightPoison
-  id: 58
-  icon: {fileID: 21300000, guid: 04015b1dbb09cc340a78a8a40c855031, type: 3}
-  displayName: "<color=#67E828>\uBE5B\uBD80\uB9BC \uC911\uB3C5+</color>"
-  description: "\uBE5B\uBD80\uB9BC \uC2DC\uC804 \uC2DC \uC911\uB3C5 <color=#67E828>$[ApplyCount]</color>\uD68C
+  codeName: KalPoisonPlus
+  id: 57
+  icon: {fileID: 21300000, guid: b22cf9dc1983af44ba73d913757c310c, type: 3}
+  displayName: "<color=#67E828>\uCC38\uACA9 \uC911\uB3C5+</color>"
+  description: "\uCC38\uACA9 \uC2DC\uC804 \uC2DC \uC911\uB3C5 <color=#67E828>$[ApplyCount]</color>\uD68C
     \uBD80\uC5EC"
   skillKeyCode: 0
   isPlus: 1
   skillGrade: 1
   skillAttackType: 4
   behaviour:
-    rid: 8392796986348666896
+    rid: 8392796986348666895
   timing: 8
   attackTimingSkill: 3
   attackTimingSkillBehaviourAfter:
-    rid: 8392796986348666887
+    rid: 8392796986348666886
   attackTimingSkillAttackType: 0
   percent: 100
   applyCount: 2
   nextApplyDelay: 0.2
   removeSkills:
-  - {fileID: 11400000, guid: 6232e4cfb48addd4e9e87fa17059819d, type: 2}
+  - {fileID: 11400000, guid: 26b3556a9396d674dad477c6253a3ddf, type: 2}
   conditionSkills:
-  - {fileID: 11400000, guid: 6232e4cfb48addd4e9e87fa17059819d, type: 2}
+  - {fileID: 11400000, guid: 26b3556a9396d674dad477c6253a3ddf, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 8392796986348666887
-      type: {class: SkillLight, ns: , asm: Assembly-CSharp}
+    - rid: 8392796986348666886
+      type: {class: SkillKal, ns: , asm: Assembly-CSharp}
       data:
         radiusType: 0
         radius: 0
-    - rid: 8392796986348666896
+    - rid: 8392796986348666895
       type: {class: SkillTargetBuff, ns: , asm: Assembly-CSharp}
       data:
         radiusType: 2

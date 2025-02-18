@@ -10,41 +10,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: 5_PadongHp_Plus
+  m_Name: ChangHpPlus
   m_EditorClassIdentifier: 
-  codeName: PadongHp
-  id: 64
-  icon: {fileID: 21300000, guid: 03ccbb4f3239de247afe2502a9fd6f42, type: 3}
-  displayName: "<color=#67E828>\uD30C\uB3D9 \uD68C\uBCF5+</color>"
-  description: "\uD30C\uB3D9 \uBC1C\uB3D9\uC2DC \uB0AE\uC740 \uD655\uB960\uB85C <color=#67E828>$[HpRecoveryValue]%</color>
+  codeName: ChangHpPlus
+  id: 61
+  icon: {fileID: 21300000, guid: 0f90ad46d1f57df4fbff1f6e931a4e98, type: 3}
+  displayName: "<color=#67E828>\uCC3D \uD68C\uBCF5+</color>"
+  description: "\uCC3D \uD22C\uCC99\uC2DC \uB0AE\uC740 \uD655\uB960\uB85C <color=#67E828>$[HpRecoveryValue]%</color>
     \uCCB4\uB825 \uD68C\uBCF5"
   skillKeyCode: 0
   isPlus: 1
   skillGrade: 1
   skillAttackType: 0
   behaviour:
-    rid: 8392796986348666902
+    rid: 8392796986348666899
   timing: 8
   attackTimingSkill: 3
   attackTimingSkillBehaviourAfter:
-    rid: 8392796986348666888
+    rid: 8392796986348666885
   attackTimingSkillAttackType: 0
   percent: 15
   applyCount: 1
   nextApplyDelay: 0
   removeSkills:
-  - {fileID: 11400000, guid: 4cc8200b21712c74fb99491ecff066fc, type: 2}
+  - {fileID: 11400000, guid: 60d771fb11710fb448fb3cc804748cc3, type: 2}
   conditionSkills:
-  - {fileID: 11400000, guid: 4cc8200b21712c74fb99491ecff066fc, type: 2}
+  - {fileID: 11400000, guid: 60d771fb11710fb448fb3cc804748cc3, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 8392796986348666888
-      type: {class: SkillPadong, ns: , asm: Assembly-CSharp}
+    - rid: 8392796986348666885
+      type: {class: SkillChang, ns: , asm: Assembly-CSharp}
       data:
         radiusType: 0
         radius: 0
-    - rid: 8392796986348666902
+    - rid: 8392796986348666899
       type: {class: SkillOwnerBuff, ns: , asm: Assembly-CSharp}
       data:
         buff: {fileID: 11400000, guid: 6b4322f309a1dd24fa1c376f022bdf3c, type: 2}
