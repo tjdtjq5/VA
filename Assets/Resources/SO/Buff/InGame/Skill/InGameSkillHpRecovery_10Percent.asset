@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29c04b177e2e4b04fb72945db871888b, type: 3}
   m_Name: InGameSkillHpRecovery_10Percent
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 61386c6276da5d74bb7fc70f35423dbc, type: 3}
   codeName: SkillHpRecovery_7Percent
+  id: 8
+  icon: {fileID: 21300000, guid: 61386c6276da5d74bb7fc70f35423dbc, type: 3}
   displayName: 
   description: "$[HpRecoveryValue]% HP \uD68C\uBCF5"
   buffGrade: 0
@@ -29,4 +30,5 @@ MonoBehaviour:
       type: {class: BuffHpRecovery, ns: , asm: Assembly-CSharp}
       data:
         hpRecoveryValue: 10
+        isAdjustRestStat: 0
         effectPool: {fileID: 0}
