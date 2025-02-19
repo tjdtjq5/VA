@@ -633,7 +633,7 @@ MonoBehaviour:
       type: {class: EnemyAttackLongRange, ns: , asm: Assembly-CSharp}
       data:
         attackEffect: {fileID: 8549036546998238333, guid: 2e9601be58c262f459457a52657f63a6, type: 3}
-        effectTiming: 0.5
+        effectTiming: 0.85
 --- !u!114 &5549523648780327324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,6 +648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpStat: {fileID: 0}
   shieldStat: {fileID: 0}
+  atkStat: {fileID: 0}
 --- !u!114 &5549523648780327323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,6 +773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a87f5d5b15a38f14ea7a9987128ace54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isUnTime: 0
   poolObjectType: 0
   time: 0
   animator: {fileID: 0}
