@@ -1035,6 +1035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db31007d1bad9bb49bc49fbd69255414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  failBuff: {fileID: 11400000, guid: 4713f060e7159a34bb524b7be0c1c8a5, type: 2}
   leftSkillSlots:
   - {fileID: 11400000, guid: 161620b7865c2204a862fb17176e2058, type: 2}
   - {fileID: 11400000, guid: 8f1159fb242e5b743a24e6358726bafa, type: 2}
@@ -1121,9 +1122,6 @@ MonoBehaviour:
   leftSlotParticle: {fileID: 2616684221826191915}
   middleSlotParticle: {fileID: 3411595342484832630}
   rightSlotParticle: {fileID: 8862749622482187766}
-  leftFailParticle: {fileID: 4884557999880434949}
-  middleFailParticle: {fileID: 2655326189028914541}
-  rightFailParticle: {fileID: 1081894932273247273}
   goodsSprite: {fileID: 21300000, guid: 24db1d17e37c2ef4bbe917d800b76b9a, type: 3}
 --- !u!95 &2962169293519845038
 Animator:
@@ -1471,6 +1469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ef67f7c44b0b440b710cd371310d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  failParticle: {fileID: 1081894932273247273}
 --- !u!1 &2702842013633409552
 GameObject:
   m_ObjectHideFlags: 0
@@ -1726,6 +1725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ef67f7c44b0b440b710cd371310d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  failParticle: {fileID: 2655326189028914541}
 --- !u!1 &3067926815094692564
 GameObject:
   m_ObjectHideFlags: 0
@@ -3169,6 +3169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ef67f7c44b0b440b710cd371310d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  failParticle: {fileID: 4884557999880434949}
 --- !u!1 &5907506539511119535
 GameObject:
   m_ObjectHideFlags: 0
@@ -4913,15 +4914,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3647090521782686500, guid: 94089dbd04e3d2748922e5f9b4e4e6f8, type: 3}
       propertyPath: _bursts.Array.data[0].used
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3647090521839305464, guid: 94089dbd04e3d2748922e5f9b4e4e6f8, type: 3}
       propertyPath: _bursts.Array.data[0].used
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3647090522990977051, guid: 94089dbd04e3d2748922e5f9b4e4e6f8, type: 3}
       propertyPath: _bursts.Array.data[0].used
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3647090523116144720, guid: 94089dbd04e3d2748922e5f9b4e4e6f8, type: 3}
       propertyPath: m_Pivot.x
@@ -5515,15 +5516,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3647090521782686500, guid: 94089dbd04e3d2748922e5f9b4e4e6f8, type: 3}
       propertyPath: _bursts.Array.data[0].used
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3647090521839305464, guid: 94089dbd04e3d2748922e5f9b4e4e6f8, type: 3}
       propertyPath: _bursts.Array.data[0].used
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3647090522990977051, guid: 94089dbd04e3d2748922e5f9b4e4e6f8, type: 3}
       propertyPath: _bursts.Array.data[0].used
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3647090523116144720, guid: 94089dbd04e3d2748922e5f9b4e4e6f8, type: 3}
       propertyPath: m_Pivot.x
@@ -6060,15 +6061,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3647090521782686500, guid: 94089dbd04e3d2748922e5f9b4e4e6f8, type: 3}
       propertyPath: _bursts.Array.data[0].used
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3647090521839305464, guid: 94089dbd04e3d2748922e5f9b4e4e6f8, type: 3}
       propertyPath: _bursts.Array.data[0].used
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3647090522990977051, guid: 94089dbd04e3d2748922e5f9b4e4e6f8, type: 3}
       propertyPath: _bursts.Array.data[0].used
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3647090523116144720, guid: 94089dbd04e3d2748922e5f9b4e4e6f8, type: 3}
       propertyPath: m_Pivot.x
