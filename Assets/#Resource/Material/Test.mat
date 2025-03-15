@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Test
-  m_Shader: {fileID: 4800000, guid: 8fecd99475f5dbe48a37814034a6462b, type: 3}
+  m_Shader: {fileID: 4800000, guid: 609d7d304d27bfd4bb69005f3b61a0ab, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
   - _ADDITIVEBLEND
@@ -100,6 +100,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: ee3a9c07ca23d18458dde9d1892a6c4e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: b0c552b9a0531564dbf486ea02aab0e8, type: 3}
+        m_Scale: {x: 1.83, y: 1.65}
+        m_Offset: {x: 1.26, y: 0.69}
     - _NormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -155,6 +159,7 @@ Material:
     - _BlurSize: 0.0405
     - _BlurX: 0.116
     - _BlurY: 0.254
+    - _BounceIntensity: 0.807
     - _Brightness: 1
     - _BumpScale: 1
     - _CameraFadingEnabled: 0
@@ -163,6 +168,7 @@ Material:
     - _CellSize: -0.8
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
+    - _ClickTime: 0
     - _ColorMask: 15
     - _ColorMode: 3
     - _Cull: 0
@@ -171,6 +177,7 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _Distance: 1
+    - _Distortion: 0.728
     - _DistortionBlend: 0.5
     - _DistortionEnabled: 0
     - _DistortionStrength: 1
@@ -181,12 +188,15 @@ Material:
     - _EmissionEnabled: 0
     - _EnableExternalAlpha: 0
     - _EnvironmentReflections: 0
+    - _FadeSpeed: 1.18
     - _FlipbookMode: 0
     - _Focus: 0.206
     - _GlossMapScale: 0
     - _Glossiness: 0.496
     - _GlossyReflections: 0
+    - _GlowIntensity: 1.54
     - _Hue: 0
+    - _Intensity: 2.09
     - _LerpSlider: 0
     - _LightingEnabled: 0
     - _Metallic: 0.32
@@ -204,20 +214,27 @@ Material:
     - _QueueOffset: -16
     - _Rad: -0.45
     - _Radius: 80.5
+    - _RainbowSpeed: 3.21
     - _Ratio: 5.72
     - _ReceiveShadows: 1
+    - _ReflectionStrength: 1
     - _RenderQueue: 0
+    - _RippleSpeed: 3.51
+    - _RippleStrength: 0.1312
     - _Saturation: 1
     - _ScrollXSpeed: 32.76
     - _ScrollYSpeed: 32.76
     - _ShadowAlphaCutoff: 0.1
-    - _Size: 7.7
+    - _ShineIntensity: 0.333
+    - _ShineSpeed: 5
+    - _Size: 2.32
     - _Smoothness: 0.326
     - _SmoothnessTextureChannel: 1
     - _SoftParticlesEnabled: 0
     - _SoftParticlesFarFadeDistance: 1
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 0
+    - _Speed: 3.91
     - _Spread: 13.23
     - _SrcBlend: 5
     - _Stencil: 0
@@ -229,6 +246,7 @@ Material:
     - _Surface: 1
     - _TestFloat: 3
     - _ThresholdEnd: 0.25
+    - _TimeFactor: 1.12
     - _TimeSpeed: 20
     - _TimeSpeedX: 10
     - _TimeSpeedY: 0
@@ -239,26 +257,35 @@ Material:
     - _UseUIAlphaClip: 1
     - _Value: 1.58
     - _Vibrancy: 0.5
+    - _VortexStrength: 0
+    - _WaveIntensity: 0.623
+    - _WaveSpeed: 1.09
+    - _WaveStrength: 0.0146
     - _WorkflowMode: 1
     - _ZWrite: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Black: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
+    - _ClickColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ClickPosition: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorAddSubDiff: {r: 1, g: 0, b: 0, a: 0}
     - _ColorMask: {r: 1, g: 1, b: 1, a: 0.2}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ExplosionColor: {r: 1, g: 0.5, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _GlowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GlowColor: {r: 0.010377178, g: 0.01886779, b: 0, a: 1}
     - _NewColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0.6981132, g: 0.2737883, b: 0.2737883, a: 1}
     - _OverlayColor: {r: 0, g: 0, b: 0, a: 0}
     - _Position: {r: 5, g: 5, b: 1, a: 1}
+    - _ReflectionColor: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _Size: {r: 64.49, g: 45.7, b: 15.2, a: 0.06}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
+    - _SparkColor: {r: 1, g: 1, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TestVector: {r: 1, g: 1, b: 1, a: 1}
     - _Time: {r: 1, g: 1, b: 0, a: 0}
