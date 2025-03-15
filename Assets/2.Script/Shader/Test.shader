@@ -4,10 +4,10 @@ Shader "Makeway/Test"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}  // 기본 텍스처
-        _ReflectionColor ("Reflection Color", Color) = (1, 1, 1, 1)  // 반사 색상
-        _ReflectionStrength ("Reflection Strength", Range(0, 1)) = 0.5  // 반사 강도
-        _ShineSpeed ("Shine Speed", Range(0, 5)) = 1.5  // 빛 반짝이는 속도
+        _MainTex ("Main Texture", 2D) = "white" {}
+        _ElectricColor ("Electric Color", Color) = (0.5, 0.8, 1, 1)
+        _ElectricIntensity ("Electric Intensity", Range(0, 2)) = 1
+        _Speed ("Speed", Range(0, 10)) = 2
     }
     SubShader
     {
@@ -34,9 +34,9 @@ Shader "Makeway/Test"
             };
 
             sampler2D _MainTex;
-            fixed4 _ReflectionColor;
-            float _ReflectionStrength;
-            float _ShineSpeed;
+            fixed4 _ElectricColor;
+            float _ElectricIntensity;
+            float _Speed;
 
             v2f vert (appdata_t v)
             {
@@ -49,18 +49,15 @@ Shader "Makeway/Test"
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 texColor = tex2D(_MainTex, i.uv);
-                float alpha = texColor.a; // 원래 Alpha 값 저장
+                float alpha = texColor.a; // 원래 투명도 유지
 
-                // 빛 반사 효과: X축 기준으로 반짝이는 패턴
-                float reflection = sin(i.uv.x * 40 + _Time.y * _ShineSpeed) * _ReflectionStrength;
-                reflection = max(reflection, 0);  // 음수 값 제거
+                // 전기 애니메이션 효과
+                float electricWave = sin(i.uv.x * 50 + _Time.y * _Speed) * 0.5 + 0.5;
+                float glow = smoothstep(0.4, 1.0, electricWave) * _ElectricIntensity;
 
-                // 빛 반사가 텍스처의 밝은 부분에서만 적용되도록 조정
-                float luminance = dot(texColor.rgb, float3(0.3, 0.59, 0.11)); // 밝기 계산
-                reflection *= luminance; // 밝은 부분에만 반사 적용
-
-                fixed4 finalColor = texColor + reflection * _ReflectionColor;
-                finalColor.a = alpha;  // 원래 Alpha 값 유지
+                // 최종 색상 적용
+                fixed4 finalColor = texColor + glow * _ElectricColor;
+                finalColor.a = alpha; // 투명도 유지
 
                 return finalColor;
             }
