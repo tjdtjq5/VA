@@ -20,18 +20,21 @@ MonoBehaviour:
   isPlus: 0
   skillGrade: 0
   behaviour:
-    rid: 3350614808140972033
-  timing: 6
+    rid: 3350614808140972034
+  timing: 11
   timingPuzzleType: 0
   timingPuzzleComboMin: 1
   timingPageCycle: 0
   percent: 100
   applyCount: 1
+  isEndRemove: 1
   removeSkills: []
   conditionSkills: []
   references:
     version: 2
     RefIds:
-    - rid: 3350614808140972033
-      type: {class: SkillPuzzleCrossChange, ns: , asm: Assembly-CSharp}
-      data: 
+    - rid: 3350614808140972034
+      type: {class: SkillLightning, ns: , asm: Assembly-CSharp}
+      data:
+        _time: 1
+        targetType: 2
