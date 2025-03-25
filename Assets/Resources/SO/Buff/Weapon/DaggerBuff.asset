@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c04b177e2e4b04fb72945db871888b, type: 3}
+  m_Name: DaggerBuff
+  m_EditorClassIdentifier: 
+  codeName: DaggerBuff
+  id: 14
+  icon: {fileID: 21300000, guid: f37a95ba9e43e9e41b3fb25e45fd26a9, type: 3}
+  displayName: "\uB2E8\uAC80 \uBC84\uD504"
+  description: "\uB2E8\uAC80 \uBC84\uD504 : \uCE58\uBA85\uD0C0 \uD655\uB960 10% \uC99D\uAC00"
+  buffGrade: 0
+  behaviour:
+    rid: 3350614900987396097
+  buffIcon: {fileID: 21300000, guid: f37a95ba9e43e9e41b3fb25e45fd26a9, type: 3}
+  buffCountType: 0
+  addCount: 1
+  startTiming: 0
+  endTiming: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 3350614900987396097
+      type: {class: BuffStat, ns: , asm: Assembly-CSharp}
+      data:
+        buffBonusKey: DaggerBuff
+        stat: {fileID: 11400000, guid: 2742a22b99ff69c48af5aab842077ec2, type: 2}
+        percent: 10
+        isInfinite: 0
+        effectPool: {fileID: -9178456514529446230, guid: 36368464c75e9704dbda0ad182b5fc1d, type: 3}
