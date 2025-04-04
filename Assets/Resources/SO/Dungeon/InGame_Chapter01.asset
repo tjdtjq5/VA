@@ -34,13 +34,11 @@ MonoBehaviour:
           eventObject: {fileID: 0}
           eventPopups: []
           enemieSpawnDatas:
-          - enemy: {fileID: 5549523648780327323, guid: b9950f90db5f17f4f9edb8d72a4bc716, type: 3}
-            position: {x: -1.5, y: 0, z: 0}
-          - enemy: {fileID: 5549523648780327323, guid: b9950f90db5f17f4f9edb8d72a4bc716, type: 3}
+          - enemy: {fileID: 5549523648780327323, guid: 6821286fb08d5ea4a866eb2006ca08e3, type: 3}
             position: {x: 0, y: 0, z: 0}
         - stage: 1
           eventName: Stage1_0
-          linkEventName: FirstEvent
+          linkEventName: Stage0_0
           stageEvent: 4
           eventObject: {fileID: 5959118135336519576, guid: 61090036409f3714091c36903010cbfc, type: 3}
           eventPopups:
@@ -49,10 +47,12 @@ MonoBehaviour:
         - stage: 1
           eventName: Stage1_1
           linkEventName: Stage0_0
-          stageEvent: 2
+          stageEvent: 3
           eventObject: {fileID: 0}
           eventPopups: []
-          enemieSpawnDatas: []
+          enemieSpawnDatas:
+          - enemy: {fileID: 5549523648780327323, guid: 6821286fb08d5ea4a866eb2006ca08e3, type: 3}
+            position: {x: 0, y: 0, z: 0}
         - stage: 1
           eventName: Stage2_0
           linkEventName: Stage1_1
