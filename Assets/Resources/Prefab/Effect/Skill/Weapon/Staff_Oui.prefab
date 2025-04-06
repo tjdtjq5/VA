@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3361640753072997125}
   - component: {fileID: 3361640753072997126}
   - component: {fileID: 3361640753072997127}
+  - component: {fileID: 4380566926754254819}
   m_Layer: 0
   m_Name: Staff_Oui
   m_TagString: Untagged
@@ -61,7 +62,8 @@ MeshRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials: []
+  m_Materials:
+  - {fileID: 2100000, guid: 146e246dd133a2741a597343ab2dd72d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,3 +128,24 @@ MonoBehaviour:
   _animationName: Oui
   loop: 1
   timeScale: 1
+--- !u!114 &4380566926754254819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3361640753072997144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a87f5d5b15a38f14ea7a9987128ace54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUnTime: 0
+  poolObjectType: 1
+  time: 0.75
+  animator: {fileID: 0}
+  endAniName: 
+  spineAnimation: {fileID: 0}
+  spineEndAniName: 
+  graphicAnimation: {fileID: 0}
+  graphicEndAniName: 
