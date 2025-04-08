@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: InGame_Shield_Attack_Fatal_Plus
+  m_EditorClassIdentifier: 
+  codeName: InGame_Shield_Attack_Fatal_Plus
+  id: 22
+  icon: {fileID: 21300000, guid: 4435fa0b9c3901c489cd11d5bd5eef83, type: 3}
+  displayName: InGame_Shield_Attack_Fatal_Plus
+  description: InGame_Shield_Attack_Fatal_Plus
+  isPlus: 1
+  skillGrade: 0
+  behaviour:
+    rid: 7303037780489142286
+  timing: 6
+  timingPuzzleType: 0
+  timingPuzzleComboMin: 2
+  timingPageCycle: 0
+  percent: 100
+  applyCount: 1
+  isEndRemove: 0
+  removeSkills:
+  - {fileID: 11400000, guid: 0cfc94674f3844a48924b63e336277bb, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: 0cfc94674f3844a48924b63e336277bb, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303037780489142286
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        _time: 0.7
+        buff: {fileID: 11400000, guid: 6c570a0857e39944ea6e4fc6a1d5ffca, type: 2}
+        targetType: 0
