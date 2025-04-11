@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: InGame_Puzzle_Force_Stun
+  m_Name: InGame_Puzzle_Item_IceThorn_Attack_Fatal
   m_EditorClassIdentifier: 
-  codeName: InGame_Puzzle_Change_Cross_Attack_Fatal
-  id: 40
-  icon: {fileID: 21300000, guid: ba1f92b52bed0c54f80ba71fe5dec05d, type: 3}
-  displayName: InGame_Puzzle_Force_Stun
-  description: InGame_Puzzle_Force_Stun
+  codeName: InGame_Puzzle_Item_IceThorn_Attack_Fatal
+  id: 48
+  icon: {fileID: 21300000, guid: 33a8577f37ce5884690c7418eecd547b, type: 3}
+  displayName: InGame_Puzzle_Item_IceThorn_Attack_Fatal
+  description: InGame_Puzzle_Item_IceThorn_Attack_Fatal
   isPlus: 0
   skillGrade: 0
   behaviour:
-    rid: 7303037853029629967
-  timing: 13
+    rid: 7303037853029629975
+  timing: 6
   timingPuzzleType: 0
-  timingPuzzleComboMin: 0
+  timingPuzzleComboMin: 2
   timingPageCycle: 0
   percent: 100
   applyCount: 1
@@ -33,7 +33,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 7303037853029629967
-      type: {class: SkillPuzzleForce, ns: , asm: Assembly-CSharp}
+    - rid: 7303037853029629975
+      type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
       data:
         _time: 0.7
+        puzzleItem: {fileID: 3985121653833862627, guid: ae99371d8c1fa19438329433e335513d, type: 3}
