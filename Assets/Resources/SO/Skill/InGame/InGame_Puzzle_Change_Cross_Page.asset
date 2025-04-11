@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: InGame_Puzzle_Change_Cross_Page
+  m_EditorClassIdentifier: 
+  codeName: InGame_Puzzle_Change_Cross_Page
+  id: 29
+  icon: {fileID: 21300000, guid: 208a5af474472b148904e18412512c17, type: 3}
+  displayName: InGame_Puzzle_Change_Cross_Page
+  description: InGame_Puzzle_Change_Cross_Page
+  isPlus: 0
+  skillGrade: 0
+  behaviour:
+    rid: 7303037853029629956
+  timing: 4
+  timingPuzzleType: 0
+  timingPuzzleComboMin: 0
+  timingPageCycle: 3
+  percent: 100
+  applyCount: 1
+  isEndRemove: 0
+  removeSkills: []
+  conditionSkills: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303037853029629956
+      type: {class: SkillPuzzleCrossChange, ns: , asm: Assembly-CSharp}
+      data:
+        _time: 0.7

@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: InGame_Atk_3Page
+  m_Name: InGame_Puzzle_Change_Cross_Stun
   m_EditorClassIdentifier: 
-  codeName: InGame_Atk_3Page
-  id: 19
-  icon: {fileID: 21300000, guid: 66f79b7468fc15e499db137c361b80b7, type: 3}
-  displayName: InGame_Atk_3Page
-  description: InGame_Atk_3Page
+  codeName: InGame_Puzzle_Change_Cross_Stun
+  id: 37
+  icon: {fileID: 21300000, guid: ba1f92b52bed0c54f80ba71fe5dec05d, type: 3}
+  displayName: InGame_Puzzle_Change_Cross_Stun
+  description: InGame_Puzzle_Change_Cross_Stun
   isPlus: 0
   skillGrade: 0
   behaviour:
-    rid: 7303037780489142283
-  timing: 4
+    rid: 7303037853029629964
+  timing: 13
   timingPuzzleType: 0
   timingPuzzleComboMin: 0
-  timingPageCycle: 3
+  timingPageCycle: 0
   percent: 100
   applyCount: 1
   isEndRemove: 0
@@ -33,9 +33,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 7303037780489142283
-      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+    - rid: 7303037853029629964
+      type: {class: SkillPuzzleCrossChange, ns: , asm: Assembly-CSharp}
       data:
         _time: 0.7
-        buff: {fileID: 11400000, guid: 2c505472f55b3724ab969ccfbecfbb60, type: 2}
-        targetType: 0

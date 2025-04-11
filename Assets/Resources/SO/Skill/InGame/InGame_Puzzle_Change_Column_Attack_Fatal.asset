@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: InGame_Shield_3Page
+  m_Name: InGame_Puzzle_Change_Column_Attack_Fatal
   m_EditorClassIdentifier: 
-  codeName: InGame_Shield_3Page
-  id: 23
-  icon: {fileID: 21300000, guid: 4435fa0b9c3901c489cd11d5bd5eef83, type: 3}
-  displayName: InGame_Shield_3Page
-  description: InGame_Shield_3Page
+  codeName: InGame_Puzzle_Change_Column_Attack_Fatal
+  id: 27
+  icon: {fileID: 21300000, guid: c7b0d04b91f1f1c4281e108e1ff42576, type: 3}
+  displayName: InGame_Puzzle_Change_Column_Attack_Fatal
+  description: InGame_Puzzle_Change_Column_Attack_Fatal
   isPlus: 0
   skillGrade: 0
   behaviour:
-    rid: 7303037780489142287
-  timing: 4
+    rid: 7303037853029629954
+  timing: 6
   timingPuzzleType: 0
-  timingPuzzleComboMin: 0
-  timingPageCycle: 3
+  timingPuzzleComboMin: 2
+  timingPageCycle: 0
   percent: 100
   applyCount: 1
   isEndRemove: 0
@@ -33,9 +33,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 7303037780489142287
-      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+    - rid: 7303037853029629954
+      type: {class: SkillPuzzleColumnChange, ns: , asm: Assembly-CSharp}
       data:
         _time: 0.7
-        buff: {fileID: 11400000, guid: 346c277abf9f1ba418e390bc19a91a50, type: 2}
-        targetType: 0
