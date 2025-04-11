@@ -8,11 +8,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: c1_boss_Material
-  m_Shader: {fileID: 4800000, guid: a36b7719ff0465b42ab1407d67672c5f, type: 3}
+  m_Shader: {fileID: 4800000, guid: 522f03282fd79be47b306e2ef4b593fd, type: 3}
   m_ValidKeywords:
-  - SHINE_ON
-  m_InvalidKeywords:
   - _STRAIGHT_ALPHA_INPUT
+  m_InvalidKeywords:
+  - SHINE_ON
+  - _CANVAS_GROUP_COMPATIBLE
   - _USE8NEIGHBOURHOOD_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -84,6 +85,7 @@ Material:
     - _BlurHD: 0
     - _BlurIntensity: 10
     - _Brightness: 0
+    - _CanvasGroupCompatible: 1
     - _ChromAberrAlpha: 0.4
     - _ChromAberrAmount: 1
     - _ClipUvDown: 0
@@ -94,6 +96,7 @@ Material:
     - _ColorChangeTolerance: 0.25
     - _ColorChangeTolerance2: 0.25
     - _ColorChangeTolerance3: 0.25
+    - _ColorMask: 15
     - _ColorRampBlend: 1
     - _ColorRampLuminosity: 0
     - _ColorRampOutline: 0
@@ -104,6 +107,7 @@ Material:
     - _Contrast: 1
     - _CullingOption: 0
     - _Cutoff: 0.1
+    - _DarkColorAlphaAdditive: 0
     - _DistortAmount: 0.5
     - _DistortTexXSpeed: 5
     - _DistortTexYSpeed: 5
@@ -112,6 +116,7 @@ Material:
     - _FadeBurnGlow: 2
     - _FadeBurnTransition: 0.075
     - _FadeBurnWidth: 0.025
+    - _FillPhase: 0
     - _FishEyeUvAmount: 0.35
     - _FlickerAlpha: 0
     - _FlickerFreq: 0.2
@@ -204,8 +209,12 @@ Material:
     - _ShineLocation: 0
     - _ShineRotate: 0
     - _ShineWidth: 0.1
+    - _Stencil: 0
     - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
     - _StencilRef: 1
+    - _StencilWriteMask: 255
     - _StraightAlphaInput: 1
     - _TextureScrollXSpeed: 1
     - _TextureScrollYSpeed: 0
@@ -216,6 +225,7 @@ Material:
     - _TwistUvRadius: 0.75
     - _Use8Neighbourhood: 1
     - _UseScreenSpaceOutlineWidth: 0
+    - _UseUIAlphaClip: 0
     - _WarpScale: 0.5
     - _WarpSpeed: 8
     - _WarpStrength: 0.025
@@ -229,6 +239,7 @@ Material:
     - _ZoomUvAmount: 0.5
     m_Colors:
     - _AlphaOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Black: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorChangeNewCol: {r: 1, g: 1, b: 0, a: 1}
     - _ColorChangeNewCol2: {r: 1, g: 1, b: 0, a: 1}
@@ -240,6 +251,7 @@ Material:
     - _ColorSwapGreen: {r: 1, g: 1, b: 1, a: 1}
     - _ColorSwapRed: {r: 1, g: 1, b: 1, a: 1}
     - _FadeBurnColor: {r: 1, g: 1, b: 0, a: 1}
+    - _FillColor: {r: 1, g: 1, b: 1, a: 1}
     - _GlowColor: {r: 1, g: 1, b: 1, a: 1}
     - _GradBotLeftCol: {r: 0, g: 0, b: 1, a: 1}
     - _GradBotRightCol: {r: 0, g: 1, b: 0, a: 1}

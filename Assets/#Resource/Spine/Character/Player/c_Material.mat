@@ -8,11 +8,10 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: c_Material
-  m_Shader: {fileID: 4800000, guid: a36b7719ff0465b42ab1407d67672c5f, type: 3}
+  m_Shader: {fileID: 4800000, guid: 522f03282fd79be47b306e2ef4b593fd, type: 3}
   m_ValidKeywords:
-  - SHINE_ON
-  m_InvalidKeywords:
   - _STRAIGHT_ALPHA_INPUT
+  m_InvalidKeywords:
   - _USE8NEIGHBOURHOOD_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -104,9 +103,11 @@ Material:
     - _Contrast: 1
     - _CullingOption: 0
     - _Cutoff: 0.1
+    - _DarkColorAlphaAdditive: 0
     - _DistortAmount: 0.5
     - _DistortTexXSpeed: 5
     - _DistortTexYSpeed: 5
+    - _DoubleSidedLighting: 0
     - _EditorDrawers: 6
     - _FadeAmount: -0.1
     - _FadeBurnGlow: 2
@@ -151,6 +152,7 @@ Material:
     - _InnerOutlineAlpha: 1
     - _InnerOutlineGlow: 4
     - _InnerOutlineThickness: 1
+    - _LightAffectsAdditive: 0
     - _MaxXUV: 1
     - _MaxYUV: 1
     - _MinXUV: 0
@@ -195,6 +197,7 @@ Material:
     - _RoundWaveSpeed: 2
     - _RoundWaveStrength: 0.7
     - _ShadowAlpha: 0.5
+    - _ShadowAlphaCutoff: 0.1
     - _ShadowX: 0.1
     - _ShadowY: -0.05
     - _ShakeUvSpeed: 2.5
@@ -229,6 +232,7 @@ Material:
     - _ZoomUvAmount: 0.5
     m_Colors:
     - _AlphaOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Black: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorChangeNewCol: {r: 1, g: 1, b: 0, a: 1}
     - _ColorChangeNewCol2: {r: 1, g: 1, b: 0, a: 1}
