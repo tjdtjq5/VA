@@ -19,11 +19,13 @@ MonoBehaviour:
   description: PuzzleItemShield
   isPlus: 0
   skillGrade: 0
-  behaviours: []
+  behaviours:
+  - rid: 7303037870381989945
   timing: 6
   timingPuzzleType: 0
   timingPuzzleComboMin: 0
   timingPageCycle: 0
+  timingDamageType: 0
   percent: 100
   applyCount: 1
   isEndRemove: 1
@@ -31,4 +33,10 @@ MonoBehaviour:
   conditionSkills: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7303037870381989945
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        _time: 0.7
+        buff: {fileID: 11400000, guid: 13a5462f4168efe47aecb0ee83bc6f2c, type: 2}
+        targetType: 0

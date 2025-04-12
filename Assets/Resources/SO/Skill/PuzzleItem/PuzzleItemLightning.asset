@@ -19,11 +19,13 @@ MonoBehaviour:
   description: PuzzleItemLightning
   isPlus: 0
   skillGrade: 0
-  behaviours: []
+  behaviours:
+  - rid: 7303037870381989939
   timing: 11
   timingPuzzleType: 0
   timingPuzzleComboMin: 0
   timingPageCycle: 0
+  timingDamageType: 0
   percent: 100
   applyCount: 1
   isEndRemove: 1
@@ -31,4 +33,9 @@ MonoBehaviour:
   conditionSkills: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7303037870381989939
+      type: {class: SkillLightning, ns: , asm: Assembly-CSharp}
+      data:
+        _time: 0.7
+        targetType: 2

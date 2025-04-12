@@ -40,10 +40,20 @@ MonoBehaviour:
     - rid: 7303037870381989936
       type: {class: SkillBuffExplosion, ns: , asm: Assembly-CSharp}
       data:
-        buff: {fileID: 11400000, guid: 37d6b4a42e1002747b3ecc6e483dd018, type: 2}
+        buffBehaviour:
+          rid: 7303037870381989947
         targetType: 5
+        damageValue: 0.5
     - rid: 7303037870381989937
       type: {class: SkillBuffExplosion, ns: , asm: Assembly-CSharp}
       data:
-        buff: {fileID: 11400000, guid: d7c5fd9c2934c4c499ceb11794c21ec4, type: 2}
+        buffBehaviour:
+          rid: 7303037870381989948
         targetType: 5
+        damageValue: 0.5
+    - rid: 7303037870381989947
+      type: {class: DebuffFire, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 7303037870381989948
+      type: {class: DebuffPoison, ns: , asm: Assembly-CSharp}
+      data: 
