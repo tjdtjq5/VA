@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: InGame_Puzzle_Change_Row_TakeDamage
+  m_Name: InGame_Puzzle_Change_Line_Page
   m_EditorClassIdentifier: 
-  codeName: InGame_Puzzle_Change_Row_TakeDamage
-  id: 34
-  icon: {fileID: 21300000, guid: c58712a59fb16494a8c3b7311da2e491, type: 3}
-  displayName: InGame_Puzzle_Change_Row_TakeDamage
-  description: InGame_Puzzle_Change_Row_TakeDamage
+  codeName: InGame_Puzzle_Change_Line_Page
+  id: 29
+  icon: {fileID: 21300000, guid: 208a5af474472b148904e18412512c17, type: 3}
+  displayName: InGame_Puzzle_Change_Line_Page
+  description: InGame_Puzzle_Change_Line_Page
   isPlus: 0
   skillGrade: 0
-  behaviour:
-    rid: 7303037853029629961
-  timing: 12
+  behaviours:
+  - rid: 7303037870381989910
+  timing: 4
   timingPuzzleType: 0
   timingPuzzleComboMin: 0
-  timingPageCycle: 0
-  percent: 30
+  timingPageCycle: 3
+  percent: 100
   applyCount: 1
   isEndRemove: 0
   removeSkills: []
@@ -33,7 +33,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 7303037853029629961
-      type: {class: SkillPuzzleRowChange, ns: , asm: Assembly-CSharp}
+    - rid: 7303037870381989910
+      type: {class: SkillPuzzleLineChange, ns: , asm: Assembly-CSharp}
       data:
         _time: 0.7
