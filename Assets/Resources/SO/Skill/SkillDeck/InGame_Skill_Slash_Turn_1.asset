@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: InGame_Skill_Slash_Turn_1
+  m_EditorClassIdentifier: 
+  codeName: InGame_Skill_Slash_Turn_1
+  id: 48
+  icon: {fileID: 0}
+  displayName: "\uB9E4 \uD134\uB9C8\uB2E4 \uCC38\uACA9 \uACF5\uACA9\uC744 \uD55C\uB2E4"
+  description: InGame_Skill_Slash_Turn_1
+  isPlus: 0
+  skillGrade: 0
+  behaviours:
+  - rid: 7303037898838507525
+  timing: 4
+  timingPuzzleType: 0
+  timingPuzzleComboMin: 0
+  timingPageCycle: 1
+  timingDamageType: 0
+  percent: 100
+  applyCount: 1
+  isEndRemove: 0
+  removeSkills: []
+  conditionSkills: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303037898838507525
+      type: {class: SkillSlash, ns: , asm: Assembly-CSharp}
+      data:
+        _time: 0.7
+        targetType: 4
