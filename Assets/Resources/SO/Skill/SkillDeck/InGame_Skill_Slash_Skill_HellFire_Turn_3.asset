@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: InGame_Skill_Slash_Skill_HellFire_Turn_3
+  m_EditorClassIdentifier: 
+  codeName: InGame_Skill_Slash_Skill_HellFire_Turn_3
+  id: 53
+  icon: {fileID: 0}
+  displayName: InGame_Skill_Slash_Skill_HellFire_Turn_3
+  description: "3\uD134\uB9C8\uB2E4 \uCC38\uACA9\uACFC \uD654\uC5FC\uC744 \uC2A4\uD0AC\uC744
+    \uC0AC\uC6A9\uD55C\uB2E4"
+  isPlus: 0
+  skillGrade: 0
+  behaviours:
+  - rid: 7303037898838507531
+  - rid: 7303037898838507532
+  timing: 4
+  timingPuzzleType: 0
+  timingPuzzleComboMin: 0
+  timingPageCycle: 3
+  timingDamageType: 0
+  percent: 100
+  applyCount: 1
+  isEndRemove: 0
+  removeSkills: []
+  conditionSkills: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303037898838507531
+      type: {class: SkillSlash, ns: , asm: Assembly-CSharp}
+      data:
+        _time: 0.7
+        targetType: 4
+    - rid: 7303037898838507532
+      type: {class: SkillHellFire, ns: , asm: Assembly-CSharp}
+      data:
+        _time: 0.7
+        targetType: 2
+        deBuff: {fileID: 11400000, guid: c3d7b96e39d709e45893c3494d106961, type: 2}

@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: InGame_Debuff_Poison_Turn_1
+  m_EditorClassIdentifier: 
+  codeName: InGame_Debuff_Poison_Turn_1
+  id: 57
+  icon: {fileID: 0}
+  displayName: InGame_Debuff_Poison_Turn_1
+  description: "\uB9E4 \uD134\uB9C8\uB2E4 \uBAA8\uB4E0 \uC801\uC5D0\uAC8C \uD654\uC0C1\uBD80\uC5EC"
+  isPlus: 0
+  skillGrade: 0
+  behaviours:
+  - rid: 7303037898838507537
+  timing: 4
+  timingPuzzleType: 0
+  timingPuzzleComboMin: 0
+  timingPageCycle: 1
+  timingDamageType: 0
+  percent: 100
+  applyCount: 1
+  isEndRemove: 0
+  removeSkills: []
+  conditionSkills: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303037898838507537
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        _time: 0.7
+        buff: {fileID: 11400000, guid: d7c5fd9c2934c4c499ceb11794c21ec4, type: 2}
+        targetType: 4
