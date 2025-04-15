@@ -91,7 +91,8 @@ MonoBehaviour:
             position: {x: 0, y: 0, z: 0}
         - stage: 1
           eventName: Stage4_0
-          linkEventNames: []
+          linkEventNames:
+          - Stage3_0
           stageEvent: 1
           eventObject: {fileID: 5959118135336519576, guid: 61090036409f3714091c36903010cbfc, type: 3}
           eventPopups:
@@ -99,23 +100,29 @@ MonoBehaviour:
           enemieSpawnDatas: []
         - stage: 1
           eventName: Stage4_1
-          linkEventNames: []
+          linkEventNames:
+          - Stage3_0
+          - Stage3_1
           stageEvent: 4
           eventObject: {fileID: 1490527850024053509, guid: 82b76678d10e27e44bab3b6d42897677, type: 3}
-          eventPopups: []
+          eventPopups:
+          - {fileID: 1924419130004765636, guid: 61b5e8270a6790e4685e39d04ef0e2d1, type: 3}
           enemieSpawnDatas: []
         - stage: 1
           eventName: Stage4_2
-          linkEventNames: []
+          linkEventNames:
+          - Stage3_1
+          - Stage3_2
           stageEvent: 3
-          eventObject: {fileID: 0}
+          eventObject: {fileID: 7350164665795886169, guid: 6b8232eabc2d70d4a98082b23da1d53a, type: 3}
           eventPopups: []
           enemieSpawnDatas:
           - enemy: {fileID: 5549523648780327323, guid: b9950f90db5f17f4f9edb8d72a4bc716, type: 3}
             position: {x: 0, y: 0, z: 0}
         - stage: 1
           eventName: Stage4_3
-          linkEventNames: []
+          linkEventNames:
+          - Stage3_2
           stageEvent: 5
           eventObject: {fileID: 0}
           eventPopups: []
