@@ -3,7 +3,7 @@ guid: 20477ff3e05a38348af447ddf4d2d13e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -63,6 +63,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -90,6 +91,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1521,73 +1534,73 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Gunshot 12_#[512,288]_59: 651219332
-      Gunshot 12_#[512,288]_47: -529694195
       Gunshot 12_#[512,288]_0: 189943161
-      Gunshot 12_#[512,288]_52: -136495149
-      Gunshot 12_#[512,288]_26: 40172444
+      Gunshot 12_#[512,288]_1: 1062410974
+      Gunshot 12_#[512,288]_10: 349848043
       Gunshot 12_#[512,288]_11: -2062006490
+      Gunshot 12_#[512,288]_12: -1972962658
       Gunshot 12_#[512,288]_13: -1537651422
-      Gunshot 12_#[512,288]_53: -332843269
-      Gunshot 12_#[512,288]_57: -1737924611
-      Gunshot 12_#[512,288]_2: -84449879
-      Gunshot 12_#[512,288]_25: -132737648
-      Gunshot 12_#[512,288]_48: -1535267092
-      Gunshot 12_#[512,288]_62: -1552669432
-      Gunshot 12_#[512,288]_60: 258027204
-      Gunshot 12_#[512,288]_35: 2126364919
-      Gunshot 12_#[512,288]_30: -554807219
-      Gunshot 12_#[512,288]_33: 136980919
-      Gunshot 12_#[512,288]_37: 2101317252
-      Gunshot 12_#[512,288]_31: 1603608813
-      Gunshot 12_#[512,288]_39: -870534505
       Gunshot 12_#[512,288]_14: 1392246521
-      Gunshot 12_#[512,288]_43: 1704393204
-      Gunshot 12_#[512,288]_65: 462635413
-      Gunshot 12_#[512,288]_40: -120778576
-      Gunshot 12_#[512,288]_4: 2006783009
-      Gunshot 12_#[512,288]_58: 229090504
-      Gunshot 12_#[512,288]_55: -984833450
-      Gunshot 12_#[512,288]_50: -1998784933
-      Gunshot 12_#[512,288]_3: 1316959065
+      Gunshot 12_#[512,288]_15: 366391372
+      Gunshot 12_#[512,288]_16: -1569316888
+      Gunshot 12_#[512,288]_17: -42139424
+      Gunshot 12_#[512,288]_18: 223715839
+      Gunshot 12_#[512,288]_19: 1708813891
+      Gunshot 12_#[512,288]_2: -84449879
+      Gunshot 12_#[512,288]_20: 1702382139
+      Gunshot 12_#[512,288]_21: 552689441
+      Gunshot 12_#[512,288]_22: 1578796333
+      Gunshot 12_#[512,288]_23: -1804617584
+      Gunshot 12_#[512,288]_24: 988151976
+      Gunshot 12_#[512,288]_25: -132737648
+      Gunshot 12_#[512,288]_26: 40172444
+      Gunshot 12_#[512,288]_27: -107036136
+      Gunshot 12_#[512,288]_28: 293265540
       Gunshot 12_#[512,288]_29: -1420033264
+      Gunshot 12_#[512,288]_3: 1316959065
+      Gunshot 12_#[512,288]_30: -554807219
+      Gunshot 12_#[512,288]_31: 1603608813
+      Gunshot 12_#[512,288]_32: 1275015626
+      Gunshot 12_#[512,288]_33: 136980919
+      Gunshot 12_#[512,288]_34: 318486692
+      Gunshot 12_#[512,288]_35: 2126364919
+      Gunshot 12_#[512,288]_36: -1625888230
+      Gunshot 12_#[512,288]_37: 2101317252
+      Gunshot 12_#[512,288]_38: -351831859
+      Gunshot 12_#[512,288]_39: -870534505
+      Gunshot 12_#[512,288]_4: 2006783009
+      Gunshot 12_#[512,288]_40: -120778576
+      Gunshot 12_#[512,288]_41: 252539895
+      Gunshot 12_#[512,288]_42: -1017385945
+      Gunshot 12_#[512,288]_43: 1704393204
       Gunshot 12_#[512,288]_44: 1927347782
       Gunshot 12_#[512,288]_45: 8816014
-      Gunshot 12_#[512,288]_9: -1400279131
-      Gunshot 12_#[512,288]_6: -1961648853
-      Gunshot 12_#[512,288]_56: -1804667655
-      Gunshot 12_#[512,288]_8: 669096623
-      Gunshot 12_#[512,288]_10: 349848043
-      Gunshot 12_#[512,288]_38: -351831859
-      Gunshot 12_#[512,288]_15: 366391372
-      Gunshot 12_#[512,288]_64: 1507996810
-      Gunshot 12_#[512,288]_23: -1804617584
-      Gunshot 12_#[512,288]_12: -1972962658
-      Gunshot 12_#[512,288]_63: 1218612070
-      Gunshot 12_#[512,288]_20: 1702382139
-      Gunshot 12_#[512,288]_49: -1808357869
-      Gunshot 12_#[512,288]_54: -846835129
-      Gunshot 12_#[512,288]_18: 223715839
-      Gunshot 12_#[512,288]_24: 988151976
-      Gunshot 12_#[512,288]_36: -1625888230
-      Gunshot 12_#[512,288]_34: 318486692
-      Gunshot 12_#[512,288]_7: 1861158143
-      Gunshot 12_#[512,288]_42: -1017385945
-      Gunshot 12_#[512,288]_22: 1578796333
-      Gunshot 12_#[512,288]_16: -1569316888
-      Gunshot 12_#[512,288]_28: 293265540
-      Gunshot 12_#[512,288]_41: 252539895
-      Gunshot 12_#[512,288]_51: 2071443002
-      Gunshot 12_#[512,288]_32: 1275015626
-      Gunshot 12_#[512,288]_61: -836400918
-      Gunshot 12_#[512,288]_5: 1183205950
-      Gunshot 12_#[512,288]_21: 552689441
       Gunshot 12_#[512,288]_46: -1817297555
-      Gunshot 12_#[512,288]_1: 1062410974
-      Gunshot 12_#[512,288]_27: -107036136
-      Gunshot 12_#[512,288]_19: 1708813891
-      Gunshot 12_#[512,288]_17: -42139424
+      Gunshot 12_#[512,288]_47: -529694195
+      Gunshot 12_#[512,288]_48: -1535267092
+      Gunshot 12_#[512,288]_49: -1808357869
+      Gunshot 12_#[512,288]_5: 1183205950
+      Gunshot 12_#[512,288]_50: -1998784933
+      Gunshot 12_#[512,288]_51: 2071443002
+      Gunshot 12_#[512,288]_52: -136495149
+      Gunshot 12_#[512,288]_53: -332843269
+      Gunshot 12_#[512,288]_54: -846835129
+      Gunshot 12_#[512,288]_55: -984833450
+      Gunshot 12_#[512,288]_56: -1804667655
+      Gunshot 12_#[512,288]_57: -1737924611
+      Gunshot 12_#[512,288]_58: 229090504
+      Gunshot 12_#[512,288]_59: 651219332
+      Gunshot 12_#[512,288]_6: -1961648853
+      Gunshot 12_#[512,288]_60: 258027204
+      Gunshot 12_#[512,288]_61: -836400918
+      Gunshot 12_#[512,288]_62: -1552669432
+      Gunshot 12_#[512,288]_63: 1218612070
+      Gunshot 12_#[512,288]_64: 1507996810
+      Gunshot 12_#[512,288]_65: 462635413
       Gunshot 12_#[512,288]_66: 1098182130
+      Gunshot 12_#[512,288]_7: 1861158143
+      Gunshot 12_#[512,288]_8: 669096623
+      Gunshot 12_#[512,288]_9: -1400279131
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
