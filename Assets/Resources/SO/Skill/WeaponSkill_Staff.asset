@@ -13,21 +13,15 @@ MonoBehaviour:
   m_Name: WeaponSkill_Staff
   m_EditorClassIdentifier: 
   codeName: WeaponSkill_Staff
-  id: 5
+  id: 4
   icon: {fileID: 21300000, guid: a7ee2904b60d26d47b85234f3d571b1f, type: 3}
   displayName: "\uC9C0\uD321\uC774 \uBC84\uD504"
   description: "\uC9C0\uD321\uC774 \uBC84\uD504 : \uD68C\uD53C\uB825 10% \uC99D\uAC00"
+  isView: 0
   isPlus: 0
   skillGrade: 0
   behaviours:
   - rid: 7303037870381989929
-  timing: 6
-  timingPuzzleType: 4
-  timingPuzzleComboMin: 1
-  timingPageCycle: 0
-  timingDamageType: 0
-  percent: 100
-  applyCount: 1
   isEndRemove: 0
   removeSkills: []
   conditionSkills: []
@@ -37,6 +31,13 @@ MonoBehaviour:
     - rid: 7303037870381989929
       type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
       data:
+        timing: 6
+        timingPuzzleType: 4
+        timingPuzzleComboMin: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        percent: 100
+        applyCount: 1
         _time: 0.7
         buff: {fileID: 11400000, guid: 5c813d76c973cd74a8148f128211d436, type: 2}
         targetType: 0

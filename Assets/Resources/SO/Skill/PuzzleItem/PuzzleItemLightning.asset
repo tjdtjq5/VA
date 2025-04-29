@@ -13,21 +13,15 @@ MonoBehaviour:
   m_Name: PuzzleItemLightning
   m_EditorClassIdentifier: 
   codeName: PuzzleItemLightning
-  id: 1
+  id: 0
   icon: {fileID: 21300000, guid: e47a303bf376d3942948f8a949a25a1b, type: 3}
   displayName: PuzzleItemLightning
   description: PuzzleItemLightning
+  isView: 0
   isPlus: 0
   skillGrade: 0
   behaviours:
   - rid: 7303037870381989939
-  timing: 11
-  timingPuzzleType: 0
-  timingPuzzleComboMin: 0
-  timingPageCycle: 0
-  timingDamageType: 0
-  percent: 100
-  applyCount: 1
   isEndRemove: 1
   removeSkills: []
   conditionSkills: []
@@ -37,5 +31,12 @@ MonoBehaviour:
     - rid: 7303037870381989939
       type: {class: SkillLightning, ns: , asm: Assembly-CSharp}
       data:
+        timing: 1
+        timingPuzzleType: 0
+        timingPuzzleComboMin: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        percent: 100
+        applyCount: 1
         _time: 0.7
         targetType: 2
