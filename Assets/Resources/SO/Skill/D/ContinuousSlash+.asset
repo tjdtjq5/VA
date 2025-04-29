@@ -20,15 +20,17 @@ MonoBehaviour:
     1\uAC1C \uC0DD\uC131\uD569\uB2C8\uB2E4. \uBAA8\uB4E0 \uCC38\uACA9\uC740 \uC77C\uC815
     \uD655\uB960\uB85C \uC5F0\uC18D PT\uB97C \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4.
     \uD655\uB960 \uC99D\uAC00"
-  isView: 0
-  isPlus: 0
+  isView: 1
+  isPlus: 1
   skillGrade: 0
   behaviours:
   - rid: 7303038261006958598
   - rid: 7303038261006958599
   isEndRemove: 0
-  removeSkills: []
-  conditionSkills: []
+  removeSkills:
+  - {fileID: 11400000, guid: 521de86843a932b4eae1f645dc118ccf, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: 521de86843a932b4eae1f645dc118ccf, type: 2}
   references:
     version: 2
     RefIds:
@@ -37,9 +39,9 @@ MonoBehaviour:
       data:
         timing: 4
         timingPuzzleType: 0
-        timingPuzzleComboMin: 0
         timingPageCycle: 2
         timingDamageType: 0
+        timingPuzzleComboMin: 0
         percent: 100
         applyCount: 1
         _time: 0
@@ -49,9 +51,9 @@ MonoBehaviour:
       data:
         timing: 15
         timingPuzzleType: 0
-        timingPuzzleComboMin: 0
         timingPageCycle: 0
         timingDamageType: 0
+        timingPuzzleComboMin: 0
         percent: 20
         applyCount: 1
         type: 0
