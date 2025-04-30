@@ -10,28 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: PuzzleItemIceThorn
+  m_Name: GasExplosionProtection
   m_EditorClassIdentifier: 
-  codeName: PuzzleItemIceThorn
-  id: 8
-  icon: {fileID: 21300000, guid: 747bb19d66c510547a98304467115870, type: 3}
-  displayName: PuzzleItemIceThorn
-  description: PuzzleItemIceThorn
-  isView: 0
+  codeName: GasExplosionProtection
+  id: 52
+  icon: {fileID: 0}
+  displayName: "\uAC00\uC2A4 \uD3ED\uBC1C \uBCF4\uD638"
+  description: "\uAC00\uC2A4 \uD3ED\uBC1C\uC740 \uC77C\uC815 \uD655\uB960\uB85C \uBCF4\uD638\uB9C9\uC744
+    \uC5BB\uC2B5\uB2C8\uB2E4"
+  isView: 1
   isPlus: 0
   skillGrade: 0
   behaviours:
-  - rid: 7303037870381989943
-  isEndRemove: 1
+  - rid: 7303038274838724635
+  isEndRemove: 0
   removeSkills: []
   conditionSkills: []
   references:
     version: 2
     RefIds:
-    - rid: 7303037870381989943
-      type: {class: SkillIceThorn, ns: , asm: Assembly-CSharp}
+    - rid: 7303038274838724635
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
       data:
-        timing: 11
+        timing: 18
         timingPuzzleType: 0
         timingPageCycle: 0
         timingDamageType: 0
@@ -41,5 +42,6 @@ MonoBehaviour:
         percent: 100
         hpPercentUnder: 100
         applyCount: 1
-        _time: 0.7
-        targetType: 4
+        _time: 0
+        buff: {fileID: 11400000, guid: c9a0c4d9c9ab95347a8a3d8c2befabff, type: 2}
+        targetType: 0

@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29c04b177e2e4b04fb72945db871888b, type: 3}
-  m_Name: PuzzleItemHPRecovery
+  m_Name: InGame_Turn_1_Shield_5
   m_EditorClassIdentifier: 
-  codeName: PuzzleItemHPRecovery
-  id: 16
-  icon: {fileID: 21300000, guid: 84d19b74538f4784eb3eddd1c5632960, type: 3}
-  displayName: PuzzleItemHPRecovery
-  description: PuzzleItemHPRecovery
+  codeName: InGame_Turn_1_Shield_5
+  id: 22
+  icon: {fileID: 21300000, guid: 4435fa0b9c3901c489cd11d5bd5eef83, type: 3}
+  displayName: InGame_Turn_1_Shield_5
+  description: InGame_Turn_1_Shield_5
   buffGrade: 0
   behaviour:
-    rid: 7303037725763698688
+    rid: 7303037780489142279
   buffIcon: {fileID: 0}
   buffCountType: 0
   addCount: 1
   startTiming: 0
-  endTiming: 0
+  endTiming: 2
   references:
     version: 2
     RefIds:
-    - rid: 7303037725763698688
-      type: {class: BuffHpRecovery, ns: , asm: Assembly-CSharp}
+    - rid: 7303037780489142279
+      type: {class: BuffShield, ns: , asm: Assembly-CSharp}
       data:
-        hpRecoveryValue: 15
-        effectPool: {fileID: 8942935039887277240, guid: d6da39d792af4264e828aa67cefef736, type: 3}
+        shieldValue: 5
+        isInfinite: 0
