@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: NormalAttackProtection+
+  m_EditorClassIdentifier: 
+  codeName: NormalAttackProtection+
+  id: 65
+  icon: {fileID: 0}
+  displayName: "\uC77C\uBC18 \uACF5\uACA9 \uBCF4\uD638+"
+  description: "\uC77C\uBC18 \uACF5\uACA9 \uC2DC, \uC77C\uC815 \uD655\uB960\uB85C
+    \uBCF4\uD638\uB9C9\uC744 \uD68D\uB4DD\uD569\uB2C8\uB2E4. \uBCF4\uD638\uB9C9 \uC218\uCE58\uAC00
+    \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  isView: 1
+  isPlus: 1
+  skillGrade: 0
+  behaviours:
+  - rid: 7303038284151914520
+  isEndRemove: 0
+  removeSkills:
+  - {fileID: 11400000, guid: 40863b782572b554d87b21eb7c2e6029, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: 40863b782572b554d87b21eb7c2e6029, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303038284151914520
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 11
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        timingHpChangeValue: 0
+        timingIsHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        percent: 30
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 810d700df4c77064db8e2265c4a56b5e, type: 2}
+        targetType: 0
