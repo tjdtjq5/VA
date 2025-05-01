@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: BurningStrike+
+  m_EditorClassIdentifier: 
+  codeName: BurningStrike+
+  id: 93
+  icon: {fileID: 0}
+  displayName: "\uBD88\uD0C0\uB294 \uC77C\uACA9+"
+  description: "\uC77C\uBC18 \uACF5\uACA9 \uC2DC, \uC77C\uC815 \uD655\uB960\uB85C
+    \uC801\uC5D0\uAC8C \uD654\uC0C1\uC744 \uC785\uD799\uB2C8\uB2E4. \uD655\uB960
+    \uC99D\uAC00"
+  isView: 1
+  isPlus: 1
+  skillGrade: 0
+  behaviours:
+  - rid: 7303038297282445326
+  isEndRemove: 0
+  removeSkills:
+  - {fileID: 11400000, guid: 3ddeeadd7c97b304f8acb643e1d0d014, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: 3ddeeadd7c97b304f8acb643e1d0d014, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303038297282445326
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 22
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 1
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        percent: 50
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 37d6b4a42e1002747b3ecc6e483dd018, type: 2}
+        targetType: 5

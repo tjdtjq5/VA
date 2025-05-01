@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: VenomousStrike+
+  m_EditorClassIdentifier: 
+  codeName: VenomousStrike+
+  id: 95
+  icon: {fileID: 0}
+  displayName: "\uB9F9\uB3C5 \uC77C\uACA9+"
+  description: "\uC77C\uBC18 \uACF5\uACA9 \uC2DC, \uC77C\uC815 \uD655\uB960\uB85C
+    \uC801\uC5D0\uAC8C \uC911\uB3C5\uC5D0 \uAC78\uB9AC\uAC8C \uD569\uB2C8\uB2E4.
+    \uD655\uB960 \uC99D\uAC00"
+  isView: 1
+  isPlus: 1
+  skillGrade: 0
+  behaviours:
+  - rid: 7303038297282445328
+  isEndRemove: 0
+  removeSkills:
+  - {fileID: 11400000, guid: 77a7984d45c15aa42b9539a1a8d216df, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: 77a7984d45c15aa42b9539a1a8d216df, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303038297282445328
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 22
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 1
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        percent: 50
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: d7c5fd9c2934c4c499ceb11794c21ec4, type: 2}
+        targetType: 5
