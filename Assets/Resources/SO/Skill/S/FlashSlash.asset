@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: FlashSlash
+  m_EditorClassIdentifier: 
+  codeName: FlashSlash
+  id: 122
+  icon: {fileID: 0}
+  displayName: "\uC12C\uAD11 \uCC38\uACA9"
+  description: "\uCC38\uACA9\uC774 \uC12C\uAD11 \uCC38\uACA9\uC73C\uB85C \uAC15\uD654\uB429\uB2C8\uB2E4.
+    \uD53C\uD574\uB7C9\uC774 60% \uC99D\uAC00 \uD558\uACE0, \uC12C\uAD11\uC758 \uCE58\uBA85\uD0C0
+    \uD655\uB960\uC774 30% \uC99D\uAC00\uD569\uB2C8\uB2E4"
+  isView: 1
+  isPlus: 0
+  skillGrade: 0
+  behaviours:
+  - rid: 2696790886701072428
+  - rid: 2696790886701072430
+  - rid: 2696790886701072434
+  isEndRemove: 0
+  removeSkills: []
+  conditionSkills: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 2696790886701072428
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 10056f2218afdef41aadbef059a4cc6e, type: 2}
+        targetType: 0
+    - rid: 2696790886701072430
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 6f4d44f0f2a648040b45b084773e404f, type: 2}
+        targetType: 0
+    - rid: 2696790886701072434
+      type: {class: SkillTriggerPassiveBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        triggerPassiveBuff: 1
