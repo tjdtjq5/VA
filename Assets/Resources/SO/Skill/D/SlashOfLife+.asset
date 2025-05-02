@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: SlashOfLife+
+  m_EditorClassIdentifier: 
+  codeName: SlashOfLife+
+  id: 16
+  icon: {fileID: 0}
+  displayName: "\uC0DD\uBA85\uC758 \uCC38\uACA9+"
+  description: "2\uD134\uB9C8\uB2E4 \uCC38\uACA9 \uD37C\uC990 \uC544\uC774\uD15C\uC744
+    1\uAC1C \uC0DD\uC131\uD569\uB2C8\uB2E4. \uBAA8\uB4E0 \uCC38\uACA9\uC740 \uC77C\uC815
+    \uD655\uB960\uB85C \uCCB4\uB825\uC744 \uD68C\uBCF5\uD569\uB2C8\uB2E4. \uD655\uB960
+    \uC99D\uAC00"
+  isView: 1
+  isPlus: 1
+  skillGrade: 0
+  behaviours:
+  - rid: 7303038261006958592
+  - rid: 7303038261006958593
+  isEndRemove: 0
+  removeSkills:
+  - {fileID: 11400000, guid: 13fcca5e759a810409fed977c3110087, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: 13fcca5e759a810409fed977c3110087, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303038261006958592
+      type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 4
+        timingPuzzleType: 0
+        timingPuzzleComboMin: 0
+        timingPageCycle: 2
+        timingDamageType: 0
+        percent: 100
+        applyCount: 1
+        _time: 0
+        puzzleItem: {fileID: 3985121653833862627, guid: 7ccd980d48aa2414ba4d155dcb0ebec6, type: 3}
+    - rid: 7303038261006958593
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 15
+        timingPuzzleType: 0
+        timingPuzzleComboMin: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        percent: 20
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 0fbd9b21883cac642a2ec6cc8a552b86, type: 2}
+        targetType: 0

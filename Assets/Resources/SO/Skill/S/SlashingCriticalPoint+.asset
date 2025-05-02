@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: SlashingCriticalPoint+
+  m_EditorClassIdentifier: 
+  codeName: SlashingCriticalPoint+
+  id: 127
+  icon: {fileID: 0}
+  displayName: "\uCC38\uACA9 \uAE09\uC18C+"
+  description: "\uCC38\uACA9\uC744 \uAC19\uC740 \uD134 \uB0B4\uC5D0\uC11C \uC5F0\uC18D\uC73C\uB85C
+    \uC4F8\uC218\uB85D \uC810\uC810 \uB354 \uD53C\uD574\uB7C9\uC774 \uC99D\uAC00\uD569\uB2C8\uB2E4.
+    (\uD6A8\uACFC \uC99D\uAC00)"
+  isView: 1
+  isPlus: 1
+  skillGrade: 0
+  behaviours:
+  - rid: 2696790886701072446
+  isEndRemove: 0
+  removeSkills:
+  - {fileID: 11400000, guid: 826b9d243e845d44e80d378ae745fd88, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: 826b9d243e845d44e80d378ae745fd88, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 2696790886701072446
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 15
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: b679b2f3f4ea45943b136c914922f098, type: 2}
+        targetType: 0

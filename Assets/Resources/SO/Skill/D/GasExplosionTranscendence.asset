@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: GasExplosionTranscendence
+  m_EditorClassIdentifier: 
+  codeName: GasExplosionTranscendence
+  id: 51
+  icon: {fileID: 0}
+  displayName: "\uAC00\uC2A4 \uD3ED\uBC1C \uCD08\uC6D4"
+  description: "\uAC00\uC2A4 \uD3ED\uBC1C \uB370\uBBF8\uC9C0 +60%, \uB9C8\uBC95 \uB370\uBBF8\uC9C0
+    -10%."
+  isView: 1
+  isPlus: 0
+  skillGrade: 0
+  behaviours:
+  - rid: 7303038274838724633
+  - rid: 7303038274838724637
+  isEndRemove: 0
+  removeSkills: []
+  conditionSkills: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303038274838724633
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        timingHpChangeValue: 0
+        timingIsHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 3679ec92aa174164d888a8698c9795ad, type: 2}
+        targetType: 0
+    - rid: 7303038274838724637
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        timingHpChangeValue: 0
+        timingIsHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 765a8bddd40fc564d98ec3feaa6e677b, type: 2}
+        targetType: 0

@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c04b177e2e4b04fb72945db871888b, type: 3}
+  m_Name: GasDamage_60
+  m_EditorClassIdentifier: 
+  codeName: GasDamage_60
+  id: 55
+  icon: {fileID: 21300000, guid: bf472e69c38f5f5418817e7f763ca37b, type: 3}
+  displayName: "\uAC00\uC2A4 \uD3ED\uBC1C \uB370\uBBF8\uC9C0 +60%"
+  description: "\uAC00\uC2A4 \uD3ED\uBC1C \uB370\uBBF8\uC9C0 +60%"
+  buffGrade: 0
+  behaviour:
+    rid: 7303038274838724630
+  buffIcon: {fileID: 0}
+  buffCountType: 2
+  addCount: 1
+  isNotRemove: 0
+  startTiming: 1
+  endTiming: 0
+  hpIncreaseValueStart: 0
+  hpDecreaseValueStart: 0
+  hpIncreaseValueEnd: 0
+  hpDecreaseValueEnd: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303038274838724630
+      type: {class: BuffStat, ns: , asm: Assembly-CSharp}
+      data:
+        buffBonusKey: GasDamage_60
+        stat: {fileID: 11400000, guid: edcd82857d63ce844a6fac99b7efebf6, type: 2}
+        percent: 60
+        effectPool: {fileID: 0}

@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: DeterminationToDie
+  m_EditorClassIdentifier: 
+  codeName: DeterminationToDie
+  id: 86
+  icon: {fileID: 0}
+  displayName: "\uACB0\uC0AC\uC758 \uAC01\uC624"
+  description: "HP 50% \uC774\uD558 \uC77C \uB54C, \uACF5\uACA9\uB825\uACFC \uBC29\uC5B4\uB825\uC774
+    \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  isView: 1
+  isPlus: 0
+  skillGrade: 0
+  behaviours:
+  - rid: 7303038284151914570
+  - rid: 7303038284151914574
+  isEndRemove: 0
+  removeSkills: []
+  conditionSkills: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303038284151914570
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 50
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 036df50a180e6bd4a8d20e2684ee90f8, type: 2}
+        targetType: 0
+    - rid: 7303038284151914574
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 50
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 8535ea5509e608941a496cd151e62d36, type: 2}
+        targetType: 0

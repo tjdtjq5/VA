@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: PerfectRecovery+
+  m_EditorClassIdentifier: 
+  codeName: PerfectRecovery+
+  id: 40
+  icon: {fileID: 0}
+  displayName: "\uD37C\uD399\uD2B8 \uD68C\uBCF5+"
+  description: "\uD37C\uD399\uD2B8\uB97C \uC131\uACF5\uD558\uBA74 \uC77C\uC815 \uD655\uB960\uB85C
+    HP\uAC00 \uD68C\uBCF5\uB429\uB2C8\uB2E4. \uD655\uB960 \uC99D\uAC00"
+  isView: 1
+  isPlus: 1
+  skillGrade: 0
+  behaviours:
+  - rid: 7303038264273272854
+  isEndRemove: 0
+  removeSkills:
+  - {fileID: 11400000, guid: 8bbff2f79aceed04681f350acde51068, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: 8bbff2f79aceed04681f350acde51068, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303038264273272854
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 23
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        timingPuzzleComboMin: 0
+        percent: 40
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 0fbd9b21883cac642a2ec6cc8a552b86, type: 2}
+        targetType: 0

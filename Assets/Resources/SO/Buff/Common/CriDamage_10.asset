@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c04b177e2e4b04fb72945db871888b, type: 3}
+  m_Name: CriDamage_10
+  m_EditorClassIdentifier: 
+  codeName: CriDamage_10
+  id: 20
+  icon: {fileID: 21300000, guid: bbef860cf762eb6469c190b60af52976, type: 3}
+  displayName: CriDamage_10
+  description: CriDamage_10
+  buffGrade: 0
+  behaviour:
+    rid: 7303038297282445368
+  buffIcon: {fileID: 0}
+  buffCountType: 2
+  addCount: 1
+  isNotRemove: 0
+  startTiming: 1
+  endTiming: 0
+  hpIncreaseValueStart: 0
+  hpDecreaseValueStart: 0
+  hpIncreaseValueEnd: 0
+  hpDecreaseValueEnd: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303038297282445368
+      type: {class: BuffStat, ns: , asm: Assembly-CSharp}
+      data:
+        buffBonusKey: CriDamage_10
+        stat: {fileID: 11400000, guid: 2abb3e53b08855e44b108be429e5fb43, type: 2}
+        percent: 10
+        effectPool: {fileID: 1804303911535256831, guid: e952336cf1dfe3844b4cce3a7b6891d9, type: 3}

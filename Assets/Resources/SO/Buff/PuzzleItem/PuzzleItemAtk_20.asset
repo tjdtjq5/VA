@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PuzzleItemAtk_20
   m_EditorClassIdentifier: 
   codeName: PuzzleItemAtk_20
-  id: 40
+  id: 89
   icon: {fileID: 21300000, guid: 66f79b7468fc15e499db137c361b80b7, type: 3}
   displayName: PuzzleItemAtk_20
   description: PuzzleItemAtk_20
@@ -23,8 +23,13 @@ MonoBehaviour:
   buffIcon: {fileID: 0}
   buffCountType: 0
   addCount: 1
-  startTiming: 0
-  endTiming: 1
+  isNotRemove: 0
+  startTiming: 1
+  endTiming: 2
+  hpIncreaseValueStart: 0
+  hpDecreaseValueStart: 0
+  hpIncreaseValueEnd: 0
+  hpDecreaseValueEnd: 0
   references:
     version: 2
     RefIds:
@@ -34,5 +39,4 @@ MonoBehaviour:
         buffBonusKey: PuzzleItemAtk_20
         stat: {fileID: 11400000, guid: 1dd140b1eaeabc24c8ca3baf230c4420, type: 2}
         percent: 20
-        isInfinite: 0
         effectPool: {fileID: 1804303911535256831, guid: e952336cf1dfe3844b4cce3a7b6891d9, type: 3}

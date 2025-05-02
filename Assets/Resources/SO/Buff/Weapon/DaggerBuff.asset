@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DaggerBuff
   m_EditorClassIdentifier: 
   codeName: DaggerBuff
-  id: 13
+  id: 40
   icon: {fileID: 21300000, guid: f37a95ba9e43e9e41b3fb25e45fd26a9, type: 3}
   displayName: "\uB2E8\uAC80 \uBC84\uD504"
   description: "\uB2E8\uAC80 \uBC84\uD504 : \uCE58\uBA85\uD0C0 \uD655\uB960 10% \uC99D\uAC00"
@@ -23,8 +23,13 @@ MonoBehaviour:
   buffIcon: {fileID: 0}
   buffCountType: 0
   addCount: 1
-  startTiming: 0
-  endTiming: 1
+  isNotRemove: 0
+  startTiming: 1
+  endTiming: 2
+  hpIncreaseValueStart: 0
+  hpDecreaseValueStart: 0
+  hpIncreaseValueEnd: 0
+  hpDecreaseValueEnd: 0
   references:
     version: 2
     RefIds:
@@ -34,5 +39,4 @@ MonoBehaviour:
         buffBonusKey: DaggerBuff
         stat: {fileID: 11400000, guid: 2742a22b99ff69c48af5aab842077ec2, type: 2}
         percent: 10
-        isInfinite: 0
         effectPool: {fileID: -9178456514529446230, guid: 36368464c75e9704dbda0ad182b5fc1d, type: 3}

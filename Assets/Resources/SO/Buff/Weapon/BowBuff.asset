@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BowBuff
   m_EditorClassIdentifier: 
   codeName: BowBuff
-  id: 14
+  id: 10
   icon: {fileID: 21300000, guid: 148687a628b58fd4c8848c7b9c44966b, type: 3}
   displayName: "\uD65C \uBC84\uD504"
   description: "\uD65C \uBC84\uD504 : \uCE58\uBA85\uD0C0 \uB370\uBBF8\uC9C0 10% \uC99D\uAC00"
@@ -23,8 +23,13 @@ MonoBehaviour:
   buffIcon: {fileID: 0}
   buffCountType: 0
   addCount: 1
-  startTiming: 0
-  endTiming: 1
+  isNotRemove: 0
+  startTiming: 1
+  endTiming: 2
+  hpIncreaseValueStart: 0
+  hpDecreaseValueStart: 0
+  hpIncreaseValueEnd: 0
+  hpDecreaseValueEnd: 0
   references:
     version: 2
     RefIds:
@@ -34,5 +39,4 @@ MonoBehaviour:
         buffBonusKey: BowBuff
         stat: {fileID: 11400000, guid: 2abb3e53b08855e44b108be429e5fb43, type: 2}
         percent: 10
-        isInfinite: 0
         effectPool: {fileID: -9178456514529446230, guid: 215764eb89388d34a881e6d7ee17e4d3, type: 3}

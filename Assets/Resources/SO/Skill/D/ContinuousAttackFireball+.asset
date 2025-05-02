@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: ContinuousAttackFireball+
+  m_EditorClassIdentifier: 
+  codeName: ContinuousAttackFireball+
+  id: 32
+  icon: {fileID: 0}
+  displayName: "\uC5F0\uC18D \uACF5\uACA9 \uBD88\uB369\uC774+"
+  description: "\uC5F0\uC18D \uACF5\uACA9\uC744 \uC0AC\uC6A9\uD558\uBA74 \uBD88\uB369\uC774
+    \uD37C\uC990 \uC544\uC774\uD15C\uC744 1\uAC1C>2\uAC1C \uC0DD\uC131\uD569\uB2C8\uB2E4."
+  isView: 1
+  isPlus: 1
+  skillGrade: 0
+  behaviours:
+  - rid: 7303038264273272841
+  - rid: 7303038264273272843
+  isEndRemove: 0
+  removeSkills:
+  - {fileID: 11400000, guid: b8bf7afebc47a2e47809fb507548cf4a, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: b8bf7afebc47a2e47809fb507548cf4a, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303038264273272841
+      type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 14
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        timingPuzzleComboMin: 0
+        percent: 100
+        applyCount: 1
+        _time: 0
+        puzzleItem: {fileID: 3985121653833862627, guid: 463cf177c976ad04da60e3145807c179, type: 3}
+    - rid: 7303038264273272843
+      type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 14
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        timingPuzzleComboMin: 0
+        percent: 100
+        applyCount: 1
+        _time: 0
+        puzzleItem: {fileID: 3985121653833862627, guid: 463cf177c976ad04da60e3145807c179, type: 3}
