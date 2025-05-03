@@ -10,27 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: BurnResonance
+  m_Name: HeatAmplification+
   m_EditorClassIdentifier: 
-  codeName: BurnResonance
-  id: 114
+  codeName: HeatAmplification+
+  id: 140
   icon: {fileID: 0}
-  displayName: "\uD654\uC0C1 \uACF5\uBA85"
-  description: "\uD654\uC0C1 \uC0C1\uD0DC\uC758 \uB300\uC0C1\uC774 \uBC1B\uB294 \uB370\uBBF8\uC9C0\uB97C
-    \uC99D\uAC00 \uC2DC\uD0B5\uB2C8\uB2E4."
+  displayName: "\uC5F4\uAE30 \uC99D\uD3ED+"
+  description: "\uD654\uC0C1\uC740 \uD55C \uBC88\uC5D0 3\uC2A4\uD0DD\uC744 \uC313\uC2B5\uB2C8\uB2E4"
   isView: 1
-  isPlus: 0
+  isPlus: 1
   skillGrade: 0
   behaviours:
-  - rid: 2696790886701072419
+  - rid: 2696790937565397011
   isEndRemove: 0
-  removeSkills: []
-  conditionSkills: []
+  removeSkills:
+  - {fileID: 11400000, guid: 230f3ff23bd958a4e9124e4988308967, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: 230f3ff23bd958a4e9124e4988308967, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 2696790886701072419
-      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+    - rid: 2696790937565397011
+      type: {class: SkillTriggerPassiveBuff, ns: , asm: Assembly-CSharp}
       data:
         timing: 1
         timingPuzzleType: 0
@@ -42,6 +43,4 @@ MonoBehaviour:
         percent: 100
         hpPercentUnder: 100
         applyCount: 1
-        _time: 0
-        buff: {fileID: 11400000, guid: 7690947f46a10c041bd50eb8c8643464, type: 2}
-        targetType: 0
+        triggerPassiveBuff: 8
