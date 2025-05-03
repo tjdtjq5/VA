@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: BurnTranscendence+
+  m_EditorClassIdentifier: 
+  codeName: BurnTranscendence+
+  id: 136
+  icon: {fileID: 0}
+  displayName: "\uD654\uC0C1 \uCD08\uC6D4+"
+  description: "\uD654\uC0C1 \uB370\uBBF8\uC9C0 +110% , \uC77C\uBC18 \uACF5\uACA9
+    \uB370\uBBF8\uC9C0 -15%"
+  isView: 1
+  isPlus: 1
+  skillGrade: 0
+  behaviours:
+  - rid: 2696790937565397006
+  - rid: 2696790937565397007
+  isEndRemove: 0
+  removeSkills:
+  - {fileID: 11400000, guid: dd1a35d336b93c449bd9e690d634f80a, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: dd1a35d336b93c449bd9e690d634f80a, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 2696790937565397006
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 8e0159064250d90408d72d4cbbbb31d5, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0
+    - rid: 2696790937565397007
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 18b6caa52066e2549a49adcdb2355548, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0
