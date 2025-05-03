@@ -905,10 +905,9 @@ GameObject:
   - component: {fileID: 4997526090276422789}
   - component: {fileID: 7506805035979093443}
   - component: {fileID: 6687877815540183555}
-  - component: {fileID: 9002181786411177296}
-  - component: {fileID: 4782858460500012744}
+  - component: {fileID: 806057181862676553}
   m_Layer: 0
-  m_Name: Die
+  m_Name: Crash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -972,28 +971,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &9002181786411177296
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7352413213703172270}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9ffadfb5d2a66dc4db2a8340b911021d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4782858460500012744
+--- !u!114 &806057181862676553
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1002,19 +980,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7352413213703172270}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 208b36f2efd3bb342a3156ab085421ad, type: 3}
+  m_Script: {fileID: 11500000, guid: d330144df17c0604cab4bcc3f456ebcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleNone: {fileID: 21300000, guid: 5d9dd3505d46d3c428409c173f610099, type: 3}
-  puzzleBlock: {fileID: 21300000, guid: 726f5e3c6ba4c834cbda3f85880c6325, type: 3}
-  puzzleRed: {fileID: 21300000, guid: 2fcc5fc1413803546a73075e7afa131c, type: 3}
-  puzzleBlue: {fileID: 21300000, guid: e10080f83a3c272418d66d8a18d00da0, type: 3}
-  puzzleGreen: {fileID: 21300000, guid: f6c471e7e98890a4f97c3d4db0e9f286, type: 3}
-  puzzleYellow: {fileID: 21300000, guid: bc0762fb53c15794db507620ce3cbe9a, type: 3}
-  weaponRed: {fileID: 21300000, guid: a983c01dc70c23149b09f239a793c67b, type: 3}
-  weaponBlue: {fileID: 21300000, guid: d5e0ed43db3845f46b6773a753ea469c, type: 3}
-  weaponGreen: {fileID: 21300000, guid: b1522bd8d9ce68547a9faaa72ce48b70, type: 3}
-  weaponYellow: {fileID: 21300000, guid: 00e07df9057c0a941a17bb25f54e1e18, type: 3}
+  isRaycast: 0
 --- !u!1 &8836076472693328265
 GameObject:
   m_ObjectHideFlags: 0
