@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d330144df17c0604cab4bcc3f456ebcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRaycast: 0
 --- !u!1 &6055828736924241245
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,6 +103,7 @@ GameObject:
   - component: {fileID: 6055828736924241247}
   - component: {fileID: 6055828736924241246}
   - component: {fileID: 3060290987979872197}
+  - component: {fileID: 1644581193332486876}
   m_Layer: 5
   m_Name: UIItemTest
   m_TagString: Untagged
@@ -148,6 +150,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -191,7 +194,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 127
 --- !u!114 &3060290987979872197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,6 +207,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eace79a84ec14874ba6598170a788d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1644581193332486876
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6055828736924241245}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6055828737244299369
 GameObject:
   m_ObjectHideFlags: 0
