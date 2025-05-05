@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: PlayerMustWin+
+  m_EditorClassIdentifier: 
+  codeName: PlayerMustWin+
+  id: 170
+  icon: {fileID: 0}
+  displayName: "\uC120\uC218\uD544\uC2B9+"
+  description: "\uC804\uD22C \uC2DC\uC791 \uD6C4 1\uD134>2\uD134 \uB3D9\uC548 \uBAA8\uB4E0
+    \uB370\uBBF8\uC9C0\uAC00 2\uBC30\uAC00 \uB429\uB2C8\uB2E4."
+  isView: 1
+  isPlus: 1
+  skillGrade: 0
+  behaviours:
+  - rid: 2696790977382711311
+  isEndRemove: 0
+  removeSkills:
+  - {fileID: 11400000, guid: b08439b9e0133c84daec47a06bfb3954, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: b08439b9e0133c84daec47a06bfb3954, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 2696790977382711311
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 3
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackPageCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 0
+        _time: 0
+        buff: {fileID: 11400000, guid: b4dc10e19aa400e4e9f41eb9cc84a7e7, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0

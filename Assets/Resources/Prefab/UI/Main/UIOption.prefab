@@ -62,6 +62,7 @@ GameObject:
   - component: {fileID: 6012387005289663626}
   - component: {fileID: 6012387005289663627}
   - component: {fileID: 6012387005289663628}
+  - component: {fileID: 2557653157824262718}
   m_Layer: 0
   m_Name: UIOption
   m_TagString: Untagged
@@ -151,7 +152,19 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 127
+--- !u!114 &2557653157824262718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6012387005289663630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b2571d63db7d374cbff7ab2fed6f427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6012387005553794470
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,6 +176,8 @@ GameObject:
   - component: {fileID: 6012387005553794469}
   - component: {fileID: 6012387005553794467}
   - component: {fileID: 6012387005553794468}
+  - component: {fileID: 7763669575639111778}
+  - component: {fileID: 4471194650749247141}
   m_Layer: 5
   m_Name: Option
   m_TagString: Untagged
@@ -228,3 +243,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &7763669575639111778
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6012387005553794470}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7450fb19ce71e954f923f39872b9e77b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4471194650749247141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6012387005553794470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 258a56004ec42b54c84f30867b721093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
