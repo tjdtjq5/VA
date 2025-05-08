@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: ExtremeThorn+
   m_EditorClassIdentifier: 
   codeName: ExtremeThorn+
-  id: 152
+  id: 70
   icon: {fileID: 0}
   displayName: "\uADF9\uD55C\uC758 \uAC00\uC2DC+"
-  description: "\uC5BC\uC74C\uAC00\uC2DC\uB294 \uC801\uC758 \uC57D\uC810\uC744 2\uAC1C>3\uAC1C
-    \uACA9\uD30C\uD55C\uB2E4."
+  description: "\uC5BC\uC74C\uAC00\uC2DC\uB294 \uC801\uC758 \uC57D\uC810\uC744 3\uAC1C
+    \uACA9\uD30C\uD55C\uB2E4"
   isView: 1
   isPlus: 1
-  skillGrade: 0
+  skillGrade: 4
   behaviours:
   - rid: 2696790953029533727
+  - rid: 2696791043212574720
   isEndRemove: 0
   removeSkills:
   - {fileID: 11400000, guid: 6c884e3c68e84024fa4f0b357ab2e007, type: 2}
@@ -32,6 +33,21 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2696790953029533727
+      type: {class: SkillWeekConquer, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 22
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 7
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackPageCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 0
+        targetType: 5
+    - rid: 2696791043212574720
       type: {class: SkillWeekConquer, ns: , asm: Assembly-CSharp}
       data:
         timing: 22

@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: PerfectIceThorn
   m_EditorClassIdentifier: 
   codeName: PerfectIceThorn
-  id: 74
+  id: 118
   icon: {fileID: 0}
   displayName: "\uD37C\uD399\uD2B8 \uC5BC\uC74C \uAC00\uC2DC"
-  description: "\uD37C\uD399\uD2B8 \uC131\uACF5 \uC2DC, \uC5BC\uC74C \uAC00\uC2DC
-    \uD37C\uC990 \uC544\uC774\uD15C\uC744 1\uAC1C \uC0DD\uC131\uD569\uB2C8\uB2E4."
+  description: "\uD37C\uD399\uD2B8 \uC131\uACF5 \uC2DC $[b0.Percent]% \uD655\uB960\uB85C
+    \uC5BC\uC74C \uAC00\uC2DC \uD37C\uC990 \uC544\uC774\uD15C\uC744 $[BehavioursCount]\uAC1C
+    \uC0DD\uC131\uD569\uB2C8\uB2E4"
   isView: 1
   isPlus: 0
   skillGrade: 0
@@ -40,7 +41,7 @@ MonoBehaviour:
         isHpChangeIncrease: 0
         timingPuzzleComboMin: 0
         attackPageCount: 0
-        percent: 100
+        percent: 30
         hpPercentUnder: 100
         applyCount: 0
         _time: 0

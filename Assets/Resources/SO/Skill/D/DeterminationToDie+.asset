@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: DeterminationToDie+
   m_EditorClassIdentifier: 
   codeName: DeterminationToDie+
-  id: 87
+  id: 58
   icon: {fileID: 0}
   displayName: "\uACB0\uC0AC\uC758 \uAC01\uC624+"
-  description: "HP 50%>70% \uC774\uD558 \uC77C \uB54C, \uACF5\uACA9\uB825\uACFC \uBC29\uC5B4\uB825\uC774
-    \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  description: "HP $[b1.HpDecreaseValueStart]% \uC774\uD558 \uC77C \uB54C, \uACF5\uACA9\uB825
+    +$[b0.b.Percent]% \uBC29\uC5B4\uB825 +$[b1.b.Percent]%\uAC00 \uC99D\uAC00\uD569\uB2C8\uB2E4"
   isView: 1
   isPlus: 1
   skillGrade: 0

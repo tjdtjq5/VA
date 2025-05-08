@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: Berserker+
   m_EditorClassIdentifier: 
   codeName: Berserker+
-  id: 164
+  id: 9
   icon: {fileID: 0}
   displayName: "\uBC84\uC11C\uCEE4+"
-  description: "\uC77C\uBC18 \uACF5\uACA9\uC758 \uB370\uBBF8\uC9C0\uC640 \uC5F0\uC18D
-    \uACF5\uACA9\uC758 \uB370\uBBF8\uC9C0\uAC00 \uB300\uD3ED \uC0C1\uC2B9\uD569\uB2C8\uB2E4.
-    \uB300\uC2E0 \uC77C\uBC18 \uACF5\uACA9\uC2DC HP\uAC00 \uAC10\uC18C \uD569\uB2C8\uB2E4.
-    (\uD6A8\uACFC \uC99D\uAC00)"
+  description: "\uC77C\uBC18 \uACF5\uACA9 \uD53C\uD574\uB7C9 +$[b0.b.Percent]% \uC5F0\uC18D
+    \uACF5\uACA9 \uD53C\uD574\uB7C9 +$[b1.b.Percent]% \uC99D\uAC00\uD569\uB2C8\uB2E4\\n\uB300\uC2E0
+    \uC77C\uBC18 \uACF5\uACA9\uC2DC HP\uAC00 -$[b2.b.HpDecreaseValue]% \uAC10\uC18C
+    \uD569\uB2C8\uB2E4"
   isView: 1
   isPlus: 1
-  skillGrade: 0
+  skillGrade: 4
   behaviours:
   - rid: 2696790964209188889
   - rid: 2696790964209188890
@@ -86,6 +86,6 @@ MonoBehaviour:
         hpPercentUnder: 100
         applyCount: 0
         _time: 0
-        buff: {fileID: 11400000, guid: 415ab890b7b371c478580ade2a15eccc, type: 2}
+        buff: {fileID: 11400000, guid: def2679af3ba6784984ee72a2eef4b41, type: 2}
         targetType: 0
         isNotBuffRemove: 0
