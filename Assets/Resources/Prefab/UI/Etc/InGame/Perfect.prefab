@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 84739371}
   - component: {fileID: 84739370}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 7649300670596462873}
   - component: {fileID: 7649300670596462875}
   - component: {fileID: 7649300670596462872}
+  - component: {fileID: 4691924410315491321}
   m_Layer: 5
   m_Name: Perfect
   m_TagString: Untagged
@@ -127,7 +128,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 146}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 710, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7649300670596462875
@@ -159,6 +160,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4691924410315491321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7649300670596462878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a87f5d5b15a38f14ea7a9987128ace54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUnTime: 0
+  poolObjectType: 3
+  time: 0
+  animator: {fileID: 7649300670596462872}
+  endAniName: Play
+  spineAnimation: {fileID: 0}
+  spineEndAniName: 
+  graphicAnimation: {fileID: 0}
+  graphicEndAniName: 
 --- !u!1 &7649300671285523177
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +193,7 @@ GameObject:
   - component: {fileID: 7649300671285523178}
   - component: {fileID: 7649300671285523179}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ImgText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
