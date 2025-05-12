@@ -16,9 +16,10 @@ MonoBehaviour:
   id: 76
   icon: {fileID: 0}
   displayName: "\uD654\uC5FC \uBC88\uAC1C+"
-  description: "\uCD5C\uC885\uC624\uC758 \uACF5\uACA9 \uC774\uC0C1 \uC2DC, \uC77C\uC815
-    \uD655\uB960\uB85C \uBC88\uAC1C \uD37C\uC990 \uC544\uC774\uD15C\uC744 0 ~ 2\uAC1C\uB97C
-    \uC0DD\uC131\uD569\uB2C8\uB2E4. \uBAA8\uB4E0 \uBC88\uAC1C\uB294 \uC801\uC5D0\uAC8C
+  description: "\uD37C\uD399\uD2B8 \uC131\uACF5 \uC2DC \uC77C\uC815 \uD655\uB960\uB85C
+    <color=#F58F33>$[b0.Percent]%</color> \uD655\uB960\uB85C \uBC88\uAC1C \uD37C\uC990
+    \uC544\uC774\uD15C\uC744 1\uAC1C\uB97C \uC0DD\uC131\uD569\uB2C8\uB2E4\\n\uBAA8\uB4E0
+    \uBC88\uAC1C\uB294 <color=#F58F33>$[b1.Percent]%</color>\uD655\uB960\uB85C \uC801\uC5D0\uAC8C
     \uD654\uC0C1 1\uC2A4\uD0DD\uC744 \uC313\uC2B5\uB2C8\uB2E4"
   isView: 1
   isPlus: 1
@@ -26,7 +27,6 @@ MonoBehaviour:
   skillTooltips: 0000000009000000
   behaviours:
   - rid: 7303038284151914527
-  - rid: 7303038284151914530
   - rid: 7303038284151914528
   isEndRemove: 0
   removeSkills:
@@ -39,7 +39,7 @@ MonoBehaviour:
     - rid: 7303038284151914527
       type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
       data:
-        timing: 11
+        timing: 23
         timingPuzzleType: 0
         timingPageCycle: 1
         timingDamageType: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
         isHpChangeIncrease: 0
         timingPuzzleComboMin: 3
         attackPageCount: 0
-        percent: 100
+        percent: 60
         hpPercentUnder: 100
         applyCount: 0
         _time: 0
@@ -70,19 +70,3 @@ MonoBehaviour:
         buff: {fileID: 11400000, guid: 37d6b4a42e1002747b3ecc6e483dd018, type: 2}
         targetType: 5
         isNotBuffRemove: 0
-    - rid: 7303038284151914530
-      type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
-      data:
-        timing: 11
-        timingPuzzleType: 0
-        timingPageCycle: 1
-        timingDamageType: 0
-        hpChangeValue: 0
-        isHpChangeIncrease: 0
-        timingPuzzleComboMin: 3
-        attackPageCount: 0
-        percent: 100
-        hpPercentUnder: 100
-        applyCount: 0
-        _time: 0
-        puzzleItem: {fileID: 3985121653833862627, guid: 23d38b6aa2d24a14487cdb92c1335417, type: 3}
