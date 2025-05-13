@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: PoisonUpgrade
+  m_EditorClassIdentifier: 
+  codeName: PoisonUpgrade
+  id: 140
+  icon: {fileID: 0}
+  displayName: "\uB9F9\uB3C5"
+  description: "\uC911\uB3C5\uC774 \uB9F9\uB3C5\uC73C\uB85C \uBCC0\uACBD\uB418\uBA70,
+    \uC911\uB3C5 \uD53C\uD574\uB7C9\uC774 <color=#F58F33>$[b1.b.Percent]%</color>
+    \uC99D\uAC00\uD569\uB2C8\uB2E4"
+  isView: 1
+  isPlus: 0
+  skillGrade: 4
+  skillTooltips: 01000000
+  behaviours:
+  - rid: 2696791165580345365
+  - rid: 2696791165580345366
+  isEndRemove: 0
+  removeSkills: []
+  conditionSkills: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 2696791165580345365
+      type: {class: SkillTriggerPassiveBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackPageCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        triggerPassiveBuff: 15
+    - rid: 2696791165580345366
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackPageCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 6cc6e296ef32a454494e47bd504d522a, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0

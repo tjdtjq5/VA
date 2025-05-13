@@ -10,27 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: AddictionResonance
+  m_Name: AddictionResonance+
   m_EditorClassIdentifier: 
-  codeName: AddictionResonance
-  id: 2
+  codeName: AddictionResonance+
+  id: 3
   icon: {fileID: 0}
-  displayName: "\uC911\uB3C5 \uACF5\uBA85"
+  displayName: "\uC911\uB3C5 \uACF5\uBA85+"
   description: "\uC911\uB3C5 \uC0C1\uD0DC\uC758 \uB300\uC0C1\uC774 \uBC1B\uB294 \uD53C\uD574\uB7C9\uC744
     <color=#F58F33>$[b0.b.Percent]%</color> \uC99D\uAC00<sprite name=\"Up\"> \uC2DC\uD0B5\uB2C8\uB2E4."
   isView: 1
-  isPlus: 0
-  skillGrade: 0
+  isPlus: 1
+  skillGrade: 4
   skillTooltips: 01000000
   behaviours:
-  - rid: 2696790886701072421
+  - rid: 2696790886701072422
   isEndRemove: 0
-  removeSkills: []
-  conditionSkills: []
+  removeSkills:
+  - {fileID: 11400000, guid: e7a0f3c7dc3975846a61036211c96879, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: e7a0f3c7dc3975846a61036211c96879, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 2696790886701072421
+    - rid: 2696790886701072422
       type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
       data:
         timing: 1
@@ -45,6 +47,6 @@ MonoBehaviour:
         hpPercentUnder: 100
         applyCount: 1
         _time: 0
-        buff: {fileID: 11400000, guid: 39dc8f0eec536624eb42a49f2fc8f786, type: 2}
+        buff: {fileID: 11400000, guid: 57b92b72da5aeb24e91ae7df8c0676eb, type: 2}
         targetType: 0
         isNotBuffRemove: 0

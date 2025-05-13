@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PreemptiveGasExplosion
   m_EditorClassIdentifier: 
   codeName: PreemptiveGasExplosion
-  id: 135
+  id: 146
   icon: {fileID: 0}
   displayName: "\uC120\uC81C \uAC00\uC2A4 \uD3ED\uBC1C"
   description: "\uC804\uD22C \uC2DC\uC791 \uC2DC \uAC00\uC2A4 \uD3ED\uBC1C \uD37C\uC990
@@ -26,12 +26,29 @@ MonoBehaviour:
   behaviours:
   - rid: 7303038274838724612
   - rid: 7303038274838724614
+  - rid: 2696791165580345385
   isEndRemove: 0
   removeSkills: []
   conditionSkills: []
   references:
     version: 2
     RefIds:
+    - rid: 2696791165580345385
+      type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 3
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackPageCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        puzzleItem: {fileID: 3985121653833862627, guid: 589d2a3e79b95584c9d2694b2f11ad05, type: 3}
     - rid: 7303038274838724612
       type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
       data:
