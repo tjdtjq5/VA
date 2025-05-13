@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PreemptiveFireball+
   m_EditorClassIdentifier: 
   codeName: PreemptiveFireball+
-  id: 127
+  id: 130
   icon: {fileID: 0}
   displayName: "\uC120\uC81C \uBD88\uB369\uC774+"
   description: "\uC804\uD22C \uC2DC\uC791 \uC2DC \uBD88\uB369\uC774 \uD37C\uC990
@@ -28,6 +28,7 @@ MonoBehaviour:
   - rid: 7303038284151914499
   - rid: 7303038284151914506
   - rid: 7303038284151914507
+  - rid: 2696791155024592905
   isEndRemove: 0
   removeSkills:
   - {fileID: 11400000, guid: de3c7efad703dc14da6a7efc1cda5437, type: 2}
@@ -36,6 +37,22 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 2696791155024592905
+      type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 3
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackPageCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        puzzleItem: {fileID: 3985121653833862627, guid: 463cf177c976ad04da60e3145807c179, type: 3}
     - rid: 7303038284151914497
       type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
       data:
@@ -49,7 +66,7 @@ MonoBehaviour:
         attackPageCount: 0
         percent: 100
         hpPercentUnder: 100
-        applyCount: 0
+        applyCount: 1
         _time: 0
         puzzleItem: {fileID: 3985121653833862627, guid: 463cf177c976ad04da60e3145807c179, type: 3}
     - rid: 7303038284151914499
@@ -65,7 +82,7 @@ MonoBehaviour:
         attackPageCount: 0
         percent: 100
         hpPercentUnder: 100
-        applyCount: 0
+        applyCount: 1
         _time: 0
         puzzleItem: {fileID: 3985121653833862627, guid: 463cf177c976ad04da60e3145807c179, type: 3}
     - rid: 7303038284151914506
@@ -81,7 +98,7 @@ MonoBehaviour:
         attackPageCount: 0
         percent: 100
         hpPercentUnder: 100
-        applyCount: 0
+        applyCount: 1
         _time: 0
         puzzleItem: {fileID: 3985121653833862627, guid: 463cf177c976ad04da60e3145807c179, type: 3}
     - rid: 7303038284151914507
@@ -97,6 +114,6 @@ MonoBehaviour:
         attackPageCount: 0
         percent: 100
         hpPercentUnder: 100
-        applyCount: 0
+        applyCount: 1
         _time: 0
         puzzleItem: {fileID: 3985121653833862627, guid: 463cf177c976ad04da60e3145807c179, type: 3}
