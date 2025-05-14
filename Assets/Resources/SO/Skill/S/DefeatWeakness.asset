@@ -10,42 +10,39 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: PerfectTranscendence
+  m_Name: DefeatWeakness
   m_EditorClassIdentifier: 
-  codeName: PerfectTranscendence
-  id: 132
+  codeName: DefeatWeakness
+  id: 55
   icon: {fileID: 0}
-  displayName: "\uD37C\uD399\uD2B8 \uCD08\uC6D4"
-  description: "\uD37C\uD399\uD2B8 \uC131\uACF5 \uC2DC, \uC77C\uBC18 \uACF5\uACA9
-    \uD53C\uD574\uB7C9\uC774 <color=#F58F33>+$[b0.b.Percent]%</color> \uC0C1\uC2B9<sprite
-    name=\"Up\">\uD55C\uB2E4"
+  displayName: "\uC57D\uC810 \uACA9\uD30C"
+  description: "\uC77C\uBC18 \uACF5\uACA9 \uC2DC, <color=#F58F33>$[b0.Percent]%</color>
+    \uD655\uB960\uB85C \uC801\uC758 \uC57D\uC810\uC744 <color=#F58F33>$[BehavioursCount]\uAC1C</color>
+    \uACA9\uD30C \uD569\uB2C8\uB2E4"
   isView: 1
   isPlus: 0
   skillGrade: 4
-  skillTooltips: 06000000
+  skillTooltips: 07000000
   behaviours:
-  - rid: 2696790898878447622
+  - rid: 7303038297282445330
   isEndRemove: 0
   removeSkills: []
   conditionSkills: []
   references:
     version: 2
     RefIds:
-    - rid: 2696790898878447622
-      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+    - rid: 7303038297282445330
+      type: {class: SkillWeekConquer, ns: , asm: Assembly-CSharp}
       data:
-        timing: 23
+        timing: 22
         timingPuzzleType: 0
         timingPageCycle: 0
-        timingDamageType: 0
+        timingDamageType: 1
         hpChangeValue: 0
         isHpChangeIncrease: 0
         timingPuzzleComboMin: 0
         attackPageCount: 0
-        percent: 100
+        percent: 50
         hpPercentUnder: 100
         applyCount: 1
-        _time: 0
-        buff: {fileID: 11400000, guid: 6efebaa0cf02aa240b9fc185b0750d87, type: 2}
-        targetType: 0
-        isNotBuffRemove: 0
+        targetType: 5
