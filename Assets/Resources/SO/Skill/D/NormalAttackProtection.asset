@@ -13,28 +13,30 @@ MonoBehaviour:
   m_Name: NormalAttackProtection
   m_EditorClassIdentifier: 
   codeName: NormalAttackProtection
-  id: 108
+  id: 123
   icon: {fileID: 0}
   displayName: "\uC77C\uBC18 \uACF5\uACA9 \uBCF4\uD638"
-  description: "\uC77C\uBC18 \uACF5\uACA9\uC740 <color=#F58F33>$[b0.Percent]%</color>
-    \uD655\uB960\uB85C \uCD5C\uB300 \uCCB4\uB825<sprite name=\"Hp\">\uC758 <color=#8AD2FA>$[b0.b.ShieldValue]%</color>
-    \uBCF4\uD638\uB9C9<sprite name=\"Shield\">\uC744 \uC5BB\uC2B5\uB2C8\uB2E4"
+  description: "\uC77C\uBC18 \uACF5\uACA9\uC740 <color=#FB7919>$[b0.Percent]%</color>
+    \uD655\uB960\uB85C \uBCF4\uD638\uB9C9<sprite name=\"Shield\"> \uD37C\uC990 \uC544\uC774\uD15C\uC744
+    \uC0DD\uC131\uD569\uB2C8\uB2E4"
   isView: 1
   isPlus: 0
   skillGrade: 0
   skillTooltips: 
   behaviours:
-  - rid: 7303038284151914519
+  - rid: 2696791179600330752
   isEndRemove: 0
   removeSkills: []
-  conditionSkills: []
+  conditionSkills:
+  - {fileID: 11400000, guid: 5c96a374c619c6546af057b5664537a1, type: 2}
+  - {fileID: 11400000, guid: a974569fd0560064fb8f44ef65d14d18, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 7303038284151914519
-      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+    - rid: 2696791179600330752
+      type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
       data:
-        timing: 11
+        timing: 6
         timingPuzzleType: 0
         timingPageCycle: 0
         timingDamageType: 0
@@ -44,8 +46,6 @@ MonoBehaviour:
         attackPageCount: 0
         percent: 30
         hpPercentUnder: 100
-        applyCount: 0
+        applyCount: 1
         _time: 0
-        buff: {fileID: 11400000, guid: c9a0c4d9c9ab95347a8a3d8c2befabff, type: 2}
-        targetType: 0
-        isNotBuffRemove: 0
+        puzzleItem: {fileID: 6937290663768921873, guid: 2b15b83bcc2a7084fbab547edee72109, type: 3}

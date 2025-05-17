@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c04b177e2e4b04fb72945db871888b, type: 3}
+  m_Name: PoisonDamage_50
+  m_EditorClassIdentifier: 
+  codeName: PoisonDamage_50
+  id: 110
+  icon: {fileID: 21300000, guid: a8f29218e0fb6b2488183c8b73783f43, type: 3}
+  displayName: "\uC911\uB3C5 \uD53C\uD574\uB7C9 +50%"
+  description: "\uC911\uB3C5 \uD53C\uD574\uB7C9 +50%"
+  buffGrade: 0
+  behaviour:
+    rid: 2696791165580345376
+  buffIcon: {fileID: 0}
+  buffCountType: 2
+  addCount: 1
+  isNotRemove: 0
+  startTiming: 1
+  endTiming: 0
+  pageStart: 0
+  pageEnd: 0
+  stackInstanceCountStart: 1
+  stackInstanceCountEnd: 1
+  hpIncreaseValueStart: 0
+  hpDecreaseValueStart: 0
+  hpIncreaseValueEnd: 0
+  hpDecreaseValueEnd: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 2696791165580345376
+      type: {class: BuffStat, ns: , asm: Assembly-CSharp}
+      data:
+        buffBonusKey: PoisonDamage_50
+        stat: {fileID: 11400000, guid: c8f77df4863fcbf43bdc9278f6a40913, type: 2}
+        percent: 50
+        effectPool: {fileID: 4504952870117154186, guid: 8e92eada2838e984bbc7ca74ca4cea30, type: 3}

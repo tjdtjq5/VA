@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: PoisonMastery
+  m_EditorClassIdentifier: 
+  codeName: PoisonMastery
+  id: 142
+  icon: {fileID: 0}
+  displayName: "\uC911\uB3C5 \uB9C8\uC2A4\uD130\uB9AC"
+  description: "\uC911\uB3C5 \uD53C\uD574\uB7C9 <color=#FB7919>+$[b0.b.Percent]%</color>,
+    \uB9C8\uBC95 \uD53C\uD574\uB7C9 <color=#F43E33>-$[b1.b.Percent]%</color>"
+  isView: 1
+  isPlus: 0
+  skillGrade: 4
+  skillTooltips: 01000000
+  behaviours:
+  - rid: 2696791165580345369
+  - rid: 2696791165580345370
+  isEndRemove: 0
+  removeSkills: []
+  conditionSkills:
+  - {fileID: 11400000, guid: 54c132d7598a6064091a60d71b07c455, type: 2}
+  - {fileID: 11400000, guid: dc976744f9a139f44af197118a9608c0, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 2696791165580345369
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackPageCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 6cc6e296ef32a454494e47bd504d522a, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0
+    - rid: 2696791165580345370
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackPageCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 3679ec92aa174164d888a8698c9795ad, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0

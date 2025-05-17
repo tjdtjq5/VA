@@ -16,15 +16,16 @@ MonoBehaviour:
   id: 35
   icon: {fileID: 0}
   displayName: "\uC5F0\uC18D \uBCF4\uD638+"
-  description: "\uC5F0\uC18D \uACF5\uACA9\uC744 \uC0AC\uC6A9\uD560 \uB54C <color=#F58F33>$[b0.Percent]%</color>
-    \uD655\uB960\uB85C \uCD5C\uB300 \uCCB4\uB825<sprite name=\"Hp\">\uC758 <color=#8AD2FA>$[b0.b.ShieldValue]%</color>
-    \uB9CC\uD07C\uC758 \uBCF4\uD638\uB9C9<sprite name=\"Shield\">\uC744 \uC5BB\uC2B5\uB2C8\uB2E4."
+  description: "\uC5F0\uC18D \uACF5\uACA9\uC744 \uC0AC\uC6A9\uD558\uBA74 \uC77C\uC815
+    \uD655\uB960\uB85C \uBCF4\uD638\uB9C9<sprite name=\"Shield\"> \uD37C\uC990 \uC544\uC774\uD15C\uC744
+    <color=#FB7919>0 ~ $[BehavioursCount]\uAC1C</color> \uC0DD\uC131\uD569\uB2C8\uB2E4"
   isView: 1
   isPlus: 1
   skillGrade: 0
   skillTooltips: 0d000000
   behaviours:
   - rid: 7303038284151914518
+  - rid: 2696791186033868804
   isEndRemove: 0
   removeSkills:
   - {fileID: 11400000, guid: 26de07abc52e63a43a0b432450e0f240, type: 2}
@@ -33,6 +34,24 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 2696791186033868804
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 14
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackPageCount: 0
+        percent: 30
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: fd3d6f9ff7f8db74e856e9783fca2c7c, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0
     - rid: 7303038284151914518
       type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
       data:
@@ -46,7 +65,7 @@ MonoBehaviour:
         attackPageCount: 0
         percent: 30
         hpPercentUnder: 100
-        applyCount: 0
+        applyCount: 1
         _time: 0
         buff: {fileID: 11400000, guid: fd3d6f9ff7f8db74e856e9783fca2c7c, type: 2}
         targetType: 0

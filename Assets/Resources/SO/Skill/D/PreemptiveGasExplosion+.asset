@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: PreemptiveGasExplosion+
   m_EditorClassIdentifier: 
   codeName: PreemptiveGasExplosion+
-  id: 131
+  id: 150
   icon: {fileID: 0}
   displayName: "\uC120\uC81C \uAC00\uC2A4 \uD3ED\uBC1C+"
   description: "\uC804\uD22C \uC2DC\uC791 \uC2DC \uAC00\uC2A4 \uD3ED\uBC1C \uD37C\uC990
-    \uC544\uC774\uD15C\uC744 <color=#F58F33>$[BehavioursCount]\uAC1C</color>\uB97C
+    \uC544\uC774\uD15C\uC744 <color=#FB7919>$[BehavioursCount]\uAC1C</color>\uB97C
     \uC0DD\uC131\uD569\uB2C8\uB2E4"
   isView: 1
   isPlus: 1
@@ -28,6 +28,7 @@ MonoBehaviour:
   - rid: 7303038274838724616
   - rid: 7303038274838724619
   - rid: 7303038274838724620
+  - rid: 2696791165580345386
   isEndRemove: 0
   removeSkills:
   - {fileID: 11400000, guid: ace8638a7cd28874ca09d81de9233b86, type: 2}
@@ -36,6 +37,22 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 2696791165580345386
+      type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 3
+        timingPuzzleType: 0
+        timingPageCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackPageCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        puzzleItem: {fileID: 6937290663768921873, guid: f28fdddfacf70fa4289681ec578e6f04, type: 3}
     - rid: 7303038274838724615
       type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
       data:
@@ -49,9 +66,9 @@ MonoBehaviour:
         attackPageCount: 0
         percent: 100
         hpPercentUnder: 100
-        applyCount: 0
+        applyCount: 1
         _time: 0
-        puzzleItem: {fileID: 3985121653833862627, guid: 589d2a3e79b95584c9d2694b2f11ad05, type: 3}
+        puzzleItem: {fileID: 6937290663768921873, guid: f28fdddfacf70fa4289681ec578e6f04, type: 3}
     - rid: 7303038274838724616
       type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
       data:
@@ -65,9 +82,9 @@ MonoBehaviour:
         attackPageCount: 0
         percent: 100
         hpPercentUnder: 100
-        applyCount: 0
+        applyCount: 1
         _time: 0
-        puzzleItem: {fileID: 3985121653833862627, guid: 589d2a3e79b95584c9d2694b2f11ad05, type: 3}
+        puzzleItem: {fileID: 6937290663768921873, guid: f28fdddfacf70fa4289681ec578e6f04, type: 3}
     - rid: 7303038274838724619
       type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
       data:
@@ -81,9 +98,9 @@ MonoBehaviour:
         attackPageCount: 0
         percent: 100
         hpPercentUnder: 100
-        applyCount: 0
+        applyCount: 1
         _time: 0
-        puzzleItem: {fileID: 3985121653833862627, guid: 589d2a3e79b95584c9d2694b2f11ad05, type: 3}
+        puzzleItem: {fileID: 6937290663768921873, guid: f28fdddfacf70fa4289681ec578e6f04, type: 3}
     - rid: 7303038274838724620
       type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
       data:
@@ -97,6 +114,6 @@ MonoBehaviour:
         attackPageCount: 0
         percent: 100
         hpPercentUnder: 100
-        applyCount: 0
+        applyCount: 1
         _time: 0
-        puzzleItem: {fileID: 3985121653833862627, guid: 589d2a3e79b95584c9d2694b2f11ad05, type: 3}
+        puzzleItem: {fileID: 6937290663768921873, guid: f28fdddfacf70fa4289681ec578e6f04, type: 3}

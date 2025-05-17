@@ -203,6 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29a4058a4e61b1478ccbc4ffbab8226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isChangeLanguage: 1
 --- !u!1 &7350164665795886169
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,7 +265,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -307,7 +308,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 127
 --- !u!95 &4716664504619313174
 Animator:
   serializedVersion: 5
@@ -343,15 +344,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deBuff: {fileID: 11400000, guid: f2c3f7a64e1b12c46870726fa698b2aa, type: 2}
   skills:
-  - {fileID: 11400000, guid: e1badb280cb3a9340b3eaa85ac401116, type: 2}
-  - {fileID: 11400000, guid: 683f4a26d6d29394f9238a6610420cdc, type: 2}
-  - {fileID: 11400000, guid: 837a49cf70f204349a3c36e4f301e8eb, type: 2}
-  - {fileID: 11400000, guid: 1da71b86aba3887408a68b4f3acf4ff9, type: 2}
-  - {fileID: 11400000, guid: 1249e1ee2cd81e24b91081ad8ef9bb31, type: 2}
-  - {fileID: 11400000, guid: cf86fe42a72f7a1499f51014cff17bcc, type: 2}
-  - {fileID: 11400000, guid: f2d670cebf5e5f9418c98bd402fa8696, type: 2}
-  - {fileID: 11400000, guid: b8e22453449a97e45be6344d5570356b, type: 2}
-  - {fileID: 11400000, guid: 5d2214bceeb33df4c8433a6072e16f00, type: 2}
+  - {fileID: 11400000, guid: fb23fe896ca67374abae695aaa90e302, type: 2}
+  - {fileID: 11400000, guid: cf5f9a2347507ca4bb5540749e44cc14, type: 2}
+  - {fileID: 11400000, guid: a88746f5496feb5428d8e11c1c7e29fb, type: 2}
+  - {fileID: 11400000, guid: e405d923a2f2d3c41af169ad91ca8e7c, type: 2}
+  - {fileID: 11400000, guid: f4dbd972fb982c44ca34c35e17620fd0, type: 2}
+  - {fileID: 11400000, guid: b139ed7c9af899543961208cb9de8dfd, type: 2}
+  - {fileID: 11400000, guid: e5a8a94985f876544b99b68b444cbab9, type: 2}
+  - {fileID: 11400000, guid: 1a1bf1b2f1ffff84cbc6bb0a301dd267, type: 2}
+  - {fileID: 11400000, guid: 54c132d7598a6064091a60d71b07c455, type: 2}
+  - {fileID: 11400000, guid: 616857462448fc14688aeafe338520bc, type: 2}
+  - {fileID: 11400000, guid: 04fb8e3b59831e24a8a8224cb00804a9, type: 2}
+  - {fileID: 11400000, guid: 782d805b5aa040049b04c67638d73095, type: 2}
 --- !u!1 &7350164666098240731
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,7 +983,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2430973911545307364, guid: ff0a4063ca4483943a2c7768509c8875, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2430973911545307364, guid: ff0a4063ca4483943a2c7768509c8875, type: 3}
       propertyPath: m_AnchoredPosition.x
