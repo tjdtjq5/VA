@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 120}
   m_SizeDelta: {x: 975, y: 240}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3966693656847450815
@@ -89,6 +89,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3966693656847450809}
     m_Modifications:
+    - target: {fileID: 106277676960637773, guid: 07086aa11f3ab844185c5b302368ed25, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 198864950535502586, guid: 07086aa11f3ab844185c5b302368ed25, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -173,9 +177,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5132443777675299743, guid: 07086aa11f3ab844185c5b302368ed25, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5678634647483346818, guid: 07086aa11f3ab844185c5b302368ed25, type: 3}
       propertyPath: m_Name
-      value: On
+      value: SCE
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07086aa11f3ab844185c5b302368ed25, type: 3}
