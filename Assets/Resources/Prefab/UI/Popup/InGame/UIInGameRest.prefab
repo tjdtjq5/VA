@@ -141,11 +141,11 @@ RectTransform:
   m_Children:
   - {fileID: 5422938711094288344}
   m_Father: {fileID: 9072371248479752938}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 563}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -397}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8681698244381356028
@@ -196,18 +196,18 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5925809796333056047}
   - {fileID: 7350164666569793537}
   - {fileID: 4546400385494899085}
+  - {fileID: 5925809796333056047}
   - {fileID: 3356086712613040061}
   - {fileID: 6728605399105774337}
   m_Father: {fileID: 7350164665795886165}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1080, y: 1920}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7350164665795886169
 GameObject:
@@ -474,12 +474,12 @@ RectTransform:
   - {fileID: 1709883222033822821}
   - {fileID: 7589984395921543156}
   m_Father: {fileID: 9072371248479752938}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 154.97046}
-  m_SizeDelta: {x: -204.2788, y: -1036.6792}
+  m_SizeDelta: {x: 875.7212, y: 883.3208}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6319413710879067463
 CanvasRenderer:
@@ -806,6 +806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29a4058a4e61b1478ccbc4ffbab8226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isChangeLanguage: 1
 --- !u!114 &6138437900410094679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1061,6 +1062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29a4058a4e61b1478ccbc4ffbab8226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isChangeLanguage: 1
 --- !u!1001 &4513963732105183495
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1188,7 +1190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2751954023573097257, guid: 0e717f9a426c68e438b0c450fc47b8c8, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2751954023573097257, guid: 0e717f9a426c68e438b0c450fc47b8c8, type: 3}
       propertyPath: m_AnchorMax.x

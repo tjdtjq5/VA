@@ -478,6 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3e4b9a9bf35814bbafb11b45035f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayAni: 0
 --- !u!1 &7350164666646543817
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,10 +551,10 @@ RectTransform:
   m_Father: {fileID: 2753446502961554750}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -87.37677}
-  m_SizeDelta: {x: -153.0375, y: -757.338}
+  m_SizeDelta: {x: 926.9625, y: 1162.662}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7350164666791205715
 CanvasRenderer:
@@ -760,6 +761,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0178194c8243fea468bdb180f0dbe751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialValue: 0
+  interactable: 1
 --- !u!1 &7350164667192024593
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,6 +1330,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7399906310540974628, guid: 0d270f668407bdb4c85652540b1511a3, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697455059530393418, guid: 0d270f668407bdb4c85652540b1511a3, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697455059530393418, guid: 0d270f668407bdb4c85652540b1511a3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697455059530393418, guid: 0d270f668407bdb4c85652540b1511a3, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8177417073966625689, guid: 0d270f668407bdb4c85652540b1511a3, type: 3}
