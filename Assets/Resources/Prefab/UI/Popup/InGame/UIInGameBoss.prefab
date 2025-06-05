@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 6736360517806274937}
   - component: {fileID: 6736360517806274936}
   - component: {fileID: 4223903384953724143}
+  - component: {fileID: 6999403393681221831}
   m_Layer: 5
   m_Name: UIInGameBoss
   m_TagString: Untagged
@@ -230,7 +231,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 127
 --- !u!114 &4223903384953724143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +244,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d03b48d09da4b454696ff42e79d7ac75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &6999403393681221831
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6736360517806274939}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8281614227981772082
 GameObject:
   m_ObjectHideFlags: 0
