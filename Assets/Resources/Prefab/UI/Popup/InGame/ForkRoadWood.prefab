@@ -53,6 +53,7 @@ GameObject:
   - component: {fileID: 4502607367785060446}
   - component: {fileID: 4502607367785060385}
   - component: {fileID: 7799913786358323238}
+  - component: {fileID: 4924419070634574027}
   m_Layer: 0
   m_Name: ForkRoadWood
   m_TagString: Untagged
@@ -125,7 +126,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4502607367785060446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +157,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   contents: {fileID: 7857712262151410333}
+  _wood_1: {fileID: 21300000, guid: 9631781860c533d498f8e70322bd2b97, type: 3}
+  _wood_2: {fileID: 21300000, guid: 7475796c6b361374b87dc0d3a91de920, type: 3}
 --- !u!95 &7799913786358323238
 Animator:
   serializedVersion: 5
@@ -177,6 +180,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!225 &4924419070634574027
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4502607367785060444}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7857712262151410330
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,6 +248,7 @@ GameObject:
   - component: {fileID: 7857712262912312882}
   - component: {fileID: 7857712262912312884}
   - component: {fileID: 7857712262912312885}
+  - component: {fileID: 7452723407532865541}
   m_Layer: 5
   m_Name: WoodLine
   m_TagString: Untagged
@@ -258,7 +274,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -26.6}
-  m_SizeDelta: {x: 109, y: 756.13}
+  m_SizeDelta: {x: 114, y: 735}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7857712262912312884
 CanvasRenderer:
@@ -288,7 +304,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 08401d35e972b8642badfc86ef59e82a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9631781860c533d498f8e70322bd2b97, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -298,6 +314,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7452723407532865541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7857712262912312883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d330144df17c0604cab4bcc3f456ebcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRaycast: 0
 --- !u!1 &7857712263002640583
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,6 +338,7 @@ GameObject:
   - component: {fileID: 7857712263002640582}
   - component: {fileID: 7857712263002640584}
   - component: {fileID: 7857712263002640585}
+  - component: {fileID: 3884067077938982846}
   m_Layer: 5
   m_Name: Shadow
   m_TagString: Untagged
@@ -374,3 +404,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3884067077938982846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7857712263002640583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d330144df17c0604cab4bcc3f456ebcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRaycast: 0
