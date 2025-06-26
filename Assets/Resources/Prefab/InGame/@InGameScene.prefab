@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1297233726206072156
 Transform:
@@ -46,6 +46,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48994785f03dbfa4bbf4028a024bcc5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _puzzleBattleStateMachine:
+    _stageStartState: {fileID: 11400000, guid: 5651771ad61f0b14086d5db6f34d20ce, type: 2}
+    _stageEndState: {fileID: 11400000, guid: d5869116af313524ebef709e9961a080, type: 2}
+    _battleStartState: {fileID: 11400000, guid: 191f596d36b798040a3517cc91ec19c2, type: 2}
+    _battleEndState: {fileID: 11400000, guid: 771b44bd913f7dc49a5a156a47c185b1, type: 2}
+    _stageMoveState: {fileID: 11400000, guid: dab7fba448ff1f54594281e05b5e408b, type: 2}
+    _successState: {fileID: 11400000, guid: 98a6fd998e543944e8e78dc167e74637, type: 2}
+    _failedState: {fileID: 11400000, guid: b0e1f50062b6bf346b0533b79a32721a, type: 2}
+    _turnLoopStates:
+    - {fileID: 11400000, guid: 8465071ed3e1b0f4ca99bed7a3611528, type: 2}
+    - {fileID: 11400000, guid: 9f7c2762c0453f34a89685518fab7147, type: 2}
+    - {fileID: 11400000, guid: 3d77cf66dd774174d8a6301ef1bc8573, type: 2}
+    - {fileID: 11400000, guid: 6e6a1a13220f71b47ab495e6ec52321a, type: 2}
+    CurrentTurnIndex: 0
 --- !u!114 &1297233726206072159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,9 +72,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52052769f39e44245a59a19c2393dd5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deBuff: {fileID: 0}
-  skill: {fileID: 0}
-  skillUpgrades: []
+  deBuff: {fileID: 11400000, guid: d7c5fd9c2934c4c499ceb11794c21ec4, type: 2}
+  skill: {fileID: 11400000, guid: c01ff4407c19d74438d97026063d8113, type: 2}
+  skillUpgrades:
+  - {fileID: 11400000, guid: f4dbd972fb982c44ca34c35e17620fd0, type: 2}
+  - {fileID: 11400000, guid: b139ed7c9af899543961208cb9de8dfd, type: 2}
+  - {fileID: 11400000, guid: e5a8a94985f876544b99b68b444cbab9, type: 2}
+  - {fileID: 11400000, guid: 1a1bf1b2f1ffff84cbc6bb0a301dd267, type: 2}
+  - {fileID: 11400000, guid: 54c132d7598a6064091a60d71b07c455, type: 2}
+  - {fileID: 11400000, guid: 616857462448fc14688aeafe338520bc, type: 2}
 --- !u!114 &1297233726206072144
 MonoBehaviour:
   m_ObjectHideFlags: 0
