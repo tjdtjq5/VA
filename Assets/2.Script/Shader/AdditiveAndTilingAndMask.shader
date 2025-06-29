@@ -5,6 +5,7 @@ Shader "Makeway/AdditiveAndTilingAndMask"
 		_MainTex("BaseMap",2D) = "white"{}
 		_MaskMap("Mask", 2D) = "white"{}
 		_Color ("Tint", Color) = (1,1,1,1)
+		_AdditiveValue("Additive Value", Range(0, 6)) = 1
 		
 		_UVFO("TilingOfsset", Vector) = (1,1,0,0)
         _TimeSpeedX("TimeSpeedX", Range(0, 100)) = 10
@@ -81,6 +82,7 @@ Shader "Makeway/AdditiveAndTilingAndMask"
 			half _TimeSpeedX;
             half _TimeSpeedY;
 			float4 _UVFO;
+			float _AdditiveValue;
 
 			v2f vert(appdata_t IN)
 			{
@@ -97,7 +99,7 @@ Shader "Makeway/AdditiveAndTilingAndMask"
 
 			fixed4 frag(v2f IN) : SV_Target
 			{
-				half4 color = tex2D(_MainTex, IN.texcoord * float2(_UVFO.x, _UVFO.y) + float2(_UVFO.z + (_Time.x * _TimeSpeedX), _UVFO.w + (_Time.x * _TimeSpeedY))) * IN.color;
+				half4 color = tex2D(_MainTex, IN.texcoord * float2(_UVFO.x, _UVFO.y) + float2(_UVFO.z + (_Time.x * _TimeSpeedX), _UVFO.w + (_Time.x * _TimeSpeedY))) * IN.color * _AdditiveValue;
 				half4 color2 = tex2D(_MaskMap, IN.texcoord);
 				color2.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
 				color.rgb *= color2.a;

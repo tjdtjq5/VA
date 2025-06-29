@@ -1,6 +1,6 @@
 Shader "Makeway/Unlit"
 {
-     Properties
+    Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
@@ -47,11 +47,14 @@ Shader "Makeway/Unlit"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            // make fog work
             #pragma multi_compile_fog
 			#include "UnityCG.cginc"
 			#include "UnityUI.cginc"
-   
+
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+            float4 _Color;
+            float4 _ClipRect;
           
             struct appdata
             {
@@ -69,10 +72,7 @@ Shader "Makeway/Unlit"
                 fixed4 color    : COLOR;
             };
 
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
-            float4 _Color;
-            float4 _ClipRect;
+
 
             v2f vert (appdata v)
             {
