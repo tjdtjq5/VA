@@ -8,8 +8,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FX_MT_FlamesSphere 1
-  m_Shader: {fileID: -6465566751694194690, guid: 614f255195ef23948a395fe9a915199d,
-    type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 614f255195ef23948a395fe9a915199d, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _BUILTIN_SURFACE_TYPE_TRANSPARENT
   - _SURFACE_TYPE_TRANSPARENT
@@ -26,6 +27,8 @@ Material:
   - TransparentDepthPostpass
   - DepthOnly
   - SHADOWCASTER
+  - MOTIONVECTORS
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -186,6 +189,7 @@ Material:
     - _PanningSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &1758585048702127321
 MonoBehaviour:
   m_ObjectHideFlags: 11
@@ -198,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 7
+  version: 9
 --- !u!114 &1772566782874733831
 MonoBehaviour:
   m_ObjectHideFlags: 11
