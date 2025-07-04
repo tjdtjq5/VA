@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: fx_light_2 33
   m_Shader: {fileID: 4800000, guid: 28df8d5cfa9ee6342aea202403f98fc9, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords:
   - PIXELSNAP_ON
@@ -30,6 +32,7 @@ Material:
   disabledShaderPasses:
   - DepthOnly
   - SHADOWCASTER
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -142,7 +145,7 @@ Material:
     - _Iterations: 5
     m_Floats:
     - PixelSnap: 1
-    - _AdditiveValue: 1.5
+    - _AdditiveValue: 4
     - _AlphaClip: 0
     - _Amount: 0.291
     - _Amount2: 0.545
@@ -226,7 +229,7 @@ Material:
     - _TestFloat: 3
     - _ThresholdEnd: 0.25
     - _TimeSpeed: 20
-    - _TimeSpeedX: 12
+    - _TimeSpeedX: 42.7
     - _TimeSpeedY: 0
     - _TintBlack: 0
     - _Use8Neighbourhood: 1
@@ -259,3 +262,4 @@ Material:
     - _TintColor: {r: 1, g: 1, b: 1, a: 0.2}
     - _UVFO: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
