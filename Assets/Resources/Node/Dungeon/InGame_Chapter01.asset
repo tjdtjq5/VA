@@ -54,7 +54,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 14
+  stage: 7
   index: 0
   dungeonRoom: {fileID: 11400000, guid: 66e3e1175ca254043b07fe4f3073b6c3, type: 2}
   previousNodes:
@@ -114,72 +114,12 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 23
+  stage: 16
   index: 0
   dungeonRoom: {fileID: 11400000, guid: 76c5ac724211ce54a94a6f59085f60f2, type: 2}
   previousNodes:
   - {fileID: 2404311795613967147}
   thisNode: {fileID: -8978145015508336714}
---- !u!114 &-8924933061367481484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1318e3104f470c44db7f1096ed9c0a73, type: 3}
-  m_Name: Dungeon
-  m_EditorClassIdentifier: 
-  graph: {fileID: -2852651378203769459}
-  position: {x: -120, y: -664}
-  ports:
-    keys:
-    - previousNodes
-    - thisNode
-    - previousNodes 0
-    values:
-    - _fieldName: previousNodes
-      _node: {fileID: -8924933061367481484}
-      _typeQualifiedName: System.Collections.Generic.List`1[[DungeonNode, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
-        Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: thisNode
-      _node: {fileID: -8924933061367481484}
-      _typeQualifiedName: DungeonNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: previousNodes 0
-        node: {fileID: -4822579461806003931}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: previousNodes 0
-      _node: {fileID: -8924933061367481484}
-      _typeQualifiedName: DungeonNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: thisNode
-        node: {fileID: 7385249297168596100}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 1
-  stage: 3
-  index: 0
-  dungeonRoom: {fileID: 11400000, guid: d254d88eee102084b9cde6f98fb428cb, type: 2}
-  previousNodes:
-  - {fileID: 7385249297168596100}
-  thisNode: {fileID: -8924933061367481484}
 --- !u!114 &-8696263953439790446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,7 +190,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 20
+  stage: 13
   index: 3
   dungeonRoom: {fileID: 11400000, guid: 501a6eaafb985c844a7111ea76b0e2ee, type: 2}
   previousNodes:
@@ -324,7 +264,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 14
+  stage: 7
   index: 1
   dungeonRoom: {fileID: 11400000, guid: 66e3e1175ca254043b07fe4f3073b6c3, type: 2}
   previousNodes:
@@ -385,7 +325,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 19
+  stage: 12
   index: 0
   dungeonRoom: {fileID: 11400000, guid: 4def5f90f98784842be0e1381e50eb4f, type: 2}
   previousNodes:
@@ -448,7 +388,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 11
+  stage: 4
   index: 0
   dungeonRoom: {fileID: 11400000, guid: cede282ef223e8e489d9a8b03fe7d890, type: 2}
   previousNodes:
@@ -524,7 +464,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 18
+  stage: 11
   index: 1
   dungeonRoom: {fileID: 11400000, guid: d254d88eee102084b9cde6f98fb428cb, type: 2}
   previousNodes:
@@ -588,7 +528,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 17
+  stage: 10
   index: 1
   dungeonRoom: {fileID: 11400000, guid: 7061017f7a0587a4c9a1523673b11ad0, type: 2}
   previousNodes:
@@ -664,7 +604,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 13
+  stage: 6
   index: 2
   dungeonRoom: {fileID: 11400000, guid: cede282ef223e8e489d9a8b03fe7d890, type: 2}
   previousNodes:
@@ -728,7 +668,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 19
+  stage: 12
   index: 1
   dungeonRoom: {fileID: 11400000, guid: 7061017f7a0587a4c9a1523673b11ad0, type: 2}
   previousNodes:
@@ -791,7 +731,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 12
+  stage: 5
   index: 3
   dungeonRoom: {fileID: 11400000, guid: 501a6eaafb985c844a7111ea76b0e2ee, type: 2}
   previousNodes:
@@ -854,7 +794,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 17
+  stage: 10
   index: 0
   dungeonRoom: {fileID: 11400000, guid: b4fe7617ef1cab94ea9d6eb60ab7e3f6, type: 2}
   previousNodes:
@@ -914,132 +854,12 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 21
+  stage: 14
   index: 4
   dungeonRoom: {fileID: 11400000, guid: 7061017f7a0587a4c9a1523673b11ad0, type: 2}
   previousNodes:
   - {fileID: -8696263953439790446}
   thisNode: {fileID: -5702586861623778964}
---- !u!114 &-4822579461806003931
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1318e3104f470c44db7f1096ed9c0a73, type: 3}
-  m_Name: Dungeon
-  m_EditorClassIdentifier: 
-  graph: {fileID: -2852651378203769459}
-  position: {x: -120, y: -504}
-  ports:
-    keys:
-    - previousNodes
-    - thisNode
-    - previousNodes 0
-    values:
-    - _fieldName: previousNodes
-      _node: {fileID: -4822579461806003931}
-      _typeQualifiedName: System.Collections.Generic.List`1[[DungeonNode, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
-        Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: thisNode
-      _node: {fileID: -4822579461806003931}
-      _typeQualifiedName: DungeonNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: previousNodes 0
-        node: {fileID: 2199816566297690765}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: previousNodes 0
-      _node: {fileID: -4822579461806003931}
-      _typeQualifiedName: DungeonNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: thisNode
-        node: {fileID: -8924933061367481484}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 1
-  stage: 4
-  index: 0
-  dungeonRoom: {fileID: 11400000, guid: 887bb467d6f8abc419f4ade41c60483b, type: 2}
-  previousNodes:
-  - {fileID: -8924933061367481484}
-  thisNode: {fileID: -4822579461806003931}
---- !u!114 &-4808226941852110007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1318e3104f470c44db7f1096ed9c0a73, type: 3}
-  m_Name: Dungeon
-  m_EditorClassIdentifier: 
-  graph: {fileID: -2852651378203769459}
-  position: {x: -104, y: -184}
-  ports:
-    keys:
-    - previousNodes
-    - thisNode
-    - previousNodes 0
-    values:
-    - _fieldName: previousNodes
-      _node: {fileID: -4808226941852110007}
-      _typeQualifiedName: System.Collections.Generic.List`1[[DungeonNode, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
-        Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: thisNode
-      _node: {fileID: -4808226941852110007}
-      _typeQualifiedName: DungeonNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: previousNodes 0
-        node: {fileID: 2143232957602499659}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: previousNodes 0
-      _node: {fileID: -4808226941852110007}
-      _typeQualifiedName: DungeonNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: thisNode
-        node: {fileID: 2199816566297690765}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 1
-  stage: 6
-  index: 0
-  dungeonRoom: {fileID: 11400000, guid: 501a6eaafb985c844a7111ea76b0e2ee, type: 2}
-  previousNodes:
-  - {fileID: 2199816566297690765}
-  thisNode: {fileID: -4808226941852110007}
 --- !u!114 &-4641457030462888634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1110,7 +930,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 20
+  stage: 13
   index: 2
   dungeonRoom: {fileID: 11400000, guid: 7061017f7a0587a4c9a1523673b11ad0, type: 2}
   previousNodes:
@@ -1184,7 +1004,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 14
+  stage: 7
   index: 3
   dungeonRoom: {fileID: 11400000, guid: 66e3e1175ca254043b07fe4f3073b6c3, type: 2}
   previousNodes:
@@ -1204,7 +1024,7 @@ MonoBehaviour:
   m_Name: Dungeon
   m_EditorClassIdentifier: 
   graph: {fileID: -2852651378203769459}
-  position: {x: -120, y: -1288}
+  position: {x: -104, y: 24}
   ports:
     keys:
     - previousNodes
@@ -1226,7 +1046,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: previousNodes 0
-        node: {fileID: -2868787775788126584}
+        node: {fileID: 819766079698950400}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -1294,72 +1114,12 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 18
+  stage: 11
   index: 0
   dungeonRoom: {fileID: 11400000, guid: 7061017f7a0587a4c9a1523673b11ad0, type: 2}
   previousNodes:
   - {fileID: -5810188157686215813}
   thisNode: {fileID: -2938117052599636298}
---- !u!114 &-2868787775788126584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1318e3104f470c44db7f1096ed9c0a73, type: 3}
-  m_Name: Dungeon
-  m_EditorClassIdentifier: 
-  graph: {fileID: -2852651378203769459}
-  position: {x: -104, y: -1112}
-  ports:
-    keys:
-    - previousNodes
-    - thisNode
-    - previousNodes 0
-    values:
-    - _fieldName: previousNodes
-      _node: {fileID: -2868787775788126584}
-      _typeQualifiedName: System.Collections.Generic.List`1[[DungeonNode, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
-        Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: thisNode
-      _node: {fileID: -2868787775788126584}
-      _typeQualifiedName: DungeonNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: previousNodes 0
-        node: {fileID: 7385249297168596100}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: previousNodes 0
-      _node: {fileID: -2868787775788126584}
-      _typeQualifiedName: DungeonNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: thisNode
-        node: {fileID: -3081489172796164857}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 1
-  stage: 1
-  index: 0
-  dungeonRoom: {fileID: 11400000, guid: 6af2e4d6fb015b3409d9310b42127f9f, type: 2}
-  previousNodes:
-  - {fileID: -3081489172796164857}
-  thisNode: {fileID: -2868787775788126584}
 --- !u!114 &-2852651378203769459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1390,21 +1150,14 @@ MonoBehaviour:
   - {fileID: -2082268365454155959}
   - {fileID: 7261909980711428839}
   - {fileID: -849212032782718488}
-  - {fileID: -8924933061367481484}
-  - {fileID: 7385249297168596100}
-  - {fileID: -4822579461806003931}
   - {fileID: -3081489172796164857}
-  - {fileID: -2868787775788126584}
   - {fileID: 1923739656201853093}
   - {fileID: 2404311795613967147}
   - {fileID: -8978145015508336714}
   - {fileID: 5853322368320323844}
-  - {fileID: 2199816566297690765}
-  - {fileID: -4808226941852110007}
   - {fileID: -7965209822749069017}
   - {fileID: 874897661529474935}
   - {fileID: 819766079698950400}
-  - {fileID: 2143232957602499659}
   - {fileID: 2909442510291109327}
   - {fileID: 7862028412016241051}
   - {fileID: -1629447277173014947}
@@ -1426,7 +1179,6 @@ MonoBehaviour:
   - {fileID: 6196417104708435694}
   - {fileID: 5218236214694147019}
   - {fileID: 6238890207749876316}
-  - {fileID: 0}
 --- !u!114 &-2082268365454155959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1484,7 +1236,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 10
+  stage: 3
   index: 0
   dungeonRoom: {fileID: 11400000, guid: d5962cf53fa3910428ff3c17f0332526, type: 2}
   previousNodes:
@@ -1557,7 +1309,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 14
+  stage: 7
   index: 2
   dungeonRoom: {fileID: 11400000, guid: b4fe7617ef1cab94ea9d6eb60ab7e3f6, type: 2}
   previousNodes:
@@ -1634,7 +1386,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 19
+  stage: 12
   index: 3
   dungeonRoom: {fileID: 11400000, guid: 7061017f7a0587a4c9a1523673b11ad0, type: 2}
   previousNodes:
@@ -1708,7 +1460,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 21
+  stage: 14
   index: 2
   dungeonRoom: {fileID: 11400000, guid: b4fe7617ef1cab94ea9d6eb60ab7e3f6, type: 2}
   previousNodes:
@@ -1821,7 +1573,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 15
+  stage: 8
   index: 0
   dungeonRoom: {fileID: 11400000, guid: 887bb467d6f8abc419f4ade41c60483b, type: 2}
   previousNodes:
@@ -1888,7 +1640,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 11
+  stage: 4
   index: 2
   dungeonRoom: {fileID: 11400000, guid: cede282ef223e8e489d9a8b03fe7d890, type: 2}
   previousNodes:
@@ -1948,7 +1700,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 21
+  stage: 14
   index: 0
   dungeonRoom: {fileID: 11400000, guid: 7061017f7a0587a4c9a1523673b11ad0, type: 2}
   previousNodes:
@@ -2042,7 +1794,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 20
+  stage: 13
   index: 1
   dungeonRoom: {fileID: 11400000, guid: 7061017f7a0587a4c9a1523673b11ad0, type: 2}
   previousNodes:
@@ -2116,7 +1868,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 21
+  stage: 14
   index: 3
   dungeonRoom: {fileID: 11400000, guid: 7061017f7a0587a4c9a1523673b11ad0, type: 2}
   previousNodes:
@@ -2171,17 +1923,17 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: thisNode
-        node: {fileID: 2143232957602499659}
+        node: {fileID: -3081489172796164857}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 8
+  stage: 1
   index: 0
   dungeonRoom: {fileID: 11400000, guid: b906bb9ca5bcbb64a98a9ac2ce648842, type: 2}
   previousNodes:
-  - {fileID: 2143232957602499659}
+  - {fileID: -3081489172796164857}
   thisNode: {fileID: 819766079698950400}
 --- !u!114 &874897661529474935
 MonoBehaviour:
@@ -2240,7 +1992,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 9
+  stage: 2
   index: 0
   dungeonRoom: {fileID: 11400000, guid: cede282ef223e8e489d9a8b03fe7d890, type: 2}
   previousNodes:
@@ -2313,7 +2065,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 11
+  stage: 4
   index: 1
   dungeonRoom: {fileID: 11400000, guid: 840688016e6982642bbbf8270a5313c4, type: 2}
   previousNodes:
@@ -2374,132 +2126,12 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 12
+  stage: 5
   index: 0
   dungeonRoom: {fileID: 11400000, guid: b906bb9ca5bcbb64a98a9ac2ce648842, type: 2}
   previousNodes:
   - {fileID: -8048692940449065302}
   thisNode: {fileID: 2117672215002889647}
---- !u!114 &2143232957602499659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1318e3104f470c44db7f1096ed9c0a73, type: 3}
-  m_Name: Dungeon
-  m_EditorClassIdentifier: 
-  graph: {fileID: -2852651378203769459}
-  position: {x: -88, y: -8}
-  ports:
-    keys:
-    - previousNodes
-    - thisNode
-    - previousNodes 0
-    values:
-    - _fieldName: previousNodes
-      _node: {fileID: 2143232957602499659}
-      _typeQualifiedName: System.Collections.Generic.List`1[[DungeonNode, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
-        Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: thisNode
-      _node: {fileID: 2143232957602499659}
-      _typeQualifiedName: DungeonNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: previousNodes 0
-        node: {fileID: 819766079698950400}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: previousNodes 0
-      _node: {fileID: 2143232957602499659}
-      _typeQualifiedName: DungeonNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: thisNode
-        node: {fileID: -4808226941852110007}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 1
-  stage: 7
-  index: 0
-  dungeonRoom: {fileID: 11400000, guid: d5962cf53fa3910428ff3c17f0332526, type: 2}
-  previousNodes:
-  - {fileID: -4808226941852110007}
-  thisNode: {fileID: 2143232957602499659}
---- !u!114 &2199816566297690765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1318e3104f470c44db7f1096ed9c0a73, type: 3}
-  m_Name: Dungeon
-  m_EditorClassIdentifier: 
-  graph: {fileID: -2852651378203769459}
-  position: {x: -104, y: -344}
-  ports:
-    keys:
-    - previousNodes
-    - thisNode
-    - previousNodes 0
-    values:
-    - _fieldName: previousNodes
-      _node: {fileID: 2199816566297690765}
-      _typeQualifiedName: System.Collections.Generic.List`1[[DungeonNode, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
-        Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: thisNode
-      _node: {fileID: 2199816566297690765}
-      _typeQualifiedName: DungeonNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: previousNodes 0
-        node: {fileID: -4808226941852110007}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: previousNodes 0
-      _node: {fileID: 2199816566297690765}
-      _typeQualifiedName: DungeonNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: thisNode
-        node: {fileID: -4822579461806003931}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 1
-  stage: 5
-  index: 0
-  dungeonRoom: {fileID: 11400000, guid: 76c5ac724211ce54a94a6f59085f60f2, type: 2}
-  previousNodes:
-  - {fileID: -4822579461806003931}
-  thisNode: {fileID: 2199816566297690765}
 --- !u!114 &2404311795613967147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2606,7 +2238,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 22
+  stage: 15
   index: 0
   dungeonRoom: {fileID: 11400000, guid: 887bb467d6f8abc419f4ade41c60483b, type: 2}
   previousNodes:
@@ -2673,7 +2305,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 12
+  stage: 5
   index: 1
   dungeonRoom: {fileID: 11400000, guid: b906bb9ca5bcbb64a98a9ac2ce648842, type: 2}
   previousNodes:
@@ -2736,7 +2368,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 18
+  stage: 11
   index: 2
   dungeonRoom: {fileID: 11400000, guid: d5962cf53fa3910428ff3c17f0332526, type: 2}
   previousNodes:
@@ -2799,7 +2431,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 19
+  stage: 12
   index: 2
   dungeonRoom: {fileID: 11400000, guid: b4fe7617ef1cab94ea9d6eb60ab7e3f6, type: 2}
   previousNodes:
@@ -2859,7 +2491,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 19
+  stage: 12
   index: 4
   dungeonRoom: {fileID: 11400000, guid: 4def5f90f98784842be0e1381e50eb4f, type: 2}
   previousNodes:
@@ -2935,7 +2567,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 13
+  stage: 6
   index: 3
   dungeonRoom: {fileID: 11400000, guid: d5962cf53fa3910428ff3c17f0332526, type: 2}
   previousNodes:
@@ -2993,7 +2625,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 24
+  stage: 17
   index: 0
   dungeonRoom: {fileID: 11400000, guid: f6506d9b9d1d15746b298608f8b704e1, type: 2}
   previousNodes:
@@ -3053,7 +2685,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 14
+  stage: 7
   index: 4
   dungeonRoom: {fileID: 11400000, guid: 66e3e1175ca254043b07fe4f3073b6c3, type: 2}
   previousNodes:
@@ -3113,7 +2745,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 12
+  stage: 5
   index: 4
   dungeonRoom: {fileID: 11400000, guid: b906bb9ca5bcbb64a98a9ac2ce648842, type: 2}
   previousNodes:
@@ -3176,7 +2808,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 12
+  stage: 5
   index: 2
   dungeonRoom: {fileID: 11400000, guid: 6af2e4d6fb015b3409d9310b42127f9f, type: 2}
   previousNodes:
@@ -3252,73 +2884,13 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 13
+  stage: 6
   index: 1
   dungeonRoom: {fileID: 11400000, guid: cede282ef223e8e489d9a8b03fe7d890, type: 2}
   previousNodes:
   - {fileID: 7221230329838686056}
   - {fileID: 2634581030114820833}
   thisNode: {fileID: 7261909980711428839}
---- !u!114 &7385249297168596100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1318e3104f470c44db7f1096ed9c0a73, type: 3}
-  m_Name: Dungeon
-  m_EditorClassIdentifier: 
-  graph: {fileID: -2852651378203769459}
-  position: {x: -120, y: -840}
-  ports:
-    keys:
-    - previousNodes
-    - thisNode
-    - previousNodes 0
-    values:
-    - _fieldName: previousNodes
-      _node: {fileID: 7385249297168596100}
-      _typeQualifiedName: System.Collections.Generic.List`1[[DungeonNode, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
-        Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: thisNode
-      _node: {fileID: 7385249297168596100}
-      _typeQualifiedName: DungeonNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: previousNodes 0
-        node: {fileID: -8924933061367481484}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: previousNodes 0
-      _node: {fileID: 7385249297168596100}
-      _typeQualifiedName: DungeonNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: thisNode
-        node: {fileID: -2868787775788126584}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 1
-  stage: 2
-  index: 0
-  dungeonRoom: {fileID: 11400000, guid: 7bfdf03899e35674c825efda960ebb86, type: 2}
-  previousNodes:
-  - {fileID: -2868787775788126584}
-  thisNode: {fileID: 7385249297168596100}
 --- !u!114 &7480275271124689771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3376,7 +2948,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 10
+  stage: 3
   index: 1
   dungeonRoom: {fileID: 11400000, guid: d254d88eee102084b9cde6f98fb428cb, type: 2}
   previousNodes:
@@ -3452,7 +3024,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 20
+  stage: 13
   index: 0
   dungeonRoom: {fileID: 11400000, guid: d5962cf53fa3910428ff3c17f0332526, type: 2}
   previousNodes:
@@ -3516,7 +3088,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 16
+  stage: 9
   index: 0
   dungeonRoom: {fileID: 11400000, guid: 76c5ac724211ce54a94a6f59085f60f2, type: 2}
   previousNodes:
@@ -3592,7 +3164,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 13
+  stage: 6
   index: 0
   dungeonRoom: {fileID: 11400000, guid: b4fe7617ef1cab94ea9d6eb60ab7e3f6, type: 2}
   previousNodes:
@@ -3666,7 +3238,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 1
-  stage: 21
+  stage: 14
   index: 1
   dungeonRoom: {fileID: 11400000, guid: 7061017f7a0587a4c9a1523673b11ad0, type: 2}
   previousNodes:
