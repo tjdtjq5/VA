@@ -7,13 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: fx_light_2 15
-  m_Shader: {fileID: 4800000, guid: aea75d62413c19a4d84aadc2b372c442, type: 3}
+  m_Name: fx_light_2 52
+  m_Shader: {fileID: 4800000, guid: d421c4cd0c9dedd4f97d7533f74c230b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords:
+  m_ValidKeywords:
   - PIXELSNAP_ON
+  m_InvalidKeywords:
   - _ALPHABLEND_ON
   - _COLOROVERLAY_ON
   - _ENVIRONMENTREFLECTIONS_OFF
@@ -85,7 +85,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ed1b508b064d615449e00d2a3991beef, type: 3}
+        m_Texture: {fileID: 2800000, guid: 535ef481e44c25244a289d69e95dd940, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskMap:
+        m_Texture: {fileID: 2800000, guid: c803e85fb6c56b94baeba33c1de54409, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -225,12 +229,13 @@ Material:
     - _TestFloat: 3
     - _ThresholdEnd: 0.25
     - _TimeSpeed: 20
-    - _TimeSpeedX: 2.6
-    - _TimeSpeedY: 3.9
+    - _TimeSpeedX: 0
+    - _TimeSpeedY: 20.8
     - _TintBlack: 0
     - _Use8Neighbourhood: 1
     - _UseScreenSpaceOutlineWidth: 0
     - _UseUIAlphaClip: 1
+    - _Value: 1
     - _Vibrancy: 0.5
     - _WorkflowMode: 1
     - _ZWrite: 0
@@ -256,6 +261,6 @@ Material:
     - _TestVector: {r: 1, g: 1, b: 1, a: 1}
     - _Time: {r: 1, g: 1, b: 0, a: 0}
     - _TintColor: {r: 1, g: 1, b: 1, a: 0.2}
-    - _UVFO: {r: 1, g: 1, b: 0, a: 0}
+    - _UVFO: {r: 0.7, g: 0.7, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

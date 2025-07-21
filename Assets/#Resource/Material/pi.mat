@@ -7,14 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: fx_light_2 15
+  m_Name: pi
   m_Shader: {fileID: 4800000, guid: aea75d62413c19a4d84aadc2b372c442, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords:
   - PIXELSNAP_ON
-  - _ALPHABLEND_ON
+  - _ADDITIVEBLEND
   - _COLOROVERLAY_ON
   - _ENVIRONMENTREFLECTIONS_OFF
   - _FULLRANGE_HARD_RAMP
@@ -80,12 +80,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _GlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _LerpControlTex:
         m_Texture: {fileID: 2800000, guid: 348e9497da930ed46bf99436ace645fa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ed1b508b064d615449e00d2a3991beef, type: 3}
+        m_Texture: {fileID: 2800000, guid: 535ef481e44c25244a289d69e95dd940, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -172,7 +176,7 @@ Material:
     - _DistortionStrength: 1
     - _DistortionStrengthScaled: 0
     - _Distribution: 0
-    - _DstBlend: 10
+    - _DstBlend: 1
     - _EffectAmount: 0.621
     - _EmissionEnabled: 0
     - _EnableExternalAlpha: 0
@@ -206,6 +210,7 @@ Material:
     - _ScrollXSpeed: 32.76
     - _ScrollYSpeed: 32.76
     - _ShadowAlphaCutoff: 0.1
+    - _Shininess: 0.078125
     - _Size: 7.7
     - _Smoothness: 0.326
     - _SmoothnessTextureChannel: 1
@@ -214,7 +219,8 @@ Material:
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 0
     - _Spread: 13.23
-    - _SrcBlend: 1
+    - _SquashAmount: 1
+    - _SrcBlend: 5
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -256,6 +262,8 @@ Material:
     - _TestVector: {r: 1, g: 1, b: 1, a: 1}
     - _Time: {r: 1, g: 1, b: 0, a: 0}
     - _TintColor: {r: 1, g: 1, b: 1, a: 0.2}
+    - _TreeInstanceColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TreeInstanceScale: {r: 1, g: 1, b: 1, a: 1}
     - _UVFO: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
