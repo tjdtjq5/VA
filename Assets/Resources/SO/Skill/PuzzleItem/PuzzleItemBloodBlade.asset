@@ -10,20 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: WeaponSkill_Greatsword
+  m_Name: PuzzleItemBloodBlade
   m_EditorClassIdentifier: 
-  codeName: WeaponSkill_Greatsword
-  id: 190
+  codeName: PuzzleItemBloodBlade
+  id: 193
   icon: {fileID: 0}
-  displayName: "\uB300\uAC80 \uBC84\uD504"
-  description: "\uB300\uAC80 \uBC84\uD504 : \uBB34\uAE30 \uACF5\uACA9\uB825<sprite
-    name=\"Atk\"> 10% \uC99D\uAC00<sprite name=\"Up\">"
+  displayName: PuzzleItemBloodBlade
+  description: PuzzleItemBloodBlade
   isView: 0
   isPlus: 0
   skillGrade: 0
   wordTips: []
   behaviours:
-  - rid: 7303037870381989926
+  - rid: 5403106196288700730
   isEndRemove: 0
   isAllClearApply: 0
   removeSkills: []
@@ -31,21 +30,19 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 7303037870381989926
-      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+    - rid: 5403106196288700730
+      type: {class: SkillBloodBlade, ns: , asm: Assembly-CSharp}
       data:
-        timing: 6
-        timingPuzzleType: 1
+        timing: 5
+        timingPuzzleType: 0
         timingTurnCycle: 0
-        timingDamageType: 0
+        timingDamageType: 5
         hpChangeValue: 0
         isHpChangeIncrease: 0
         timingPuzzleComboMin: 0
         attackTurnCount: 0
-        percent: 100
-        hpPercentUnder: 100
+        percent: 42
+        hpPercentUnder: 39
         applyCount: 1
-        _time: 0.7
-        buff: {fileID: 11400000, guid: b0f4c8ae6552b61448e625661d2ba31e, type: 2}
+        _time: 0
         targetType: 0
-        isNotBuffRemove: 0
