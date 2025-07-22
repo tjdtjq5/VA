@@ -21,11 +21,28 @@ MonoBehaviour:
   isPlus: 0
   skillGrade: 0
   wordTips: []
-  behaviours: []
-  isEndRemove: 0
+  behaviours:
+  - rid: 5403106198769369089
+  isEndRemove: 1
   isAllClearApply: 0
   removeSkills: []
   conditionSkills: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5403106198769369089
+      type: {class: SkillMissile, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 11
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0.7
+        targetType: 2
