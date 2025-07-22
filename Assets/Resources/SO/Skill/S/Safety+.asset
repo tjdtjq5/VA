@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Safety+
   m_EditorClassIdentifier: 
   codeName: Safety+
-  id: 164
+  id: 163
   icon: {fileID: 21300000, guid: bcae42d2bee66af42b7f39aed4f2dbcf, type: 3}
   displayName: "\uC548\uC804 \uC7A5\uCE58+"
   description: "\uC804\uD22C \uC2DC\uC791 \uD6C4 \uCCB4\uB825<sprite name=\"Hp\">\uC774
@@ -27,6 +27,7 @@ MonoBehaviour:
   behaviours:
   - rid: 2696790981818712073
   isEndRemove: 0
+  isAllClearApply: 0
   removeSkills:
   - {fileID: 11400000, guid: 452c57622d26f8441a8967a92e4a8f9b, type: 2}
   conditionSkills:
@@ -39,12 +40,12 @@ MonoBehaviour:
       data:
         timing: 3
         timingPuzzleType: 0
-        timingPageCycle: 0
+        timingTurnCycle: 0
         timingDamageType: 0
         hpChangeValue: 0
         isHpChangeIncrease: 0
         timingPuzzleComboMin: 0
-        attackPageCount: 0
+        attackTurnCount: 0
         percent: 100
         hpPercentUnder: 100
         applyCount: 1
