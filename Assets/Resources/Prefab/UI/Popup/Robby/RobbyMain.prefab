@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 6330387322499613883}
   - component: {fileID: 6880545671423970630}
   - component: {fileID: 6423167588663146336}
-  - component: {fileID: 7440752718095944408}
+  - component: {fileID: 8216222259043465780}
+  - component: {fileID: -1885572989216036095}
+  - component: {fileID: 6387483158569652882}
   m_Layer: 0
   m_Name: RobbyMain
   m_TagString: Untagged
@@ -103,7 +105,28 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 127
---- !u!114 &7440752718095944408
+--- !u!95 &8216222259043465780
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196990874612924269}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2796f262f83eca744abc268ae8dc35a8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-1885572989216036095
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,7 +135,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1196990874612924269}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66e8e9908c2265c48a7b587a2a6c6e2f, type: 3}
+  m_Script: {fileID: 11500000, guid: a87f5d5b15a38f14ea7a9987128ace54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUnTime: 0
+  poolObjectType: 0
+  time: 0
+  animator: {fileID: 0}
+  endAniName: 
+  spineAnimation: {fileID: 0}
+  spineEndAniName: 
+  graphicAnimation: {fileID: 0}
+  graphicEndAniName: 
+--- !u!114 &6387483158569652882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196990874612924269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05a63b7c9ec19984d8a0aea7f942a1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8439275233537734655
@@ -292,7 +336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8388245039543108810, guid: b5c919857f8cba74d93549cc2f52fb7e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 52
       objectReference: {fileID: 0}
     - target: {fileID: 8388245039543108810, guid: b5c919857f8cba74d93549cc2f52fb7e, type: 3}
       propertyPath: m_AnchoredPosition.x
