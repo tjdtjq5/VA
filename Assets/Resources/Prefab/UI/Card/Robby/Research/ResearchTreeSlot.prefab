@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 135287934472126499}
   - component: {fileID: 6433518470381662729}
   - component: {fileID: 7308750670395999641}
+  - component: {fileID: 6415886048373981498}
   m_Layer: 0
   m_Name: Count
   m_TagString: Untagged
@@ -134,6 +135,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6415886048373981498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477730395065574392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed3c513412040147b312abf82515afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isChangeLanguage: 1
 --- !u!1 &6236500222600447591
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,6 +159,7 @@ GameObject:
   - component: {fileID: 4548294418518941901}
   - component: {fileID: 4784921275070591636}
   - component: {fileID: 956951599116341832}
+  - component: {fileID: 4458781223499880490}
   m_Layer: 0
   m_Name: ResearchTreeSlot
   m_TagString: Untagged
@@ -159,7 +174,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6236500222600447591}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -211,6 +226,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4458781223499880490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6236500222600447591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302681b3a4f311341b1c1f0480e70da9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6926819622283767280
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,6 +249,7 @@ GameObject:
   - component: {fileID: 6454750991284421058}
   - component: {fileID: 1101286272831917566}
   - component: {fileID: 893250329853709923}
+  - component: {fileID: 4355569999303827968}
   m_Layer: 0
   m_Name: Icon
   m_TagString: Untagged
@@ -286,3 +314,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4355569999303827968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6926819622283767280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d330144df17c0604cab4bcc3f456ebcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRaycast: 0
