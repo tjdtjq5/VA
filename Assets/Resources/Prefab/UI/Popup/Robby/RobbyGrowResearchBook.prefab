@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 5916379126369500853}
   - component: {fileID: 4382001888128248125}
   - component: {fileID: 1257306842200765156}
+  - component: {fileID: 1733098987277504918}
+  - component: {fileID: 585547489391256740}
   m_Layer: 5
   m_Name: LeftBook
   m_TagString: Untagged
@@ -75,6 +77,39 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &1733098987277504918
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443374139742841189}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 755b939bd0e30454cbf74b3b14974855, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &585547489391256740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443374139742841189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb2fedca97a9b643bd8760e79a14e27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2126136859936182282
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,6 +159,8 @@ GameObject:
   - component: {fileID: 7854666097956706722}
   - component: {fileID: 5686502960134312283}
   - component: {fileID: 4570497975226149815}
+  - component: {fileID: 6746144271779740476}
+  - component: {fileID: 4030394250470251227}
   m_Layer: 5
   m_Name: MiddleBook
   m_TagString: Untagged
@@ -188,6 +225,39 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &6746144271779740476
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2613640874045575780}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 755b939bd0e30454cbf74b3b14974855, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4030394250470251227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2613640874045575780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb2fedca97a9b643bd8760e79a14e27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5938637532622817741
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +272,7 @@ GameObject:
   - component: {fileID: 2526905516910481423}
   - component: {fileID: 3693716952980567408}
   - component: {fileID: 1341929708980680598}
-  - component: {fileID: 7750146389075535831}
+  - component: {fileID: 8101079966366908901}
   m_Layer: 0
   m_Name: RobbyGrowResearchBook
   m_TagString: Untagged
@@ -336,7 +406,7 @@ MonoBehaviour:
   spineEndAniName: 
   graphicAnimation: {fileID: 0}
   graphicEndAniName: 
---- !u!114 &7750146389075535831
+--- !u!114 &8101079966366908901
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -345,7 +415,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5938637532622817741}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc8fddf30b560654390656732636b9ea, type: 3}
+  m_Script: {fileID: 11500000, guid: a13adab0b08c7bb47a29dc9db1721626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6243886671565260779
@@ -360,6 +430,7 @@ GameObject:
   - component: {fileID: 6849001301723451568}
   - component: {fileID: 5326595994069973684}
   - component: {fileID: 8353014449935990591}
+  - component: {fileID: 2014056741182875101}
   m_Layer: 0
   m_Name: BG
   m_TagString: Untagged
@@ -447,6 +518,19 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: -1001
   m_TargetDisplay: 0
+--- !u!114 &2014056741182875101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6243886671565260779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d330144df17c0604cab4bcc3f456ebcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRaycast: 0
 --- !u!1 &6973446429589623006
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +543,7 @@ GameObject:
   - component: {fileID: 3419612808474833835}
   - component: {fileID: 7107134398405856089}
   - component: {fileID: 6644102449355938482}
-  - component: {fileID: 484872071106769765}
+  - component: {fileID: 8831403020285297153}
   m_Layer: 5
   m_Name: SelectBook
   m_TagString: Untagged
@@ -545,7 +629,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &484872071106769765
+--- !u!114 &8831403020285297153
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -554,7 +638,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6973446429589623006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 258a56004ec42b54c84f30867b721093, type: 3}
+  m_Script: {fileID: 11500000, guid: 8cb2fedca97a9b643bd8760e79a14e27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7562982332473969844
@@ -618,6 +702,8 @@ GameObject:
   - component: {fileID: 7495661748204985473}
   - component: {fileID: 7231136481683430541}
   - component: {fileID: 2764234712092873037}
+  - component: {fileID: 6611581306283782196}
+  - component: {fileID: 1073775310167554312}
   m_Layer: 5
   m_Name: RightBook
   m_TagString: Untagged
@@ -682,3 +768,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &6611581306283782196
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8767923107935024251}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 755b939bd0e30454cbf74b3b14974855, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1073775310167554312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8767923107935024251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb2fedca97a9b643bd8760e79a14e27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
