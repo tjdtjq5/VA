@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 10
+  serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -42,8 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 13
-  m_BakeOnSceneLoad: 0
+  serializedVersion: 12
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -66,6 +66,9 @@ LightmapSettings:
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
     m_TextureCompression: 1
+    m_FinalGather: 0
+    m_FinalGatherFiltering: 1
+    m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
     m_BakeBackend: 1
@@ -245,7 +248,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2492933534482218985, guid: de45b690b3e117a48a6182b7dd4ee67b, type: 3}
-      propertyPath: 'm_Cameras.Array.data[0]'
+      propertyPath: m_Cameras.Array.data[0]
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6237949714250964736, guid: de45b690b3e117a48a6182b7dd4ee67b, type: 3}
@@ -488,19 +491,19 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1728096792, guid: af990f55d28768a4cbd7bd2fb40076b9, type: 3}
-      propertyPath: '_cciss.Array.data[0]'
+      propertyPath: _cciss.Array.data[0]
       value: 
       objectReference: {fileID: 6237949715253359009}
     - target: {fileID: 1728096792, guid: af990f55d28768a4cbd7bd2fb40076b9, type: 3}
-      propertyPath: '_cciss.Array.data[1]'
+      propertyPath: _cciss.Array.data[1]
       value: 
       objectReference: {fileID: 6611027468659013134}
     - target: {fileID: 1728096792, guid: af990f55d28768a4cbd7bd2fb40076b9, type: 3}
-      propertyPath: '_cciss.Array.data[2]'
+      propertyPath: _cciss.Array.data[2]
       value: 
       objectReference: {fileID: 5438889092855158}
     - target: {fileID: 1728096792, guid: af990f55d28768a4cbd7bd2fb40076b9, type: 3}
-      propertyPath: '_cciss.Array.data[3]'
+      propertyPath: _cciss.Array.data[3]
       value: 
       objectReference: {fileID: 6452451004408815053}
     - target: {fileID: 3559238725993007956, guid: af990f55d28768a4cbd7bd2fb40076b9, type: 3}
@@ -775,50 +778,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2025737021798037146, guid: db1c498ca803c934c94c90b922488abf, type: 3}
-      propertyPath: m_Type
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4310497552933880864, guid: db1c498ca803c934c94c90b922488abf, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6507160948060681363, guid: db1c498ca803c934c94c90b922488abf, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 6237949715253359013}
-    - target: {fileID: 6727257585802588169, guid: db1c498ca803c934c94c90b922488abf, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6878179433757988151, guid: db1c498ca803c934c94c90b922488abf, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6941231693950921245, guid: db1c498ca803c934c94c90b922488abf, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6941231693950921246, guid: db1c498ca803c934c94c90b922488abf, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 72
-      objectReference: {fileID: 0}
-    - target: {fileID: 6941231693950921246, guid: db1c498ca803c934c94c90b922488abf, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 75
-      objectReference: {fileID: 0}
-    - target: {fileID: 7104801764604197199, guid: db1c498ca803c934c94c90b922488abf, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 70
-      objectReference: {fileID: 0}
-    - target: {fileID: 7104801764604197199, guid: db1c498ca803c934c94c90b922488abf, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 72
-      objectReference: {fileID: 0}
-    - target: {fileID: 7104801764869599274, guid: db1c498ca803c934c94c90b922488abf, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 7104801764869599274, guid: db1c498ca803c934c94c90b922488abf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -862,14 +825,6 @@ PrefabInstance:
     - target: {fileID: 7104801764869599275, guid: db1c498ca803c934c94c90b922488abf, type: 3}
       propertyPath: m_Name
       value: ======Main======
-      objectReference: {fileID: 0}
-    - target: {fileID: 7104801764869599275, guid: db1c498ca803c934c94c90b922488abf, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8413549316818675951, guid: db1c498ca803c934c94c90b922488abf, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
