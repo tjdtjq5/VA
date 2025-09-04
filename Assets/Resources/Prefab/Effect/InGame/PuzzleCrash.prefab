@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3895912840203009452}
   - component: {fileID: 9185150701868233031}
   m_Layer: 5
-  m_Name: light1
+  m_Name: Light1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1185,7 +1185,7 @@ MonoBehaviour:
   _bursts:
   - time: 0
     count: 1
-    used: 1
+    used: 0
   _particleTrailRenderer: {fileID: 0}
   _trailModule:
     enabled: 0
@@ -1398,7 +1398,7 @@ GameObject:
   - component: {fileID: 1544782510177263235}
   - component: {fileID: 351322058546482053}
   m_Layer: 5
-  m_Name: 2
+  m_Name: Piece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2571,7 +2571,7 @@ MonoBehaviour:
   _bursts:
   - time: 0
     count: 4
-    used: 1
+    used: 0
   _particleTrailRenderer: {fileID: 0}
   _trailModule:
     enabled: 0
@@ -2770,7 +2770,7 @@ MonoBehaviour:
   moduleMovementFoldout: 1
   moduleEventsFoldout: 0
   moduleAdvancedFoldout: 0
-  m_Sprite: {fileID: 21300000, guid: af0307d5f2e881942b5e8a0f94c123cf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7e8636eb9bb5431459bea2f6cec84357, type: 3}
   m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &3434807036341545843
 GameObject:
@@ -2783,6 +2783,8 @@ GameObject:
   - component: {fileID: 5242722054099120866}
   - component: {fileID: 2480093543402341693}
   - component: {fileID: 5739214608757873267}
+  - component: {fileID: 7002784498011535213}
+  - component: {fileID: 5911086732966478290}
   m_Layer: 5
   m_Name: PuzzleCrash
   m_TagString: Untagged
@@ -3963,7 +3965,7 @@ MonoBehaviour:
   _bursts:
   - time: 0
     count: 4
-    used: 1
+    used: 0
   _particleTrailRenderer: {fileID: 0}
   _trailModule:
     enabled: 0
@@ -4162,8 +4164,51 @@ MonoBehaviour:
   moduleMovementFoldout: 1
   moduleEventsFoldout: 0
   moduleAdvancedFoldout: 0
-  m_Sprite: {fileID: 21300000, guid: b767aacba747a0f419363ebbd8e760bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6100ff54a9c1a0e41afebaa5487dfcaf, type: 3}
   m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+--- !u!114 &7002784498011535213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3434807036341545843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b654237a8adb4ce4681e8309a47d84f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleImage1: {fileID: 5739214608757873267}
+  particleImage2: {fileID: 351322058546482053}
+  red1: {fileID: 21300000, guid: 1d8466b991ebd2f429dab7983f6ea4a1, type: 3}
+  red2: {fileID: 21300000, guid: 4fd857365b533de4eb29337038b9c831, type: 3}
+  blue1: {fileID: 21300000, guid: 6100ff54a9c1a0e41afebaa5487dfcaf, type: 3}
+  blue2: {fileID: 21300000, guid: 7e8636eb9bb5431459bea2f6cec84357, type: 3}
+  green1: {fileID: 21300000, guid: 89824e3dcfbf0614a946fc7f5ca11e97, type: 3}
+  green2: {fileID: 21300000, guid: e0d505091f9a8d544b1a80667907ea0b, type: 3}
+  yellow1: {fileID: 21300000, guid: d013b6559429e0e4aa911967fce9bdd5, type: 3}
+  yellow2: {fileID: 21300000, guid: 7d367334493c75149b7a2cfe32a50be7, type: 3}
+--- !u!114 &5911086732966478290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3434807036341545843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a87f5d5b15a38f14ea7a9987128ace54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUnTime: 0
+  poolObjectType: 1
+  time: 1
+  animator: {fileID: 0}
+  endAniName: 
+  spineAnimation: {fileID: 0}
+  spineEndAniName: 
+  graphicAnimation: {fileID: 0}
+  graphicEndAniName: 
 --- !u!1 &5180863436131031317
 GameObject:
   m_ObjectHideFlags: 0
@@ -4176,7 +4221,7 @@ GameObject:
   - component: {fileID: 9048743368708573296}
   - component: {fileID: 997915567518019072}
   m_Layer: 5
-  m_Name: light2
+  m_Name: Light2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5349,7 +5394,7 @@ MonoBehaviour:
   _bursts:
   - time: 0
     count: 1
-    used: 1
+    used: 0
   _particleTrailRenderer: {fileID: 0}
   _trailModule:
     enabled: 0
