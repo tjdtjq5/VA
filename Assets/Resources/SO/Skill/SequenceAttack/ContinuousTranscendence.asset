@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: ContinuousTranscendence
+  m_EditorClassIdentifier: 
+  codeName: ContinuousTranscendence
+  id: 38
+  icon: {fileID: 21300000, guid: f012d30040b967642915017cf29e3cb5, type: 3}
+  displayName: "\uC5F0\uC18D \uCD08\uC6D4"
+  description: "\uC5F0\uC18D \uACF5\uACA9 \uD53C\uD574\uB7C9 <color=#FB7919>+$[b0.b.Percent]%</color>,
+    \uB9C8\uBC95 \uD53C\uD574\uB7C9 <color=#F43E33>-$[b1.b.Percent]%</color>"
+  isView: 1
+  isPlus: 0
+  skillGrade: 4
+  wordTips:
+  - {fileID: 11400000, guid: f218308625d628b47a002e09dbdd0dad, type: 2}
+  skillDeckTypes: 06000000
+  behaviours:
+  - rid: 2696790937565396997
+  - rid: 2696790937565396998
+  isEndRemove: 0
+  isAllClearApply: 0
+  removeSkills: []
+  conditionSkills:
+  - {fileID: 11400000, guid: 782d805b5aa040049b04c67638d73095, type: 2}
+  - {fileID: 11400000, guid: f7a799f3e96373a41b02b6b3d1d16b58, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 2696790937565396997
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 9259adfedb6577d46b81edc2b6739956, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0
+    - rid: 2696790937565396998
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 3679ec92aa174164d888a8698c9795ad, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0

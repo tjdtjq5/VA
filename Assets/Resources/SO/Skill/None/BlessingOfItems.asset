@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: BlessingOfItems
+  m_EditorClassIdentifier: 
+  codeName: BlessingOfItems
+  id: 10
+  icon: {fileID: 21300000, guid: 77d4cd6e3cdbc8f47bf5613469bb0886, type: 3}
+  displayName: "\uC544\uC774\uD15C\uC758 \uCD95\uBCF5"
+  description: "\uACF5\uACA9\uC2DC \uC0AC\uC6A9\uD55C \uD37C\uC990 \uC544\uC774\uD15C
+    1\uAC1C \uB2F9 \uCCB4\uB825<sprite name=\"Hp\">\uC744 <color=#8BFA99>+$[b0.b.HpRecoveryValue]%</color>
+    \uD68C\uBCF5\uD55C\uB2E4"
+  isView: 1
+  isPlus: 0
+  skillGrade: 4
+  wordTips:
+  - {fileID: 11400000, guid: 8ccfac099f0520045b24d49d32011d10, type: 2}
+  behaviours:
+  - rid: 2696790964209188865
+  isEndRemove: 0
+  isAllClearApply: 0
+  removeSkills: []
+  conditionSkills: []
+  skillDeckType: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 2696790964209188865
+      type: {class: SkillPuzzleItemCountBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 6
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        buff: {fileID: 11400000, guid: 7e4e390213ee20a44beaf77aed0dddd5, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0

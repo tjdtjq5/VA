@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: ForceFocus
+  m_EditorClassIdentifier: 
+  codeName: ForceFocus
+  id: 87
+  icon: {fileID: 21300000, guid: bd4435b2d43a6af4cafc54bf87c71ef0, type: 3}
+  displayName: "\uAC15\uD654 \uC9D1\uC911"
+  description: "\uC9D1\uC911 \uACF5\uACA9 \uC774\uC0C1 \uC2DC \uC77C\uC815 \uD655\uB960\uB85C
+    \uB79C\uB364\uD55C \uD37C\uC990\uC758  <color=#FB7919>1 ~ $[BehavioursCount]\uCE78</color>\uC744
+    \uAC15\uD654\uD569\uB2C8\uB2E4"
+  isView: 1
+  isPlus: 0
+  skillGrade: 0
+  wordTips:
+  - {fileID: 11400000, guid: bf828b3569ad45747a0c99ffa3a66f4e, type: 2}
+  skillDeckTypes: 05000000
+  behaviours:
+  - rid: 7303038297282445349
+  - rid: 7303038297282445350
+  - rid: 7303038297282445351
+  isEndRemove: 0
+  isAllClearApply: 0
+  removeSkills: []
+  conditionSkills:
+  - {fileID: 11400000, guid: 5c96a374c619c6546af057b5664537a1, type: 2}
+  - {fileID: 11400000, guid: a974569fd0560064fb8f44ef65d14d18, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303038297282445349
+      type: {class: SkillPuzzleForce, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 6
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 1
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+    - rid: 7303038297282445350
+      type: {class: SkillPuzzleForce, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 6
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 1
+        attackTurnCount: 0
+        percent: 50
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+    - rid: 7303038297282445351
+      type: {class: SkillPuzzleForce, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 6
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 1
+        attackTurnCount: 0
+        percent: 50
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0

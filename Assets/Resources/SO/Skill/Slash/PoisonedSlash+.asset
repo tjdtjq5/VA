@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: PoisonedSlash+
+  m_EditorClassIdentifier: 
+  codeName: PoisonedSlash+
+  id: 140
+  icon: {fileID: 21300000, guid: 3144c71a19278604aa936621d0f1f30c, type: 3}
+  displayName: "\uC911\uB3C5 \uCC38\uACA9+"
+  description: "<color=#FB7919>$[b0.TimingPageCycle]</color>\uD134\uB9C8\uB2E4 \uCC38\uACA9
+    \uD37C\uC990 \uC544\uC774\uD15C\uC744 1\uAC1C \uC0DD\uC131\uD569\uB2C8\uB2E4\\n\uBAA8\uB4E0
+    \uCC38\uACA9\uC740 \uC801\uC744 <color=#FB7919>$[b1.Percent]%</color> \uD655\uB960\uB85C
+    \uC911\uB3C5\uC5D0 \uAC78\uB9AC\uAC8C \uD569\uB2C8\uB2E4"
+  isView: 1
+  isPlus: 1
+  skillGrade: 0
+  wordTips:
+  - {fileID: 11400000, guid: 8ccfac099f0520045b24d49d32011d10, type: 2}
+  - {fileID: 11400000, guid: 914260eefbfc01d43844cb2ec1a253aa, type: 2}
+  - {fileID: 11400000, guid: a9a967b6bd4e65744a1045ed356b7092, type: 2}
+  skillDeckTypes: 0100000004000000
+  behaviours:
+  - rid: 7303038261006958608
+  - rid: 7303038261006958609
+  isEndRemove: 0
+  isAllClearApply: 0
+  removeSkills:
+  - {fileID: 11400000, guid: 738b7f00bb49a19458dbe54de79243c3, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: 738b7f00bb49a19458dbe54de79243c3, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303038261006958608
+      type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 4
+        timingPuzzleType: 0
+        timingTurnCycle: 2
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        puzzleItem: {fileID: 6937290663768921873, guid: ec5b6bfaa145db04dbd705c45b6ac47a, type: 3}
+    - rid: 7303038261006958609
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 22
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 3
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: d7c5fd9c2934c4c499ceb11794c21ec4, type: 2}
+        targetType: 5
+        isNotBuffRemove: 0

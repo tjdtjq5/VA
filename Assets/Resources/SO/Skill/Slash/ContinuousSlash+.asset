@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: ContinuousSlash+
+  m_EditorClassIdentifier: 
+  codeName: ContinuousSlash+
+  id: 37
+  icon: {fileID: 21300000, guid: 48b30975965d81b4aa01ac00fede2fb6, type: 3}
+  displayName: "\uC5F0\uC18D \uCC38\uACA9+"
+  description: "<color=#FB7919>$[b0.TimingPageCycle]</color>\uD134\uB9C8\uB2E4 \uCC38\uACA9
+    \uD37C\uC990 \uC544\uC774\uD15C\uC744 1\uAC1C \uC0DD\uC131\uD569\uB2C8\uB2E4.
+    \uBAA8\uB4E0 \uCC38\uACA9\uC740 <color=#FB7919>$[b1.Percent]%</color> \uD655\uB960\uB85C
+    \uC5F0\uC18D <color=#FB7919>$[b1.Value]PT</color>\uB97C \uC99D\uAC00<sprite name=\"Up\">\uC2DC\uD0B5\uB2C8\uB2E4"
+  isView: 1
+  isPlus: 1
+  skillGrade: 0
+  wordTips:
+  - {fileID: 11400000, guid: 8ccfac099f0520045b24d49d32011d10, type: 2}
+  - {fileID: 11400000, guid: 914260eefbfc01d43844cb2ec1a253aa, type: 2}
+  - {fileID: 11400000, guid: f218308625d628b47a002e09dbdd0dad, type: 2}
+  skillDeckTypes: 01000000
+  behaviours:
+  - rid: 7303038261006958598
+  - rid: 7303038261006958599
+  isEndRemove: 0
+  isAllClearApply: 0
+  removeSkills:
+  - {fileID: 11400000, guid: 521de86843a932b4eae1f645dc118ccf, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: 521de86843a932b4eae1f645dc118ccf, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303038261006958598
+      type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 4
+        timingPuzzleType: 0
+        timingTurnCycle: 2
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        puzzleItem: {fileID: 6937290663768921873, guid: ec5b6bfaa145db04dbd705c45b6ac47a, type: 3}
+    - rid: 7303038261006958599
+      type: {class: SkillSequencePoint, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 15
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        type: 0
+        value: 50

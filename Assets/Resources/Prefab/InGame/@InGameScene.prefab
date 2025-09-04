@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1297233726206072157}
   - component: {fileID: 1297233726206072159}
   - component: {fileID: 1297233726206072144}
+  - component: {fileID: 5978253260868073239}
   m_Layer: 0
   m_Name: '@InGameScene'
   m_TagString: Untagged
@@ -26,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297233726206072155}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1297233726206072157
 MonoBehaviour:
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48994785f03dbfa4bbf4028a024bcc5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dungeonTree: {fileID: 11400000, guid: f980c8a5b5ba5a4449c2c2c79af967a7, type: 2}
   _puzzleBattleStateMachine:
     _stageStartState: {fileID: 11400000, guid: 5651771ad61f0b14086d5db6f34d20ce, type: 2}
     _stageEndState: {fileID: 11400000, guid: d5869116af313524ebef709e9961a080, type: 2}
@@ -60,6 +62,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3d77cf66dd774174d8a6301ef1bc8573, type: 2}
     - {fileID: 11400000, guid: 6e6a1a13220f71b47ab495e6ec52321a, type: 2}
     CurrentTurnIndex: 0
+  _isBoos: 1
 --- !u!114 &1297233726206072159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,15 +75,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52052769f39e44245a59a19c2393dd5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deBuff: {fileID: 11400000, guid: d7c5fd9c2934c4c499ceb11794c21ec4, type: 2}
-  skill: {fileID: 11400000, guid: c01ff4407c19d74438d97026063d8113, type: 2}
-  skillUpgrades:
-  - {fileID: 11400000, guid: f4dbd972fb982c44ca34c35e17620fd0, type: 2}
-  - {fileID: 11400000, guid: b139ed7c9af899543961208cb9de8dfd, type: 2}
-  - {fileID: 11400000, guid: e5a8a94985f876544b99b68b444cbab9, type: 2}
-  - {fileID: 11400000, guid: 1a1bf1b2f1ffff84cbc6bb0a301dd267, type: 2}
-  - {fileID: 11400000, guid: 54c132d7598a6064091a60d71b07c455, type: 2}
-  - {fileID: 11400000, guid: 616857462448fc14688aeafe338520bc, type: 2}
 --- !u!114 &1297233726206072144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,3 +92,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1e03cb80e6f292e44ad85f4482cb8f0d, type: 2}
   - {fileID: 11400000, guid: 0b23d0389e86ee64bb96f22894246727, type: 2}
   - {fileID: 11400000, guid: 2209754effe270a4989fb2401a4b2fb7, type: 2}
+--- !u!114 &5978253260868073239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297233726206072155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6919e8b41a6644cb291a393f8ee9a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

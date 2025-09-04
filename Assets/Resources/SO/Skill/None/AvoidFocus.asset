@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: AvoidFocus
+  m_EditorClassIdentifier: 
+  codeName: AvoidFocus
+  id: 6
+  icon: {fileID: 21300000, guid: f842eea8aa1da4140962c0b65f136fb8, type: 3}
+  displayName: "\uD68C\uD53C \uC9D1\uC911"
+  description: "\uC804\uD22C \uC2DC\uC791 \uD6C4 $[b0.TurnEnd]\uD134 \uB3D9\uC548
+    \uD68C\uD53C \uD655\uB960 <color=#FB7919>+$[b0.b.Percent]%</color>"
+  isView: 1
+  isPlus: 0
+  skillGrade: 4
+  wordTips: []
+  skillDeckTypes: 
+  behaviours:
+  - rid: 2696790981818712068
+  isEndRemove: 0
+  isAllClearApply: 0
+  removeSkills: []
+  conditionSkills: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 2696790981818712068
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 3
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: f2a8117f9ed22884f8b28c95b9255b79, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0

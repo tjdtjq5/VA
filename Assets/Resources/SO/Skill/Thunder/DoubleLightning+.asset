@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: DoubleLightning+
+  m_EditorClassIdentifier: 
+  codeName: DoubleLightning+
+  id: 60
+  icon: {fileID: 21300000, guid: 022011aa6b1178e4e985ab0a697eaf60, type: 3}
+  displayName: "\uBA40\uD2F0\uD50C \uBC88\uAC1C+"
+  description: "\uBC88\uAC1C\uB294 \uCD94\uAC00\uB85C 2\uD68C \uBC1C\uB3D9\uB429\uB2C8\uB2E4\\n\uBC88\uAC1C
+    \uD53C\uD574\uB7C9 <color=#F43E33>-$[b1.b.Percent]%</color>"
+  isView: 1
+  isPlus: 1
+  skillGrade: 4
+  wordTips:
+  - {fileID: 11400000, guid: 5d555371be1b7204eb653d7949cfeccb, type: 2}
+  skillDeckTypes: 02000000
+  behaviours:
+  - rid: 2696790953029533714
+  - rid: 2696790953029533715
+  isEndRemove: 0
+  isAllClearApply: 0
+  removeSkills:
+  - {fileID: 11400000, guid: 792a032b70e0d9b46b24e42e3f195bda, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: 792a032b70e0d9b46b24e42e3f195bda, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 2696790953029533714
+      type: {class: SkillTriggerPassiveBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        triggerPassiveBuff: 11
+    - rid: 2696790953029533715
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 059033ff95689854dbc763019e87872e, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0

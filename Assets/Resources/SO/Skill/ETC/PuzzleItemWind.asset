@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: PuzzleItemWind
+  m_EditorClassIdentifier: 
+  codeName: PuzzleItemWind
+  id: 168
+  icon: {fileID: 0}
+  displayName: PuzzleItemWind
+  description: PuzzleItemWind
+  isView: 0
+  isPlus: 0
+  skillGrade: 0
+  wordTips: []
+  behaviours:
+  - rid: 5403106225066082305
+  isEndRemove: 1
+  isAllClearApply: 0
+  removeSkills: []
+  conditionSkills: []
+  skillDeckType: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 5403106225066082305
+      type: {class: SkillWind, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 11
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 1
+        targetType: 2
+        _attackTimeValue: 0.8
+        _hitTimeValues:
+        - 0.1
+        - 0.25
+        - 0.4
+        - 0.55
