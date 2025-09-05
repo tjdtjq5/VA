@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: HitGasExplosion
+  m_Name: LineGas
   m_EditorClassIdentifier: 
-  codeName: HitGasExplosion
+  codeName: LineGas
   id: 99
   icon: {fileID: 21300000, guid: fd686f284bf64d64ca4266ded704a387, type: 3}
-  displayName: "\uD53C\uACA9 \uAC00\uC2A4 \uD3ED\uBC1C"
-  description: "\uD53C\uACA9 \uC2DC <color=#FB7919>$[b0.Percent]%</color> \uD655\uB960\uB85C
-    \uAC00\uC2A4 \uD3ED\uBC1C \uD37C\uC990 \uC544\uC774\uD15C\uC744 <color=#FB7919>$[BehavioursCount]\uAC1C</color>\uB97C
-    \uC0DD\uC131\uD569\uB2C8\uB2E4"
+  displayName: "\uC77C\uC790 \uAC00\uC2A4 \uD3ED\uBC1C"
+  description: "\uD544\uC0B4 \uACF5\uACA9 \uC774\uC0C1 \uC2DC \uAC00\uC2A4 \uD3ED\uBC1C
+    \uD37C\uC990 \uC544\uC774\uD15C\uC744 1\uAC1C\uB97C \uC0DD\uC131\uD569\uB2C8\uB2E4
+    \uBAA8\uB4E0 \uAC00\uC2A4 \uD3ED\uBC1C\uC740 <color=#FB7919>$[b1.Percent]%</color>
+    \uD655\uB960\uB85C \uD37C\uC990\uC758 1\uC904\uC744 \uB79C\uB364\uD55C \uAC19\uC740
+    \uC0C9\uC0C1\uC73C\uB85C \uBCC0\uACBD\uD569\uB2C8\uB2E4"
   isView: 1
   isPlus: 0
   skillGrade: 0
@@ -27,7 +29,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 56af1a4c373648a4cbce2b81dcc4374d, type: 2}
   skillDeckTypes: 04000000
   behaviours:
-  - rid: 7303038274838724626
+  - rid: 6027879103505367067
+  - rid: 6027879103505367069
   isEndRemove: 0
   isAllClearApply: 0
   removeSkills: []
@@ -37,10 +40,26 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 7303038274838724626
+    - rid: 6027879103505367067
       type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
       data:
-        timing: 12
+        timing: 6
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 2
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        puzzleItem: {fileID: 6937290663768921873, guid: f28fdddfacf70fa4289681ec578e6f04, type: 3}
+    - rid: 6027879103505367069
+      type: {class: SkillPuzzleLineChange, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 18
         timingPuzzleType: 0
         timingTurnCycle: 0
         timingDamageType: 0
@@ -48,8 +67,7 @@ MonoBehaviour:
         isHpChangeIncrease: 0
         timingPuzzleComboMin: 0
         attackTurnCount: 0
-        percent: 50
+        percent: 20
         hpPercentUnder: 100
         applyCount: 1
         _time: 0
-        puzzleItem: {fileID: 6937290663768921873, guid: f28fdddfacf70fa4289681ec578e6f04, type: 3}
