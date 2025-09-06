@@ -10,38 +10,38 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
-  m_Name: AddictionExplosion
+  m_Name: FireAttributeGranting+
   m_EditorClassIdentifier: 
-  codeName: AddictionExplosion
-  id: 0
-  icon: {fileID: 21300000, guid: d8121409e65a21c4a94b45e21c17c5c1, type: 3}
-  displayName: "\uC911\uB3C5 \uD3ED\uBC1C"
-  description: "\uC804\uD22C \uC2DC\uC791\uC2DC, \uBAA8\uB4E0 \uC801\uC5D0\uAC8C
-    <color=#FB7919>$[BehavioursCount]</color>\uC2A4\uD0DD\uC758 \uC911\uB3C5\uC744
-    \uBD80\uC5EC \uD569\uB2C8\uB2E4"
+  codeName: FireAttributeGranting+
+  id: 17
+  icon: {fileID: 21300000, guid: 595aed25ebb722a40b2bd047a57a5d30, type: 3}
+  displayName: "\uD654\uC5FC \uC18D\uC131 \uBD80\uC5EC+"
+  description: "\uC77C\uBC18 \uACF5\uACA9\uACFC \uC5F0\uC18D \uACF5\uACA9\uC73C\uB85C
+    \uC801\uC911\uB41C \uC801\uC5D0\uAC8C \uBD88\uB369\uC774\uB97C \uC801\uC911\uC2DC\uD0A8\uB2E4,
+    \uBD88\uB369\uC774 \uD53C\uD574\uB7C9 <color=#FB7919>+$[b2.b.Percent]%</color>"
   isView: 1
-  isPlus: 0
-  skillGrade: 0
+  isPlus: 1
+  skillGrade: 4
   wordTips:
-  - {fileID: 11400000, guid: a9a967b6bd4e65744a1045ed356b7092, type: 2}
-  skillDeckTypes: 04000000
+  - {fileID: 11400000, guid: 6aacaa9876502d44ca2fb44ad5d03855, type: 2}
+  skillDeckTypes: 03000000
   behaviours:
-  - rid: 2696790953029533716
-  - rid: 2696790953029533717
-  - rid: 2696790953029533718
+  - rid: 6027879103505367052
+  - rid: 6027879103505367053
+  - rid: 6027879103505367055
   isEndRemove: 0
   isAllClearApply: 0
-  removeSkills: []
+  removeSkills:
+  - {fileID: 11400000, guid: dd1a35d336b93c449bd9e690d634f80a, type: 2}
   conditionSkills:
-  - {fileID: 11400000, guid: 45bb71d4694bdc5498cff065eb5a0fab, type: 2}
-  - {fileID: 11400000, guid: cdece996c79608540a2650da517cba5a, type: 2}
+  - {fileID: 11400000, guid: dd1a35d336b93c449bd9e690d634f80a, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 2696790953029533716
-      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+    - rid: 6027879103505367052
+      type: {class: SkillHellFire, ns: , asm: Assembly-CSharp}
       data:
-        timing: 3
+        timing: 11
         timingPuzzleType: 0
         timingTurnCycle: 0
         timingDamageType: 0
@@ -53,13 +53,12 @@ MonoBehaviour:
         hpPercentUnder: 100
         applyCount: 1
         _time: 0
-        buff: {fileID: 11400000, guid: d7c5fd9c2934c4c499ceb11794c21ec4, type: 2}
-        targetType: 4
-        isNotBuffRemove: 0
-    - rid: 2696790953029533717
-      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+        targetType: 5
+        deBuff: {fileID: 11400000, guid: 37d6b4a42e1002747b3ecc6e483dd018, type: 2}
+    - rid: 6027879103505367053
+      type: {class: SkillHellFire, ns: , asm: Assembly-CSharp}
       data:
-        timing: 3
+        timing: 14
         timingPuzzleType: 0
         timingTurnCycle: 0
         timingDamageType: 0
@@ -71,13 +70,12 @@ MonoBehaviour:
         hpPercentUnder: 100
         applyCount: 1
         _time: 0
-        buff: {fileID: 11400000, guid: d7c5fd9c2934c4c499ceb11794c21ec4, type: 2}
-        targetType: 4
-        isNotBuffRemove: 0
-    - rid: 2696790953029533718
+        targetType: 5
+        deBuff: {fileID: 11400000, guid: 37d6b4a42e1002747b3ecc6e483dd018, type: 2}
+    - rid: 6027879103505367055
       type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
       data:
-        timing: 3
+        timing: 1
         timingPuzzleType: 0
         timingTurnCycle: 0
         timingDamageType: 0
@@ -89,6 +87,6 @@ MonoBehaviour:
         hpPercentUnder: 100
         applyCount: 1
         _time: 0
-        buff: {fileID: 11400000, guid: d7c5fd9c2934c4c499ceb11794c21ec4, type: 2}
-        targetType: 4
+        buff: {fileID: 11400000, guid: 200fed379d34984439009b3cdbb4174e, type: 2}
+        targetType: 0
         isNotBuffRemove: 0

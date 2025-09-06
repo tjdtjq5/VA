@@ -16,10 +16,10 @@ MonoBehaviour:
   id: 33
   icon: {fileID: 21300000, guid: a5cacea465372f941897dbf65ac32ce4, type: 3}
   displayName: "\uC5F0\uC18D \uC0DD\uBA85+"
-  description: "\uC5F0\uC18D \uACF5\uACA9\uC744 \uC0AC\uC6A9\uD558\uBA74 \uC77C\uC815
-    \uD655\uB960\uB85C \uCCB4\uB825<sprite name=\"Hp\">\uD68C\uBCF5 \uD37C\uC990
-    \uC544\uC774\uD15C\uC744 <color=#FB7919>0 ~ $[BehavioursCount]\uAC1C</color>
-    \uC0DD\uC131\uD569\uB2C8\uB2E4"
+  description: "\uC77C\uBC18 \uACF5\uACA9\uC2DC \uC5F0\uC18D PT <color=#FB7919>+$[b2.Value]</color>,
+    \uC5F0\uC18D \uACF5\uACA9\uC744 \uC0AC\uC6A9\uD558\uBA74 \uC77C\uC815 \uD655\uB960\uB85C
+    \uCCB4\uB825<sprite name=\"Hp\">\uD68C\uBCF5 \uD37C\uC990 \uC544\uC774\uD15C\uC744
+    <color=#FB7919>0 ~ $[BehavioursCount]\uAC1C</color> \uC0DD\uC131\uD569\uB2C8\uB2E4"
   isView: 1
   isPlus: 1
   skillGrade: 0
@@ -30,6 +30,7 @@ MonoBehaviour:
   behaviours:
   - rid: 2696791186033868801
   - rid: 2696791186033868802
+  - rid: 6027879103505367094
   isEndRemove: 0
   isAllClearApply: 0
   removeSkills:
@@ -71,3 +72,19 @@ MonoBehaviour:
         applyCount: 1
         _time: 0
         puzzleItem: {fileID: 6937290663768921873, guid: 79c67db250aa3fa45813f9442234dbf0, type: 3}
+    - rid: 6027879103505367094
+      type: {class: SkillSequencePoint, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 6
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        type: 0
+        value: 100

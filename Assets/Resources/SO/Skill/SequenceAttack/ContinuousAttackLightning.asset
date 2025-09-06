@@ -16,8 +16,9 @@ MonoBehaviour:
   id: 28
   icon: {fileID: 21300000, guid: 1f8c974ee9eb7574aa87f4fd0fa465f0, type: 3}
   displayName: "\uC5F0\uC18D \uACF5\uACA9 \uBC88\uAC1C"
-  description: "\uC5F0\uC18D \uACF5\uACA9\uC744 \uC0AC\uC6A9\uD558\uBA74 \uBC88\uAC1C
-    \uD37C\uC990 \uC544\uC774\uD15C\uC744 <color=#FB7919>$[BehavioursCount]\uAC1C</color>\uB97C
+  description: "\uC77C\uBC18 \uACF5\uACA9\uC2DC \uC5F0\uC18D PT <color=#FB7919>+$[b1.Value]</color>,
+    \uC5F0\uC18D \uACF5\uACA9\uC744 \uC0AC\uC6A9\uD558\uBA74 \uBC88\uAC1C \uD37C\uC990
+    \uC544\uC774\uD15C\uC744 <color=#FB7919>$[BehavioursCount]\uAC1C</color>\uB97C
     \uC0DD\uC131\uD569\uB2C8\uB2E4"
   isView: 1
   isPlus: 0
@@ -29,6 +30,7 @@ MonoBehaviour:
   skillDeckTypes: 0600000002000000
   behaviours:
   - rid: 7303038264273272850
+  - rid: 6027879103505367088
   isEndRemove: 0
   isAllClearApply: 0
   removeSkills: []
@@ -39,6 +41,22 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 6027879103505367088
+      type: {class: SkillSequencePoint, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 6
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        type: 0
+        value: 100
     - rid: 7303038264273272850
       type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
       data:
