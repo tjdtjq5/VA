@@ -16,7 +16,7 @@ MonoBehaviour:
   id: 58
   icon: {fileID: 21300000, guid: fa9b66eb43ef1274b906c4d4fa89c327, type: 3}
   displayName: "\uACB0\uC0AC\uC758 \uAC01\uC624+"
-  description: "HP <color=#8BFA99>$[b1.HpDecreaseValueStart]%</color> \uC774\uD558
+  description: "HP <color=#8BFA99>$[b1.HpIncreaseValueEnd]%</color> \uC774\uD558
     \uC77C \uB54C, \uACF5\uACA9\uB825<sprite name=\"Atk\"> <color=#FB7919>+$[b0.b.Percent]%</color>
     \uBC29\uC5B4\uB825<sprite name=\"Def\"> <color=#FB7919>+$[b1.b.Percent]%</color>\uAC00
     \uC99D\uAC00<sprite name=\"Up\">\uD569\uB2C8\uB2E4"
@@ -40,11 +40,11 @@ MonoBehaviour:
     - rid: 7303038297282445312
       type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
       data:
-        timing: 1
+        timing: 24
         timingPuzzleType: 0
         timingTurnCycle: 0
         timingDamageType: 0
-        hpChangeValue: 50
+        hpChangeValue: 70
         isHpChangeIncrease: 0
         timingPuzzleComboMin: 0
         attackTurnCount: 0
@@ -58,11 +58,11 @@ MonoBehaviour:
     - rid: 7303038297282445313
       type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
       data:
-        timing: 1
+        timing: 24
         timingPuzzleType: 0
         timingTurnCycle: 0
         timingDamageType: 0
-        hpChangeValue: 50
+        hpChangeValue: 70
         isHpChangeIncrease: 0
         timingPuzzleComboMin: 0
         attackTurnCount: 0
