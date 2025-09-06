@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeName: HpRecovery_15Percent
   id: 85
-  icon: {fileID: 21300000, guid: 84d19b74538f4784eb3eddd1c5632960, type: 3}
+  icon: {fileID: 0}
   displayName: HpRecovery_15Percent
   description: HpRecovery_15Percent
   buffGrade: 0
@@ -24,8 +24,10 @@ MonoBehaviour:
   buffCountType: 0
   addCount: 1
   isNotRemove: 0
+  isBattleEndClear: 0
   startTiming: 1
   endTiming: 1
+  maxChargeCount: 0
   turnStart: 0
   turnEnd: 0
   stackInstanceCountStart: 1
@@ -41,4 +43,3 @@ MonoBehaviour:
       type: {class: BuffHpRecovery, ns: , asm: Assembly-CSharp}
       data:
         hpRecoveryValue: 15
-        effectPool: {fileID: 4513443832218742035, guid: d6da39d792af4264e828aa67cefef736, type: 3}
