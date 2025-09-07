@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 743814587833210790}
   - component: {fileID: 8159472204709414240}
   - component: {fileID: 5969242470472699901}
+  - component: {fileID: 6581788782193385635}
   m_Layer: 0
   m_Name: FlashSlash
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1453372540571704964}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -3.96, y: 0.23, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4888,3 +4889,24 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &6581788782193385635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453372540571704964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a87f5d5b15a38f14ea7a9987128ace54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUnTime: 0
+  poolObjectType: 0
+  time: 0
+  animator: {fileID: 0}
+  endAniName: 
+  spineAnimation: {fileID: 0}
+  spineEndAniName: 
+  graphicAnimation: {fileID: 0}
+  graphicEndAniName: 
