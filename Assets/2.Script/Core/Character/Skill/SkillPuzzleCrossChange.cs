@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d89a6075d010a33aeb6290989cf838a67e731d35a2f40cdab1f19349421338bc
-size 457
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class SkillPuzzleCrossChange : SkillBehaviourTime
+{
+    public override void Start(Character owner, object cause)
+    {
+       base.Start(owner, cause);
+       
+       Managers.Observer.UIPuzzle.ChangeCrossPuzzle();
+    }
+
+    public override void End(Character owner, object cause)
+    {
+        base.End(owner, cause);
+    }
+}

@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3972b0a8d3569176ac0cf84e0612e044ca2692392c9c4935d442067eed9a8ba8
-size 637
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+
+namespace AssetKits.ParticleImage.Editor
+{
+    [CanEditMultipleObjects]
+    [CustomEditor(typeof(ParticleTrailRenderer))]
+    public class TrailRendererEditor : UnityEditor.Editor
+    {
+        void Awake()
+        {
+            MonoScript.FromMonoBehaviour(target as ParticleTrailRenderer).SetIcon(Resources.Load<Texture2D>("TrailIcon"));
+        }
+
+        public override void OnInspectorGUI()
+        {
+            EditorGUILayout.HelpBox("Particle Image trail renderer.", MessageType.Info);
+        }
+    }
+}
+

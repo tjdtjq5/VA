@@ -1,3 +1,75 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ed3d742190af951a4dd8226d976407218df12c991a78d2b7b6787bd69d8628ba
-size 1452
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg
+{
+	/// <remarks>Base class for an ElGamal public key.</remarks>
+	public class ElGamalPublicBcpgKey
+		: BcpgObject, IBcpgKey
+	{
+		internal MPInteger p, g, y;
+
+		public ElGamalPublicBcpgKey(
+			BcpgInputStream bcpgIn)
+		{
+			this.p = new MPInteger(bcpgIn);
+			this.g = new MPInteger(bcpgIn);
+			this.y = new MPInteger(bcpgIn);
+		}
+
+		public ElGamalPublicBcpgKey(
+			BigInteger p,
+			BigInteger g,
+			BigInteger y)
+		{
+			this.p = new MPInteger(p);
+			this.g = new MPInteger(g);
+			this.y = new MPInteger(y);
+		}
+
+		/// <summary>The format, as a string, always "PGP".</summary>
+		public string Format
+		{
+			get { return "PGP"; }
+		}
+
+		/// <summary>Return the standard PGP encoding of the key.</summary>
+		public override byte[] GetEncoded()
+		{
+			try
+			{
+				return base.GetEncoded();
+			}
+			catch (Exception)
+			{
+				return null;
+			}
+		}
+
+		public BigInteger P
+		{
+			get { return p.Value; }
+		}
+
+		public BigInteger G
+		{
+			get { return g.Value; }
+		}
+
+		public BigInteger Y
+		{
+			get { return y.Value; }
+		}
+
+		public override void Encode(
+			BcpgOutputStream bcpgOut)
+		{
+			bcpgOut.WriteObjects(p, g, y);
+		}
+	}
+}
+#pragma warning restore
+#endif

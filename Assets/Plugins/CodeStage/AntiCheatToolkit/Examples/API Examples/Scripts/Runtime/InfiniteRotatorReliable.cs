@@ -1,3 +1,21 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:515a4e2fbbd855877437e022f0b60e5f9618c50a92aff6bf1bfb3e74f7354bec
-size 540
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+namespace CodeStage.AntiCheat.Examples
+{
+	using Time;
+	using UnityEngine;
+
+	// speed-hack resistant version of the InfiniteRotator.cs
+	[AddComponentMenu("")]
+	internal class InfiniteRotatorReliable : InfiniteRotator
+	{
+		protected override float GetDeltaTime()
+		{
+			return SpeedHackProofTime.deltaTime;
+		}
+	}
+}

@@ -1,3 +1,48 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:009e1efbd01d58802a49cdb8b0f992fbf7762f77619cfe0243b19d0b82e54deb
-size 1109
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Math.EC.Multiplier
+{
+    internal class ValidityPreCompInfo
+        : PreCompInfo
+    {
+        internal static readonly string PRECOMP_NAME = "bc_validity";
+
+        private bool failed = false;
+        private bool curveEquationPassed = false;
+        private bool orderPassed = false;
+
+        internal bool HasFailed()
+        {
+            return failed;
+        }
+
+        internal void ReportFailed()
+        {
+            failed = true;
+        }
+
+        internal bool HasCurveEquationPassed()
+        {
+            return curveEquationPassed;
+        }
+
+        internal void ReportCurveEquationPassed()
+        {
+            curveEquationPassed = true;
+        }
+
+        internal bool HasOrderPassed()
+        {
+            return orderPassed;
+        }
+
+        internal void ReportOrderPassed()
+        {
+            orderPassed = true;
+        }
+    }
+}
+#pragma warning restore
+#endif

@@ -1,3 +1,38 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:2a2c804552d5633204ecb3a27c238e12e4c9186273569bbe5b9f1d835267b014
-size 1375
+﻿//-----------------------------------------------------------------------
+// <copyright file="DisallowAddressableSubAssetFieldAttributeValidator.cs" company="Sirenix ApS">
+// Copyright (c) Sirenix ApS. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+
+#if UNITY_EDITOR
+
+#if !SIRENIX_INTERNAL
+#pragma warning disable
+#endif
+
+using Sirenix.OdinInspector.Editor.Validation;
+using Sirenix.OdinInspector.Modules.Addressables.Editor;
+using UnityEngine.AddressableAssets;
+
+[assembly: RegisterValidator(typeof(DisallowAddressableSubAssetFieldAttributeValidator))]
+
+namespace Sirenix.OdinInspector.Modules.Addressables.Editor
+{
+	/// <summary>
+	/// Validator for the DisallowAddressableSubAssetFieldAttribute.
+	/// </summary>
+	public class DisallowAddressableSubAssetFieldAttributeValidator : AttributeValidator<DisallowAddressableSubAssetFieldAttribute, AssetReference>
+    {
+        protected override void Validate(ValidationResult result)
+        {
+            if (this.Value != null && string.IsNullOrEmpty(this.Value.SubObjectName) == false)
+            {
+                result.AddError("Sub-asset references is not allowed on this field.")
+                    .WithFix("Remove Sub-Asset", () => this.Value.SubObjectName = null, true);
+            }
+        }
+    }
+
+}
+
+#endif

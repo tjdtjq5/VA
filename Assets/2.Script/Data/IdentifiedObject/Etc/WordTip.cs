@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c5b06b8fec745baa69b50846da64b9ab8d14f7e50cc394d1a2868a7da72fe040
-size 473
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "WordTip", menuName = "ETC/WordTip")]
+public class WordTip : ScriptableObject
+{
+    public string Title => title;
+    public Color TitleColor => titleColor;
+    public string Explain => explain;
+
+    [SerializeField] private string title;
+    [SerializeField] private Color titleColor;
+    [SerializeField, TextArea(5, 10)] private string explain;
+}

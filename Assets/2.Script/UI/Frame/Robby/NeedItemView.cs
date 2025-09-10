@@ -1,3 +1,35 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:875d6d5beab60de8e887f568d854790b124510c616c536d5597ac10e620b7b5b
-size 998
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class NeedItemView : UIFrame
+{
+    [SerializeField] private Transform _content;
+
+    private List<NeedItem> _needItems = new List<NeedItem>();
+    private readonly string _needItemPrefabPath = "Prefab/UI/Card/Robby/NeedItem";
+
+    public void UISet(ItemValue[] itemValues)
+    {
+        for(int i = 0; i < _needItems.Count; i++)
+        {
+            _needItems[i].gameObject.SetActive(i < itemValues.Length);
+        }
+
+        for(int i = 0; i < itemValues.Length; i++)
+        {
+            NeedItem needItem = null;
+            if(i < _needItems.Count)
+            {
+                needItem = _needItems[i];
+            }
+            else
+            {
+                needItem = Managers.Resources.Instantiate<NeedItem>(_needItemPrefabPath, _content);
+                _needItems.Add(needItem);
+            }
+
+            needItem.UISet(itemValues[i]);
+        }
+    }
+}

@@ -1,3 +1,64 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0327a65d31da3111d0d4840316bd20bde1fac4cd7052d7e0f1e0db59b5c78519
-size 1436
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters
+{
+    public class DHPrivateKeyParameters
+		: DHKeyParameters
+    {
+        private readonly BigInteger x;
+
+		public DHPrivateKeyParameters(
+            BigInteger		x,
+            DHParameters	parameters)
+			: base(true, parameters)
+        {
+            this.x = x;
+        }
+
+		public DHPrivateKeyParameters(
+            BigInteger			x,
+            DHParameters		parameters,
+		    DerObjectIdentifier	algorithmOid)
+			: base(true, parameters, algorithmOid)
+        {
+            this.x = x;
+        }
+
+		public BigInteger X
+        {
+            get { return x; }
+        }
+
+		public override bool Equals(
+			object obj)
+        {
+			if (obj == this)
+				return true;
+
+			DHPrivateKeyParameters other = obj as DHPrivateKeyParameters;
+
+			if (other == null)
+				return false;
+
+			return Equals(other);
+        }
+
+		protected bool Equals(
+			DHPrivateKeyParameters other)
+		{
+			return x.Equals(other.x) && base.Equals(other);
+		}
+
+		public override int GetHashCode()
+        {
+            return x.GetHashCode() ^ base.GetHashCode();
+        }
+    }
+}
+#pragma warning restore
+#endif

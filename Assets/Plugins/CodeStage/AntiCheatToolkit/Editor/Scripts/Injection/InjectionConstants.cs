@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6ca460de197f78c01d3383e9aa3dc2a1d38f9120d857f896e8e0df9a56b4e26f
-size 797
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+namespace CodeStage.AntiCheat.EditorCode
+{
+	using System.IO;
+
+	internal static class InjectionConstants
+	{
+		public const string LegacyWhitelistRelativePath = "InjectionDetectorData/UserWhitelist.bytes";
+
+		public const string PrefsKey = "ACTDIDEnabledGlobal";
+		public const string DataSeparator = ":";
+
+		public static readonly string ResourcesFolder = Path.Combine(ACTkEditorConstants.AssetsFolder, "Resources");
+		public static readonly string DataFilePath = Path.Combine(ResourcesFolder, DataFileName);
+		
+		private const string DataFileName = "fndid.bytes";
+	}
+}

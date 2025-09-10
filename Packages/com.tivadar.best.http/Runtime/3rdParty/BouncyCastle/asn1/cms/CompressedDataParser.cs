@@ -1,3 +1,51 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9ea1f97de5454e86d1ddadc008f6ed9864be26fd349aba713375295e2a6aa653
-size 1336
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.X509;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.Cms
+{
+	/**
+	* RFC 3274 - CMS Compressed Data.
+	* <pre>
+	* CompressedData ::= SEQUENCE {
+	*  version CMSVersion,
+	*  compressionAlgorithm CompressionAlgorithmIdentifier,
+	*  encapContentInfo EncapsulatedContentInfo
+	* }
+	* </pre>
+	*/
+	public class CompressedDataParser
+	{
+		private DerInteger			_version;
+		private AlgorithmIdentifier	_compressionAlgorithm;
+		private ContentInfoParser	_encapContentInfo;
+
+		public CompressedDataParser(
+			Asn1SequenceParser seq)
+		{
+			this._version = (DerInteger)seq.ReadObject();
+			this._compressionAlgorithm = AlgorithmIdentifier.GetInstance(seq.ReadObject().ToAsn1Object());
+			this._encapContentInfo = new ContentInfoParser((Asn1SequenceParser)seq.ReadObject());
+		}
+
+		public DerInteger Version
+		{
+			get { return _version; }
+		}
+
+		public AlgorithmIdentifier CompressionAlgorithmIdentifier
+		{
+			get { return _compressionAlgorithm; }
+		}
+
+		public ContentInfoParser GetEncapContentInfo()
+		{
+			return _encapContentInfo;
+		}
+	}
+}
+#pragma warning restore
+#endif

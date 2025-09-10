@@ -1,3 +1,31 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:8466fbbb59bf08d82373c30e8022a05d02fedc61443659372f34935233e8ed75
-size 1084
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.X509.Extension
+{
+	public class X509ExtensionUtilities
+	{
+		public static Asn1Object FromExtensionValue(Asn1OctetString extensionValue)
+		{
+			return Asn1Object.FromByteArray(extensionValue.GetOctets());
+		}
+
+		/// <summary>
+		/// Extract the value of the given extension, if it exists.
+		/// </summary>
+		/// <param name="extensions">The extensions object.</param>
+		/// <param name="oid">The object identifier to obtain.</param>
+		/// <returns>Asn1Object</returns>
+		/// <exception cref="Exception">if the extension cannot be read.</exception>
+		public static Asn1Object FromExtensionValue(IX509Extension extensions, DerObjectIdentifier oid)
+		{
+			Asn1OctetString extensionValue = extensions.GetExtensionValue(oid);
+			return extensionValue == null ? null : FromExtensionValue(extensionValue);	
+		}
+	}
+}
+#pragma warning restore
+#endif

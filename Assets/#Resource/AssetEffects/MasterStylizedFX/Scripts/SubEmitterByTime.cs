@@ -1,3 +1,37 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1466fcf09e32cee4817afe85697602b39dcbe2290175d1a7b0f92f6bbc205f44
-size 964
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace MasterFX
+{
+    [ExecuteInEditMode]
+    public class SubEmitterByTime : MonoBehaviour
+    {
+        public ParticleSystem Particle;
+        public float TriggerInterval = 0.2f;
+        float LastTime = 0;
+        public float Timer;
+        private void OnWillRenderObject()
+        {
+
+            //Debug.Log(Time.time);
+            Timer += Time.time - LastTime;
+            if (Particle == null)
+            {
+                Particle = GetComponent<ParticleSystem>();
+            }
+            if (Particle != null && Timer >= TriggerInterval)
+            {
+
+                //Debug.Log("TriggerSubEmitter");
+                if (Particle.isPlaying)
+                {
+                    Timer = 0;
+                    Particle.TriggerSubEmitter(0);
+                }
+
+            }
+            LastTime = Time.time;
+        }
+    }
+}

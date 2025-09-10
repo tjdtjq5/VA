@@ -1,3 +1,59 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b562936267b3bc170ba2b6dad9eb13996f5156d1fe5144cd8d92cc7e0c4d9397
-size 1420
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+#if UNITY_EDITOR
+
+using System.Globalization;
+using CodeStage.AntiCheat.Utils;
+
+namespace CodeStage.AntiCheat.ObscuredTypes.EditorCode
+{
+	internal class SerializedObscuredUInt : MigratableSerializedObscuredType<uint>
+	{
+		public uint Hidden
+		{
+			get => (uint)HiddenProperty.longValue;
+			set => HiddenProperty.longValue = value;
+		}
+
+		public uint Key
+		{
+			get => (uint)KeyProperty.longValue;
+			set => KeyProperty.longValue = value;
+		}
+
+		public override uint Plain => ObscuredUInt.Decrypt(Hidden, Key);
+		protected override byte TypeVersion => ObscuredUInt.Version;
+		
+		protected override bool PerformMigrate()
+		{
+			if (Version == 0 || TypeVersion == 1)
+			{
+				MigrateFromV0();
+				Version = TypeVersion;
+				return true;
+			}
+
+			return false;
+			
+			void MigrateFromV0()
+			{
+				var decrypted = ObscuredUInt.DecryptFromV0(Hidden, Key);
+				var validHash = HashUtils.CalculateHash(decrypted);
+				Hidden = ObscuredUInt.Encrypt(decrypted, Key);
+				Hash = validHash;
+			}
+		}
+		
+		public override string GetMigrationResultString()
+		{
+			return ObscuredUInt.DecryptFromV0(Hidden, Key).ToString(CultureInfo.InvariantCulture);
+		}
+
+	}
+}
+
+#endif

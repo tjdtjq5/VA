@@ -1,3 +1,20 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:8f8c17c20f5cc101ebaa38603020909159a5f5c287a66b072d83ddaa527f4cb0
-size 568
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Engines
+{
+	/// <remarks>
+	/// An implementation of the SEED key wrapper based on RFC 4010/RFC 3394.
+	/// <p/>
+	/// For further details see: <a href="http://www.ietf.org/rfc/rfc4010.txt">http://www.ietf.org/rfc/rfc4010.txt</a>.
+	/// </remarks>
+	public class SeedWrapEngine
+		: Rfc3394WrapEngine
+	{
+		public SeedWrapEngine()
+			: base(new SeedEngine())
+		{
+		}
+	}
+}
+#pragma warning restore
+#endif

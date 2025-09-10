@@ -1,3 +1,18 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:73db5b0f9367a43f720c803c19b4050de0a5c5c3f12d3f76211ee01000c4cf00
-size 440
+using Shared.CSharp;
+using Shared.Define;
+
+public class ErrorResponse
+{
+    public string Title { get; set; }
+    public string Status { get; set; }
+    public string Detail { get; set; }
+
+    public HttpResponceMessageType MessageType 
+    { 
+        get 
+        {
+            HttpResponceMessageType result = CSharpHelper.EnumParse<HttpResponceMessageType>(Detail, false);
+            return result;
+        } 
+    }
+}

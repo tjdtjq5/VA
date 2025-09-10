@@ -1,3 +1,37 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:541264a032d3feb5c5d1212e0e5dc50ab184c72e60edc18849c2e93fd69fe5a6
-size 710
+using UnityEngine;
+using UnityEngine.UI;
+public class UIInputField : UIFrame
+{
+    InputField InputField
+    {
+        get
+        {
+            return GetComponent<InputField>();
+        }
+    }
+
+    public string text
+    {
+        get
+        {
+            return InputField.text;
+        }
+        set
+        {
+            InputField.text = value;
+        }
+    }
+    public string placeHolder
+    {
+        get
+        {
+            Graphic graphic = InputField.placeholder;
+            return ((Text)(graphic)).text;
+        }
+        set 
+        {
+            Graphic graphic = InputField.placeholder;
+            ((Text)(graphic)).text = value;
+        }
+    }
+}

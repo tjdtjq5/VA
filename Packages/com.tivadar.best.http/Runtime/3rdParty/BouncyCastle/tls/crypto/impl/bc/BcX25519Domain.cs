@@ -1,3 +1,24 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ecc9dc8b1f5c12eb0a0ff8d849ea7d8468b6141ef2296b92fdc1c075f7c58dde
-size 574
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto.Impl.BC
+{
+    public class BcX25519Domain
+        : TlsECDomain
+    {
+        protected readonly BcTlsCrypto m_crypto;
+
+        public BcX25519Domain(BcTlsCrypto crypto)
+        {
+            this.m_crypto = crypto;
+        }
+
+        public virtual TlsAgreement CreateECDH()
+        {
+            return new BcX25519(m_crypto);
+        }
+    }
+}
+#pragma warning restore
+#endif

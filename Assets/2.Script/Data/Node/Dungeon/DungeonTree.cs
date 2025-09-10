@@ -1,3 +1,24 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ce088c4b26295c0ed944a9f3bc7673792e267fe13e9b5a11cb929a01d88d08cb
-size 636
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Shared.BBNumber;
+using Unity.VisualScripting;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "DungeonTree", menuName = "Node/Dungeon/DungeonTree")]
+public class DungeonTree : IdentifiedObject
+{
+    [SerializeField, HideInInspector]
+    private DungeonTreeGraph graph;
+
+    [SerializeField]
+    private BBNumber defaultHP;
+    [SerializeField]
+    private BBNumber defaultATK;
+
+    public DungeonNode[] GetNodes()
+    => graph.GetNodes();
+
+    public BBNumber DefaultHP => defaultHP;
+    public BBNumber DefaultATK => defaultATK;
+}

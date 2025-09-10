@@ -1,3 +1,20 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f10a532c52b199b9a33385d06b2a3c69e085677617faa749986b629bdd3f1de5
-size 530
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    /// <summary>RFC 4492 5.1.2</summary>
+    public abstract class ECPointFormat
+    {
+        public const short uncompressed = 0;
+        public const short ansiX962_compressed_prime = 1;
+        public const short ansiX962_compressed_char2 = 2;
+
+        /*
+         * reserved (248..255)
+         */
+    }
+}
+#pragma warning restore
+#endif

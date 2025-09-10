@@ -1,3 +1,67 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9e1b3efc5f6f9af14f061e3b6cfadc9db78d366a5f151213d2ffa9e7fa3babb6
-size 2332
+#if UNITY_ANDROID && !UNITY_EDITOR
+using System;
+
+using Best.HTTP.Shared;
+
+using UnityEngine;
+
+namespace Best.HTTP.Proxies.Autodetect
+{
+    public sealed class AndroidProxyDetector : IProxyDetector
+    {
+        private const string ClassPath = "com.Best.HTTP.proxy.ProxyFinder";
+
+        Proxy IProxyDetector.GetProxy(HTTPRequest request)
+        {
+            try
+            {
+                var proxyUrl = FindFor(request.CurrentUri.ToString());
+
+                HTTPManager.Logger.Information(nameof(AndroidProxyDetector), $"{nameof(IProxyDetector.GetProxy)} - FindFor returned with proxyUrl: '{proxyUrl}'", request.Context);
+
+                if (proxyUrl == null)
+                    return null;
+
+                if (proxyUrl.StartsWith("socks://", StringComparison.OrdinalIgnoreCase))
+                {
+                    return new SOCKSProxy(new Uri(proxyUrl), null);
+                }
+                else if (proxyUrl.StartsWith("http://", StringComparison.OrdinalIgnoreCase))
+                {
+                    return new HTTPProxy(new Uri(proxyUrl));
+                }
+                else
+                {
+                    HTTPManager.Logger.Warning(nameof(AndroidProxyDetector), $"{nameof(IProxyDetector.GetProxy)} - FindFor returned with unknown format. proxyUrl: '{proxyUrl}'", request.Context);
+                }
+            }
+            catch (Exception ex)
+            {
+                HTTPManager.Logger.Exception(nameof(AndroidProxyDetector), nameof(IProxyDetector.GetProxy), ex, request.Context);
+            }
+
+            return null;
+        }
+
+        private string FindFor(string uriStr) => Call<string>("FindFor", uriStr);
+
+        private static T Call<T>(string methodName, params object[] args)
+        {
+            bool isMainThread = HTTPUpdateDelegator.Instance.IsMainThread();
+            try
+            {
+                if (!isMainThread)
+                    AndroidJNI.AttachCurrentThread();
+
+                using (var javaClass = new AndroidJavaClass(ClassPath))
+                    return javaClass.CallStatic<T>(methodName, args);
+            }
+            finally
+            {
+                if (!isMainThread)
+                    AndroidJNI.DetachCurrentThread();
+            }
+        }
+    }
+}
+#endif

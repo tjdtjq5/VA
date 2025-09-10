@@ -1,3 +1,40 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a793912db6e0883e0e81fca83bb7a7870d05d5b40bfe3781818d0f0f94627424
-size 867
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BuffText : UIFrame
+{
+    [SerializeField] private Poolable pool;
+    [SerializeField] private ContentSizeRectTransform _contentSizeRectTransform;
+
+    protected override void Initialize()
+    {
+        Bind<UIImage>(typeof(UIImageE));
+        Bind<UIText>(typeof(UITextE));
+
+        base.Initialize();
+    }
+
+    public void UISet(Stat stat)
+    {
+        this.GetText(UITextE.Bg_Text).text = $"+ {stat.DisplayName}";
+        this.GetImage(UIImageE.Bg_icon).sprite = stat.Icon;
+        this.GetImage(UIImageE.Bg_icon).SetNativeSize();
+
+        _contentSizeRectTransform.SetFitHorizontal();
+        pool.Play();
+    }
+
+    public enum UIImageE
+    {
+        Bg,
+        Bg_Light,
+        Bg_icon,
+    }
+
+    public enum UITextE
+    {
+        Bg_Text,
+    }
+}

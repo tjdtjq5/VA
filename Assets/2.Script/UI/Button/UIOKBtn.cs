@@ -1,3 +1,24 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:fbab1f9036ed6261437c44253cdd522268ace4440b2bb3348dbab848cf833166
-size 401
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class UIOKBtn : UIButton
+{
+	protected override void Initialize()
+	{
+		base.Initialize();
+		Bind<UIText>(typeof(UITextE));
+	}
+
+    protected override void UISet()
+    {
+        base.UISet();
+
+        GetText(UITextE.Text).text = $"»Æ¿Œ";
+    }
+
+    public enum UITextE
+    {
+		Text,
+    }
+}

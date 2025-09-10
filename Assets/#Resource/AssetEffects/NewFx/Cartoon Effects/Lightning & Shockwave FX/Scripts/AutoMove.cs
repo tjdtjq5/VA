@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:175ba04dd0defdd748998b2b21c3221e56d8d98a4200b294851ac2c36b0912d4
-size 464
+using UnityEngine;
+
+namespace CartoonEffects
+{
+    public class AutoMove : MonoBehaviour
+    {
+        public float speed = 5f; // 移动速度
+        public Vector3 direction = Vector3.forward; // 移动方向
+
+        void Update()
+        {
+            // 计算物体的位移
+            Vector3 movement = direction.normalized * speed * Time.deltaTime;
+
+            // 将位移应用到物体的位置
+            transform.Translate(movement);
+        }
+    }
+}

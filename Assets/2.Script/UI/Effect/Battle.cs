@@ -1,3 +1,35 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c41a0da71a72c5716afe82a490e4ec9651bb22b13f272e63b430fdbe0866687d
-size 1005
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Battle : Poolable
+{
+    [SerializeField] Animator battleAnimator;
+
+    private AniController _battleAniController;
+
+    private readonly string _baseAnimation = "Basic";
+    private readonly string _eliteAnimation = "Elite";
+    private readonly string _bossAnimation = "Boss";
+
+    private void Awake()
+    {
+        _battleAniController = battleAnimator.Initialize();
+    }
+
+    public void StartBattle(EnemyRoomType enemyRoomType)
+    {
+        switch(enemyRoomType)
+        {
+            case EnemyRoomType.Normal:
+                _battleAniController.SetTrigger(_baseAnimation);
+                break;
+            case EnemyRoomType.Elite:
+                _battleAniController.SetTrigger(_eliteAnimation);
+                break;
+            case EnemyRoomType.Boss:
+                _battleAniController.SetTrigger(_bossAnimation);
+                break;
+        }
+    }
+}

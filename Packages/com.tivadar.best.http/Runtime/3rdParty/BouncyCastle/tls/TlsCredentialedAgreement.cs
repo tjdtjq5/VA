@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f6125f53d8253dce6a9ff97a8266dd79b7d62a20ec204e1130280824d644865f
-size 954
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    /// <summary>Support interface for generating a secret based on the credentials sent by a TLS peer.</summary>
+    public interface TlsCredentialedAgreement
+        : TlsCredentials
+    {
+        /// <summary>Calculate an agreed secret based on our credentials and the public key credentials of our peer.
+        /// </summary>
+        /// <param name="peerCertificate">public key certificate of our TLS peer.</param>
+        /// <returns>the agreed secret.</returns>
+        /// <exception cref="IOException">in case of an exception on generation of the secret.</exception>
+        TlsSecret GenerateAgreement(TlsCertificate peerCertificate);
+    }
+}
+#pragma warning restore
+#endif

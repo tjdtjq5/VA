@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d128d981bbdb28f8eae5f4270d7d2c5b7256f6ef74855edf7fcc1159435b0900
-size 845
+namespace Best.HTTP.Request.Upload
+{
+    /// <summary>
+    /// Provides constants representing different, special body lengths for HTTP requests with upload streams.
+    /// </summary>
+    public static class BodyLengths
+    {
+        /// <summary>
+        /// The <see cref="UploadStreamBase"/>'s length is unknown and the plugin have to send data with '<c>chunked</c>' transfer-encoding.
+        /// </summary>
+        public const long UnknownWithChunkedTransferEncoding = -2;
+
+        /// <summary>
+        /// The <see cref="UploadStreamBase"/>'s length is unknown and the plugin have to send data as-is, without any encoding.
+        /// </summary>
+        public const long UnknownRaw = -1;
+
+        /// <summary>
+        /// No content to send.
+        /// </summary>
+        public const long NoBody = 0;
+    }
+}

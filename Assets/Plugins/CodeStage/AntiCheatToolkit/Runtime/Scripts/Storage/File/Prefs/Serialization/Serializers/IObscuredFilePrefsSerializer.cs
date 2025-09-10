@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b0852b63631935f901942a0dcc20961a2ab36b50c6f9f198e634bdbd107c392d
-size 643
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+namespace CodeStage.AntiCheat.Storage
+{
+	using System.Collections.Generic;
+
+	internal interface IObscuredFilePrefsSerializer
+	{
+		ObscuredPrefsData SerializeStorageDataType<T>(T value);
+		T DeserializeStorageDataType<T>(ObscuredPrefsData data);
+		
+		byte[] SerializePrefsDictionary(Dictionary<string, ObscuredPrefsData> dictionary);
+		Dictionary<string, ObscuredPrefsData> DeserializePrefsDictionary(byte[] data);
+	}
+}

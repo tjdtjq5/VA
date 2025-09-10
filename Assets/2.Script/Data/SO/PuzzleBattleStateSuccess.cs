@@ -1,3 +1,26 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6a9a0d4709bff1c3bb4290bb720d5a6bb503afd26830d1fd0989f8ee27f49b3d
-size 810
+using System.Collections;
+using System.Collections.Generic;
+using Shared.BBNumber;
+using UnityEngine;
+
+public class PuzzleBattleStateSuccess : PuzzleBattleState
+{
+    public override void Enter(PuzzleBattleStateMachine fsm)
+    {
+        UnityHelper.Log_H("OnSuccess");
+        fsm.InGameManager.UIBattle.TurnClose();
+        fsm.InGameManager.Puzzle.Close();
+        
+        UIInGameResult result = Managers.UI.ShopPopupUI<UIInGameResult>("InGame/UIInGameResult", CanvasOrderType.Middle);
+        result.UISet(UIInGameResultType.Win, 10, new Dictionary<string, BBNumber>() {
+            { "Gesso" , 100},  { "Nesso" , 100}});
+    }
+
+    public override void Exit(PuzzleBattleStateMachine fsm)
+    {
+    }
+
+    public override void Update(PuzzleBattleStateMachine fsm)
+    {
+    }
+}

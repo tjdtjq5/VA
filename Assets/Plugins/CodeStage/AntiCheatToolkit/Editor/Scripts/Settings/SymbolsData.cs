@@ -1,3 +1,26 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:909c8986b250561b50de8002643a5c430ce4c3ba0f9822fe0ebed23942686367
-size 761
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+namespace CodeStage.AntiCheat.EditorCode
+{
+	internal struct SymbolsData
+	{
+		public bool wallhackLinkXML;
+		public bool excludeObfuscation;
+		public bool preventReadPhoneState;
+		public bool preventInternetPermission;
+		public bool exposeThirdPartyIntegration;
+		public bool usExportCompatible;
+		public bool newtonsoftJson;
+		
+		public bool injectionDebug;
+		public bool injectionDebugVerbose;
+		public bool injectionDebugParanoid;
+		public bool wallhackDebug;
+		public bool detectionBacklogs;
+		public bool genericDevLogs;
+	}
+}

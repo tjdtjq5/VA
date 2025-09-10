@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3ebd1eb579d54e2ce08fd710c532f065481fd40a3bc04ef771cccf4a22b297de
-size 343
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Math.Field
+{
+    public interface IFiniteField
+    {
+        BigInteger Characteristic { get; }
+
+        int Dimension { get; }
+    }
+}
+#pragma warning restore
+#endif

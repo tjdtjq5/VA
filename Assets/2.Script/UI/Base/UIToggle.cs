@@ -1,3 +1,65 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:98f7b3ce3de7144f877a3d5393a04d65e77cd2ba04dee4a451086b6616427957
-size 1450
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+
+public class UIToggle : UIBase
+{
+    [SerializeField] private bool isOn = false;
+    [SerializeField] private bool interactable = true;
+
+    private Toggle _toggle;
+    public Toggle Toggle
+    {
+        get
+        {
+            if (_toggle == null)
+                _toggle = GetComponent<Toggle>();
+            return _toggle;
+        }
+    }
+
+    public bool IsOn
+    {
+        get => Toggle.isOn;
+        set => Toggle.isOn = value;
+    }
+
+    public bool Interactable
+    {
+        get => Toggle.interactable;
+        set => Toggle.interactable = value;
+    }
+
+    public void AddListener(UnityAction<bool> action)
+    {
+        Toggle.onValueChanged.AddListener(action);
+    }
+
+    public void RemoveListener(UnityAction<bool> action)
+    {
+        Toggle.onValueChanged.RemoveListener(action);
+    }
+
+    public void RemoveAllListeners()
+    {
+        Toggle.onValueChanged.RemoveAllListeners();
+    }
+
+    protected override void Initialize()
+    {
+        base.Initialize();
+        
+        if (_toggle == null)
+            _toggle = GetComponent<Toggle>();
+            
+        if (_toggle != null)
+        {
+            _toggle.isOn = isOn;
+            _toggle.interactable = interactable;
+        }
+        else
+        {
+            UnityHelper.Error_H("Toggle component not found!");
+        }
+    }
+}

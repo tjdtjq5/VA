@@ -1,3 +1,39 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0890db8839c99057b00e95a75c35b88c882429888d0861ed6287c5d2cfded5b5
-size 1251
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Serialization;
+
+[System.Serializable]
+public class SkillBuff : SkillBehaviourTime
+{
+    [SerializeField] private Buff buff;
+    [SerializeField] private SkillTargetType targetType;
+    [SerializeField] private bool isNotBuffRemove;
+    
+    public override void Start(Character owner, object cause)
+    {
+        base.Start(owner, cause);
+        
+        SetBuff(owner, cause);
+    }
+
+    void SetBuff(Character owner, object cause)
+    {
+        List<Character> findTargets = FindTarget(owner, cause, targetType);
+        for (int i = 0; i < findTargets.Count; i++)
+        {
+            int index = i;
+            Buff cloneBuff = findTargets[index].CharacterBuff.PushBuff(owner, buff);
+            
+            if(!isNotBuffRemove)
+                this.Skill.OnRemove += (s) => findTargets[index].CharacterBuff.RemoveBuff(cloneBuff);
+        }
+    }
+
+    public override Dictionary<string, string> StringsByKeyword(string preface)
+    {
+        var stringsByKeyword = base.StringsByKeyword(preface);
+        stringsByKeyword.AddRange(buff.StringsByKeyword(preface));
+        return stringsByKeyword;
+    }
+}

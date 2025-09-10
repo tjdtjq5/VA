@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ba7c90dbc71f56d853bab93d0fb05a8ffc67b076109e8126735051848415104e
-size 581
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+using UnityEngine.Networking;
+
+namespace CodeStage.AntiCheat.Utils
+{
+    internal class NonValidatingCertificateHandler : CertificateHandler
+    {
+        // using this to bypass possible ssl errors, i.e. due way too wrong time
+        protected override bool ValidateCertificate(byte[] certificateData)
+        {
+            return true;
+        }
+    }
+}

@@ -1,3 +1,20 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:17638435768475e0616469aa341ddce8cb0b6d1290656fd5306b543c4c61e34f
-size 656
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
+{
+    public interface IEncapsulatedSecretExtractor
+    {
+        /// <summary>
+        /// Generate an exchange pair based on the recipient public key.
+        /// </summary>
+        /// <param name="encapsulation"> the encapsulated secret.</param>
+        byte[] ExtractSecret(byte[] encapsulation);
+
+        /// <summary>
+        /// The length in bytes of the encapsulation.
+        /// </summary>
+        int EncapsulationLength { get;  }
+    }
+}
+#pragma warning restore
+#endif

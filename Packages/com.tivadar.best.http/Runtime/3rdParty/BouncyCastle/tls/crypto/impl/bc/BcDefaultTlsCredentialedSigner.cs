@@ -1,3 +1,89 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:32f820086a5b907141b7e8964b1845d8ef2957672b4cca84db77afc6370c1a2e
-size 3810
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto.Impl.BC
+{
+    /// <summary>Credentialed class for generating signatures based on the use of primitives from the BC light-weight API.</summary>
+    public class BcDefaultTlsCredentialedSigner
+        : DefaultTlsCredentialedSigner
+    {
+        private static BcTlsCertificate GetEndEntity(BcTlsCrypto crypto, Certificate certificate)
+        {
+            if (certificate == null || certificate.IsEmpty)
+                throw new ArgumentException("No certificate");
+
+            return BcTlsCertificate.Convert(crypto, certificate.GetCertificateAt(0));
+        }
+
+        private static TlsSigner MakeSigner(BcTlsCrypto crypto, AsymmetricKeyParameter privateKey,
+            Certificate certificate, SignatureAndHashAlgorithm signatureAndHashAlgorithm)
+        {
+            TlsSigner signer;
+            if (privateKey is RsaKeyParameters)
+            {
+                RsaKeyParameters privKeyRsa = (RsaKeyParameters)privateKey;
+
+                if (signatureAndHashAlgorithm != null)
+                {
+                    int signatureScheme = SignatureScheme.From(signatureAndHashAlgorithm);
+                    if (SignatureScheme.IsRsaPss(signatureScheme))
+                    {
+                        return new BcTlsRsaPssSigner(crypto, privKeyRsa, signatureScheme);
+                    }
+                }
+
+                RsaKeyParameters pubKeyRsa = GetEndEntity(crypto, certificate).GetPubKeyRsa();
+
+                signer = new BcTlsRsaSigner(crypto, privKeyRsa, pubKeyRsa);
+            }
+            else if (privateKey is DsaPrivateKeyParameters)
+            {
+                signer = new BcTlsDsaSigner(crypto, (DsaPrivateKeyParameters)privateKey);
+            }
+            else if (privateKey is ECPrivateKeyParameters)
+            {
+                ECPrivateKeyParameters privKeyEC = (ECPrivateKeyParameters)privateKey;
+
+                if (signatureAndHashAlgorithm != null)
+                {
+                    int signatureScheme = SignatureScheme.From(signatureAndHashAlgorithm);
+                    if (SignatureScheme.IsECDsa(signatureScheme))
+                    {
+                        return new BcTlsECDsa13Signer(crypto, privKeyEC, signatureScheme);
+                    }
+                }
+
+                signer = new BcTlsECDsaSigner(crypto, privKeyEC);
+            }
+            else if (privateKey is Ed25519PrivateKeyParameters)
+            {
+                signer = new BcTlsEd25519Signer(crypto, (Ed25519PrivateKeyParameters)privateKey);
+            }
+            else if (privateKey is Ed448PrivateKeyParameters)
+            {
+                signer = new BcTlsEd448Signer(crypto, (Ed448PrivateKeyParameters)privateKey);
+            }
+            else
+            {
+                throw new ArgumentException("'privateKey' type not supported: " + Org.BouncyCastle.Utilities.Platform.GetTypeName(privateKey));
+            }
+
+            return signer;
+        }
+
+        public BcDefaultTlsCredentialedSigner(TlsCryptoParameters cryptoParams, BcTlsCrypto crypto,
+            AsymmetricKeyParameter privateKey, Certificate certificate,
+            SignatureAndHashAlgorithm signatureAndHashAlgorithm)
+            : base(cryptoParams, MakeSigner(crypto, privateKey, certificate, signatureAndHashAlgorithm), certificate,
+                signatureAndHashAlgorithm)
+        {
+        }
+    }
+}
+#pragma warning restore
+#endif

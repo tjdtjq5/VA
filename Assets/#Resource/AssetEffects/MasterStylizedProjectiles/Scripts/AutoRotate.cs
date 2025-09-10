@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:815de26e1cc326609ea0a4029927e842768b110449c9ac584b76c7d036d4dfc9
-size 348
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace MasterStylizedExplosions
+{
+    public class AutoRotate : MonoBehaviour
+    {
+        public Vector3 RotateAngle;
+        private void Update()
+        {
+            transform.Rotate(RotateAngle * Time.deltaTime, Space.Self);
+        }
+    }
+}

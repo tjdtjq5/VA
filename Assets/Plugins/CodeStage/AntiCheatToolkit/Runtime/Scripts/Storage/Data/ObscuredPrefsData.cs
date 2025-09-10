@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e64d3fc0740b2e2711016e842be9ad9be0068b7b232c17973d91e1f3ec8a1f62
-size 509
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+namespace CodeStage.AntiCheat.Storage
+{
+	using System;
+
+	[Serializable]
+	internal struct ObscuredPrefsData
+	{
+		public StorageDataType type;
+		public byte[] data;
+
+		public ObscuredPrefsData(StorageDataType type, byte[] data)
+		{
+			this.type = type;
+			this.data = data;
+		}
+	}
+}

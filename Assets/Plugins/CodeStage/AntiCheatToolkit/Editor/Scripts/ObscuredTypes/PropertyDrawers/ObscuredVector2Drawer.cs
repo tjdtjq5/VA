@@ -1,3 +1,29 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:088e9250b959fd9f267c8c8e194e23bcf4eba1788178e2841d0bce50f1036b58
-size 950
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+using CodeStage.AntiCheat.ObscuredTypes;
+using CodeStage.AntiCheat.ObscuredTypes.EditorCode;
+using CodeStage.AntiCheat.Utils;
+using UnityEditor;
+using UnityEngine;
+
+namespace CodeStage.AntiCheat.EditorCode.PropertyDrawers
+{
+	[CustomPropertyDrawer(typeof(ObscuredVector2))]
+	internal class ObscuredVector2Drawer : WideObscuredTypeDrawer<SerializedObscuredVector2, Vector2>
+	{
+		protected override void DrawProperty(Rect position, SerializedProperty sp, GUIContent label)
+		{
+			plain = EditorGUI.Vector2Field(position, label, plain);
+		}
+
+		protected override void ApplyChanges()
+		{
+			serialized.Hidden = ObscuredVector2.Encrypt(plain, serialized.Key);
+			serialized.Hash = HashUtils.CalculateHash(plain);
+		}
+	}
+}

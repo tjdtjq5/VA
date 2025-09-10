@@ -1,3 +1,49 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a80d28cb733889f85835978f1a2bc1c6bf3c1a3a6ce0b0542cffd8389fd1ce35
-size 1165
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.Cms;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Cms
+{
+	/**
+	* a holding class for a byte array of data to be processed.
+	*/
+	public class CmsProcessableByteArray
+		: CmsProcessable, CmsReadable
+	{
+	    private readonly DerObjectIdentifier type;
+		private readonly byte[] bytes;
+
+        public CmsProcessableByteArray(byte[] bytes)
+        {
+            type = CmsObjectIdentifiers.Data;
+			this.bytes = bytes;
+		}
+
+	    public CmsProcessableByteArray(DerObjectIdentifier type, byte[] bytes)
+	    {
+	        this.bytes = bytes;
+	        this.type = type;
+	    }
+
+	    public DerObjectIdentifier Type
+	    {
+	        get { return type; }
+	    }
+
+        public virtual Stream GetInputStream()
+		{
+			return new MemoryStream(bytes, false);
+		}
+
+        public virtual void Write(Stream zOut)
+		{
+			zOut.Write(bytes, 0, bytes.Length);
+		}
+	}
+}
+#pragma warning restore
+#endif

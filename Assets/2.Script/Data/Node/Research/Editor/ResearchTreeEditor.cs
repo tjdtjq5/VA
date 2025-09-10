@@ -1,3 +1,52 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1ae49e69ed11620921c5644ea8e1f19616275a834e38b336344a81e44a8470e7
-size 1472
+using Sirenix.OdinInspector.Editor;
+using UnityEditor;
+using UnityEngine;
+using XNode;
+using XNodeEditor;
+
+[CustomEditor(typeof(ResearchTree))]
+public class ResearchTreeEditor : OdinEditor
+{
+    private SerializedProperty graphProperty;
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        graphProperty = serializedObject.FindProperty("graph");
+    }
+
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        serializedObject.Update();
+
+        if (graphProperty.objectReferenceValue is null)
+        {
+            var targetObject = serializedObject.targetObject;
+            var newGraph = CreateInstance<ResearchTreeGraph>();
+            newGraph.name = $"{targetObject.name} Graph";
+
+            var path = AssetDatabase.GetAssetPath(targetObject);
+            if (!string.IsNullOrEmpty(path))
+            {
+                AssetDatabase.AddObjectToAsset(newGraph, path);
+                AssetDatabase.SaveAssets();
+                graphProperty.objectReferenceValue = newGraph;
+            }
+        }
+
+        EditorGUILayout.Space();
+
+        EditorGUILayout.PropertyField(graphProperty);
+
+        EditorGUILayout.Space();
+
+        if (GUILayout.Button("Open Graph", GUILayout.Height(30)))
+        {
+            NodeEditorWindow.Open(graphProperty.objectReferenceValue as NodeGraph);
+        }
+
+        serializedObject.ApplyModifiedProperties();
+    }
+}

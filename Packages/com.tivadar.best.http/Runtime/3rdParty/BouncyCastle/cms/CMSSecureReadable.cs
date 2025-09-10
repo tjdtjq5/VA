@@ -1,3 +1,18 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:41af5ebf1bfd4fa6e28df324f7c130b4d091047e51079faf18c482eb47662d92
-size 506
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.X509;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Cms
+{
+	internal interface CmsSecureReadable
+	{
+		AlgorithmIdentifier Algorithm { get; }
+		object CryptoObject { get; }
+		CmsReadable GetReadable(KeyParameter key);
+	}
+}
+#pragma warning restore
+#endif

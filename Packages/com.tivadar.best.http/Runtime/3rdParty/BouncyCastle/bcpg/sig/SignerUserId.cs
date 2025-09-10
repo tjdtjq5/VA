@@ -1,3 +1,53 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:09dc4345ee16f239933b9050fa771381816f007fbf1c4880d4cfd17532a465a0
-size 1315
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg.Sig
+{
+    /**
+    * packet giving the User ID of the signer.
+    */
+    public class SignerUserId
+        : SignatureSubpacket
+    {
+        private static byte[] UserIdToBytes(
+            string id)
+        {
+            byte[] idData = new byte[id.Length];
+
+            for (int i = 0; i != id.Length; i++)
+            {
+                idData[i] = (byte)id[i];
+            }
+
+			return idData;
+        }
+
+        public SignerUserId(
+            bool    critical,
+            bool    isLongLength,
+            byte[]  data)
+            : base(SignatureSubpacketTag.SignerUserId, critical, isLongLength, data)
+		{
+		}
+
+        public SignerUserId(
+            bool    critical,
+            string  userId)
+            : base(SignatureSubpacketTag.SignerUserId, critical, false, UserIdToBytes(userId))
+		{
+        }
+
+        public string GetId()
+        {
+            char[] chars = new char[data.Length];
+
+			for (int i = 0; i != chars.Length; i++)
+            {
+                chars[i] = (char)(data[i] & 0xff);
+            }
+
+			return new string(chars);
+        }
+    }
+}
+#pragma warning restore
+#endif

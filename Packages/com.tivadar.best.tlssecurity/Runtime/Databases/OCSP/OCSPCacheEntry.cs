@@ -1,3 +1,28 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f2952233868dd04a0267b5b03bb74d11e220cd0c51dad0c7eac9f514786cc120
-size 1019
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+using System;
+
+namespace Best.TLSSecurity.Databases.OCSP
+{
+    public enum Status : byte
+    {
+        Good,
+        Revoked,
+        Unknown
+    }
+
+    public sealed class OCSPCacheEntry
+    {
+        public Status Status { get; set; }
+        public DateTime ReceivedAt { get; set; }
+        public DateTime GeneratedAt { get; set; }
+        public DateTime NextUpdate { get; set; }
+
+        public DateTime LastUsed { get; set; }
+
+        public override string ToString()
+        {
+            return $"[OCSPCacheEntry Status: {Status.ToString()}, ReceivedAt: {ReceivedAt.ToString(System.Globalization.CultureInfo.InvariantCulture)}, GeneratedAt: {GeneratedAt.ToString(System.Globalization.CultureInfo.InvariantCulture)}, NextUpdate: {NextUpdate.ToString(System.Globalization.CultureInfo.InvariantCulture)}, LastUsed: {LastUsed.ToString(System.Globalization.CultureInfo.InvariantCulture)}]";
+        }
+    }
+}
+#endif

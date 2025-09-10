@@ -1,3 +1,13 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d10869868b30df72a513b2c3ae72a43c8946f7f66d7f921b943d2b38287554b4
-size 335
+using System;
+using System.Collections.Generic;
+
+namespace Best.HTTP.Shared.Databases.Indexing.Comparers
+{
+    public sealed class Hash128Comparer : IComparer<UnityEngine.Hash128>
+    {
+        public int Compare(UnityEngine.Hash128 x, UnityEngine.Hash128 y)
+        {
+            return x.CompareTo(y);
+        }
+    }
+}

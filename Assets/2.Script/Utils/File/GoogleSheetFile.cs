@@ -1,3 +1,27 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:77065dd7bb2c2770d3f0a5bd08b89361a8d2def4f67ff8d55f4a65ea401726f2
-size 603
+public class GoogleSheetFile : SecretFileTxt
+{
+    public override string FileName => "GoogleSheetFile.txt";
+
+    public GoogleSheetFileModel Read(string key)
+    {
+        return base.Read<GoogleSheetFileModel>(key);
+    }
+}
+public class GoogleSheetFileModel
+{
+    public long sheetId;
+    public string tableName;
+    public string range;
+
+    public GoogleSheetFileModel()
+    {
+
+    }
+
+    public GoogleSheetFileModel(long sheetId, string tableName, string range)
+    {
+        this.sheetId = sheetId;
+        this.range = range;
+        this.tableName = tableName;
+    }
+}

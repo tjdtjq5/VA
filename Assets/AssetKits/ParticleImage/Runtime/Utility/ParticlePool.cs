@@ -1,3 +1,40 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0dd82e418ac9dbb8bb6bc85aacbd40541d4b8b128a0dffb3a683b6ae83d92d2e
-size 1040
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace AssetKits.ParticleImage
+{
+    public class ParticlePool
+    {
+        private List<Particle> _particles;
+        private ParticleImage _source;
+        
+        public ParticlePool(int capacity, ParticleImage source)
+        {
+            _particles = new List<Particle>(capacity);
+            _source = source;
+            
+            for (int i = 0; i < capacity; i++)
+            {
+                _particles.Add(new Particle(source));
+            }
+        }
+        
+        public Particle Get()
+        {
+            if(_particles.Count > 0)
+            {
+                var particle = _particles[_particles.Count - 1];
+                _particles.RemoveAt(_particles.Count - 1);
+                return particle;
+            }
+
+            return new Particle(_source);
+        }
+        
+        public void Release(Particle particle)
+        {
+            _particles.Add(particle);
+        }
+    }
+}

@@ -1,3 +1,27 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:2182a79614a74a5c2a0d7a9e3816ba1158ec9b0926ab255448fa0cae5899b10c
-size 584
+using Shared.Enums;
+
+public class ScriptManager
+{
+    public string Get(Grade grade)
+    {
+        switch (grade)
+        {
+            case Grade.D:
+                return "D";
+            case Grade.C:
+                return "C";
+            case Grade.B:
+                return "B";
+            case Grade.A:
+                return "A";
+            case Grade.S:
+                return "S";
+            case Grade.SS:
+                return "SS";
+            case Grade.SSS:
+                return "SSS";
+            default:
+                return string.Empty;
+        }
+    }
+}

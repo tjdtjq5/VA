@@ -1,3 +1,40 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6af3dfcaf596188be4476a4d3279ca738947bb6823184086a4012d8a86c04822
-size 1019
+﻿using System.Collections.Generic;
+
+namespace Best.HTTP.Shared.Extensions
+{
+    /// <summary>
+    /// Will parse a comma-separeted header value
+    /// </summary>
+    public sealed class HeaderParser : KeyValuePairList
+    {
+        public HeaderParser(string headerStr)
+        {
+            base.Values = Parse(headerStr);
+        }
+
+        private List<HeaderValue> Parse(string headerStr)
+        {
+            List<HeaderValue> result = new List<HeaderValue>();
+
+            int pos = 0;
+
+            try
+            {
+                while (pos < headerStr.Length)
+                {
+                    HeaderValue current = new HeaderValue();
+
+                    current.Parse(headerStr, ref pos);
+
+                    result.Add(current);
+                }
+            }
+            catch(System.Exception ex)
+            {
+                HTTPManager.Logger.Exception("HeaderParser - Parse", headerStr, ex);
+            }
+
+            return result;
+        }
+    }
+}

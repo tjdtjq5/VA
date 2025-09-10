@@ -1,3 +1,34 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c109c00c764c95a2973785f423892ab926a3c2d514877e7b6f7136d3528efe7d
-size 1237
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
+{
+    /// <summary>
+    /// Base interface for cipher builders.
+    /// </summary>
+    public interface ICipherBuilder
+    {
+        /// <summary>
+        /// Return the algorithm and parameter details associated with any cipher built.
+        /// </summary>
+        object AlgorithmDetails { get; }
+
+        /// <summary>
+        /// Return the maximum output size that a given input will produce.
+        /// </summary>
+        /// <param name="inputLen">the length of the expected input.</param>
+        /// <returns>The maximum possible output size that can produced for the expected input length.</returns>
+        int GetMaxOutputSize(int inputLen);
+
+        /// <summary>
+        /// Build a cipher that operates on the passed in stream.
+        /// </summary>
+        /// <param name="stream">The stream to write/read any encrypted/decrypted data.</param>
+        /// <returns>A cipher based around the given stream.</returns>
+        ICipher BuildCipher(Stream stream);
+    }
+}
+#pragma warning restore
+#endif

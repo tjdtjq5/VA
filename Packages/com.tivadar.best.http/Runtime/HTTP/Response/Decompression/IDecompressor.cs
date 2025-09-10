@@ -1,3 +1,12 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:584091a3b177a9f1eb92ef0760e787829172a48e281c0e1b9dcb5967b234ebc9
-size 374
+using System;
+
+using Best.HTTP.Shared.Logger;
+using Best.HTTP.Shared.PlatformSupport.Memory;
+
+namespace Best.HTTP.Response.Decompression
+{
+    public interface IDecompressor : IDisposable
+    {
+        (BufferSegment decompressed, bool releaseTheOld) Decompress(BufferSegment segment, bool forceDecompress, bool dataCanBeLarger, LoggingContext context);
+    }
+}

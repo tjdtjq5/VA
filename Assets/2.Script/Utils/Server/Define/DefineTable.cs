@@ -1,3 +1,49 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:67329f8befce7cbad5abee440c4418653d06a13217f5b5960a5e8b5dc4624b69
-size 682
+﻿public enum TableCollection
+{
+    Formula,
+    GameDefine,
+}
+public enum DefineTableCodeType
+{
+    Formula,
+}
+
+
+public enum FormulaKeyword
+{
+    Default,
+    LEVEL,
+    STAGE,
+    C_LEVEL,
+    C_AWAKE,
+}
+
+public enum GameDefineTableCodeDefine
+{
+    GN_C_Level_UP,
+}
+
+public enum SOTableType
+{
+    Character,
+}
+
+public enum FormulaTableCodeDefine
+{
+    Stage_Get_Gesso,
+    Stage_Get_Elixir,
+    Stage_Get_Exp,
+    Stage_Get_TC,
+    Stage_Get_Cobalt,
+    Stage_Get_Cubic,
+    Stage_Get_MR,
+    Stage_Get_DreamC,
+    Stage_Get_RH,
+    Stage_Get_StarCandy,
+    Stage_Get_LC,
+    Character_Level_Up,
+    Need_C_Awake_Card,
+    Ab_C_Level_Hp,
+    Ab_C_Level_Atk,
+    Ab_C_Level_Def,
+}

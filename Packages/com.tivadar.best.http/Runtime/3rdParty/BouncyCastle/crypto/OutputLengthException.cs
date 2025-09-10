@@ -1,3 +1,34 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9720b392cc83e0687f9ffda683b696d3da353b23a83a83d5cf1592a209f3b95c
-size 733
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.Runtime.Serialization;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
+{
+    [Serializable]
+    public class OutputLengthException
+        : DataLengthException
+    {
+		public OutputLengthException()
+			: base()
+		{
+		}
+
+		public OutputLengthException(string message)
+			: base(message)
+		{
+		}
+
+		public OutputLengthException(string message, Exception innerException)
+			: base(message, innerException)
+		{
+		}
+
+		protected OutputLengthException(SerializationInfo info, StreamingContext context)
+			: base(info, context)
+		{
+		}
+	}
+}
+#pragma warning restore
+#endif

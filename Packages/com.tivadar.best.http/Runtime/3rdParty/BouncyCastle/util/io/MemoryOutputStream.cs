@@ -1,3 +1,18 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:94eb440f1d53febb01ab09394bc6792b3594216da8b2a84fa8553e65e2b86492
-size 413
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities.IO
+{
+    public class MemoryOutputStream
+        : MemoryStream
+    {
+        public sealed override bool CanRead
+        {
+            get { return false; }
+        }
+    }
+}
+#pragma warning restore
+#endif

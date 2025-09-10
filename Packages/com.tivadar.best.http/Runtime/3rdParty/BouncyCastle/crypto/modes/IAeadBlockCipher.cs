@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9440d6bd70de90ce95f1a1d345f1c9bb7e03ac9ea94576fe9d6ad17984ff9764
-size 574
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Modes
+{
+	/// <summary>An IAeadCipher based on an IBlockCipher.</summary>
+	public interface IAeadBlockCipher
+        : IAeadCipher
+	{
+        /// <returns>The block size for this cipher, in bytes.</returns>
+        int GetBlockSize();
+
+        /// <summary>The block cipher underlying this algorithm.</summary>
+		IBlockCipher UnderlyingCipher { get; }
+	}
+}
+#pragma warning restore
+#endif

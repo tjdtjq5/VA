@@ -1,3 +1,33 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6b3170f2034faea7877662af03b3de5934237bde310afdd8dd64568e3c7d6223
-size 524
+﻿using UnityEngine.EventSystems;
+
+public class UITestButton : UIButton
+{
+	protected override void Initialize()
+	{
+		base.Initialize();
+		Bind<UIImage>(typeof(UIImageE));
+		Bind<UIText>(typeof(UITextE));
+	}
+
+    protected override void UISet()
+    {
+        base.UISet();
+
+		AddPressedEvent(PressEvent);
+    }
+
+	void PressEvent(PointerEventData ped)
+	{
+		UnityHelper.Log_H("Pressed");
+	}
+
+    public enum UIImageE
+    {
+		Icon,
+		Name,
+    }
+	public enum UITextE
+    {
+		Name_Text,
+    }
+}

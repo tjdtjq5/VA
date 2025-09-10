@@ -1,3 +1,26 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:df5690cafa4576c0dc6dfdf9b8970167856f469844b9c843a98ee27e2322debe
-size 799
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+#if UNITY_EDITOR
+
+using System.Runtime.InteropServices;
+using CodeStage.AntiCheat.Utils;
+using UnityEngine;
+
+namespace CodeStage.AntiCheat.ObscuredTypes
+{
+	[StructLayout(LayoutKind.Auto)]
+    public partial struct ObscuredVector2Int : ISerializableObscuredType
+    {
+		internal const int Version = 1;
+		
+		// ReSharper disable once NotAccessedField.Global - used explicitly
+		[SerializeField] internal byte version;
+
+		bool ISerializableObscuredType.IsDataValid => IsDefault() || hash == HashUtils.CalculateHash(Decrypt(hiddenValue, currentCryptoKey));
+    }
+}
+#endif

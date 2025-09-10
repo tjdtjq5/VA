@@ -1,3 +1,42 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:8ab662cc5f86f91f98acf07a6212682eed73f4a1f4a64b5ca7b2dd56692108a4
-size 1552
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+using System.Threading.Tasks;
+
+namespace CodeStage.AntiCheat.Genuine.CodeHash
+{
+	public delegate void HashGeneratorResultHandler(HashGeneratorResult result);
+
+	/// <summary>
+	/// CodeHashGenerator interface to make it easier to use it through the Instance.
+	/// </summary>
+	public interface ICodeHashGenerator
+	{
+		/// <summary>
+		/// Stores previously calculated result.
+		/// Can be null if Generate() wasn't called yet or if it was called but calculation is still in process.
+		/// </summary>
+		/// \sa #IsBusy
+		HashGeneratorResult LastResult { get; }
+
+		/// <summary>
+		/// Indicates if hash generation is currently in process.
+		/// </summary>
+		bool IsBusy { get; }
+
+		/// <summary>
+		/// Call to start current runtime code hash generation. Automatically adds instance to the scene if necessary.
+		/// </summary>
+		/// <param name="maxThreads">Threads to use while hashing files. Use Environment.ProcessorCount to use all cores.</param>
+		ICodeHashGenerator Generate(int maxThreads = 1);
+		
+		/// <summary>
+		/// Awaitable version of Generate(). Allows awaiting for the generation result.
+		/// </summary>
+		/// <param name="maxThreads">Threads to use while hashing files. Use Environment.ProcessorCount to use all cores.</param>
+		Task<HashGeneratorResult> GenerateAsync(int maxThreads = 1);
+	}
+}

@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:bcee772174b0c4f99e95fe844f71f5ac7292a0cd4a046562c5a226b78de720b7
-size 351
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Math.EC.Endo
+{
+    public interface GlvEndomorphism
+        :   ECEndomorphism
+    {
+        BigInteger[] DecomposeScalar(BigInteger k);
+    }
+}
+#pragma warning restore
+#endif

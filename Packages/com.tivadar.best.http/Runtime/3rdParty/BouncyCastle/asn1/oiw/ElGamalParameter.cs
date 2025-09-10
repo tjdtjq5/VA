@@ -1,3 +1,49 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6dcc4c96df64618562c3a2d90695754f19240cb770a55d51cd7e599691e46590
-size 1083
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.Oiw
+{
+    public class ElGamalParameter
+        : Asn1Encodable
+    {
+        internal DerInteger p, g;
+
+		public ElGamalParameter(
+            BigInteger	p,
+            BigInteger	g)
+        {
+            this.p = new DerInteger(p);
+            this.g = new DerInteger(g);
+        }
+
+		public ElGamalParameter(
+            Asn1Sequence seq)
+        {
+			if (seq.Count != 2)
+				throw new ArgumentException("Wrong number of elements in sequence", "seq");
+
+			p = DerInteger.GetInstance(seq[0]);
+			g = DerInteger.GetInstance(seq[1]);
+        }
+
+		public BigInteger P
+		{
+			get { return p.PositiveValue; }
+		}
+
+		public BigInteger G
+		{
+			get { return g.PositiveValue; }
+		}
+
+		public override Asn1Object ToAsn1Object()
+        {
+			return new DerSequence(p, g);
+        }
+    }
+}
+#pragma warning restore
+#endif

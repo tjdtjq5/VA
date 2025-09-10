@@ -1,3 +1,17 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d4f92661ee128269ab97f2c4eb363550fe5183b8f345191345381bb7fc07baa4
-size 443
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+using System;
+
+using Best.TLSSecurity.Databases.Shared;
+
+namespace Best.TLSSecurity.Databases.OCSP
+{
+    public class OCSPDatabaseOptions : DatabaseOptions
+    {
+        public OCSPDatabaseOptions(string dbName) : base(dbName)
+        {
+            this.UseHashFile = false;
+            this.DiskManager.MaxCacheSizeInBytes = 128;
+        }
+    }
+}
+#endif

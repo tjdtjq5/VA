@@ -1,3 +1,29 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5e7239dd4a8991d1b277f05a7d5c576e6bac713d7c32e749bd097ae4d4c94233
-size 632
+﻿using System;
+using System.Collections.Generic;
+
+[Serializable]
+public class FacebookResponceJsonData
+{
+    public FacebookTokenData data { get; set; }
+}
+[Serializable]
+
+public class FacebookTokenData
+{
+    public string app_id;
+    public string type;
+    public string application;
+    public long data_access_expires_at;
+    public long expires_at;
+    public bool is_valid;
+    public long issued_at;
+    public List<string> scopes;
+    public string user_id;
+    public FacebookErrorData error;
+}
+[Serializable]
+public class FacebookErrorData
+{
+    public int code;
+    public string message;
+}

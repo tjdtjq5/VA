@@ -1,3 +1,65 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:899713cbedcbbcb69807f9b07791663d72aca8ec23ccf85ecd9ce29142c18c0d
-size 2162
+using System.Collections.Generic;
+using Shared.BBNumber;
+using UnityEngine;
+
+[System.Serializable]
+public class SkillMissile : SkillBehaviourTime
+{
+    [SerializeField] private SkillTargetType targetType;
+    [SerializeField, Range(0f, 1f)] private float _attackTimeValue;
+    private readonly string _prefabPath = "Prefab/Effect/Skill/Missile";
+    private readonly float _damageValue = 2.2f;
+    
+    public override void Start(Character owner, object cause)
+    {
+        base.Start(owner, cause);
+
+        Effect(owner, cause);
+
+        _actions.Add(_attackTimeValue, () => Attack(owner, cause));
+    }
+
+    void Effect(Character owner, object cause)
+    {
+        List<Character> findTargets = FindTarget(owner, cause, targetType);
+        if (findTargets.Count == 0)
+        {
+            return;
+        }
+
+        for (int i = 0; i < findTargets.Count; i++)
+        {
+            Poolable pool = Managers.Resources.Instantiate<Poolable>(_prefabPath);
+
+            if(pool)
+            {
+                pool.transform.position = findTargets[i].RootBoneTr.position;
+            }
+        }
+    }
+
+    void Attack(Character owner, object cause)
+    {
+        List<Character> findTargets = FindTarget(owner, cause, targetType);
+        if (findTargets.Count == 0)
+        {
+            End(owner, cause);
+            return;
+        }
+
+        owner.AddPageApplyCount(SkillApplyDamageType.Missile);
+        
+        float criPercent = owner.Stats.GetValue("CriPercent").ToFloat();
+        float missileCriPercent = owner.Stats.GetValue("MissileCriPercent").ToFloat();
+        DamageType damageType = DamageType.Skill;
+        float damageValue = _damageValue;
+        damageValue *= owner.Stats.GetValue("SkillDamage").ToFloat() * 0.01f + 1;
+        damageValue *= owner.Stats.GetValue("MissileDamage").ToFloat() * 0.01f + 1;
+        
+        for (int i = 0; i < findTargets.Count; i++)
+        {
+            TargetTakeDamage(owner, findTargets[i], damageValue, criPercent + missileCriPercent, damageType, SkillApplyDamageType.Missile);
+            findTargets[i].SetHit();
+        }
+    }
+}

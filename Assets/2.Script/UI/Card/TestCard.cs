@@ -1,3 +1,28 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:633e47ee9f041f28dbbc72bdd148be732c5698ffcaf616b7e273ef25b6031e05
-size 489
+using UnityEngine;
+using UnityEngine.UI;
+
+public class TestCard : UICard
+{
+    TestCardData _data;
+
+	protected override void Initialize()
+	{
+		base.Initialize();
+		Bind<UIText>(typeof(UITextE));
+    }
+
+    enum Texts
+    {
+        NumbrerText
+    }
+
+    public override void Setting(ICardData data)
+    {
+	    _data = (TestCardData)data;
+        Get<UIText>(Texts.NumbrerText).text = _data.Id.ToString();
+    }
+	public enum UITextE
+    {
+		NumbrerText,
+    }
+}

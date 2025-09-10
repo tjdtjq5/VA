@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:533cc019b9ed99c324fc3dbae5de2dee28a2ffd688fdc5c135d43ced2bc7ebdd
-size 469
+﻿using UnityEngine.EventSystems;
+
+public class UIOption : UIFrame
+{
+    protected override void Initialize()
+    {
+		Bind<UIButton>(typeof(UIButtonE));
+		
+		GetButton(UIButtonE.SafeArea_Option).AddClickEvent(OnClickLearn);
+
+        base.Initialize();
+    }
+    
+    void OnClickLearn(PointerEventData ped)
+    {
+	    Managers.UI.ShopPopupUI<UIInGameLearn>("InGame/UIInGameLearn", CanvasOrderType.Middle);
+    }
+
+	public enum UIButtonE
+    {
+		SafeArea_Option,
+    }
+}

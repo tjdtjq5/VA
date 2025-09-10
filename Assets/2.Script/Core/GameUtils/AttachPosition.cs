@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:2e3a25d593d69ed6d2033d6ad3f59428f5f5e6a94f6b648b187a1b024bcbc0d8
-size 408
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class AttachPosition : MonoBehaviour
+{
+    private Transform _target;
+    
+    public void Initialize(Transform target) => this._target = target;
+    private void Update()
+    {
+        if (_target) this.transform.position = _target.position;
+    }
+    void OnDisable() => _target = null;
+}

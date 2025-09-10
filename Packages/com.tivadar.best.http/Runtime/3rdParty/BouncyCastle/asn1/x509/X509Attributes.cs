@@ -1,3 +1,13 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7aa167cb0bfe74d27fc38912baad207b2d284f89257cdb1ad2e6167e1122ee53
-size 349
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.X509
+{
+	public class X509Attributes
+	{
+		public static readonly DerObjectIdentifier RoleSyntax = new DerObjectIdentifier("2.5.4.72");
+	}
+}
+#pragma warning restore
+#endif

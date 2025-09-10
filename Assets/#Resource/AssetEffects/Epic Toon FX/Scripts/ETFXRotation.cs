@@ -1,3 +1,30 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ebdd58af24f4fd11973763f2fdf88103dfe2b9c144d501fac7d2e72ad3443159
-size 740
+﻿using UnityEngine;
+using System.Collections;
+ 
+namespace EpicToonFX
+{
+    public class ETFXRotation : MonoBehaviour
+    {
+ 
+        [Header("Rotate axises by degrees per second")]
+        public Vector3 rotateVector = Vector3.zero;
+ 
+        public enum spaceEnum { Local, World };
+        public spaceEnum rotateSpace;
+ 
+        // Use this for initialization
+        void Start()
+        {
+ 
+        }
+ 
+        // Update is called once per frame
+        void Update()
+        {
+            if (rotateSpace == spaceEnum.Local)
+                transform.Rotate(rotateVector * Time.deltaTime);
+            if (rotateSpace == spaceEnum.World)
+                transform.Rotate(rotateVector * Time.deltaTime, Space.World);
+        }
+    }
+}

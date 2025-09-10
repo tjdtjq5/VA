@@ -1,3 +1,40 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:99f1b771371a0e0a771c0b1e534b97fdc736fec0523b9df2e3d03969cae90e32
-size 1229
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Agreement.Srp;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto.Impl.BC
+{
+    internal sealed class BcTlsSrp6Client
+        : TlsSrp6Client
+    {
+        private readonly Srp6Client m_srp6Client;
+
+        internal BcTlsSrp6Client(Srp6Client srpClient)
+        {
+            this.m_srp6Client = srpClient;
+        }
+
+        public BigInteger CalculateSecret(BigInteger serverB)
+        {
+            try
+            {
+                return m_srp6Client.CalculateSecret(serverB);
+            }
+            catch (CryptoException e)
+            {
+                throw new TlsFatalAlert(AlertDescription.illegal_parameter, e);
+            }
+        }
+
+        public BigInteger GenerateClientCredentials(byte[] srpSalt, byte[] identity, byte[] password)
+        {
+            return m_srp6Client.GenerateClientCredentials(srpSalt, identity, password);
+        }
+    }
+}
+#pragma warning restore
+#endif

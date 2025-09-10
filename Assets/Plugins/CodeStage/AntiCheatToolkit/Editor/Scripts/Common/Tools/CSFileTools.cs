@@ -1,3 +1,27 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:850e335932dbd99a7744260b6a25ed610c3a66d65488033afe838efc9392951a
-size 750
+﻿#region copyright
+// -------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// -------------------------------------------------------
+#endregion
+
+namespace CodeStage.EditorCommon.Tools
+{
+	using System.IO;
+
+	internal static class CSFileTools
+	{
+		public static void DeleteFile(string path)
+		{
+			if (!File.Exists(path)) return;
+			RemoveReadOnlyAttribute(path);
+			File.Delete(path);
+		}
+
+		private static void RemoveReadOnlyAttribute(string filePath)
+		{
+			var attributes = File.GetAttributes(filePath);
+			if ((attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+				File.SetAttributes(filePath, attributes & ~FileAttributes.ReadOnly);
+		}
+	}
+}

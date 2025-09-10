@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:bc25d0f1197e3a88148884d70996949afb5506238cc50d2318990b220ad8a06e
-size 505
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Shared.Enums;
+using UnityEngine;
+using XNode;
+
+[CreateAssetMenu(fileName = "ResearchTreeGraph", menuName = "Node/Research/ResearchTreeGraph")]
+public class ResearchTreeGraph : NodeGraph
+{
+    public ResearchNode[] GetNodes() 
+    => nodes.Where(node => node is not null).Cast<ResearchNode>().ToArray();
+    public PlayerGrowResearch Type => type;
+
+    [SerializeField] private PlayerGrowResearch type;
+}

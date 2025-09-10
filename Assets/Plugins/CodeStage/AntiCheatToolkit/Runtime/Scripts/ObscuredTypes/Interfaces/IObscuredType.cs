@@ -1,3 +1,29 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:80b680486807afeb9b8dd9877faf6bc5dd190e6a0c95badd77e9f1c567f124c0
-size 830
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+namespace CodeStage.AntiCheat.ObscuredTypes
+{
+	/// <summary>
+	/// Base interface for all obscured types.
+	/// </summary>
+	public interface IObscuredType
+	{
+		/// <summary>
+		/// Allows to change current crypto key to the new random value and re-encrypt variable using it.
+		/// Use it for extra protection against 'unknown value' search.
+		/// Just call it sometimes when your variable doesn't change to fool the cheater.
+		/// </summary>
+		void RandomizeCryptoKey();
+	}
+
+	public interface ISerializableObscuredType
+	{
+#if UNITY_EDITOR
+		bool IsDataValid { get; }
+		bool IsDefault();
+#endif
+	}
+}

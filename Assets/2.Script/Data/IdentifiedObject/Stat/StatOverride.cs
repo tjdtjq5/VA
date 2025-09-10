@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c20fc9663e37e726e6096a989f2b7c6765f8f2d84b6fc3da1913e51b75f95a22
-size 381
+using System.Collections.Generic;
+using Shared.BBNumber;
+using UnityEngine;
+
+[System.Serializable]
+public class StatOverride
+{
+    [SerializeField] private Stat stat;
+    [SerializeField] private BBNumber defaultValue;
+
+    public void ChangeStats(Character character)
+    {
+        character.Stats.GetStat(stat).SetBonusValue("StatOverride", defaultValue);
+    }
+}

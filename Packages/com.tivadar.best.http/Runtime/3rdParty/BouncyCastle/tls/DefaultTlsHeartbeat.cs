@@ -1,3 +1,48 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:84d672fb6794f61aa173461b05493a01c1004a1ff8311327b00a0e1a949f5b98
-size 1320
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Utilities;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    public class DefaultTlsHeartbeat
+        : TlsHeartbeat
+    {
+        private readonly int idleMillis, timeoutMillis;
+
+        private uint counter = 0U;
+
+        public DefaultTlsHeartbeat(int idleMillis, int timeoutMillis)
+        {
+            if (idleMillis <= 0)
+                throw new ArgumentException("must be > 0", "idleMillis");
+            if (timeoutMillis <= 0)
+                throw new ArgumentException("must be > 0", "timeoutMillis");
+
+            this.idleMillis = idleMillis;
+            this.timeoutMillis = timeoutMillis;
+        }
+
+        public virtual byte[] GeneratePayload()
+        {
+            lock (this)
+            {
+                // NOTE: The counter naturally wraps back to 0
+                return Pack.UInt32_To_BE(++counter);
+            }
+        }
+
+        public virtual int IdleMillis
+        {
+            get { return idleMillis; }
+        }
+
+        public virtual int TimeoutMillis
+        {
+            get { return timeoutMillis; }
+        }
+    }
+}
+#pragma warning restore
+#endif

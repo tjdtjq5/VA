@@ -1,3 +1,46 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:4b32511abc078b806091289835e3e35fe1195242908393ce033c2ccb7ca997c2
-size 1757
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+#if UNITY_EDITOR
+
+using CodeStage.AntiCheat.Utils;
+using UnityEngine;
+
+namespace CodeStage.AntiCheat.ObscuredTypes.EditorCode
+{
+	internal class SerializedObscuredQuaternion : SerializedObscuredType<Quaternion>
+	{
+		public ObscuredQuaternion.RawEncryptedQuaternion Hidden
+		{
+			get => new ObscuredQuaternion.RawEncryptedQuaternion 
+			{
+				x = HiddenProperty.FindPropertyRelative(nameof(ObscuredQuaternion.RawEncryptedQuaternion.x)).intValue,
+				y = HiddenProperty.FindPropertyRelative(nameof(ObscuredQuaternion.RawEncryptedQuaternion.y)).intValue,
+				z = HiddenProperty.FindPropertyRelative(nameof(ObscuredQuaternion.RawEncryptedQuaternion.z)).intValue,
+				w = HiddenProperty.FindPropertyRelative(nameof(ObscuredQuaternion.RawEncryptedQuaternion.w)).intValue
+			};
+
+			set
+			{
+				HiddenProperty.FindPropertyRelative(nameof(ObscuredQuaternion.RawEncryptedQuaternion.x)).intValue = value.x;
+				HiddenProperty.FindPropertyRelative(nameof(ObscuredQuaternion.RawEncryptedQuaternion.y)).intValue = value.y;
+				HiddenProperty.FindPropertyRelative(nameof(ObscuredQuaternion.RawEncryptedQuaternion.z)).intValue = value.z;
+				HiddenProperty.FindPropertyRelative(nameof(ObscuredQuaternion.RawEncryptedQuaternion.w)).intValue = value.w;
+			}
+		}
+
+		public int Key
+		{
+			get => KeyProperty.intValue;
+			set => KeyProperty.intValue = value;
+		}
+		
+		public override Quaternion Plain => ObscuredQuaternion.Decrypt(Hidden, Key);
+		protected override byte TypeVersion => ObscuredQuaternion.Version;
+	}
+}
+
+#endif

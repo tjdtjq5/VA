@@ -1,3 +1,47 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6bfe92215354a4176110f645c4c1dec17eab14feedb6d648454af303451d2490
-size 1088
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg
+{
+    public sealed class EdSecretBcpgKey
+        : BcpgObject, IBcpgKey
+    {
+        internal readonly MPInteger m_x;
+
+        public EdSecretBcpgKey(BcpgInputStream bcpgIn)
+        {
+            m_x = new MPInteger(bcpgIn);
+        }
+
+        public EdSecretBcpgKey(BigInteger x)
+        {
+            m_x = new MPInteger(x);
+        }
+
+        public string Format => "PGP";
+
+        public override byte[] GetEncoded()
+        {
+            try
+            {
+                return base.GetEncoded();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public override void Encode(BcpgOutputStream bcpgOut)
+        {
+            bcpgOut.WriteObject(m_x);
+        }
+
+        public BigInteger X => m_x.Value;
+    }
+}
+#pragma warning restore
+#endif

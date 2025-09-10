@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f521818a70e3393eb5310e068af8888e081aa9c5aafbd61c0b10d68ec94ba836
-size 672
+﻿#region copyright
+// -------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// -------------------------------------------------------
+#endregion
+
+using CodeStage.AntiCheat.Detectors;
+using UnityEngine;
+
+namespace CodeStage.AntiCheat.ObscuredTypes
+{
+	public partial struct ObscuredVector2 : ISerializationCallbackReceiver
+	{
+		public void OnBeforeSerialize() { /* not used */ }
+		public void OnAfterDeserialize()
+		{
+			if (IsDefault())
+				fakeValue = default;
+			else if (ObscuredCheatingDetector.IsRunningInHoneypotMode)
+				fakeValue = Decrypt(hiddenValue, currentCryptoKey);
+		}
+	}
+}

@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:8b34a364f9f266a1020200744f3d543dc103e0b4bac0cc95212ac503043d2f3a
-size 383
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GrowLevelSpeech : UIFrame
+{
+    protected override void Initialize()
+    {
+		Bind<UIText>(typeof(UITextE));
+
+        base.Initialize();
+    }
+
+    public void UISet(int level)
+    {
+        GetText(UITextE.Value).text = level.ToString();
+    }
+	public enum UITextE
+    {
+		Value,
+    }
+}

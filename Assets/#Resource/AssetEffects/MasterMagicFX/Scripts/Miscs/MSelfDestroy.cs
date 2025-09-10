@@ -1,3 +1,37 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:dce4fa525dd2dd737b43f999fb00de172dee6cbe45a9f925cda1b3f928b2aa42
-size 836
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace MasterFX
+{
+    using UnityEngine;
+
+    public class MSelfDestroy : MonoBehaviour
+    {
+        private ParticleSystem particles;
+
+        void Start()
+        {
+            particles = GetComponent<ParticleSystem>();
+
+            if (particles != null)
+            {
+                StartCoroutine(DestroySelfOnceEffectEnds());
+            }
+            else
+            {
+                Debug.LogWarning("没有找到粒子系统组件！");
+            }
+        }
+
+        private System.Collections.IEnumerator DestroySelfOnceEffectEnds()
+        {
+            while (particles.isPlaying)
+            {
+                yield return null;
+            }
+
+            Destroy(gameObject);
+        }
+    }
+}

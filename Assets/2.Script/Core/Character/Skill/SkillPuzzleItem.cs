@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:cc43a63af1614449d37ec0d03fcdd6f25e7f6244e23531e8ab74e731ecedde49
-size 555
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class SkillPuzzleItem : SkillBehaviourTime
+{
+    [SerializeField] PuzzleItem puzzleItem;
+    public PuzzleItem PuzzleItem => puzzleItem;
+    
+    public override void Start(Character owner, object cause)
+    {
+        base.Start(owner, cause);
+       
+        Managers.Observer.UIPuzzle.RandomItem(puzzleItem);
+    }
+
+    public override void End(Character owner, object cause)
+    {
+        base.End(owner, cause);
+    }
+}

@@ -1,3 +1,32 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:805c081845e5df769852bdb3e6ef215d40f570ebed2a2a267129133f419415fc
-size 728
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+namespace CodeStage.AntiCheat.Genuine.CodeHash
+{
+	internal abstract class BaseWorker
+	{
+		public HashGeneratorResult Result { get; private set; }
+		public bool IsBusy { get; private set; }
+		
+		protected readonly int threadsCount;
+		
+		public BaseWorker(int threadsCount)
+		{
+			this.threadsCount = threadsCount;
+		}
+
+		public virtual void Execute()
+		{
+			IsBusy = true;
+		}
+
+		protected virtual void Complete(HashGeneratorResult result)
+		{
+			Result = result;
+			IsBusy = false;
+		}
+	}
+}

@@ -1,3 +1,24 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0e1148b71061347def376e3b1d9f490b148c52b19bbcf724c8d7ffcdf1de10a7
-size 637
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class SkillWeekConquer : SkillBehaviour
+{
+    [SerializeField] private SkillTargetType targetType;
+    
+    public override void Start(Character owner, object cause)
+    {
+        List<Character> targets = FindTarget(owner, cause, targetType);
+        
+        for (int i = 0; i < targets.Count; i++)
+            targets[i].WeekConquer(owner);
+        
+        End(owner, cause);
+    }
+
+    public override void End(Character owner, object cause)
+    {
+        OnEnd?.Invoke(this, owner, cause);
+    }
+}

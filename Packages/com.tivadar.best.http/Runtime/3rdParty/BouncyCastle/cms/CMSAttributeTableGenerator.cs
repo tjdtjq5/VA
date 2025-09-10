@@ -1,3 +1,28 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7cd40e43326a206709779923a041ff08dcecba5a111559a5733d8089773d02d7
-size 865
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System.Collections.Generic;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.Cms;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Cms
+{
+	/// <remarks>
+	/// The 'Signature' parameter is only available when generating unsigned attributes.
+	/// </remarks>
+	public enum CmsAttributeTableParameter
+	{
+//		const string ContentType = "contentType";
+//		const string Digest = "digest";
+//		const string Signature = "encryptedDigest";
+//		const string DigestAlgorithmIdentifier = "digestAlgID";
+
+		ContentType, Digest, Signature, DigestAlgorithmIdentifier
+	}
+
+	public interface CmsAttributeTableGenerator
+	{
+		AttributeTable GetAttributes(IDictionary<CmsAttributeTableParameter, object> parameters);
+	}
+}
+#pragma warning restore
+#endif

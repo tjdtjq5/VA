@@ -1,3 +1,30 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7d9b934831954782a1a098bb3a115eba63409e00d62ceaa0e12d1ea5c914c46c
-size 874
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities.Encoders
+{
+	/**
+	 * Encode and decode byte arrays (typically from binary to 7-bit ASCII
+	 * encodings).
+	 */
+	public interface IEncoder
+	{
+		int Encode(byte[] data, int off, int length, Stream outStream);
+
+#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER || UNITY_2021_2_OR_NEWER
+		int Encode(ReadOnlySpan<byte> data, Stream outStream);
+#endif
+
+		int Decode(byte[] data, int off, int length, Stream outStream);
+
+#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER || UNITY_2021_2_OR_NEWER
+		int Decode(ReadOnlySpan<byte> data, Stream outStream);
+#endif
+
+		int DecodeString(string data, Stream outStream);
+	}
+}
+#pragma warning restore
+#endif

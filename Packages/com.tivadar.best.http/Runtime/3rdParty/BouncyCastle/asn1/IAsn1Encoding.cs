@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1466d8f681bd4fbbad45bb7390971a243f80c84ac850777f60baeef42beab0de
-size 338
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1
+{
+    internal interface IAsn1Encoding
+    {
+        void Encode(Asn1OutputStream asn1Out);
+
+        int GetLength();
+    }
+}
+#pragma warning restore
+#endif

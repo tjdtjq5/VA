@@ -1,3 +1,31 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ecea5d42086271437296bdf1c4ce2e592f769d6c2593f9bd08c46a00ea20d09a
-size 688
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters
+{
+    public sealed class Srp6GroupParameters
+    {
+        private readonly BigInteger n, g;
+
+        public Srp6GroupParameters(BigInteger N, BigInteger g)
+        {
+            this.n = N;
+            this.g = g;
+        }
+
+        public BigInteger G
+        {
+            get { return g; }
+        }
+
+        public BigInteger N
+        {
+            get { return n; }
+        }
+    }
+}
+#pragma warning restore
+#endif

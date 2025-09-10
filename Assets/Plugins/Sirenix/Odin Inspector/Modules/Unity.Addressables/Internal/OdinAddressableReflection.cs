@@ -1,3 +1,30 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d95ce15421bf0923bbf24affead3795fb9f9653e74086c4698bd731778322cad
-size 888
+//-----------------------------------------------------------------------
+// <copyright file="OdinAddressableReflection.cs" company="Sirenix ApS">
+// Copyright (c) Sirenix ApS. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+
+#if UNITY_EDITOR
+
+#if !SIRENIX_INTERNAL
+#pragma warning disable
+#endif
+
+using System.Reflection;
+using UnityEditor.AddressableAssets.Settings;
+
+namespace Sirenix.OdinInspector.Modules.Addressables.Editor.Internal
+{
+	internal static class OdinAddressableReflection
+	{
+		public static FieldInfo AddressableAssetEntry_mGUID_Field;
+
+		static OdinAddressableReflection()
+		{
+			AddressableAssetEntry_mGUID_Field = typeof(AddressableAssetEntry).GetField("m_GUID", BindingFlags.Instance | BindingFlags.NonPublic);
+		}
+
+		internal static void EnsureConstructed() { }
+	}
+}
+#endif

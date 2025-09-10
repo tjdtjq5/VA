@@ -1,3 +1,24 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:59f0ebdb89bd81eaccad926e2a9e875d5133061f4dc83a23674eeca35ea6849e
-size 644
+﻿#if UNITY_IPHONE
+
+#region copyright
+// -------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// -------------------------------------------------------
+#endregion
+
+namespace CodeStage.AntiCheat.Storage
+{
+	using Common;
+
+	internal class VendorIdentifierException : BackgroundThreadAccessException
+	{
+		public VendorIdentifierException() : base($"{nameof(UnityEngine)}." +
+												  $"{nameof(UnityEngine.iOS)}." +
+												  $"{nameof(UnityEngine.iOS.Device)}." +
+												  $"{nameof(UnityEngine.iOS.Device.vendorIdentifier)}")
+		{
+		}
+	}
+}
+
+#endif

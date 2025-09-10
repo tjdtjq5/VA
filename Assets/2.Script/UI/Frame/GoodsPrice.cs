@@ -1,3 +1,40 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3a58d0fdd002a04348935eafbacf102d917d17301ac80a655964ca3d37c315d2
-size 825
+﻿using Shared.BBNumber;
+using UnityEngine;
+
+public class GoodsPrice : UIFrame
+{
+    protected override void Initialize()
+    {
+		Bind<UIImage>(typeof(UIImageE));
+		Bind<UIText>(typeof(UITextE));
+
+        base.Initialize();
+    }
+
+    public void UISet(string itemCode)
+    {
+	    GetImage(UIImageE.Image).sprite = Managers.Atlas.GetItem(itemCode, false);
+	    GetImage(UIImageE.Image).SetNativeSize();
+    }
+    
+    public void UISet(Sprite sprite)
+    {
+	    GetImage(UIImageE.Image).sprite = sprite;
+	    GetImage(UIImageE.Image).SetNativeSize();
+    }
+
+    public void SetCount(BBNumber count, bool isAlphabet)
+    {
+	    GetText(UITextE.Count).text = isAlphabet ? count.Alphabet() : count.ToInt().ToString(); 
+    }
+    
+	public enum UIImageE
+    {
+		OutLine,
+		Image,
+    }
+	public enum UITextE
+    {
+		Count,
+    }
+}

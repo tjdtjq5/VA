@@ -1,3 +1,28 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:eb53248899f735d13b96c5bc3c381149c7cb54c9142012555699d7a27bc3d7c4
-size 840
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+using System;
+using CodeStage.AntiCheat.Genuine.CodeHash;
+
+namespace CodeStage.AntiCheat.Utils
+{
+	internal static class ProgressExtensionMethods
+	{
+		public static void ReportPercent(this IProgress<FilesProgress> progress, ref int latestPercent, int filesChecked, long count, string currentFile)
+		{
+			if (progress == null)
+				return;
+
+			var progressPercent = (float)filesChecked / count;
+			var intPercent = (int)Math.Floor(progressPercent * 100);
+			if (latestPercent < intPercent)
+			{
+				latestPercent = intPercent;
+				progress.Report(FilesProgress.Step(latestPercent, currentFile));
+			}
+		}
+	}
+}

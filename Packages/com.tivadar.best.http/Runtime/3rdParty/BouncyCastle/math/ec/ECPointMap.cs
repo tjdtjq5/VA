@@ -1,3 +1,13 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d6f03493ccab6cea85c0bab1bf75d6d3ba4ec2346d71ab48d9a813af7f6ee390
-size 293
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Math.EC
+{
+    public interface ECPointMap
+    {
+        ECPoint Map(ECPoint p);
+    }
+}
+#pragma warning restore
+#endif

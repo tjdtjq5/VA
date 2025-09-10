@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:94b5f38fca8dcfe006ffb940211f28d7d0248578f32490a925580c0ee330bc37
-size 622
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
+{
+    public interface IEncapsulatedSecretGenerator
+    {
+        /// <summary>
+        /// Generate an exchange pair based on the recipient public key.
+        /// </summary>
+        /// <param name="recipientKey"></param>
+        /// <returns> An SecretWithEncapsulation derived from the recipient public key.</returns>
+        ISecretWithEncapsulation GenerateEncapsulated(AsymmetricKeyParameter recipientKey);
+    }
+}
+#pragma warning restore
+#endif

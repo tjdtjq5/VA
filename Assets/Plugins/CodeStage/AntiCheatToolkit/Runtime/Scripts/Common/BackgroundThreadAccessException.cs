@@ -1,3 +1,21 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6c42c9af493912c2c5fd36b2ee4d6bafcddddef102ded7c86224bb6dd42d769a
-size 601
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+namespace CodeStage.AntiCheat.Common
+{
+	using System;
+	
+	internal class BackgroundThreadAccessException : Exception
+	{
+		public string AccessedApi { get; }
+		
+		public BackgroundThreadAccessException(string apiName):base($"Attempt {apiName} access from non-main thread! " +
+										  "This API can't be accessed from child threads.")
+		{
+			AccessedApi = apiName;
+		}
+	}
+}

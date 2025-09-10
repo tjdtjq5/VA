@@ -1,3 +1,37 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3f42e2b606f2dee3ed4c6e287e3ed98ed173034f7ad435e2a3e81d1ca2133d9e
-size 1180
+﻿using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.Networking;
+
+namespace Assets.SimpleSignIn.Apple.Scripts
+{
+    public static class Extensions
+    {
+        public static TaskAwaiter GetAwaiter(this AsyncOperation asyncOp)
+        {
+            var tcs = new TaskCompletionSource<AsyncOperation>();
+
+            asyncOp.completed += operation => { tcs.SetResult(operation); };
+
+            return ((Task) tcs.Task).GetAwaiter();
+        }
+
+        public static string GetError(this UnityWebRequest request)
+        {
+            if (request.result == UnityWebRequest.Result.Success) return null;
+
+            var error = request.error;
+
+            if (error == "Cannot resolve destination host" || error == "Cannot connect to destination host") return $"{error}: {request.uri.Host}";
+
+            if (request.downloadHandler != null && !string.IsNullOrEmpty(request.downloadHandler.text))
+            {
+                error = $"{error}: {request.downloadHandler.text}";
+            }
+
+            if (!error.EndsWith('.')) error += '.';
+
+            return error;
+        }
+    }
+}

@@ -1,3 +1,30 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3d74b10fbb4483b3ad860c6d59fefe0eb3e376676ffa2a6e7a0c7cb1782adde4
-size 997
+using UnityEditor.Callbacks;
+using UnityEditor;
+using System.Collections.Generic;
+
+public class BuildLog
+{
+    static BuildOptionFile buildOptionFile = new BuildOptionFile();
+    static string _buildLog = "BuildLog";
+
+    [PostProcessBuild]
+    public static void OnPostprocessBuild(BuildTarget target, string pathToBuiltProject)
+    {
+        BuildLogDatas BuildLogDatas = buildOptionFile.Read<BuildLogDatas>(_buildLog);
+
+        string title = $"{target}";
+
+        if (target == BuildTarget.Android)
+        {
+            if (EditorUserBuildSettings.buildAppBundle)
+                title += $".aab";
+            else
+                title += $".apk";
+        }
+        else if (target == BuildTarget.iOS)
+            title += $".xcode";
+
+        BuildLogDatas.Datas.Add(new BuildLogData(title, PlayerSettings.bundleVersion, PlayerSettings.Android.bundleVersionCode, GameOptionManager.ServerUrlType));
+        buildOptionFile.Add(_buildLog, BuildLogDatas);
+    }
+}

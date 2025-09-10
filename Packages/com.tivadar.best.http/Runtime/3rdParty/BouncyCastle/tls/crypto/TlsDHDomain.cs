@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:842837c5a120622bc9906d956bb3c7855eecc20d848e1fc861c848e14439c0a2
-size 559
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto
+{
+    /// <summary>Domain interface to service factory for creating Diffie-Hellman operators.</summary>
+    public interface TlsDHDomain
+    {
+        /// <summary>Return an agreement operator suitable for ephemeral Diffie-Hellman.</summary>
+        /// <returns>a key agreement operator.</returns>
+        TlsAgreement CreateDH();
+    }
+}
+#pragma warning restore
+#endif

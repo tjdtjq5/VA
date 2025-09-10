@@ -1,3 +1,72 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:399215e4a55e08aab08a0610ffe252ae3b7655d8e6eaf1c47f1e1b5bd29125be
-size 1861
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters
+{
+    public class DsaPublicKeyParameters
+		: DsaKeyParameters
+    {
+        private static BigInteger Validate(BigInteger y, DsaParameters parameters)
+        {
+            // we can't validate without params, fortunately we can't use the key either...
+            if (parameters != null)
+            {
+                if (y.CompareTo(BigInteger.Two) < 0
+                    || y.CompareTo(parameters.P.Subtract(BigInteger.Two)) > 0
+                    || !y.ModPow(parameters.Q, parameters.P).Equals(BigInteger.One))
+                {
+                    throw new ArgumentException("y value does not appear to be in correct group");
+                }
+            }
+
+            return y;
+        }
+
+        private readonly BigInteger y;
+
+		public DsaPublicKeyParameters(
+            BigInteger		y,
+            DsaParameters	parameters)
+			: base(false, parameters)
+        {
+			if (y == null)
+				throw new ArgumentNullException("y");
+
+			this.y = Validate(y, parameters);
+        }
+
+		public BigInteger Y
+        {
+            get { return y; }
+        }
+
+		public override bool Equals(object obj)
+        {
+			if (obj == this)
+				return true;
+
+			DsaPublicKeyParameters other = obj as DsaPublicKeyParameters;
+
+			if (other == null)
+				return false;
+
+			return Equals(other);
+        }
+
+		protected bool Equals(
+			DsaPublicKeyParameters other)
+		{
+			return y.Equals(other.y) && base.Equals(other);
+		}
+
+		public override int GetHashCode()
+        {
+			return y.GetHashCode() ^ base.GetHashCode();
+        }
+    }
+}
+#pragma warning restore
+#endif

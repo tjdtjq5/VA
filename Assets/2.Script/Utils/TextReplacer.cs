@@ -1,3 +1,48 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:200f4f3308dc885d10a5a2fd21ae801b8bd90a2ae001043efcd772ea920b96d7
-size 1575
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public static class TextReplacer
+{
+    public static string Replace(string text, IReadOnlyDictionary<string, string> textsByKeyword)
+    {
+        if (textsByKeyword != null)
+        {
+            foreach (var pair in textsByKeyword)
+                text = text.Replace($"$[{pair.Key}]", pair.Value);
+        }
+        return text;
+    }
+
+    public static string Replace(string text, string prefixKeyword, IReadOnlyDictionary<string, string> textsByKeyword)
+    {
+        if (textsByKeyword != null)
+        {
+            foreach (var pair in textsByKeyword)
+                text = text.Replace($"$[{prefixKeyword}.{pair.Key}]", pair.Value);
+        }
+        return text;
+    }
+
+    public static string Replace(string text, IReadOnlyDictionary<string, string> textsByKeyword, string suffixKeyword)
+    {
+        if (textsByKeyword != null)
+        {
+            foreach (var pair in textsByKeyword)
+                text = text.Replace($"$[{pair.Key}.{suffixKeyword}]", pair.Value);
+        }
+        return text;
+    }
+
+    public static string Replace(string text, string prefixKeyword, IReadOnlyDictionary<string, string> textsByKeyword, string suffixKeyword)
+    {
+        if (textsByKeyword != null)
+        {
+            foreach (var pair in textsByKeyword)
+                text = text.Replace($"$[{prefixKeyword}.{pair.Key}.{suffixKeyword}]", pair.Value);
+        }
+        return text;
+    }
+}

@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a6d116bd8410d8ea41f9213cc5b8ade59adf5c4b22379bd1bff75ed830934143
-size 539
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    /// <summary>Base interface for interfaces/classes carrying TLS credentials.</summary>
+    public interface TlsCredentials
+    {
+        /// <summary>Return the certificate structure representing our identity.</summary>
+        /// <returns>our certificate structure.</returns>
+		Certificate Certificate { get; }
+    }
+}
+#pragma warning restore
+#endif

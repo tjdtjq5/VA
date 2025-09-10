@@ -1,3 +1,20 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:060db89d4a4b9e8096518222911d67c451e8388cfc03ba80c0c324ed4bb6eab5
-size 488
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    /// <summary>Processor interface for a PSK identity.</summary>
+    public interface TlsPskIdentity
+    {
+        void SkipIdentityHint();
+
+        void NotifyIdentityHint(byte[] psk_identity_hint);
+
+        byte[] GetPskIdentity();
+
+        byte[] GetPsk();
+    }
+}
+#pragma warning restore
+#endif

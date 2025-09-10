@@ -1,3 +1,39 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:15af068dd24df644739f34e773d5907152a0f44fc3a6edeaae7591a64a495ccd
-size 996
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.Cmp
+{
+    /**
+     * NestedMessageContent ::= PKIMessages
+     */
+    public class NestedMessageContent
+        : PkiMessages
+    {
+        public static new NestedMessageContent GetInstance(object obj)
+        {
+            if (obj is NestedMessageContent nestedMessageContent)
+                return nestedMessageContent;
+
+            if (obj != null)
+                return new NestedMessageContent(Asn1Sequence.GetInstance(obj));
+
+            return null;
+        }
+
+        public NestedMessageContent(PkiMessage msg)
+            : base(msg)
+        {
+        }
+
+        public NestedMessageContent(PkiMessage[] msgs)
+            : base(msgs)
+        {
+        }
+
+        public NestedMessageContent(Asn1Sequence seq)
+            : base(seq)
+        {
+        }
+    }
+}
+#pragma warning restore
+#endif

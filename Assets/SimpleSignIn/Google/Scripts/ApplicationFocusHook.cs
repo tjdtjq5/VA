@@ -1,3 +1,38 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:8fc2092c95543f9216be5000462f14f31662d140f00e0b5e1c8b032ba1acfcc0
-size 949
+﻿using System;
+using UnityEngine;
+
+namespace Assets.SimpleSignIn.Google.Scripts
+{
+    public class ApplicationFocusHook : MonoBehaviour
+    {
+        private static ApplicationFocusHook _instance;
+        private Action _callback;
+
+        public static void Create(Action callback)
+        {
+            if (_instance == null)
+            {
+                _instance = new GameObject(nameof(ApplicationFocusHook)).AddComponent<ApplicationFocusHook>();
+            }
+
+            _instance._callback = callback;
+        }
+
+        public static void Cancel()
+        {
+            if (_instance == null) return;
+
+            Destroy(_instance.gameObject);
+            _instance = null;
+        }
+
+        public void OnApplicationFocus(bool focus)
+        {
+            if (focus && _callback != null)
+            {
+                _callback();
+                _callback = null;
+            }
+        }
+    }
+}

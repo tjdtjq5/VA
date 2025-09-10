@@ -1,3 +1,21 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:90e9bb847076938e17f89a7d778c165ba7040fa4e2205f558e3856825d1f9c8a
-size 873
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.EdEC
+{
+    /**
+     * Edwards Elliptic Curve Object Identifiers (RFC 8410)
+     */
+    public abstract class EdECObjectIdentifiers
+    {
+        public static readonly DerObjectIdentifier id_edwards_curve_algs = new DerObjectIdentifier("1.3.101");
+
+        public static readonly DerObjectIdentifier id_X25519 = id_edwards_curve_algs.Branch("110");
+        public static readonly DerObjectIdentifier id_X448 = id_edwards_curve_algs.Branch("111");
+        public static readonly DerObjectIdentifier id_Ed25519 = id_edwards_curve_algs.Branch("112");
+        public static readonly DerObjectIdentifier id_Ed448 = id_edwards_curve_algs.Branch("113");
+    }
+}
+#pragma warning restore
+#endif

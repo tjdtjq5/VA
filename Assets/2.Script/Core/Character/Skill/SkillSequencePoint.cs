@@ -1,3 +1,55 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ccd0a0096c011f61e38bc10332b08c293b661ba57961c2f76141fe6a27cfde91
-size 1617
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class SkillSequencePoint : SkillBehaviour
+{
+    [SerializeField] SkillSequencePointType type;
+    [SerializeField] private int value;
+    
+    public override void Start(Character owner, object cause)
+    {
+        switch (type)
+        {
+            case SkillSequencePointType.Default:
+                owner.Stats.sequenceStat.DefaultValue += value;
+                break;
+            case SkillSequencePointType.Combo:
+                
+                if (cause != null && cause is CharacterApplyAttack)
+                {
+                    CharacterApplyAttack caa = (CharacterApplyAttack)cause;
+
+                    if (caa.cause is PuzzleAttackData)
+                    {
+                        PuzzleAttackData pad = (PuzzleAttackData)caa.cause;
+                        int combo = pad.combo;
+                        owner.Stats.sequenceStat.DefaultValue += combo * value;
+                    }
+                }
+                break;
+        }
+        
+        End(owner, cause);
+    }
+
+    public override void End(Character owner, object cause)
+    {
+        OnEnd?.Invoke(this, owner, cause);
+    }
+    
+    public override Dictionary<string, string> StringsByKeyword(string preface)
+    {
+        var stringsByKeyword = base.StringsByKeyword(preface);
+        stringsByKeyword.Add($"{preface}Value", value.ToString());
+        return stringsByKeyword;
+    }
+}
+
+public enum SkillSequencePointType
+{
+    Default,
+    Combo,
+}

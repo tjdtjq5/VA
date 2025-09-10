@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9621350ebb9063b6c0e93c3be0aee1bbb6bb8fd6b588b292139291e8e3cdfeb1
-size 702
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
+{
+    private static T instance;
+    private static bool isQuitting;
+
+    public static T Instance
+    {
+        get
+        {
+            // Find에 FindObjectsInactive.Include를 인자로 주어 active가 꺼진 객체라도 찾아옴
+            if (instance == null && !isQuitting)
+                instance = FindFirstObjectByType<T>(FindObjectsInactive.Include) ?? new GameObject(typeof(T).Name).AddComponent<T>();
+            return instance;
+        }
+    }
+
+    protected virtual void OnApplicationQuit() => isQuitting = true;
+}

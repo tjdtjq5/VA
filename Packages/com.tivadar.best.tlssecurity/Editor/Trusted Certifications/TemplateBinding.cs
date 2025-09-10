@@ -1,3 +1,27 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6371bda820e07febcd5e272c800cf76694281d93ec4df5de8f2cd8417bfd6053
-size 698
+﻿using UnityEngine;
+
+namespace Best.TLSSecurity.Editor
+{
+    public sealed class TemplateBinding : ScriptableObject
+    {
+        public string header;
+
+        public string originalURL;
+        public string URL;
+        public bool clearBeforeDownload = true;
+        public bool keepCustomCertificates = true;
+
+        public string status;
+        public int count;
+        public string certificateStats;
+
+        public int MaxSubjectKeyIdentifierLength = 40;
+        public int MinLengthToSearch = 3;
+
+        public string MetadataExtension;
+        public string DatabaseExtension;
+        public string HashExtension;
+
+        public string HelpURL;
+    }
+}

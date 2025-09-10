@@ -1,3 +1,35 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7643c92b77cc2f0349f39f1b387737b1d1c9a44e76d22c8765474f801c6d8184
-size 974
+using System;
+using Shared.Define;
+
+public class LoginService
+{
+    public static void AtLogin(Action callback, Action expireCallback)
+    {
+        AutoLogin.Login(callback, expireCallback);
+    }
+    public static void Login(ProviderType providerType, Action callback)
+    {
+        ProviderLogin(providerType, callback);
+    }
+    static void ProviderLogin(ProviderType providerType, Action callback)
+    {
+        switch (providerType)
+        {
+            case ProviderType.Guest:
+                GuestLogin.Login(callback);
+                break;
+            case ProviderType.Google:
+                GoogleLogin.Login(callback);
+                break;
+            case ProviderType.Apple:
+                AppleLogin.Login(callback);
+                break;
+            default:
+                break;
+        }
+    }
+    public static void TestLogin(string id, Action callback)
+    {
+        GuestLogin.Login(id, callback);
+    }
+}

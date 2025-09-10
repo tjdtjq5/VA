@@ -1,3 +1,18 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:96f580d67e73614c4cdd0c7f3fbe189e10b941805bffb85fa5cb8f54743390d8
-size 507
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.X509;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crmf
+{
+    public interface IPKMacPrimitivesProvider   
+    {
+	    IDigest CreateDigest(AlgorithmIdentifier digestAlg);
+
+        IMac CreateMac(AlgorithmIdentifier macAlg);
+    }
+}
+#pragma warning restore
+#endif

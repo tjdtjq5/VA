@@ -1,3 +1,29 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:116cc001e0a8311a6b8c290416c687dece905879b6bbfd86d5383f625d2ce78a
-size 650
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class UIInGameSlotMachineCard : UICard
+{
+    protected override void Initialize()
+    {
+		Bind<UIImage>(typeof(UIImageE));
+
+        base.Initialize();
+    }
+    public override void Setting(ICardData data)
+    {
+        UIInGameSlotMachineCardData cardData = (UIInGameSlotMachineCardData)data;
+
+        GetImage(UIImageE.Icon).sprite = cardData.SkillOrBuff.Icon;
+        GetImage(UIImageE.Icon).SetNativeSize();
+    }
+	public enum UIImageE
+    {
+		Icon,
+    }
+}
+
+public class UIInGameSlotMachineCardData : ICardData
+{
+    public IdentifiedObject SkillOrBuff;
+}

@@ -1,3 +1,128 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f26bf5d4a2110936c09ca654cd7280e4420c75cf7051501c1d83bffd5087e3e7
-size 3654
+using System;
+using UnityEngine;
+using Assets.SimpleSignIn.Google.Scripts;
+using Shared.DTOs.Account;
+using Shared.Define;
+using Shared.CSharp;
+
+public static class GoogleLogin
+{
+    static public GoogleAuth GoogleAuth;
+    static string AutoJwtToken
+    {
+        get
+        {
+            return PlayerPrefsHelper.GetString_H(PlayerPrefsKey.auto_login_jwt_token);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_jwt_token, value);
+        }
+    }
+    static ProviderType AutoProviderType
+    {
+        get
+        {
+            int value = PlayerPrefsHelper.GetInt_H(PlayerPrefsKey.auto_login_provider);
+            return (ProviderType)CSharpHelper.EnumClamp<ProviderType>(value, true);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_provider, (int)value);
+        }
+    }
+    static int AutoAccountId
+    {
+        get
+        {
+            return PlayerPrefsHelper.GetInt_H(PlayerPrefsKey.auto_login_account_id);
+        }
+        set
+        {
+            PlayerPrefsHelper.Set_H(PlayerPrefsKey.auto_login_account_id, value);
+        }
+    }
+
+    static Action _callback;
+
+    static bool isInit = false;
+    static public void Initialize()
+    {
+        if (isInit)
+        {
+            return;
+        }
+        isInit = true;
+
+        GoogleAuth = new GoogleAuth();
+        GoogleAuth.DebugLog = false;
+        GoogleAuth.TryResume(OnSignIn, OnGetTokenResponse);
+    }
+    static public void Login(Action callback)
+    {
+        Initialize();
+
+        _callback = callback;
+
+        SignIn();
+    }
+    static public void SignIn()
+    {
+        GoogleAuth.SignIn(OnSignIn, caching: true);
+    }
+    static public void SignOut()
+    {
+        GoogleAuth.SignOut(revokeAccessToken: true);
+    }
+    static public void GetAccessToken()
+    {
+        GoogleAuth.GetTokenResponse(OnGetTokenResponse);
+    }
+    static private void OnSignIn(bool success, string error, UserInfo userInfo)
+    {
+        if (success)
+        {
+            UnityHelper.Log_H(userInfo.sub);
+            AccountLoginRequest req = new AccountLoginRequest()
+            {
+                ProviderType = ProviderType.Google,
+                NetworkIdOrCode = $"[{ProviderType.Google.ToString()}]{userInfo.email}",
+            };
+
+            Managers.Web.SendPostRequest<AccountLoginResponce>("account/login", req, (res) =>
+            {
+                Managers.Web.JwtToken = res.JwtAccessToken;
+                Managers.Web.AccountId = res.AccountId;
+
+                AutoJwtToken = res.JwtAccessToken;
+                AutoProviderType = ProviderType.Apple;
+                AutoAccountId = res.AccountId;
+
+                if (_callback != null)
+                    _callback.Invoke();
+            });
+        }
+        else
+            UnityHelper.Log_H(error);
+    }
+    static private void OnGetTokenResponse(bool success, string error, TokenResponse tokenResponse)
+    {
+        UnityHelper.Log_H(success ? $"Access token: {tokenResponse.AccessToken}" : error);
+
+        if (!success) return;
+
+        var jwt = new JWT(tokenResponse.IdToken);
+
+        UnityHelper.Log_H($"JSON Web Token (JWT) Payload: {jwt.Payload}");
+
+        jwt.ValidateSignature(GoogleAuth.ClientId, OnValidateSignature);
+    }
+    static private void OnValidateSignature(bool success, string error)
+    {
+        UnityHelper.Log_H(success ? "JWT signature validated" : error);
+    }
+    static public void Navigate(string url)
+    {
+        Application.OpenURL(url);
+    }
+}

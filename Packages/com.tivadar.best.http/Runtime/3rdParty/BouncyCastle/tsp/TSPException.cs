@@ -1,3 +1,34 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0a4b530433054ee83329a889fdf7e027038f59a38571fa507aa954639511b37f
-size 666
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.Runtime.Serialization;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tsp
+{
+    [Serializable]
+    public class TspException
+		: Exception
+	{
+		public TspException()
+			: base()
+		{
+		}
+
+		public TspException(string message)
+			: base(message)
+		{
+		}
+
+		public TspException(string message, Exception innerException)
+			: base(message, innerException)
+		{
+		}
+
+		protected TspException(SerializationInfo info, StreamingContext context)
+			: base(info, context)
+		{
+		}
+	}
+}
+#pragma warning restore
+#endif

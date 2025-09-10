@@ -1,3 +1,35 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:01dd042d1c9d24ba618141ffdb4e18030e9cd7e66c2d2003abd1e129acc17bda
-size 593
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class TutorialContents : MonoBehaviour
+{
+
+    protected int Index => _index;
+
+    private int _index;
+
+    public virtual void Initialize() { }
+
+    public virtual void Set(int index)
+    {
+        _index = index;
+    }
+
+    public void Left()
+    {
+        if (_index > 0)
+        {
+            _index--;
+            Set(_index);
+        }
+    }
+
+    public void Right()
+    {
+        _index++;
+        Set(_index);
+    }
+
+    public virtual void Clear() { }
+}

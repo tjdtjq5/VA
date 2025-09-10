@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:bc7dc14c038829c90c3c8b1610225d075a242a0ce5532966152209874c2cbaa1
-size 437
+using System;
+
+public interface ITween
+{
+    void Update();
+    void OnCompleteKill();
+    void FullKill();
+    bool IsTargetDestroyed();
+    void Pause();
+    void Resume();
+    object Target { get; }
+    bool IsComplete { get; }
+    bool WasKilled { get; }
+    bool IsPaused { get; }
+    bool IgnoreTimeScale { get; }
+    string Identifier { get; }
+    float DelayTime { get; }
+    Action OnComplete { get; set; }
+}

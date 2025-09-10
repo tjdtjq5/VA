@@ -1,3 +1,42 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d4686724241dbedab41d0fe2595e324ba14c97260658134a265a253ac7488361
-size 961
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+namespace CodeStage.AntiCheat.Genuine.CodeHash
+{
+	using System;
+	using System.IO;
+	using System.Security.Cryptography;
+	
+	/// <summary>
+	/// Just an Utility class to make it easier to work with SHA1.
+	/// </summary>
+	/// Not intended for usage from user code,
+	/// touch at your peril since API can change and break backwards compatibility!
+	public class SHA1Wrapper : IDisposable
+	{
+		private readonly SHA1Managed sha1;
+
+		public SHA1Wrapper()
+		{
+			sha1 = new SHA1Managed();
+		}
+
+		public byte[] ComputeHash(Stream stream)
+		{
+			return sha1.ComputeHash(stream);
+		}
+
+		public byte[] ComputeHash(byte[] bytes)
+		{
+			return sha1.ComputeHash(bytes);
+		}
+
+		public void Dispose()
+		{
+			sha1?.Dispose();
+		}
+	}
+}

@@ -1,3 +1,12 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ab6407c3679d65f8a0422e2b2be910d83e16b1fe9fbaac7e2ea4e9e020936c89
-size 593
+using System;
+/// <summary> Overrides the ValueType of the Port, to have a ValueType different from the type of its serializable field </summary>
+/// <remarks> Especially useful in Dynamic Port Lists to create Value-Port Pairs with different type. </remarks>
+[AttributeUsage(AttributeTargets.Field)]
+public class PortTypeOverrideAttribute : Attribute {
+    public Type type;
+    /// <summary> Overrides the ValueType of the Port </summary>
+    /// <param name="type">ValueType of the Port</param>
+    public PortTypeOverrideAttribute(Type type) {
+        this.type = type;
+    }
+}

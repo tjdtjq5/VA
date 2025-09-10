@@ -1,3 +1,47 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f06e25cb73f25a2f3e39149376aedefe08fa1e8d223394bcc268b1875960a379
-size 1481
+using Shared.CSharp;
+using UnityEditor;
+using UnityEngine;
+
+public class ServerEditor
+{
+    static SecretOptionFile secretFileTxt = new SecretOptionFile();
+
+    [MenuItem("Server/LocalhostStart")]
+    public static void LocalhostStart()
+    {
+        FileHelper.ProcessStart(secretFileTxt.Read("LocalhostStartPath"));
+    }
+    [MenuItem("Server/ServerSlnFile")]
+    public static void ServerSlnFile()
+    {
+        FileHelper.ProcessStart(secretFileTxt.Read("ServerSlnPath"));
+    }
+    [MenuItem("Server/NgrokStart")]
+    public static void NgrokStart()
+    {
+        FileHelper.ProcessStart(secretFileTxt.Read("NgrokPath"));
+    }
+    [MenuItem("Server/DefineCopyStart")]
+    public static void DefineCopyStart()
+    {
+        FileHelper.ProcessStart(secretFileTxt.Read("DefineCopyPath"));
+    }
+    public static void StartServer()
+    {
+        // ���� ���� 
+        switch (GameOptionManager.ServerUrlType)
+        {
+            case ServerUrlType.DebugUrl:
+                FileHelper.ProcessStart(secretFileTxt.Read("ServerSlnPath"));
+                break;
+            case ServerUrlType.LocalhostUrl:
+                FileHelper.ProcessStart(secretFileTxt.Read("LocalhostStartPath"));
+                break;
+            case ServerUrlType.DebugNgrok:
+                FileHelper.ProcessStart(secretFileTxt.Read("NgrokPath"));
+                break;
+            default:
+                break;
+        }
+    }
+}

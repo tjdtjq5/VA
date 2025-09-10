@@ -1,3 +1,36 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c3174f7b96cf298cfa2c385b7c781cea5c19904af67a339248661095273992e6
-size 982
+﻿#region copyright
+// -------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// -------------------------------------------------------
+#endregion
+
+using CodeStage.AntiCheat.Detectors;
+using UnityEngine;
+
+namespace CodeStage.AntiCheat.ObscuredTypes
+{
+	public partial class ObscuredString : ISerializationCallbackReceiver
+	{
+		public void OnBeforeSerialize() { /* not used */ }
+		public void OnAfterDeserialize()
+		{
+			if (IsDefault())
+			{
+				fakeValue = default;
+			}
+			else 
+			{
+				if (cryptoKey == null || cryptoKey.Length == 0)
+				{
+					cryptoKey = InitKey();
+					
+					if (hiddenChars != null && hiddenChars.Length > 0) // workaround for regression introduced in 2024.x and fixed in 2024.3.2
+						hiddenChars = Encrypt(hiddenChars, cryptoKey);
+				}
+
+				if (ObscuredCheatingDetector.IsRunningInHoneypotMode)
+					fakeValue = Decrypt(hiddenChars, cryptoKey);
+			}
+		}
+	}
+}

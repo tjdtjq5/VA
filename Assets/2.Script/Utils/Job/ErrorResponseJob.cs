@@ -1,3 +1,18 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:960441e7faa82f99e0f648c48dbe0bf9c1b8204a6f132a12bc5aaf225b74f6fc
-size 426
+using Shared.Define;
+
+public class ErrorResponseJob
+{
+    public HttpResponceMessageType _messageType { get; set; }
+    public Job _job;
+
+    public ErrorResponseJob(HttpResponceMessageType type)
+    {
+        this._messageType = type;
+        this._job = null;
+    }
+    public ErrorResponseJob(HttpResponceMessageType type, Job job)
+    {
+        this._messageType = type;
+        this._job = job;
+    }
+}

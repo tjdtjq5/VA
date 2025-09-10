@@ -1,3 +1,42 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:96d05e4e11283ad7f42ca94ddd76406b2e0c0ec57a002a8b42851e2ae8740728
-size 1067
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Spine.Unity;
+
+public class TutorialContentsStun : TutorialContents
+{
+    [SerializeField] SkeletonGraphic _skeletonGraphic;
+    [SerializeField] Week _week;
+    [SerializeField] ParticleSystem _stunEffect;
+
+    private SpineAniController _spineAniController;
+
+    private readonly string _idleAnimationName = "idle";
+    private readonly string _hitAnimationName = "hit";
+    private readonly string _faintAnimationName = "Fainting";
+
+    public override void Initialize()
+    {
+        _spineAniController = _skeletonGraphic.Initialize();
+    }
+
+    public override void Set(int index)
+    {
+        base.Set(index);
+        Clear();
+
+        switch (Index)
+        {
+            case 0:
+                _spineAniController.Play(_faintAnimationName, true);
+                _stunEffect.Play();
+                _week.Faint();
+                break;
+        }
+    }
+
+    public override void Clear()
+    {
+        _stunEffect.Stop();
+    }
+}

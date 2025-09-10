@@ -1,3 +1,55 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0185efc6512b037de0a6a0c358df2a94618175c7c654168272b37314ec37a753
-size 1161
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+using System;
+
+namespace CodeStage.AntiCheat.Genuine.CodeHash
+{
+	internal struct FilesProgress
+	{
+#if UNITY_EDITOR
+		private float progress;
+		private string fileName;
+#endif
+
+		public static FilesProgress Step(float progress, string fileName)
+		{
+			return new FilesProgress
+			{
+#if UNITY_EDITOR
+				progress = progress,
+				fileName = fileName
+#endif
+			};
+		}
+		
+		public static FilesProgress None()
+		{
+			return new FilesProgress
+			{
+#if UNITY_EDITOR
+				progress = -1,
+				fileName = null
+#endif
+			};
+		}
+
+		public static IProgress<FilesProgress> CreateNew(string header)
+		{
+			return new Progress<FilesProgress>(value =>
+			{
+#if UNITY_EDITOR
+				if (value.progress >= 0)
+					UnityEditor.EditorUtility.DisplayProgressBar($"{header} {value.progress}%", $"{value.fileName} done",
+						value.progress);
+				else
+					UnityEditor.EditorUtility.ClearProgressBar();
+#endif
+				
+			});
+		}
+	}
+}

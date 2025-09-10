@@ -1,3 +1,25 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:693d747a2193d33ebcce58e8bc29dfcf1eb65ecc8753a30c735f3b156dd5e45b
-size 723
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class BuffHpRecovery : BuffBehaviour
+{
+    [SerializeField, Range(0f, 100f)] float hpRecoveryValue;
+    
+    public override void OnStart(Character useCharacter, Character takeCharacter, object cause)
+    {
+        takeCharacter.HpRecovery(hpRecoveryValue * 0.01f);
+    }
+
+    public override void OnEnd(Character useCharacter, Character takeCharacter, object cause)
+    {
+    }
+
+    public override Dictionary<string, string> StringsByKeyword(string preface)
+    {
+        return new Dictionary<string, string>()
+        {
+            { $"{preface}HpRecoveryValue", hpRecoveryValue.ToString() }
+        };
+    }
+}

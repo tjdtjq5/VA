@@ -1,3 +1,57 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:619716348ee64695d1e2fe7243d6cc2d252345568a433a4763952da958df64c4
-size 1233
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters
+{
+    public class ElGamalPublicKeyParameters
+		: ElGamalKeyParameters
+    {
+        private readonly BigInteger y;
+
+		public ElGamalPublicKeyParameters(
+            BigInteger			y,
+            ElGamalParameters	parameters)
+			: base(false, parameters)
+        {
+			if (y == null)
+				throw new ArgumentNullException("y");
+
+			this.y = y;
+        }
+
+		public BigInteger Y
+        {
+            get { return y; }
+        }
+
+		public override bool Equals(
+            object obj)
+        {
+			if (obj == this)
+				return true;
+
+			ElGamalPublicKeyParameters other = obj as ElGamalPublicKeyParameters;
+
+			if (other == null)
+				return false;
+
+			return Equals(other);
+        }
+
+		protected bool Equals(
+			ElGamalPublicKeyParameters other)
+		{
+			return y.Equals(other.y) && base.Equals(other);
+		}
+
+		public override int GetHashCode()
+        {
+			return y.GetHashCode() ^ base.GetHashCode();
+        }
+    }
+}
+#pragma warning restore
+#endif

@@ -1,3 +1,20 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e71c42490f5af80a2900cf7b4d37fa419446354bbd06d65f5b9cedf97527ecb4
-size 617
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(menuName = "Sequence/PrefabAniPlay", fileName = "PrefabAniPlay")]
+public class SequenceActionPrefabAniPlay : SequenceAction
+{
+    [SerializeField] private AniPlay prefab;
+    
+    public override IEnumerator StartSequence(Sequencer context)
+    {
+        AniPlay aniPlay = Managers.Resources.Instantiate<AniPlay>(prefab);
+        aniPlay.Play();
+
+        float time = aniPlay.AniController.GetClipLength("play");
+        
+        if(isWait)
+            yield return new WaitForSeconds(time);
+    }
+}

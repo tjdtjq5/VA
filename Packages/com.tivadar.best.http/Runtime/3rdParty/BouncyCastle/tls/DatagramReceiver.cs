@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1d09c612b2112e370bcc53eab59b4fdb4abf0af079b8acf75c083d662ec9167e
-size 668
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    public interface DatagramReceiver
+    {
+        /// <exception cref="IOException"/>
+        int GetReceiveLimit();
+
+        /// <exception cref="IOException"/>
+        int Receive(byte[] buf, int off, int len, int waitMillis);
+
+#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER || UNITY_2021_2_OR_NEWER
+        /// <exception cref="IOException"/>
+        int Receive(Span<byte> buffer, int waitMillis);
+#endif
+    }
+}
+#pragma warning restore
+#endif

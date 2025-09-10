@@ -1,3 +1,17 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a6ab7ef634662cd7ed892c56a76ad7120e9a3e65f30d42a272a8e3df83590a8c
-size 306
+using UnityEngine;
+using System.Collections;
+
+namespace EpicToonFX
+{
+
+	public class ETFXPitchRandomizer : MonoBehaviour
+	{
+	
+		public float randomPercent = 10;
+	
+		void Start ()
+		{
+        transform.GetComponent<AudioSource>().pitch *= 1 + Random.Range(-randomPercent / 100, randomPercent / 100);
+		}
+	}
+}

@@ -1,3 +1,31 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7692bdef9327dca248dde8d6ba09b9efc7fcf6c794df7e9fa92bded5ca808a94
-size 771
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Sequencer : MonoBehaviour
+{
+    public Action OnSequencerEnd; 
+    public List<SequenceAction> SequencesActions = new();
+
+    private void Awake()
+    {
+        for (int i = 0; i < SequencesActions.Count; i++)
+            SequencesActions[i].Initialize(this.gameObject);
+    }
+
+    public void Excute()
+    {
+        StartCoroutine(ExcuteSequenceCoroutine());
+    }
+
+    private IEnumerator ExcuteSequenceCoroutine()
+    {
+        for (int i = 0; i < SequencesActions.Count; i++)
+        {
+            yield return StartCoroutine(SequencesActions[i].StartSequence(this));
+        }
+        
+        OnSequencerEnd?.Invoke();
+    }
+}

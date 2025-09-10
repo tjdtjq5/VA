@@ -1,3 +1,17 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:25ecff09bfd2f4decb8f757f9bf58e0b1ba26a272354476e94efa8fb276ff91e
-size 459
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.Anssi
+{
+    public sealed class AnssiObjectIdentifiers
+    {
+        private AnssiObjectIdentifiers()
+        {
+        }
+
+        public static readonly DerObjectIdentifier FRP256v1 = new DerObjectIdentifier("1.2.250.1.223.101.256.1");
+    }
+}
+#pragma warning restore
+#endif

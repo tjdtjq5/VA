@@ -1,3 +1,42 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:12acd17fd7551051defa33828ea95266ae7cb504a82d9507b28162172087904b
-size 1031
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.Runtime.Serialization;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities
+{
+	/**
+     * Exception to be thrown on a failure to reset an object implementing Memoable.
+     * <p>
+     * The exception extends InvalidCastException to enable users to have a single handling case,
+     * only introducing specific handling of this one if required.
+     * </p>
+     */
+	[Serializable]
+	public class MemoableResetException
+        : InvalidCastException
+    {
+		public MemoableResetException()
+			: base()
+		{
+		}
+
+		public MemoableResetException(string message)
+			: base(message)
+		{
+		}
+
+		public MemoableResetException(string message, Exception innerException)
+			: base(message, innerException)
+		{
+		}
+
+		protected MemoableResetException(SerializationInfo info, StreamingContext context)
+			: base(info, context)
+		{
+		}
+	}
+}
+
+#pragma warning restore
+#endif

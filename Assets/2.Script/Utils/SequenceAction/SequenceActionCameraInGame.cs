@@ -1,3 +1,18 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:cc796c7b04ae0006c6e8d61524e79c2b9c58ae75761fa03bdba2a35232d63180
-size 594
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(menuName = "Sequence/CameraInGame ", fileName = "CameraInGame ")]
+public class SequenceActionCameraInGame : SequenceAction
+{
+    public override IEnumerator StartSequence(Sequencer context)
+    {
+        CameraController cc = FindObjectOfType<CameraController>();
+        cc.InGameStartAni();
+        yield return null;
+        // float time = cc.Animator.GetClipLength("InGameStart");
+        
+        // if(isWait)
+        //     yield return new WaitForSeconds(time);
+    }
+}

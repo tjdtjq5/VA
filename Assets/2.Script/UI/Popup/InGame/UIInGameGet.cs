@@ -1,3 +1,49 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:fda85e6ffdbff1ac71368d3bd32dd2d5d6593ca77bcb0515e92170ba1575cb19
-size 1146
+﻿public class UIInGameGet : UIPopup
+{
+    protected override void Initialize()
+    {
+		Bind<UIImage>(typeof(UIImageE));
+		Bind<UIText>(typeof(UITextE));
+		Bind<InGameRewardCard>(typeof(InGameRewardCardE));
+		Bind<UIButton>(typeof(UIButtonE));
+
+		GetButton(UIButtonE.Main_OkBtn).AddClickEvent((ped) => OnClickOK());
+
+        base.Initialize();
+    }
+
+    public void UISetSkillOrBuff(IdentifiedObject skillOrBuff)
+    {
+	    Get<InGameRewardCard>(InGameRewardCardE.Main_InGameRewardCard).Setting(skillOrBuff);
+    }
+    public void UISetGesso(int gesso)
+    {
+	    Get<InGameRewardCard>(InGameRewardCardE.Main_InGameRewardCard).Setting("Gesso", gesso, true, false, 1, 650f);
+    }
+    public void UISetNesso(int nesso)
+    {
+	    Get<InGameRewardCard>(InGameRewardCardE.Main_InGameRewardCard).Setting("Nesso", nesso, true, false, 1, 650f);
+    }
+    void OnClickOK()
+    {
+	    ClosePopupUIPlayAni();
+    }
+    
+	public enum UIImageE
+    {
+		BlackPannel,
+		Main_Title,
+    }
+	public enum UITextE
+    {
+		Main_Title_Text,
+    }
+	public enum InGameRewardCardE
+    {
+		Main_InGameRewardCard,
+    }
+	public enum UIButtonE
+    {
+		Main_OkBtn,
+    }
+}

@@ -1,3 +1,27 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a1e98b79c37ef190da46700857278654e71f87c4fc687c43d77afc829d9924bf
-size 958
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+using CodeStage.AntiCheat.ObscuredTypes.EditorCode;
+using UnityEditor;
+using UnityEngine;
+
+namespace CodeStage.AntiCheat.EditorCode.PropertyDrawers
+{
+	public abstract class WideObscuredTypeDrawer<TSerializedObscuredType, TPlainType> : ObscuredTypeDrawer<TSerializedObscuredType, TPlainType>
+		where TSerializedObscuredType : SerializedObscuredType<TPlainType>, new()
+	{
+		protected override void DrawFixBackground(Rect position)
+		{
+			if (EditorGUIUtility.wideMode)
+				base.DrawFixBackground(position);
+		}
+
+		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+		{
+			return EditorGUIUtility.wideMode ? EditorGUIUtility.singleLineHeight : EditorGUIUtility.singleLineHeight * 2f;
+		}
+	}
+}

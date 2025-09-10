@@ -1,3 +1,25 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0c1d89f84a6f4dbc35206b3d3e246e67181602c3399f75afab2fd5bf68e25319
-size 619
+﻿using UnityEngine;
+
+public class PuzzleComboMultiplier : UIFrame
+{
+    protected override void Initialize()
+    {
+		Bind<UITextPro>(typeof(UITextProE));
+
+        base.Initialize();
+    }
+
+    private readonly string _basicColor = "FFC634";
+    private readonly string _forceColor = "FF3934";
+    
+    public void UISet(Character owner, int combo, int forceCount, bool isForce)
+    {
+	    GetTextPro(UITextProE.Text).text = $"x {GameDefine.ComboMultiplier(owner, combo, forceCount)}";
+	    GetTextPro(UITextProE.Text).SetColor(isForce ? _forceColor : _basicColor);
+    }
+
+	public enum UITextProE
+    {
+		Text,
+    }
+}

@@ -1,3 +1,28 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:db8ceb8ade9c9088161bb97f9dc2eb084fb83ae1b6f738225aa926ce1244a706
-size 850
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.Collections.Generic;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.X509
+{
+	public interface IX509Extension
+	{
+		/// <summary>
+		/// Get all critical extension values, by oid
+		/// </summary>
+		/// <returns>IDictionary with string (OID) keys and Asn1OctetString values</returns>
+		ISet<string> GetCriticalExtensionOids();
+
+		/// <summary>
+		/// Get all non-critical extension values, by oid
+		/// </summary>
+		/// <returns>IDictionary with string (OID) keys and Asn1OctetString values</returns>
+		ISet<string> GetNonCriticalExtensionOids();
+
+		Asn1OctetString GetExtensionValue(DerObjectIdentifier oid);
+	}
+}
+#pragma warning restore
+#endif

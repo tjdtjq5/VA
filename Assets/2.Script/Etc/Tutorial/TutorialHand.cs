@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7a78e33bb70d5d50c5cf8b95bf9c3eda77a5a9a7475b68d4e269c74a732858aa
-size 710
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TutorialHand : MonoBehaviour
+{
+    [SerializeField] private Animator animator;
+
+    private readonly string _clickAniName = "Click";
+    private readonly string _pointDownAniName = "PointDown";
+    private readonly string _pointUpAniName = "PointUp";
+
+    private AniController _aniController;
+
+    void Awake()
+    {
+        _aniController = animator.Initialize();
+    }
+
+    public void Click() => _aniController.SetTrigger(_clickAniName);
+    public void PointDown() => _aniController.SetTrigger(_pointDownAniName);
+    public void PointUp() => _aniController.SetTrigger(_pointUpAniName);
+}

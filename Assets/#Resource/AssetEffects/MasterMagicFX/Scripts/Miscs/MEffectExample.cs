@@ -1,3 +1,53 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6aa4aeb5cf5da0ecffb3d20b2055399478aee86907b6d6bd42df8a6151080656
-size 1337
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace MasterFX
+{
+    [System.Serializable]
+    public class Effect
+    {
+        public ParticleSystem effect;
+
+        public Vector3 Position;
+
+        public Vector3 EulerAngle;
+
+    }
+    public class MEffectExample : MonoBehaviour
+    {
+        public List<Effect> Effects;
+        public int currentEffectIndex = 0;
+        public Transform EffectPosition;
+
+
+        GameObject curEffect;
+        public void PlayEffect()
+        {
+            //clear cur played effect;
+            if (curEffect != null)
+            {
+                Destroy(curEffect);
+            }
+
+            //Instantiate the effect and apply the mapping texture
+
+
+            GameObject effect = Instantiate(Effects[currentEffectIndex].effect.gameObject, EffectPosition.position, Quaternion.identity);
+
+            Debug.Log(effect.name);
+            effect.transform.position += Effects[currentEffectIndex].Position;
+            effect.transform.eulerAngles = Effects[currentEffectIndex].EulerAngle;
+            curEffect = effect;
+        }
+        private void OnDisable()
+        {
+            if (curEffect != null)
+            {
+                Destroy(curEffect);
+            }
+        }
+    }
+
+}

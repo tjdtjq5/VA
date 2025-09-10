@@ -1,3 +1,26 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:4eeb59b5df4e8e1e88234085851a10a0e4cd36ebe0032be699271cd80b24814b
-size 640
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class SkillPuzzleLineChange : SkillBehaviourTime
+{
+    public override void Start(Character owner, object cause)
+    {
+        base.Start(owner, cause);
+
+        if ((int)UnityHelper.Random_H(0, 10000) % 2 == 0)
+        {
+            Managers.Observer.UIPuzzle.ChangeColumnLinePuzzle();
+        }
+        else
+        {
+            Managers.Observer.UIPuzzle.ChangeRowLinePuzzle();
+        }
+    }
+
+    public override void End(Character owner, object cause)
+    {
+        base.End(owner, cause);
+    }
+}

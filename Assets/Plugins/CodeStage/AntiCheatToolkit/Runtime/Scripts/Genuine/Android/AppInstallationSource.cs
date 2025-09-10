@@ -1,3 +1,53 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5d58c165217430f487c4655113290df13dc8e4211e51e05ffb8c1c7e5f70c96a
-size 1609
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+namespace CodeStage.AntiCheat.Genuine.Android
+{
+	/// <summary>
+	/// Holds information about the app installation source.
+	/// </summary>
+	public class AppInstallationSource
+	{
+		/// <summary>
+		///	Package name of the installation source, for example "com.android.vending" for Google Play Store.
+		/// </summary>
+		public string PackageName { get; }
+		
+		/// <summary>
+		/// Detected source of the app installation to simplify further processing.
+		/// </summary>
+		public AndroidAppSource DetectedSource { get; }
+		
+		internal AppInstallationSource(string packageName)
+		{
+			PackageName = packageName;
+			DetectedSource = GetStoreName(packageName);
+		}
+		
+		private AndroidAppSource GetStoreName(string packageName)
+		{
+			if (packageName == null)
+				return AndroidAppSource.AccessError;
+				
+			switch (packageName)
+			{
+				case "com.android.vending":
+					return AndroidAppSource.GooglePlayStore;
+				case "com.amazon.venezia":
+					return AndroidAppSource.AmazonAppStore;
+				case "com.huawei.appmarket":
+					return AndroidAppSource.HuaweiAppGallery;
+				case "com.sec.android.app.samsungapps":
+					return AndroidAppSource.SamsungGalaxyStore;
+				case "com.google.android.packageinstaller":
+				case "com.android.packageinstaller":
+					return AndroidAppSource.PackageInstaller;
+				default:
+					return AndroidAppSource.Other;
+			}
+		}
+	}
+}

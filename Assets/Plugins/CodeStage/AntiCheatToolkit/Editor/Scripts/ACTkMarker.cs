@@ -1,3 +1,41 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5f008c5a6c62665b0e609f5feb0958748ee787f223f17da3db8019a527911129
-size 1097
+﻿#region copyright
+// ------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// ------------------------------------------------------
+#endregion
+
+namespace CodeStage.AntiCheat.EditorCode
+{
+	using UnityEditor;
+	using UnityEngine;
+
+	/// <summary>
+	/// Use it to guess current directory of the Anti-Cheat Toolkit.
+	/// </summary>
+	public class ACTkMarker : ScriptableObject
+	{
+		/// <summary>
+		/// Returns raw path of the ACTkMarker script for further reference.
+		/// </summary>
+		/// <returns>Path of the ACTkMarker ScriptableObject asset.</returns>
+		public static string GetAssetPath()
+		{
+			string result;
+
+			var tempInstance = CreateInstance<ACTkMarker>();
+			var script = MonoScript.FromScriptableObject(tempInstance);
+			if (script != null)
+			{
+				result = AssetDatabase.GetAssetPath(script);
+			}
+			else
+			{
+				result = AssetDatabase.FindAssets("ACTkMarker")[0];
+				result = AssetDatabase.GUIDToAssetPath(result);
+			}
+
+			DestroyImmediate(tempInstance);
+			return result;
+		}
+	}
+}

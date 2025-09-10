@@ -1,3 +1,40 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:670bc3503dfbe76722654257136f1aeccc67c37265211adb0745a7e9590805ab
-size 1140
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    /*
+     * RFC 6520
+     */
+    public abstract class HeartbeatMode
+    {
+        public const short peer_allowed_to_send = 1;
+        public const short peer_not_allowed_to_send = 2;
+
+        public static string GetName(short heartbeatMode)
+        {
+            switch (heartbeatMode)
+            {
+            case peer_allowed_to_send:
+                return "peer_allowed_to_send";
+            case peer_not_allowed_to_send:
+                return "peer_not_allowed_to_send";
+            default:
+                return "UNKNOWN";
+            }
+        }
+
+        public static string GetText(short heartbeatMode)
+        {
+            return GetName(heartbeatMode) + "(" + heartbeatMode + ")";
+        }
+
+        public static bool IsValid(short heartbeatMode)
+        {
+            return heartbeatMode >= peer_allowed_to_send && heartbeatMode <= peer_not_allowed_to_send;
+        }
+    }
+}
+#pragma warning restore
+#endif

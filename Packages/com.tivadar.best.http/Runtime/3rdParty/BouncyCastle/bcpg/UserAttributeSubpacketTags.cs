@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:aa24065fc917cdf69b10727b86a67439fc4337c41d8f32241429526fba5b50a5
-size 349
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg
+{
+    /**
+    * Basic PGP user attribute sub-packet tag types.
+    */
+    public enum UserAttributeSubpacketTag
+    {
+        ImageAttribute = 1
+    }
+}
+#pragma warning restore
+#endif

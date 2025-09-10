@@ -1,3 +1,34 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:47b3d320f0254ac61be0beaf23c036286c32e7ed90c9afb36eb1465f08c1ac3b
-size 729
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.Runtime.Serialization;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities.IO.Pem
+{
+    [Serializable]
+    public class PemGenerationException
+		: Exception
+	{
+		public PemGenerationException()
+			: base()
+		{
+		}
+
+		public PemGenerationException(string message)
+			: base(message)
+		{
+		}
+
+		public PemGenerationException(string message, Exception innerException)
+			: base(message, innerException)
+		{
+		}
+
+		protected PemGenerationException(SerializationInfo info, StreamingContext context)
+			: base(info, context)
+		{
+		}
+	}
+}
+#pragma warning restore
+#endif

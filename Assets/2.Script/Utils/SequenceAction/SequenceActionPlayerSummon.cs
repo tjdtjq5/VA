@@ -1,3 +1,21 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b19cc8623164624340a3802b7c186a1541c599b0f1b947733140f5f0a6160af7
-size 700
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(menuName = "Sequence/PlayerSummon", fileName = "PlayerSummon")]
+public class SequenceActionPlayerSummon : SequenceAction
+{
+    public override IEnumerator StartSequence(Sequencer context)
+    {
+        Character player = Managers.Observer.Player;
+
+        Vector3 originPos = player.transform.position;
+        Vector3 summonPos = originPos + new Vector3(-17f, 0, 0);
+
+        player.transform.position = summonPos;
+        player.CharacterMove.SetMove(originPos);
+
+        yield return new WaitUntil(() => player.CharacterMove.IsMoving == false);
+        player.SetIdle();
+    }
+}

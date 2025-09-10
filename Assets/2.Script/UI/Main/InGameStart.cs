@@ -1,3 +1,27 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e11eb58f745f9885658e24f7e951f8ea93692e8fbfa3862cb5f47886c4b8bec1
-size 580
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class InGameStart : AniPlay
+{
+    protected override void Initialize()
+    {
+      Bind<UIImage>(typeof(UIImageE));
+      Bind<UIText>(typeof(UITextE));
+
+        base.Initialize();
+    }
+    public void Initialize(DungeonTree _dungeonTree)
+    {
+        // GetText(UITextE.ChapterName_Chapter).text = _dungeonTree.DisplayName;
+        GetText(UITextE.Main_Text).text = _dungeonTree.Description;
+    }
+	public enum UIImageE
+    {
+		Main,
+    }
+	public enum UITextE
+    {
+		Main_Text,
+    }
+}

@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5a784a542c1b36c88e2cbcfdf36fc6a13e0b0fc6ee4f1943af96d9515a4fa05f
-size 539
+﻿#region copyright
+// -------------------------------------------------------
+// Copyright (C) Dmitriy Yukhanov [https://codestage.net]
+// -------------------------------------------------------
+#endregion
+
+namespace CodeStage.AntiCheat.Storage
+{
+	using Common;
+	using UnityEngine;
+
+	internal class DeviceUniqueIdentifierException : BackgroundThreadAccessException
+	{
+		public DeviceUniqueIdentifierException() : base($"{nameof(SystemInfo)}." +
+														$"{nameof(SystemInfo.deviceUniqueIdentifier)}")
+		{
+		}
+	}
+}

@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e0557b698c1955eaaf1ccd93c90003363af1405a2602fc00442150560c7ff68d
-size 365
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Math.EC
+{
+    public interface ECLookupTable
+    {
+        int Size { get; }
+        ECPoint Lookup(int index);
+        ECPoint LookupVar(int index);
+    }
+}
+#pragma warning restore
+#endif
