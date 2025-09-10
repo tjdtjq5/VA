@@ -21,13 +21,17 @@ Unity 기반으로 개발
 
 ---
 
+## 📁 디렉토리 안내
 | 폴더 | 설명 |
 |------|------|
-| `Assets/Scripts/Battle/` | 전투 시스템 전체 흐름 (상태 관리, 애니메이션, AI) |
-| `Assets/Scripts/UI/` | 인게임 UI, 바인딩, 상태 전환 |
-| `Assets/Editor/Tools/` | 에디터 확장, ScriptableObject 툴 |
-| `Assets/Resources/Data/` | 성장 시스템 데이터, 인벤토리 구성 |
-| `Assets/Effect/`, `Assets/Character/` | UI/이펙트 리소스 |
+| `Assets/2.Script/Core/` | 캐릭터 기능 (움직임, 공격, 스킬, 버프) |
+| `Assets/2.Script/Data/IdentifiedObject/` | 에디터 확장, ScriptableObject 툴 |
+| `Assets/2.Script/Data/Node/` | 에디터 확장, Node 툴 (던전, 연구트리) |
+| `Assets/2.Script/Data/SO/` | FSM구조의 인게임 전투 |
+| `Assets/2.Script/Editor/Build/` | 빌드 자동화 툴 |
+| `Assets/2.Script/Manager` | 싱글톤 Manager관리 |
+| `Assets/2.Script/UI` | UI바인딩, UI관련 기능 |
+| `Assets/2.Script/Utils/Tween/` | 트윈 |
 
 ---
 
