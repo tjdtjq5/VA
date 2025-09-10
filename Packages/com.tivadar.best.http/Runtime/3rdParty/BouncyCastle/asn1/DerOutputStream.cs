@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1a117eedff47ad3b36a93cce3b7c576be761edcd4eaabb5bc440f7d9b7ca9d00
-size 502
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1
+{
+    internal class DerOutputStream
+        : Asn1OutputStream
+    {
+        internal DerOutputStream(Stream os)
+            : base(os)
+        {
+        }
+
+        internal override int Encoding
+        {
+            get { return EncodingDer; }
+        }
+    }
+}
+#pragma warning restore
+#endif

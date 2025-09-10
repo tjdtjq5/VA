@@ -1,3 +1,34 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:29df669be123df43a44c62936f302a27a0d57149d3682da1062d6cfb0f93b84e
-size 942
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg
+{
+	/// <remarks>Basic packet for a PGP public subkey</remarks>
+    public class PublicSubkeyPacket
+        : PublicKeyPacket
+    {
+        internal PublicSubkeyPacket(
+            BcpgInputStream bcpgIn)
+			: base(bcpgIn)
+        {
+        }
+
+		/// <summary>Construct a version 4 public subkey packet.</summary>
+        public PublicSubkeyPacket(
+            PublicKeyAlgorithmTag	algorithm,
+            DateTime				time,
+            IBcpgKey				key)
+            : base(algorithm, time, key)
+        {
+        }
+
+		public override void Encode(
+            BcpgOutputStream bcpgOut)
+        {
+            bcpgOut.WritePacket(PacketTag.PublicSubkey, GetEncodedContents(), true);
+        }
+    }
+}
+#pragma warning restore
+#endif

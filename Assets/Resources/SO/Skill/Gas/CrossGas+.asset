@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: CrossGas+
+  m_EditorClassIdentifier: 
+  codeName: CrossGas+
+  id: 41
+  icon: {fileID: 21300000, guid: d8121409e65a21c4a94b45e21c17c5c1, type: 3}
+  displayName: "\uC2ED\uC790 \uAC00\uC2A4 \uD3ED\uBC1C+"
+  description: "\uD544\uC0B4 \uACF5\uACA9 \uC774\uC0C1 \uC2DC \uAC00\uC2A4 \uD3ED\uBC1C
+    \uD37C\uC990 \uC544\uC774\uD15C\uC744 1\uAC1C\uB97C \uC0DD\uC131\uD569\uB2C8\uB2E4
+    \uBAA8\uB4E0 \uAC00\uC2A4 \uD3ED\uBC1C\uC740 <color=#FB7919>$[b1.Percent]%</color>
+    \uD655\uB960\uB85C \uD37C\uC990\uC758 \uC2ED\uC790 \uBAA8\uC591 5\uCE78\uC744
+    \uB79C\uB364\uD55C \uAC19\uC740 \uC0C9\uC0C1\uC73C\uB85C \uBCC0\uACBD\uD569\uB2C8\uB2E4"
+  isView: 1
+  isPlus: 1
+  skillGrade: 0
+  wordTips:
+  - {fileID: 11400000, guid: a9a967b6bd4e65744a1045ed356b7092, type: 2}
+  skillDeckTypes: 04000000
+  behaviours:
+  - rid: 6027879103505367065
+  - rid: 6027879103505367066
+  isEndRemove: 0
+  isAllClearApply: 0
+  removeSkills:
+  - {fileID: 11400000, guid: 7984ae2ac5261ed42a38979306b91d6b, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: 7984ae2ac5261ed42a38979306b91d6b, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 6027879103505367065
+      type: {class: SkillPuzzleItem, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 6
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 2
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        puzzleItem: {fileID: 6937290663768921873, guid: f28fdddfacf70fa4289681ec578e6f04, type: 3}
+    - rid: 6027879103505367066
+      type: {class: SkillPuzzleCrossChange, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 18
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 40
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0

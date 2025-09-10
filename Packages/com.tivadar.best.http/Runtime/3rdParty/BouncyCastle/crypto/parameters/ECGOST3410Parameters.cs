@@ -1,3 +1,57 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1559ecac60b8c43aeab5fb5ef0af9270557352014b1d74e233513ee5df75c6a8
-size 2025
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math.EC;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters
+{
+    public class ECGost3410Parameters
+        : ECNamedDomainParameters
+    {
+        private readonly DerObjectIdentifier _publicKeyParamSet;
+        private readonly DerObjectIdentifier _digestParamSet;
+        private readonly DerObjectIdentifier _encryptionParamSet;
+
+        public DerObjectIdentifier PublicKeyParamSet
+        {
+            get { return _publicKeyParamSet; }
+        }
+
+        public DerObjectIdentifier DigestParamSet
+        {
+            get { return _digestParamSet; }
+        }
+
+        public DerObjectIdentifier EncryptionParamSet
+        {
+            get { return _encryptionParamSet; }
+        }
+
+        public ECGost3410Parameters(
+            ECNamedDomainParameters dp,
+            DerObjectIdentifier publicKeyParamSet,
+            DerObjectIdentifier digestParamSet,
+            DerObjectIdentifier encryptionParamSet)
+            : base(dp.Name, dp.Curve, dp.G, dp.N, dp.H, dp.GetSeed())
+        {
+            this._publicKeyParamSet = publicKeyParamSet;
+            this._digestParamSet = digestParamSet;
+            this._encryptionParamSet = encryptionParamSet;
+        }
+
+        public ECGost3410Parameters(ECDomainParameters dp, DerObjectIdentifier publicKeyParamSet,
+            DerObjectIdentifier digestParamSet,
+            DerObjectIdentifier encryptionParamSet)
+            : base(publicKeyParamSet, dp.Curve, dp.G, dp.N, dp.H, dp.GetSeed())
+        {
+            this._publicKeyParamSet = publicKeyParamSet;
+            this._digestParamSet = digestParamSet;
+            this._encryptionParamSet = encryptionParamSet;
+        }
+    }
+}
+#pragma warning restore
+#endif

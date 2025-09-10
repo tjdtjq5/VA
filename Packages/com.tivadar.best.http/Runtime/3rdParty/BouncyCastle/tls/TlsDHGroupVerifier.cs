@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:34b8d5b003e439c6d40e2ce48c69630f09972a5fda7b7d5a4510087addf75f1d
-size 716
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    /// <summary>Interface for verifying explicit Diffie-Hellman group parameters.</summary>
+    public interface TlsDHGroupVerifier
+    {
+        /// <summary>Check whether the given DH group is acceptable for use.</summary>
+        /// <param name="dhGroup">the <see cref="DHGroup"/> to check.</param>
+        /// <returns>true if (and only if) the specified group is acceptable.</returns>
+        bool Accept(DHGroup dhGroup);
+    }
+}
+#pragma warning restore
+#endif

@@ -1,3 +1,28 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:05f5ae5fc464b52cbe2f31601cfb3828370d04cf970656f663d7a78f165c1be5
-size 604
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System.IO;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1
+{
+	public class BerSetGenerator
+		: BerGenerator
+	{
+		public BerSetGenerator(
+			Stream outStream)
+			: base(outStream)
+		{
+			WriteBerHeader(Asn1Tags.Constructed | Asn1Tags.Set);
+		}
+
+		public BerSetGenerator(
+			Stream	outStream,
+			int		tagNo,
+			bool	isExplicit)
+			: base(outStream, tagNo, isExplicit)
+		{
+			WriteBerHeader(Asn1Tags.Constructed | Asn1Tags.Set);
+		}
+	}
+}
+#pragma warning restore
+#endif

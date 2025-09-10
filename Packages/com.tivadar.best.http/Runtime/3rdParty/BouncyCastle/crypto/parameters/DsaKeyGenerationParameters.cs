@@ -1,3 +1,30 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6507cbfa88312bc8580d3682bc8a7e6bbc458794121c5ec2c07794388ae9b76b
-size 756
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Security;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters
+{
+    public class DsaKeyGenerationParameters
+		: KeyGenerationParameters
+    {
+        private readonly DsaParameters parameters;
+
+        public DsaKeyGenerationParameters(
+            SecureRandom	random,
+            DsaParameters	parameters)
+			: base(random, parameters.P.BitLength - 1)
+        {
+            this.parameters = parameters;
+        }
+
+		public DsaParameters Parameters
+        {
+            get { return parameters; }
+        }
+    }
+
+}
+#pragma warning restore
+#endif

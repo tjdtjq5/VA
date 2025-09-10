@@ -1,3 +1,12 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:045b915d18730619eca50e58b48e1e47c06177a7869c1092c680dee83eb2e3b9
-size 295
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1
+{
+	public interface Asn1SequenceParser
+		: IAsn1Convertible
+	{
+		IAsn1Convertible ReadObject();
+	}
+}
+#pragma warning restore
+#endif

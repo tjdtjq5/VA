@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:dfe6859818797c369c6f6e48118797a00235c8fb048098efe2e07546fa53b26a
-size 543
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    public abstract class ServerOnlyTlsAuthentication
+        : TlsAuthentication
+    {
+        public abstract void NotifyServerCertificate(TlsServerCertificate serverCertificate);
+
+        public TlsCredentials GetClientCredentials(CertificateRequest certificateRequest)
+        {
+            return null;
+        }
+    }
+}
+#pragma warning restore
+#endif

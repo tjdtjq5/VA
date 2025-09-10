@@ -1,3 +1,79 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a40da70b37dfc18827ee5218279e2deeb233652cb66795089f06a4b0e4d4c89b
-size 2254
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.X509;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.Pkcs
+{
+    public class EncryptedPrivateKeyInfo
+        : Asn1Encodable
+    {
+        private readonly AlgorithmIdentifier algId;
+        private readonly Asn1OctetString data;
+
+		private EncryptedPrivateKeyInfo(Asn1Sequence seq)
+        {
+			if (seq.Count != 2)
+				throw new ArgumentException("Wrong number of elements in sequence", "seq");
+
+            algId = AlgorithmIdentifier.GetInstance(seq[0]);
+            data = Asn1OctetString.GetInstance(seq[1]);
+        }
+
+		public EncryptedPrivateKeyInfo(
+            AlgorithmIdentifier	algId,
+            byte[]				encoding)
+        {
+            this.algId = algId;
+            this.data = new DerOctetString(encoding);
+        }
+
+		public static EncryptedPrivateKeyInfo GetInstance(
+             object obj)
+        {
+			if (obj is EncryptedPrivateKeyInfo)
+			{
+				return (EncryptedPrivateKeyInfo) obj;
+			}
+
+			if (obj is Asn1Sequence seq)
+				return new EncryptedPrivateKeyInfo(seq);
+
+			throw new ArgumentException("Unknown object in factory: " + Org.BouncyCastle.Utilities.Platform.GetTypeName(obj), "obj");
+		}
+
+		public AlgorithmIdentifier EncryptionAlgorithm
+		{
+			get { return algId; }
+		}
+
+		public byte[] GetEncryptedData()
+        {
+            return data.GetOctets();
+        }
+
+		/**
+         * Produce an object suitable for an Asn1OutputStream.
+         * <pre>
+         * EncryptedPrivateKeyInfo ::= Sequence {
+         *      encryptionAlgorithm AlgorithmIdentifier {{KeyEncryptionAlgorithms}},
+         *      encryptedData EncryptedData
+         * }
+         *
+         * EncryptedData ::= OCTET STRING
+         *
+         * KeyEncryptionAlgorithms ALGORITHM-IDENTIFIER ::= {
+         *          ... -- For local profiles
+         * }
+         * </pre>
+         */
+        public override Asn1Object ToAsn1Object()
+        {
+			return new DerSequence(algId, data);
+        }
+    }
+}
+#pragma warning restore
+#endif

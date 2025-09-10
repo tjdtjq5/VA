@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: FireAttributeGranting+
+  m_EditorClassIdentifier: 
+  codeName: FireAttributeGranting+
+  id: 72
+  icon: {fileID: 21300000, guid: 46d3edc25d3523f47ad00614098a73d8, type: 3}
+  displayName: "\uD654\uC5FC \uC18D\uC131 \uBD80\uC5EC+"
+  description: "\uC77C\uBC18 \uACF5\uACA9\uACFC \uC5F0\uC18D \uACF5\uACA9\uC73C\uB85C
+    \uC801\uC911\uB41C \uC801\uC5D0\uAC8C \uBD88\uB369\uC774\uB97C \uC801\uC911\uC2DC\uD0A8\uB2E4,
+    \uBD88\uB369\uC774 \uD53C\uD574\uB7C9 <color=#FB7919>+$[b2.b.Percent]%</color>"
+  isView: 1
+  isPlus: 1
+  skillGrade: 4
+  wordTips:
+  - {fileID: 11400000, guid: 6aacaa9876502d44ca2fb44ad5d03855, type: 2}
+  skillDeckTypes: 03000000
+  behaviours:
+  - rid: 6027879103505367052
+  - rid: 6027879103505367053
+  - rid: 6027879103505367055
+  isEndRemove: 0
+  isAllClearApply: 0
+  removeSkills:
+  - {fileID: 11400000, guid: dd1a35d336b93c449bd9e690d634f80a, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: dd1a35d336b93c449bd9e690d634f80a, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 6027879103505367052
+      type: {class: SkillHellFire, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 11
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        deBuff: {fileID: 11400000, guid: 37d6b4a42e1002747b3ecc6e483dd018, type: 2}
+    - rid: 6027879103505367053
+      type: {class: SkillHellFire, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 14
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        deBuff: {fileID: 11400000, guid: 37d6b4a42e1002747b3ecc6e483dd018, type: 2}
+    - rid: 6027879103505367055
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 200fed379d34984439009b3cdbb4174e, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0

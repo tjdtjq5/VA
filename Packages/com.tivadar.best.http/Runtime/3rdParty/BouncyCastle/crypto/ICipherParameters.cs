@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d602a28eccbef21d4a73b78dea5068feb16359852b87207fb28755dd0f96e16b
-size 330
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
+{
+    /**
+     * all parameter classes implement this.
+     */
+    public interface ICipherParameters
+    {
+    }
+}
+#pragma warning restore
+#endif

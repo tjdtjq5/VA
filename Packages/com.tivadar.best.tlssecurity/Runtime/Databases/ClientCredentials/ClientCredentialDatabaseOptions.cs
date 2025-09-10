@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:96f3e69ff876f0f1958348e98796634894561ecc8401ac31ab90e86b27eade1b
-size 427
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+
+using Best.TLSSecurity.Databases.Shared;
+
+namespace Best.TLSSecurity.Databases.ClientCredentials
+{
+    public sealed class ClientCredentialDatabaseOptions : DatabaseOptions
+    {
+        public ClientCredentialDatabaseOptions(string dbName)
+            : base(dbName)
+        {
+            this.UseHashFile = true;
+        }
+    }
+}
+#endif

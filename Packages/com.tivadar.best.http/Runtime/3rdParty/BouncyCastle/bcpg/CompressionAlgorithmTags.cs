@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:2e6916a972519148c140f44f742f5efc1c054f34b40bd8ac8fdd4e01e2a4f955
-size 429
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg
+{
+	/// <remarks>Basic tags for compression algorithms.</remarks>
+	public enum CompressionAlgorithmTag
+	{
+		Uncompressed = 0,	// Uncompressed
+		Zip = 1,			// ZIP (RFC 1951)
+		ZLib = 2,			// ZLIB (RFC 1950)
+		BZip2 = 3,			// BZ2
+	}
+}
+#pragma warning restore
+#endif

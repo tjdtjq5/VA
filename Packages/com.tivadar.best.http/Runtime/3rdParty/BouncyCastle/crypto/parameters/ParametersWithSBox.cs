@@ -1,3 +1,28 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:dde43d4251729efda14d7901da75baab0bbce6400cea63d570c79cb720939bfb
-size 677
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters
+{
+	public class ParametersWithSBox : ICipherParameters
+	{
+		private ICipherParameters  parameters;
+		private byte[] sBox;
+
+		public ParametersWithSBox(
+			ICipherParameters parameters,
+			byte[] sBox)
+		{
+			this.parameters = parameters;
+			this.sBox = sBox;
+		}
+
+		public byte[] GetSBox() { return sBox; }
+
+		public ICipherParameters Parameters { get { return parameters; } }
+	}
+}
+#pragma warning restore
+#endif

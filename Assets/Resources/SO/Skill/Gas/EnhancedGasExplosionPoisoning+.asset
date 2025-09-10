@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: EnhancedGasExplosionPoisoning+
+  m_EditorClassIdentifier: 
+  codeName: EnhancedGasExplosionPoisoning+
+  id: 64
+  icon: {fileID: 21300000, guid: 9d35cd57fe8b47e4fb4c42eafa266583, type: 3}
+  displayName: "\uB9F9\uB3C5 \uBD84\uCD9C+"
+  description: "\uAC00\uC2A4 \uD3ED\uBC1C\uC740 \uB9F9\uB3C5 \uBD84\uCD9C\uB85C \uBCC0\uACBD\uB418\uBA70,
+    \uAC00\uC2A4 \uD3ED\uBC1C \uD53C\uD574\uB7C9\uC774 <color=#FB7919>$[b1.b.Percent]%</color>
+    \uC99D\uAC00\uD558\uACE0 \uAC00\uC2A4 \uD3ED\uBC1C\uB85C \uD53C\uD574\uB97C \uC785\uD78C
+    \uC801\uC5D0\uAC8C 3\uC2A4\uD0DD\uC758 \uC911\uB3C5\uC5D0 \uAC78\uB9AC\uAC8C
+    \uD569\uB2C8\uB2E4"
+  isView: 1
+  isPlus: 1
+  skillGrade: 4
+  wordTips:
+  - {fileID: 11400000, guid: 56af1a4c373648a4cbce2b81dcc4374d, type: 2}
+  - {fileID: 11400000, guid: a9a967b6bd4e65744a1045ed356b7092, type: 2}
+  skillDeckTypes: 04000000
+  behaviours:
+  - rid: 2696791165580345378
+  - rid: 2696791165580345379
+  - rid: 2696791165580345380
+  - rid: 2696791165580345381
+  isEndRemove: 0
+  isAllClearApply: 0
+  removeSkills:
+  - {fileID: 11400000, guid: 616857462448fc14688aeafe338520bc, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: 616857462448fc14688aeafe338520bc, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 2696791165580345378
+      type: {class: SkillTriggerPassiveBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        triggerPassiveBuff: 16
+    - rid: 2696791165580345379
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: da9320fb59b97894fa39fe751aa998e2, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0
+    - rid: 2696791165580345380
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 22
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 6
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: d7c5fd9c2934c4c499ceb11794c21ec4, type: 2}
+        targetType: 5
+        isNotBuffRemove: 0
+    - rid: 2696791165580345381
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 22
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 6
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: d7c5fd9c2934c4c499ceb11794c21ec4, type: 2}
+        targetType: 5
+        isNotBuffRemove: 0

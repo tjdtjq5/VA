@@ -1,3 +1,53 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f42f9011a28862b415d300c63841a3c839ceb74aab457fc9d1dd1ba6c9dc6b0b
-size 1780
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    /// <summary>RFC 5246</summary>
+    /// <remarks>
+    /// Note that the values here are implementation-specific and arbitrary. It is recommended not to depend on the
+    /// particular values (e.g. serialization).
+    /// </remarks>
+    public abstract class PrfAlgorithm
+    {
+        public const int ssl_prf_legacy = 0;
+        public const int tls_prf_legacy = 1;
+        public const int tls_prf_sha256 = 2;
+        public const int tls_prf_sha384 = 3;
+        public const int tls13_hkdf_sha256 = 4;
+        public const int tls13_hkdf_sha384 = 5;
+        //public const int tls13_hkdf_sha512 = 6;
+        public const int tls13_hkdf_sm3 = 7;
+
+        public static string GetName(int prfAlgorithm)
+        {
+            switch (prfAlgorithm)
+            {
+            case ssl_prf_legacy:
+                return "ssl_prf_legacy";
+            case tls_prf_legacy:
+                return "tls_prf_legacy";
+            case tls_prf_sha256:
+                return "tls_prf_sha256";
+            case tls_prf_sha384:
+                return "tls_prf_sha384";
+            case tls13_hkdf_sha256:
+                return "tls13_hkdf_sha256";
+            case tls13_hkdf_sha384:
+                return "tls13_hkdf_sha384";
+            case tls13_hkdf_sm3:
+                return "tls13_hkdf_sm3";
+            default:
+                return "UNKNOWN";
+            }
+        }
+
+        public static string GetText(int prfAlgorithm)
+        {
+            return GetName(prfAlgorithm) + "(" + prfAlgorithm + ")";
+        }
+    }
+}
+#pragma warning restore
+#endif

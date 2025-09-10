@@ -1,3 +1,11 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7b9483246916eb229fe40edb600fd315835735590c15167781234b82667475c8
-size 255
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg
+{
+    public class Packet
+        //: PacketTag
+    {
+    }
+}
+#pragma warning restore
+#endif

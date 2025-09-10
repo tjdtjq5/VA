@@ -1,3 +1,85 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c0aff024cc80f590a76cbc983993137d1b98e2aa4a15ae6973ea37f8c75f0a95
-size 2007
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Security;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
+{
+	/**
+	 * The base class for symmetric, or secret, cipher key generators.
+	 */
+	public class CipherKeyGenerator
+	{
+		protected internal SecureRandom	random;
+		protected internal int			strength;
+		private bool uninitialised = true;
+		private int defaultStrength;
+
+		public CipherKeyGenerator()
+		{
+		}
+
+		internal CipherKeyGenerator(
+			int defaultStrength)
+		{
+			if (defaultStrength < 1)
+				throw new ArgumentException("strength must be a positive value", "defaultStrength");
+
+			this.defaultStrength = defaultStrength;
+		}
+
+		public int DefaultStrength
+		{
+			get { return defaultStrength; }
+		}
+
+		/**
+		 * initialise the key generator.
+		 *
+		 * @param param the parameters to be used for key generation
+		 */
+		public void Init(KeyGenerationParameters parameters)
+		{
+			if (parameters == null)
+				throw new ArgumentNullException(nameof(parameters));
+
+			this.uninitialised = false;
+
+			EngineInit(parameters);
+		}
+
+		protected virtual void EngineInit(KeyGenerationParameters parameters)
+		{
+			this.random = parameters.Random;
+			this.strength = (parameters.Strength + 7) / 8;
+		}
+
+		/**
+		 * Generate a secret key.
+		 *
+		 * @return a byte array containing the key value.
+		 */
+		public byte[] GenerateKey()
+		{
+			if (uninitialised)
+			{
+				if (defaultStrength < 1)
+					throw new InvalidOperationException("Generator has not been initialised");
+
+				uninitialised = false;
+
+				EngineInit(new KeyGenerationParameters(CryptoServicesRegistrar.GetSecureRandom(), defaultStrength));
+			}
+
+			return EngineGenerateKey();
+		}
+
+        protected virtual byte[] EngineGenerateKey()
+		{
+            return SecureRandom.GetNextBytes(random, strength);
+		}
+	}
+}
+#pragma warning restore
+#endif

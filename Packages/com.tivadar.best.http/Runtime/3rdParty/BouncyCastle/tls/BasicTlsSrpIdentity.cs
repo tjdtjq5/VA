@@ -1,3 +1,40 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:08afc64e689052d1b7e4609711d91530428615a9ce736f8c1ed7757a521ef387
-size 1138
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    /// <summary>A basic SRP Identity holder.</summary>
+    public class BasicTlsSrpIdentity
+        : TlsSrpIdentity
+    {
+        protected readonly byte[] m_identity;
+        protected readonly byte[] m_password;
+
+        public BasicTlsSrpIdentity(byte[] identity, byte[] password)
+        {
+            this.m_identity = Arrays.Clone(identity);
+            this.m_password = Arrays.Clone(password);
+        }
+
+        public BasicTlsSrpIdentity(string identity, string password)
+        {
+            this.m_identity = Strings.ToUtf8ByteArray(identity);
+            this.m_password = Strings.ToUtf8ByteArray(password);
+        }
+
+        public virtual byte[] GetSrpIdentity()
+        {
+            return m_identity;
+        }
+
+        public virtual byte[] GetSrpPassword()
+        {
+            return m_password;
+        }
+    }
+}
+#pragma warning restore
+#endif

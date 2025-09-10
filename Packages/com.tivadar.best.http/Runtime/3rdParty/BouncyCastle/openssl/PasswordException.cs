@@ -1,3 +1,35 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6176ebb773506029872e6b52a029c8309fa3848786ae69965598b9a563f8be5a
-size 716
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+using System.Runtime.Serialization;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Security
+{
+    [Serializable]
+    public class PasswordException
+		: IOException
+	{
+		public PasswordException()
+			: base()
+		{
+		}
+
+		public PasswordException(string message)
+			: base(message)
+		{
+		}
+
+		public PasswordException(string message, Exception innerException)
+			: base(message, innerException)
+		{
+		}
+
+		protected PasswordException(SerializationInfo info, StreamingContext context)
+			: base(info, context)
+		{
+		}
+	}
+}
+#pragma warning restore
+#endif

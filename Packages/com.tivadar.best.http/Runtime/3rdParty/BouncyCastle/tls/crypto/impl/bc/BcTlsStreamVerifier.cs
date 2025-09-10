@@ -1,3 +1,35 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5ea9862a52331b5042a99de6abd11404e667a09d5c77ad845c6f005e05925d9b
-size 956
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.IO;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto.Impl.BC
+{
+    internal sealed class BcTlsStreamVerifier
+        : TlsStreamVerifier
+    {
+        private readonly SignerSink m_output;
+        private readonly byte[] m_signature;
+
+        internal BcTlsStreamVerifier(ISigner verifier, byte[] signature)
+        {
+            this.m_output = new SignerSink(verifier);
+            this.m_signature = signature;
+        }
+
+        public Stream Stream
+        {
+            get { return m_output; }
+        }
+
+        public bool IsVerified()
+        {
+            return m_output.Signer.VerifySignature(m_signature);
+        }
+    }
+}
+#pragma warning restore
+#endif

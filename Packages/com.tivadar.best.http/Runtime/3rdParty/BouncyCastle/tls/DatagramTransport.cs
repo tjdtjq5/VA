@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f3e3ffb9413a7cfd1fdf818d29d8ece7715c9816619b7988ff18f55769ccec1f
-size 411
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    /// <summary>Base interface for an object sending and receiving DTLS data.</summary>
+    public interface DatagramTransport
+        : DatagramReceiver, DatagramSender, TlsCloseable
+    {
+    }
+}
+#pragma warning restore
+#endif

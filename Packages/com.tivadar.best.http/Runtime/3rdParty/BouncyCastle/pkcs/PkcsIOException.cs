@@ -1,3 +1,36 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c8a07e47e1d2634344e36b7df0e1bc375578c3607e7d46a427f3c0c90fbbc1ab
-size 789
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+using System.Runtime.Serialization;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Pkcs
+{
+	/// <summary>Base exception for parsing related issues in the PKCS namespace.</summary>
+	[Serializable]
+	public class PkcsIOException
+		: IOException
+    {
+		public PkcsIOException()
+			: base()
+		{
+		}
+
+		public PkcsIOException(string message)
+			: base(message)
+		{
+		}
+
+		public PkcsIOException(string message, Exception innerException)
+			: base(message, innerException)
+		{
+		}
+
+		protected PkcsIOException(SerializationInfo info, StreamingContext context)
+			: base(info, context)
+		{
+		}
+	}
+}
+#pragma warning restore
+#endif

@@ -1,3 +1,104 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:eefaf2c2c4409e591c78698db6da6312ca75482a66a2eac239408e6b0222e8e9
-size 1956
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.Ocsp;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Ocsp
+{
+	public class OcspResp
+	{
+		private OcspResponse resp;
+
+		public OcspResp(
+			OcspResponse resp)
+		{
+			this.resp = resp;
+		}
+
+		public OcspResp(
+			byte[] resp)
+			: this(new Asn1InputStream(resp))
+		{
+		}
+
+		public OcspResp(
+			Stream inStr)
+			: this(new Asn1InputStream(inStr))
+		{
+		}
+
+		private OcspResp(
+			Asn1InputStream aIn)
+		{
+			try
+			{
+				this.resp = OcspResponse.GetInstance(aIn.ReadObject());
+			}
+			catch (Exception e)
+			{
+				throw new IOException("malformed response: " + e.Message, e);
+			}
+		}
+
+		public int Status
+		{
+            get { return this.resp.ResponseStatus.IntValueExact; }
+		}
+
+		public object GetResponseObject()
+		{
+			ResponseBytes rb = this.resp.ResponseBytes;
+
+			if (rb == null)
+				return null;
+
+			if (rb.ResponseType.Equals(OcspObjectIdentifiers.PkixOcspBasic))
+			{
+				try
+				{
+					return new BasicOcspResp(
+						BasicOcspResponse.GetInstance(
+							Asn1Object.FromByteArray(rb.Response.GetOctets())));
+				}
+				catch (Exception e)
+				{
+					throw new OcspException("problem decoding object: " + e, e);
+				}
+			}
+
+			return rb.Response;
+		}
+
+		/**
+		* return the ASN.1 encoded representation of this object.
+		*/
+		public byte[] GetEncoded()
+		{
+			return resp.GetEncoded();
+		}
+
+		public override bool Equals(
+			object obj)
+		{
+			if (obj == this)
+				return true;
+
+			OcspResp other = obj as OcspResp;
+
+			if (other == null)
+				return false;
+
+			return resp.Equals(other.resp);
+		}
+
+		public override int GetHashCode()
+		{
+			return resp.GetHashCode();
+		}
+	}
+}
+#pragma warning restore
+#endif

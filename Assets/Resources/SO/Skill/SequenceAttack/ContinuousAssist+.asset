@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: ContinuousAssist+
+  m_EditorClassIdentifier: 
+  codeName: ContinuousAssist+
+  id: 17
+  icon: {fileID: 21300000, guid: 9d231c4574924744ea9b12f3f0f618ba, type: 3}
+  displayName: "\uC5F0\uC18D \uBCF4\uC870+"
+  description: "\uC5F0\uC18D \uACF5\uACA9\uC740 \uC801\uC758 \uC57D\uC810\uC744 1\uAC1C
+    \uACA9\uD30C \uD569\uB2C8\uB2E4, \uC5F0\uC18D \uACF5\uACA9 \uD53C\uD574\uB7C9
+    <color=#FB7919>+$[b1.b.Percent]%</color>"
+  isView: 1
+  isPlus: 1
+  skillGrade: 4
+  wordTips:
+  - {fileID: 11400000, guid: f218308625d628b47a002e09dbdd0dad, type: 2}
+  skillDeckTypes: 06000000
+  behaviours:
+  - rid: 6027879103505367073
+  - rid: 6027879103505367075
+  isEndRemove: 0
+  isAllClearApply: 0
+  removeSkills:
+  - {fileID: 11400000, guid: 782d805b5aa040049b04c67638d73095, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: 782d805b5aa040049b04c67638d73095, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 6027879103505367073
+      type: {class: SkillWeekConquer, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 22
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 2
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        targetType: 5
+    - rid: 6027879103505367075
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 7465db64d90bc274a85b39d4dbde78d8, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0

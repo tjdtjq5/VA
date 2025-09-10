@@ -1,3 +1,42 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c79ffb328f09de6dae8b66e1c1a5a6b0f06e210b4124cdb718d70cfd0dff4b91
-size 1294
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Generators
+{
+    /**
+     * a basic Diffie-Hellman key pair generator.
+     *
+     * This generates keys consistent for use with the basic algorithm for
+     * Diffie-Hellman.
+     */
+    public class DHBasicKeyPairGenerator
+		: IAsymmetricCipherKeyPairGenerator
+    {
+        private DHKeyGenerationParameters param;
+
+        public virtual void Init(
+			KeyGenerationParameters parameters)
+        {
+            this.param = (DHKeyGenerationParameters)parameters;
+        }
+
+        public virtual AsymmetricCipherKeyPair GenerateKeyPair()
+        {
+			DHKeyGeneratorHelper helper = DHKeyGeneratorHelper.Instance;
+			DHParameters dhp = param.Parameters;
+
+			BigInteger x = helper.CalculatePrivate(dhp, param.Random);
+			BigInteger y = helper.CalculatePublic(dhp, x);
+
+			return new AsymmetricCipherKeyPair(
+                new DHPublicKeyParameters(y, dhp),
+                new DHPrivateKeyParameters(x, dhp));
+        }
+    }
+}
+#pragma warning restore
+#endif

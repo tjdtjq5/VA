@@ -1,3 +1,80 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1124f6774f5b84850c1b6e3a550faf792babc3300d935bf0d7a9e0dc5e0fc0d8
-size 2877
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    public class PskTlsServer
+        : AbstractTlsServer
+    {
+        private static readonly int[] DefaultCipherSuites = new int[]
+        {
+            CipherSuite.TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256,
+            CipherSuite.TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA384,
+            CipherSuite.TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA256,
+            CipherSuite.TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA,
+            CipherSuite.TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA,
+            CipherSuite.TLS_DHE_PSK_WITH_CHACHA20_POLY1305_SHA256,
+            CipherSuite.TLS_DHE_PSK_WITH_AES_256_GCM_SHA384,
+            CipherSuite.TLS_DHE_PSK_WITH_AES_128_GCM_SHA256,
+            CipherSuite.TLS_DHE_PSK_WITH_AES_256_CBC_SHA384,
+            CipherSuite.TLS_DHE_PSK_WITH_AES_128_CBC_SHA256,
+            CipherSuite.TLS_DHE_PSK_WITH_AES_256_CBC_SHA,
+            CipherSuite.TLS_DHE_PSK_WITH_AES_128_CBC_SHA
+        };
+
+        protected readonly TlsPskIdentityManager m_pskIdentityManager;
+
+        public PskTlsServer(TlsCrypto crypto, TlsPskIdentityManager pskIdentityManager)
+            : base(crypto)
+        {
+            this.m_pskIdentityManager = pskIdentityManager;
+        }
+
+        /// <exception cref="IOException"/>
+        protected virtual TlsCredentialedDecryptor GetRsaEncryptionCredentials()
+        {
+            throw new TlsFatalAlert(AlertDescription.internal_error);
+        }
+
+        protected override ProtocolVersion[] GetSupportedVersions()
+        {
+            return ProtocolVersion.TLSv12.Only();
+        }
+
+        protected override int[] GetSupportedCipherSuites()
+        {
+            return TlsUtilities.GetSupportedCipherSuites(Crypto, DefaultCipherSuites);
+        }
+
+        public override TlsCredentials GetCredentials()
+        {
+            int keyExchangeAlgorithm = m_context.SecurityParameters.KeyExchangeAlgorithm;
+
+            switch (keyExchangeAlgorithm)
+            {
+            case KeyExchangeAlgorithm.DHE_PSK:
+            case KeyExchangeAlgorithm.ECDHE_PSK:
+            case KeyExchangeAlgorithm.PSK:
+                return null;
+
+            case KeyExchangeAlgorithm.RSA_PSK:
+                return GetRsaEncryptionCredentials();
+
+            default:
+                // Note: internal error here; selected a key exchange we don't implement!
+                throw new TlsFatalAlert(AlertDescription.internal_error);
+            }
+        }
+
+        public override TlsPskIdentityManager GetPskIdentityManager()
+        {
+            return m_pskIdentityManager;
+        }
+    }
+}
+#pragma warning restore
+#endif

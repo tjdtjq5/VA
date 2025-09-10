@@ -1,3 +1,24 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3dfd625fadf668280999a2ef5dcea4ce7cc88c3b2fa2b697d64d3649553ebfe9
-size 550
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Math.EC
+{
+    public class ScaleXPointMap
+        : ECPointMap
+    {
+        protected readonly ECFieldElement scale;
+
+        public ScaleXPointMap(ECFieldElement scale)
+        {
+            this.scale = scale;
+        }
+
+        public virtual ECPoint Map(ECPoint p)
+        {
+            return p.ScaleX(scale);
+        }
+    }
+}
+#pragma warning restore
+#endif

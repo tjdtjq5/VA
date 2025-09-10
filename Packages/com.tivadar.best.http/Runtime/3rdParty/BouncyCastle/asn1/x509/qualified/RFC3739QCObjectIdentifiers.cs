@@ -1,3 +1,25 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:4fceb916b715fd3a33a5648176b577e29396a12c09f7319c0dc7e7e41577dc5e
-size 767
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.X509.Qualified
+{
+    public sealed class Rfc3739QCObjectIdentifiers
+    {
+		private Rfc3739QCObjectIdentifiers()
+		{
+		}
+
+		//
+        // base id
+        //
+        public static readonly DerObjectIdentifier IdQcs = new DerObjectIdentifier("1.3.6.1.5.5.7.11");
+
+        public static readonly DerObjectIdentifier IdQcsPkixQCSyntaxV1 = new DerObjectIdentifier(IdQcs+".1");
+        public static readonly DerObjectIdentifier IdQcsPkixQCSyntaxV2 = new DerObjectIdentifier(IdQcs+".2");
+    }
+}
+#pragma warning restore
+#endif

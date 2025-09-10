@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c04b177e2e4b04fb72945db871888b, type: 3}
+  m_Name: SlashDamage_120
+  m_EditorClassIdentifier: 
+  codeName: SlashDamage_120
+  id: 146
+  icon: {fileID: 21300000, guid: 2b5fb67be84c87243835738b6d3828c1, type: 3}
+  displayName: "\uCC38\uACA9 \uB370\uBBF8\uC9C0 +120%"
+  description: "\uCC38\uACA9 \uB370\uBBF8\uC9C0 +120%"
+  buffGrade: 0
+  behaviour:
+    rid: 2696791124002734082
+  buffIcon: {fileID: 0}
+  buffCountType: 2
+  addCount: 1
+  isNotRemove: 0
+  startTiming: 1
+  endTiming: 0
+  turnStart: 0
+  turnEnd: 0
+  stackInstanceCountStart: 1
+  stackInstanceCountEnd: 1
+  hpIncreaseValueStart: 0
+  hpDecreaseValueStart: 0
+  hpIncreaseValueEnd: 0
+  hpDecreaseValueEnd: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 2696791124002734082
+      type: {class: BuffStat, ns: , asm: Assembly-CSharp}
+      data:
+        buffBonusKey: SlashDamage_120
+        stat: {fileID: 11400000, guid: 0d3a8fc373be5814a82debfab5606b15, type: 2}
+        percent: 120
+        effectPool: {fileID: 4504952870117154186, guid: 8e92eada2838e984bbc7ca74ca4cea30, type: 3}

@@ -1,3 +1,32 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1769d0d19389414d373303ecb738c98c6f4cf2876702930bbae479fd9bb57f7a
-size 812
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.IO;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Operators
+{
+    public class DefaultVerifierCalculator
+        : IStreamCalculator<IVerifier>
+    {
+        private readonly SignerSink mSignerSink;
+
+        public DefaultVerifierCalculator(ISigner signer)
+        {
+            this.mSignerSink = new SignerSink(signer);
+        }
+
+        public Stream Stream
+        {
+            get { return mSignerSink; }
+        }
+
+        public IVerifier GetResult()
+        {
+            return new DefaultVerifierResult(mSignerSink.Signer);
+        }
+    }
+}
+#pragma warning restore
+#endif

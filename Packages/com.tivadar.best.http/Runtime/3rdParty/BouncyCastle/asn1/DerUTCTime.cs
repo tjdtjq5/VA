@@ -1,3 +1,44 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c0fffeb0799be4447167b5f46c709e1b9b09b46691e508c390c1e4c1c56cb9ad
-size 1148
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1
+{
+    public class DerUtcTime
+        : Asn1UtcTime
+    {
+        public DerUtcTime(string timeString)
+			: base(timeString)
+        {
+        }
+
+
+        public DerUtcTime(DateTime dateTime)
+			: base(dateTime)
+        {
+        }
+
+        public DerUtcTime(DateTime dateTime, int twoDigitYearMax)
+            : base(dateTime, twoDigitYearMax)
+        {
+        }
+
+        internal DerUtcTime(byte[] contents)
+			: base(contents)
+        {
+        }
+
+        internal override IAsn1Encoding GetEncoding(int encoding)
+        {
+            return new PrimitiveEncoding(Asn1Tags.Universal, Asn1Tags.UtcTime,
+                GetContents(Asn1OutputStream.EncodingDer));
+        }
+
+        internal override IAsn1Encoding GetEncodingImplicit(int encoding, int tagClass, int tagNo)
+        {
+            return new PrimitiveEncoding(tagClass, tagNo, GetContents(Asn1OutputStream.EncodingDer));
+        }
+    }
+}
+#pragma warning restore
+#endif

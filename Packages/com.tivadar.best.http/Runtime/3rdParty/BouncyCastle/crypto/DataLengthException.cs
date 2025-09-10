@@ -1,3 +1,39 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:940909ce6e81732d69666d42b0f9919910a64e9048384c612826e19558e63749
-size 1025
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.Runtime.Serialization;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
+{
+	/// <summary>This exception is thrown if a buffer that is meant to have output copied into it turns out to be too
+	/// short, or if we've been given insufficient input.</summary>
+	/// <remarks>
+	/// In general this exception will get thrown rather than an <see cref="IndexOutOfRangeException"/>.
+	/// </remarks>
+	[Serializable]
+    public class DataLengthException
+		: CryptoException
+	{
+		public DataLengthException()
+			: base()
+		{
+		}
+
+		public DataLengthException(string message)
+			: base(message)
+		{
+		}
+
+		public DataLengthException(string message, Exception innerException)
+			: base(message, innerException)
+		{
+		}
+
+		protected DataLengthException(SerializationInfo info, StreamingContext context)
+			: base(info, context)
+		{
+		}
+	}
+}
+#pragma warning restore
+#endif

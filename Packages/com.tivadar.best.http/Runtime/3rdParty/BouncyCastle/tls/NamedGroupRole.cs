@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e09bef20a58747bddd1488da44642d242cb5fea3154ec3e9ebfeff9c32207fd1
-size 577
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    /// <remarks>
+    /// Note that the values here are implementation-specific and arbitrary. It is recommended not to depend on the
+    /// particular values (e.g. serialization).
+    /// </remarks>
+    public abstract class NamedGroupRole
+    {
+        public const int dh = 1;
+        public const int ecdh = 2;
+        public const int ecdsa = 3;
+    }
+}
+#pragma warning restore
+#endif

@@ -1,3 +1,23 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3044864c7be58845206590c125058e6bc43457d2330a15ec7378f2e61b78caeb
-size 514
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg.Sig
+{
+	/**
+	 * Packet embedded signature
+	 */
+	public class EmbeddedSignature
+		: SignatureSubpacket
+	{
+		public EmbeddedSignature(
+			bool	critical,
+            bool    isLongLength,
+			byte[]	data)
+			: base(SignatureSubpacketTag.EmbeddedSignature, critical, isLongLength, data)
+		{
+		}
+	}
+}
+#pragma warning restore
+#endif

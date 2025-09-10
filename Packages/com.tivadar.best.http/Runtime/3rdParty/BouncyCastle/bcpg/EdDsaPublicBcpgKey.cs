@@ -1,3 +1,29 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:77238d44f001823d75f66c1e67d6a9da240ba9f9159b1d93ebaa0ce56dacb7f7
-size 838
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math.EC;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg
+{
+    public sealed class EdDsaPublicBcpgKey
+        : ECPublicBcpgKey
+    {
+        internal EdDsaPublicBcpgKey(BcpgInputStream bcpgIn)
+            : base(bcpgIn)
+        {
+        }
+
+        public EdDsaPublicBcpgKey(DerObjectIdentifier oid, ECPoint point)
+            : base(oid, point)
+        {
+        }
+
+        public EdDsaPublicBcpgKey(DerObjectIdentifier oid, BigInteger encodedPoint)
+            : base(oid, encodedPoint)
+        {
+        }
+    }
+}
+#pragma warning restore
+#endif

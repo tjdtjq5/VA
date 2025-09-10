@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:60c26ae5329cf66fd29bac50bbf2cb6dbebf903d475cdfe6cbd2f34b2193b3ae
-size 420
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    public interface TlsPsk
+    {
+        byte[] Identity { get; }
+
+        TlsSecret Key { get; }
+
+        int PrfAlgorithm { get; }
+    }
+}
+#pragma warning restore
+#endif

@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d249656464c9bca42f35fb497d89d581d91031c46988ba76256b437cf3399af0
-size 810
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
+{
+    public interface IMacFactory
+    {
+        /// <summary>The algorithm details object for this calculator.</summary>
+        object AlgorithmDetails { get; }
+
+        /// <summary>
+        /// Create a stream calculator for this signature calculator. The stream
+        /// calculator is used for the actual operation of entering the data to be signed
+        /// and producing the signature block.
+        /// </summary>
+        /// <returns>A calculator producing an IBlockResult with a signature in it.</returns>
+        IStreamCalculator<IBlockResult> CreateCalculator();
+    }
+}
+#pragma warning restore
+#endif

@@ -1,3 +1,41 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:220731878b22163c505ea7a7844a14d9a0f2f113b5902490338f20b58ee17601
-size 1160
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.Smime
+{
+    /**
+     * Handler for creating a vector S/MIME Capabilities
+     */
+    public class SmimeCapabilityVector
+    {
+        private readonly Asn1EncodableVector capabilities = new Asn1EncodableVector();
+
+		public void AddCapability(
+            DerObjectIdentifier capability)
+        {
+            capabilities.Add(new DerSequence(capability));
+        }
+
+		public void AddCapability(
+            DerObjectIdentifier capability,
+            int                 value)
+        {
+			capabilities.Add(new DerSequence(capability, new DerInteger(value)));
+        }
+
+		public void AddCapability(
+            DerObjectIdentifier capability,
+            Asn1Encodable		parameters)
+        {
+			capabilities.Add(new DerSequence(capability, parameters));
+        }
+
+		public Asn1EncodableVector ToAsn1EncodableVector()
+        {
+            return capabilities;
+        }
+    }
+}
+#pragma warning restore
+#endif

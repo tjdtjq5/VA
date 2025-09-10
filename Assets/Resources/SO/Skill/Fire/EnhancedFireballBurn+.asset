@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: EnhancedFireballBurn+
+  m_EditorClassIdentifier: 
+  codeName: EnhancedFireballBurn+
+  id: 62
+  icon: {fileID: 21300000, guid: 17e860c661609f64da14998f45be3be5, type: 3}
+  displayName: "\uC9C0\uC625\uBD88+"
+  description: "\uBD88\uB369\uC774\uB294 \uC9C0\uC625\uBD88\uB85C \uBCC0\uACBD\uB418\uBA70,
+    \uBCF4\uC774\uB294 \uBAA8\uB4E0 \uC801\uC5D0\uAC8C \uD53C\uD574\uB97C \uC900\uB2E4,
+    \uBD88\uB369\uC774 \uD53C\uD574\uB7C9 <color=#FB7919>+$[b2.b.Percent]%</color>"
+  isView: 1
+  isPlus: 1
+  skillGrade: 4
+  wordTips:
+  - {fileID: 11400000, guid: fc3d4b8c85d5fb845b4194be3b46c79f, type: 2}
+  - {fileID: 11400000, guid: 6aacaa9876502d44ca2fb44ad5d03855, type: 2}
+  skillDeckTypes: 03000000
+  behaviours:
+  - rid: 2696791155024592921
+  - rid: 6027879103505367056
+  - rid: 2696791155024592924
+  isEndRemove: 0
+  isAllClearApply: 0
+  removeSkills:
+  - {fileID: 11400000, guid: e5a8a94985f876544b99b68b444cbab9, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: e5a8a94985f876544b99b68b444cbab9, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 2696791155024592921
+      type: {class: SkillTriggerPassiveBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        triggerPassiveBuff: 12
+    - rid: 2696791155024592924
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 22
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 5
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 37d6b4a42e1002747b3ecc6e483dd018, type: 2}
+        targetType: 5
+        isNotBuffRemove: 0
+    - rid: 6027879103505367056
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 200fed379d34984439009b3cdbb4174e, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0

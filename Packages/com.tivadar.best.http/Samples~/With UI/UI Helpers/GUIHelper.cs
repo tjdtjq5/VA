@@ -1,3 +1,60 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a60df4194da9a5b7796c6a77232487d9d93c2668a8fff0827607b4b41e37979f
-size 1882
+using System.Collections;
+
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Best.HTTP.Examples.Helpers
+{
+    static class GUIHelper
+    {
+        // https://en.wikipedia.org/wiki/Binary_prefix
+        private static string[] prefixes = new string[] { " B", " KiB", " MiB", " GiB", " TiB" };
+
+        public static string GetBytesStr(double bytes, byte precision)
+        {
+            int prefixIdx = 0;
+            while (bytes >= 1024)
+            {
+                bytes = bytes / 1024;
+                prefixIdx++;
+            }
+
+            return bytes.ToString("F" + precision) + prefixes[prefixIdx];
+        }
+
+        public static void RemoveChildren(RectTransform transform, int maxChildCount)
+        {
+            while (transform.childCount > maxChildCount)
+            {
+                var child = transform.GetChild(0);
+                child.SetParent(null);
+
+                GameObject.Destroy(child.gameObject);
+            }
+        }
+
+        public static TextListItem AddText(TextListItem prefab, RectTransform contentRoot, string text, int maxEntries, ScrollRect scrollRect)
+        {
+            if (contentRoot == null)
+                return null;
+
+            var listItem = GameObject.Instantiate<TextListItem>(prefab, contentRoot, false);
+            listItem.SetText(text);
+
+            GUIHelper.RemoveChildren(contentRoot, maxEntries);
+
+            if (scrollRect != null && scrollRect.isActiveAndEnabled)
+                scrollRect.StartCoroutine(ScrollToBottom(scrollRect));
+
+            return listItem;
+        }
+
+        public static IEnumerator ScrollToBottom(ScrollRect scrollRect)
+        {
+            yield return null;
+
+            if (scrollRect != null && scrollRect.isActiveAndEnabled)
+                scrollRect.normalizedPosition = new Vector2(0, 0);
+        }
+    }
+}

@@ -1,3 +1,35 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:32fe752b405da1fac993ca6fae30aa534dd4d7bc1a4cbf8375ff88d04336c5a4
-size 750
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+using System.Runtime.Serialization;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities.IO
+{
+    [Serializable]
+    public class StreamOverflowException
+		: IOException
+	{
+		public StreamOverflowException()
+			: base()
+		{
+		}
+
+		public StreamOverflowException(string message)
+			: base(message)
+		{
+		}
+
+		public StreamOverflowException(string message, Exception innerException)
+			: base(message, innerException)
+		{
+		}
+
+		protected StreamOverflowException(SerializationInfo info, StreamingContext context)
+			: base(info, context)
+		{
+		}
+	}
+}
+#pragma warning restore
+#endif

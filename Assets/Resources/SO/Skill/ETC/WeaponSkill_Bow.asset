@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: WeaponSkill_Bow
+  m_EditorClassIdentifier: 
+  codeName: WeaponSkill_Bow
+  id: 193
+  icon: {fileID: 0}
+  displayName: "\uD65C \uBC84\uD504"
+  description: "\uD65C \uBC84\uD504 : \uCE58\uBA85\uD0C0 \uD53C\uD574<sprite name=\"CriticalDmg\">\uB7C9
+    10% \uC99D\uAC00<sprite name=\"Up\">"
+  isView: 0
+  isPlus: 0
+  skillGrade: 0
+  wordTips: []
+  skillDeckTypes: 
+  behaviours:
+  - rid: 7303037870381989928
+  isEndRemove: 0
+  isAllClearApply: 0
+  removeSkills: []
+  conditionSkills: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303037870381989928
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 6
+        timingPuzzleType: 3
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0.7
+        buff: {fileID: 11400000, guid: 4f2a7b4fa11d3c4459a0336ba61154c8, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0

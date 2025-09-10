@@ -1,3 +1,17 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:830b0f3b4c4e06afb44e8b8bdd5c1ee803137e01b784d51c9c1246ddc0adf372
-size 366
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    public interface TlsHeartbeat
+    {
+        byte[] GeneratePayload();
+
+        int IdleMillis { get; }
+
+        int TimeoutMillis { get; }
+    }
+}
+#pragma warning restore
+#endif

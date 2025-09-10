@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3d55539697158c0eb0fec493ca5156a117323e00e5b7ab18edecc39398eae18c
-size 336
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1
+{
+    /**
+     * basic interface for Der string objects.
+     */
+    public interface IAsn1String
+    {
+        string GetString();
+    }
+}
+#pragma warning restore
+#endif

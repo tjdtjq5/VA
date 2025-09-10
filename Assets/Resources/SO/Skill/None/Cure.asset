@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: Cure
+  m_EditorClassIdentifier: 
+  codeName: Cure
+  id: 46
+  icon: {fileID: 21300000, guid: 627027f401544d040a8859b5e74370ea, type: 3}
+  displayName: "\uCE58\uC720"
+  description: "HP <color=#8BFA99>$[b0.b.HpRecoveryValue]%</color> \uD68C\uBCF5"
+  isView: 1
+  isPlus: 0
+  skillGrade: 0
+  wordTips: []
+  skillDeckTypes: 
+  behaviours:
+  - rid: 7303038274838724609
+  isEndRemove: 1
+  isAllClearApply: 0
+  removeSkills: []
+  conditionSkills: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 7303038274838724609
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: fdddcd8fe9f5ab640ac4ade6c3b1164c, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0

@@ -1,3 +1,34 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:793ec66c2c3a39e1f8408df712f714a95affc3a0d69e40feeadba5f89425fa31
-size 679
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.X509
+{
+    /**
+     * The CRLNumber object.
+     * <pre>
+     * CRLNumber::= Integer(0..MAX)
+     * </pre>
+     */
+    public class CrlNumber
+        : DerInteger
+    {
+        public CrlNumber(
+			BigInteger number)
+			: base(number)
+        {
+        }
+
+		public BigInteger Number
+		{
+			get { return PositiveValue; }
+		}
+
+		public override string ToString()
+		{
+			return "CRLNumber: " + Number;
+		}
+	}
+}
+#pragma warning restore
+#endif

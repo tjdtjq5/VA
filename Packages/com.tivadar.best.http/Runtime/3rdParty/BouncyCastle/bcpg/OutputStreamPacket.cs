@@ -1,3 +1,28 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6658f3892ea244803f38772b8b0643b26ea4ae6a897df38dd2b074dcb627a69f
-size 622
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg
+{
+    public abstract class OutputStreamPacket
+    {
+        private readonly BcpgOutputStream bcpgOut;
+
+		internal OutputStreamPacket(
+            BcpgOutputStream bcpgOut)
+        {
+			if (bcpgOut == null)
+				throw new ArgumentNullException("bcpgOut");
+
+			this.bcpgOut = bcpgOut;
+        }
+
+		public abstract BcpgOutputStream Open();
+
+		public abstract void Close();
+    }
+}
+
+#pragma warning restore
+#endif

@@ -1,3 +1,29 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3744fd5d5b3cb00db193e740b4e841058efded669ec5922269e9ac01a36deb4e
-size 960
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Security;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Generators
+{
+    public class X448KeyPairGenerator
+        : IAsymmetricCipherKeyPairGenerator
+    {
+        private SecureRandom random;
+
+        public virtual void Init(KeyGenerationParameters parameters)
+        {
+            this.random = parameters.Random;
+        }
+
+        public virtual AsymmetricCipherKeyPair GenerateKeyPair()
+        {
+            X448PrivateKeyParameters privateKey = new X448PrivateKeyParameters(random);
+            X448PublicKeyParameters publicKey = privateKey.GeneratePublicKey();
+            return new AsymmetricCipherKeyPair(publicKey, privateKey);
+        }
+    }
+}
+#pragma warning restore
+#endif

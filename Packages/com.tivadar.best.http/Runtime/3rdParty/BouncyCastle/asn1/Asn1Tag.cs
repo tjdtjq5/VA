@@ -1,3 +1,35 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6aff0eec0df24032afee24801fe5abf0621da6b2dce043f65a1eb99ef5695ab4
-size 803
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1
+{
+    internal sealed class Asn1Tag
+    {
+        internal static Asn1Tag Create(int tagClass, int tagNo)
+        {
+            return new Asn1Tag(tagClass, tagNo);
+        }
+
+        private readonly int m_tagClass;
+        private readonly int m_tagNo;
+
+        private Asn1Tag(int tagClass, int tagNo)
+        {
+            m_tagClass = tagClass;
+            m_tagNo = tagNo;
+        }
+
+        internal int TagClass
+        {
+            get { return m_tagClass; }
+        }
+
+        internal int TagNo
+        {
+            get { return m_tagNo; }
+        }
+    }
+}
+#pragma warning restore
+#endif

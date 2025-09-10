@@ -1,3 +1,76 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:13f8c657344a5d4eb35d40f1999d20d58a593c5b37c160a6aa826e7ae23b8eda
-size 2260
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.X509;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.IO;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Security;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Operators
+{
+    public class Asn1DigestFactory
+        : IDigestFactory
+    {
+        public static Asn1DigestFactory Get(DerObjectIdentifier oid)
+        {
+            return new Asn1DigestFactory(DigestUtilities.GetDigest(oid), oid);          
+        }
+
+        public static Asn1DigestFactory Get(string mechanism)
+        {
+            DerObjectIdentifier oid = DigestUtilities.GetObjectIdentifier(mechanism);
+            return new Asn1DigestFactory(DigestUtilities.GetDigest(oid), oid);
+        }
+
+        private readonly IDigest mDigest;
+        private readonly DerObjectIdentifier mOid;
+
+        public Asn1DigestFactory(IDigest digest, DerObjectIdentifier oid)
+        {
+            this.mDigest = digest;
+            this.mOid = oid;
+        }    
+
+        public virtual object AlgorithmDetails
+        {
+            get { return new AlgorithmIdentifier(mOid); }
+        }
+
+        public virtual int DigestLength
+        {
+            get { return mDigest.GetDigestSize(); }
+        }
+
+        public virtual IStreamCalculator<IBlockResult> CreateCalculator()
+        {
+            return new DfDigestStream(mDigest);
+        }
+    }
+
+    internal class DfDigestStream
+        : IStreamCalculator<SimpleBlockResult>
+    {
+        private readonly DigestSink mStream;
+
+        public DfDigestStream(IDigest digest)
+        {          
+            this.mStream = new DigestSink(digest);
+        }
+
+        public Stream Stream
+        {
+            get { return mStream; }
+        }
+
+        public SimpleBlockResult GetResult()
+        {
+            byte[] result = new byte[mStream.Digest.GetDigestSize()];
+            mStream.Digest.DoFinal(result, 0);
+            return new SimpleBlockResult(result);
+        }
+    }
+}
+#pragma warning restore
+#endif

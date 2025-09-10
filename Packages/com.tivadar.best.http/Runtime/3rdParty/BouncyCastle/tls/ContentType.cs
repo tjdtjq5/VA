@@ -1,3 +1,42 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0eb58727f0d81d63878d4e490365f45dd1f17398a079a194eb233fba816de8d0
-size 1242
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    /// <summary>RFC 2246 6.2.1</summary>
+    public abstract class ContentType
+    {
+        public const short change_cipher_spec = 20;
+        public const short alert = 21;
+        public const short handshake = 22;
+        public const short application_data = 23;
+        public const short heartbeat = 24;
+
+        public static string GetName(short contentType)
+        {
+            switch (contentType)
+            {
+            case alert:
+                return "alert";
+            case application_data:
+                return "application_data";
+            case change_cipher_spec:
+                return "change_cipher_spec";
+            case handshake:
+                return "handshake";
+            case heartbeat:
+                return "heartbeat";
+            default:
+                return "UNKNOWN";
+            }
+        }
+
+        public static string GetText(short contentType)
+        {
+            return GetName(contentType) + "(" + contentType + ")";
+        }
+    }
+}
+#pragma warning restore
+#endif

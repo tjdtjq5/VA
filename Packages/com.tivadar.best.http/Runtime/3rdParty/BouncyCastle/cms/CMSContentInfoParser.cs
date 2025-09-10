@@ -1,3 +1,52 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f6f4e67371babf273556ef2604a6343fea86a4f755e49f4b2e3756452b57814d
-size 1228
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.Cms;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Cms
+{
+	public class CmsContentInfoParser
+	{
+		protected ContentInfoParser	contentInfo;
+		protected Stream data;
+
+		protected CmsContentInfoParser(
+			Stream data)
+		{
+			if (data == null)
+				throw new ArgumentNullException("data");
+
+			this.data = data;
+
+			try
+			{
+				Asn1StreamParser inStream = new Asn1StreamParser(data);
+
+				this.contentInfo = new ContentInfoParser((Asn1SequenceParser)inStream.ReadObject());
+			}
+			catch (IOException e)
+			{
+				throw new CmsException("IOException reading content.", e);
+			}
+			catch (InvalidCastException e)
+			{
+				throw new CmsException("Unexpected object reading content.", e);
+			}
+		}
+
+		/**
+		* Close the underlying data stream.
+		* @throws IOException if the close fails.
+		*/
+		public void Close()
+		{
+            data.Dispose();
+		}
+	}
+}
+#pragma warning restore
+#endif

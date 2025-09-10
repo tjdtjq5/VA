@@ -1,3 +1,25 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5a9756524e45d1f816931a754f226b99da5135a1181edf5664612229c3a19ea7
-size 748
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
+{
+    public interface ISecretWithEncapsulation
+        : IDisposable 
+    {
+        
+        ///<summary>
+        /// Return the secret associated with the encapsulation.
+        /// </summary>
+        /// <returns> the secret the encapsulation is for.</returns>
+        byte[] GetSecret();
+
+        /// <summary>
+        /// Return the data that carries the secret in its encapsulated form.
+        /// </summary>
+        /// <returns> the encapsulation of the secret.</returns>
+        byte[] GetEncapsulation();
+    }
+}
+#pragma warning restore
+#endif

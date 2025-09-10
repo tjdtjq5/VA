@@ -1,3 +1,27 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9dc8fa78980b543c0e632dd4a84b2d82516cf051d36398af4b63efb15d76fc71
-size 913
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Agreement.Srp;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto.Impl.BC
+{
+    internal sealed class BcTlsSrp6VerifierGenerator
+        : TlsSrp6VerifierGenerator
+    {
+        private readonly Srp6VerifierGenerator m_srp6VerifierGenerator;
+
+        internal BcTlsSrp6VerifierGenerator(Srp6VerifierGenerator srp6VerifierGenerator)
+        {
+            this.m_srp6VerifierGenerator = srp6VerifierGenerator;
+        }
+
+        public BigInteger GenerateVerifier(byte[] salt, byte[] identity, byte[] password)
+        {
+            return m_srp6VerifierGenerator.GenerateVerifier(salt, identity, password);
+        }
+    }
+}
+#pragma warning restore
+#endif

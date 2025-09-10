@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1607b91db2980e5cb57afe199cdb78a872add4167dd63bcb629a5b1878e95fd3
-size 414
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    internal interface DtlsHandshakeRetransmit
+    {
+        /// <exception cref="IOException"/>
+        void ReceivedHandshakeRecord(int epoch, byte[] buf, int off, int len);
+    }
+}
+#pragma warning restore
+#endif

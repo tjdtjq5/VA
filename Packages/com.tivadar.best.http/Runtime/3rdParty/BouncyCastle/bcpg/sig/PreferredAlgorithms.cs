@@ -1,3 +1,57 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f03e90fca2ef0e4c3f67368504caa676af7c65ce93f532ae6b45b9f62ae09dfa
-size 1479
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg.Sig
+{
+    /**
+    * packet giving signature creation time.
+    */
+    public class PreferredAlgorithms
+        : SignatureSubpacket
+    {
+        private static byte[] IntToByteArray(
+            int[]    v)
+        {
+            byte[]    data = new byte[v.Length];
+
+            for (int i = 0; i != v.Length; i++)
+            {
+                data[i] = (byte)v[i];
+            }
+
+            return data;
+        }
+
+        public PreferredAlgorithms(
+            SignatureSubpacketTag   type,
+            bool                    critical,
+            bool                    isLongLength,
+            byte[]                  data)
+            : base(type, critical, isLongLength, data)
+        {
+        }
+
+        public PreferredAlgorithms(
+            SignatureSubpacketTag   type,
+            bool                    critical,
+            int[]                   preferences)
+            : base(type, critical, false, IntToByteArray(preferences))
+        {
+        }
+
+        public int[] GetPreferences()
+        {
+            int[] v = new int[data.Length];
+
+            for (int i = 0; i != v.Length; i++)
+            {
+                v[i] = data[i] & 0xff;
+            }
+
+            return v;
+        }
+    }
+}
+#pragma warning restore
+#endif

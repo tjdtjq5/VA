@@ -1,3 +1,18 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a344a7c5151abf103bd090ee97004cd54265d30f59c0d2e453a15931a96c30d1
-size 457
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto
+{
+    public interface Tls13Verifier
+    {
+        /// <exception cref="IOException"/>
+        Stream Stream { get; }
+
+        /// <exception cref="IOException"/>
+        bool VerifySignature(byte[] signature);
+    }
+}
+#pragma warning restore
+#endif

@@ -1,3 +1,21 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c9eb91f9aadfe52cb478f81a0ba367ee9a36556a6df972c0e40698a23430e309
-size 818
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto
+{
+    /// <summary>Base interface for an encryptor.</summary>
+    public interface TlsEncryptor
+    {
+        /// <summary>Encrypt data from the passed in input array.</summary>
+        /// <param name="input">byte array containing the input data.</param>
+        /// <param name="inOff">offset into input where the data starts.</param>
+        /// <param name="length">the length of the data to encrypt.</param>
+        /// <returns>the encrypted data.</returns>
+        /// <exception cref="IOException"/>
+        byte[] Encrypt(byte[] input, int inOff, int length);
+    }
+}
+#pragma warning restore
+#endif

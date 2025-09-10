@@ -1,3 +1,32 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:04e8b4de3208be6caa9663bd13873ec21df89ea3ea5cb7b607ae6c42bc81e51f
-size 949
+using UnityEditor;
+using UnityEngine;
+
+namespace Assets.SimpleSignIn.Apple.Scripts.Editor
+{
+    [CustomEditor(typeof(AppleAuthSettings))]
+    public class SettingsEditor : UnityEditor.Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            var settings = (AppleAuthSettings) target;
+            var warning = settings.Validate();
+
+            if (warning != null)
+            {
+                EditorGUILayout.HelpBox(warning, MessageType.Warning);
+            }
+
+            DrawDefaultInspector();
+
+            if (GUILayout.Button("Certificates, Identifiers & Profiles"))
+            {
+                Application.OpenURL("https://developer.apple.com/account/resources/identifiers/list");
+            }
+
+            if (GUILayout.Button("Wiki"))
+            {
+                Application.OpenURL("https://github.com/hippogamesunity/SimpleSignIn/wiki/Apple");
+            }
+        }
+    }
+}

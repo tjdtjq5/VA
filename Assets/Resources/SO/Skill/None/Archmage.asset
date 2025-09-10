@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: Archmage
+  m_EditorClassIdentifier: 
+  codeName: Archmage
+  id: 2
+  icon: {fileID: 21300000, guid: ca2441c075206894a9694c13bc5e2887, type: 3}
+  displayName: "\uB300 \uB9C8\uBC95\uC0AC"
+  description: "\uB9C8\uBC95 \uD53C\uD574\uB7C9 <color=#FB7919>+$[b0.b.Percent]%</color>,
+    \uC77C\uBC18 \uACF5\uACA9 \uD53C\uD574\uB7C9 <color=#F43E33>-$[b1.b.Percent]%</color>"
+  isView: 1
+  isPlus: 0
+  skillGrade: 4
+  wordTips: []
+  skillDeckTypes: 01000000020000000300000004000000
+  behaviours:
+  - rid: 2696790977382711298
+  - rid: 2696790977382711299
+  isEndRemove: 0
+  isAllClearApply: 0
+  removeSkills: []
+  conditionSkills: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 2696790977382711298
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 7cdba2dee06876d45ac1ec666dce21d6, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0
+    - rid: 2696790977382711299
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 200bbb6f555c3744e8e00abe44d89a43, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0

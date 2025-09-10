@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f18a94a89041358f976f938b8757037d6ab16c864a628b795ada0ee6f383f8eb
-size 815
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
+{
+    /// <summary>
+    /// Base interface for a provider to support the dynamic creation of signature verifiers.
+    /// </summary>
+    public interface IVerifierFactoryProvider
+	{
+        /// <summary>
+        /// Return a signature verfier for signature algorithm described in the passed in algorithm details object.
+        /// </summary>
+        /// <param name="algorithmDetails">The details of the signature algorithm verification is required for.</param>
+        /// <returns>A new signature verifier.</returns>
+		IVerifierFactory CreateVerifierFactory (object algorithmDetails);
+	}
+}
+
+#pragma warning restore
+#endif

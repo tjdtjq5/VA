@@ -1,3 +1,37 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:56b18949b30649305c00334761c9a10fc649f5d484e0742c62d026d937052cde
-size 1151
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System.IO;
+
+#if NET6_0_OR_GREATER
+using System.IO.Compression;
+#else
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities.Zlib;
+#endif
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities.IO.Compression
+{
+    internal static class Zip
+    {
+        internal static Stream CompressOutput(Stream stream, int zlibCompressionLevel, bool leaveOpen = false)
+        {
+#if NET6_0_OR_GREATER
+            return new DeflateStream(stream, ZLib.GetCompressionLevel(zlibCompressionLevel), leaveOpen);
+#else
+            return leaveOpen
+                ?   new ZOutputStreamLeaveOpen(stream, zlibCompressionLevel, true)
+                :   new ZOutputStream(stream, zlibCompressionLevel, true);
+#endif
+        }
+
+        internal static Stream DecompressInput(Stream stream)
+        {
+#if NET6_0_OR_GREATER
+            return new DeflateStream(stream, CompressionMode.Decompress, leaveOpen: false);
+#else
+            return new ZInputStream(stream, true);
+#endif
+        }
+    }
+}
+#pragma warning restore
+#endif

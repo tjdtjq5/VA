@@ -1,3 +1,33 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3a362c1bff2a823decf25fd5cf7eb4144d828226361874834d6de44fa6f67b8c
-size 865
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Operators
+{
+    public class DefaultVerifierResult
+        : IVerifier
+    {
+        private readonly ISigner mSigner;
+
+        public DefaultVerifierResult(ISigner signer)
+        {
+            this.mSigner = signer;
+        }
+
+        public bool IsVerified(byte[] signature)
+        {
+            return mSigner.VerifySignature(signature);
+        }
+
+        public bool IsVerified(byte[] sig, int sigOff, int sigLen)
+        {
+            byte[] signature = Arrays.CopyOfRange(sig, sigOff, sigOff + sigLen);
+
+            return IsVerified(signature);
+        }
+    }
+}
+#pragma warning restore
+#endif

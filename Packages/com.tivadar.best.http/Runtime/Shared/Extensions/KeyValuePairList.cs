@@ -1,3 +1,27 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b1483d186fbcfb4975b22f9cf1f968105353e786c651851f97180ad601bcac55
-size 730
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Best.HTTP.Shared.Extensions
+{
+    /// <summary>
+    /// Base class for specialized parsers
+    /// </summary>
+    public class KeyValuePairList
+    {
+        public List<HeaderValue> Values { get; protected set; }
+
+        public bool TryGet(string valueKeyName, out HeaderValue @param)
+        {
+            @param = null;
+            for (int i = 0; i < Values.Count; ++i)
+                if (string.CompareOrdinal(Values[i].Key, valueKeyName) == 0)
+                {
+                    @param = Values[i];
+                    return true;
+                }
+            return false;
+        }
+    }
+}

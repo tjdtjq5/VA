@@ -1,3 +1,28 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:af7f146ba205774448c89e8f8e3022d49ef877603704b4e4ce0706faa27f46d5
-size 745
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System.IO;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg
+{
+	/// <remarks>Generic compressed data object.</remarks>
+    public class CompressedDataPacket
+        : InputStreamPacket
+    {
+        private readonly CompressionAlgorithmTag algorithm;
+
+		internal CompressedDataPacket(
+            BcpgInputStream bcpgIn)
+			: base(bcpgIn)
+        {
+            this.algorithm = (CompressionAlgorithmTag) bcpgIn.ReadByte();
+        }
+
+		/// <summary>The algorithm tag value.</summary>
+        public CompressionAlgorithmTag Algorithm
+		{
+			get { return algorithm; }
+		}
+    }
+}
+#pragma warning restore
+#endif

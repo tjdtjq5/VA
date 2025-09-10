@@ -1,3 +1,56 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e1d74034f8ab261b23e3a5eb4972b490c01c84057817e2983eecd19b4851e8ec
-size 1379
+﻿using System;
+using System.Collections.Specialized;
+using System.Net;
+using System.Net.Sockets;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
+using Assets.SimpleSignIn.Apple.Scripts.Utils;
+
+namespace Assets.SimpleSignIn.Apple.Scripts
+{
+    public static class Helpers
+    {
+        /// <summary>
+        /// http://stackoverflow.com/a/3978040
+        /// </summary>
+        public static int GetRandomUnusedPort()
+        {
+            var listener = new TcpListener(IPAddress.Loopback, 0);
+
+            listener.Start();
+
+            var port = ((IPEndPoint) listener.LocalEndpoint).Port;
+
+            listener.Stop();
+
+            return port;
+        }
+
+        public static NameValueCollection ParseQueryString(string url)
+        {
+            var result = new NameValueCollection();
+
+            foreach (Match match in Regex.Matches(url, @"(?<key>\w+)=(?<value>[^&#]+)"))
+            {
+                result.Add(match.Groups["key"].Value, Uri.UnescapeDataString(match.Groups["value"].Value));
+            }
+
+            return result;
+        }
+		
+		public static string CreateSha256Hex(string input)
+        {
+            using var sha256 = SHA256.Create();
+            var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(input));
+            var stringBuilder = new StringBuilder(hash.Length * 2);
+            
+            foreach (var @byte in hash)
+            {
+                stringBuilder.AppendFormat("{0:x2}", @byte);
+            }
+
+            return stringBuilder.ToString();
+        }
+    }
+}

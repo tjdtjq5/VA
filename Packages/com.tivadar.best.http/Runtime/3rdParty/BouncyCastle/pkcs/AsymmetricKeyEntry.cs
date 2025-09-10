@@ -1,3 +1,50 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5670ad28cd3c4db419977f344c5493d4fb405bfe1c8586f1ae8b99aa6568bbd6
-size 1219
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System.Collections.Generic;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Pkcs
+{
+    public class AsymmetricKeyEntry
+        : Pkcs12Entry
+    {
+        private readonly AsymmetricKeyParameter key;
+
+		public AsymmetricKeyEntry(AsymmetricKeyParameter key)
+			: base(new Dictionary<DerObjectIdentifier, Asn1Encodable>())
+        {
+            this.key = key;
+        }
+
+        public AsymmetricKeyEntry(AsymmetricKeyParameter key,
+			IDictionary<DerObjectIdentifier, Asn1Encodable> attributes)
+			: base(attributes)
+        {
+            this.key = key;
+        }
+
+		public AsymmetricKeyParameter Key
+        {
+            get { return this.key; }
+        }
+
+		public override bool Equals(object obj)
+		{
+			AsymmetricKeyEntry other = obj as AsymmetricKeyEntry;
+
+			if (other == null)
+				return false;
+
+			return key.Equals(other.key);
+		}
+
+		public override int GetHashCode()
+		{
+			return ~key.GetHashCode();
+		}
+	}
+}
+#pragma warning restore
+#endif

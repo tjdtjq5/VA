@@ -1,3 +1,63 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7e48e40d623db327db1b94849fb2ab534f34c7f3cf35c14980283a653aeb1758
-size 1378
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters
+{
+    public class DHValidationParameters
+    {
+        private readonly byte[] seed;
+        private readonly int counter;
+
+		public DHValidationParameters(
+            byte[]	seed,
+            int		counter)
+        {
+			if (seed == null)
+				throw new ArgumentNullException("seed");
+
+			this.seed = (byte[]) seed.Clone();
+            this.counter = counter;
+        }
+
+		public byte[] GetSeed()
+        {
+            return (byte[]) seed.Clone();
+        }
+
+		public int Counter
+        {
+            get { return counter; }
+        }
+
+		public override bool Equals(
+            object obj)
+        {
+			if (obj == this)
+				return true;
+
+			DHValidationParameters other = obj as DHValidationParameters;
+
+			if (other == null)
+				return false;
+
+			return Equals(other);
+		}
+
+		protected bool Equals(
+			DHValidationParameters other)
+		{
+			return counter == other.counter
+				&& Arrays.AreEqual(this.seed, other.seed);
+		}
+
+		public override int GetHashCode()
+        {
+			return counter.GetHashCode() ^ Arrays.GetHashCode(seed);
+		}
+    }
+}
+#pragma warning restore
+#endif

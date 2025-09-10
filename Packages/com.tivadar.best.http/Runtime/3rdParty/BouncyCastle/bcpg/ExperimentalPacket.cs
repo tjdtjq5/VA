@@ -1,3 +1,42 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d530bfb2dd21c10576f3d3ba6239da1d9fdba6c936d1eea72cd425031cc77ba2
-size 989
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Bcpg
+{
+	/// <remarks>Basic packet for an experimental packet.</remarks>
+    public class ExperimentalPacket
+        : ContainedPacket //, PublicKeyAlgorithmTag
+    {
+        private readonly PacketTag	tag;
+        private readonly byte[]		contents;
+
+		internal ExperimentalPacket(
+            PacketTag		tag,
+            BcpgInputStream	bcpgIn)
+        {
+            this.tag = tag;
+
+			this.contents = bcpgIn.ReadAll();
+        }
+
+		public PacketTag Tag
+        {
+			get { return tag; }
+        }
+
+		public byte[] GetContents()
+        {
+			return (byte[]) contents.Clone();
+        }
+
+		public override void Encode(
+            BcpgOutputStream bcpgOut)
+        {
+            bcpgOut.WritePacket(tag, contents, true);
+        }
+    }
+}
+#pragma warning restore
+#endif

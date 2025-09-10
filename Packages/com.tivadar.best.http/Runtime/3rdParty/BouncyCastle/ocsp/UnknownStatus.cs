@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:977e52c1b09712e8e7afe89e865aa73dbcd3d9d561a588d64b2f2a672ebf413b
-size 358
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Ocsp
+{
+	/**
+	 * wrapper for the UnknownInfo object
+	 */
+	public class UnknownStatus
+		: CertificateStatus
+	{
+		public UnknownStatus()
+		{
+		}
+	}
+}
+#pragma warning restore
+#endif

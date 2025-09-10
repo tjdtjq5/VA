@@ -1,3 +1,33 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e7e5053370fb903fe904404cee15853fb0510f32684de0158e5f016e8318c3a6
-size 890
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto
+{
+    /**
+     * The basic interface that basic Diffie-Hellman implementations
+     * conforms to.
+     */
+    public interface IBasicAgreement
+    {
+        /**
+         * initialise the agreement engine.
+         */
+        void Init(ICipherParameters parameters);
+
+        /**
+         * return the field size for the agreement algorithm in bytes.
+         */
+        int GetFieldSize();
+
+        /**
+         * given a public key from a given party calculate the next
+         * message in the agreement sequence.
+         */
+        BigInteger CalculateAgreement(ICipherParameters pubKey);
+    }
+
+}
+#pragma warning restore
+#endif

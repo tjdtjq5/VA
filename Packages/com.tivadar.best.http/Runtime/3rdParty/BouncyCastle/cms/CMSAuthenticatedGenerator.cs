@@ -1,3 +1,32 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c6b26b6c6f93f67ed448a6d70fd0a237c36adfedd438b8b0a1a8cdd35f8b8448
-size 1039
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.X509;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Security;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities.Date;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities.IO;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Cms
+{
+	public class CmsAuthenticatedGenerator
+		: CmsEnvelopedGenerator
+	{
+		public CmsAuthenticatedGenerator()
+		{
+		}
+
+        /// <summary>Constructor allowing specific source of randomness</summary>
+        /// <param name="random">Instance of <c>SecureRandom</c> to use.</param>
+        public CmsAuthenticatedGenerator(SecureRandom random)
+			: base(random)
+		{
+		}
+	}
+}
+#pragma warning restore
+#endif

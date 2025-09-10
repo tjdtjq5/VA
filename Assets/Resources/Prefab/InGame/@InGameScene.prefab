@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1297233726206072155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1297233726206072156}
+  - component: {fileID: 1297233726206072157}
+  - component: {fileID: 1297233726206072159}
+  - component: {fileID: 1297233726206072144}
+  - component: {fileID: 5978253260868073239}
+  m_Layer: 0
+  m_Name: '@InGameScene'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1297233726206072156
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297233726206072155}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1297233726206072157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297233726206072155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48994785f03dbfa4bbf4028a024bcc5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dungeonTree: {fileID: 11400000, guid: f980c8a5b5ba5a4449c2c2c79af967a7, type: 2}
+  _puzzleBattleStateMachine:
+    _stageStartState: {fileID: 11400000, guid: 5651771ad61f0b14086d5db6f34d20ce, type: 2}
+    _stageEndState: {fileID: 11400000, guid: d5869116af313524ebef709e9961a080, type: 2}
+    _battleStartState: {fileID: 11400000, guid: 191f596d36b798040a3517cc91ec19c2, type: 2}
+    _battleEndState: {fileID: 11400000, guid: 771b44bd913f7dc49a5a156a47c185b1, type: 2}
+    _stageMoveState: {fileID: 11400000, guid: dab7fba448ff1f54594281e05b5e408b, type: 2}
+    _successState: {fileID: 11400000, guid: 98a6fd998e543944e8e78dc167e74637, type: 2}
+    _failedState: {fileID: 11400000, guid: b0e1f50062b6bf346b0533b79a32721a, type: 2}
+    _turnLoopStates:
+    - {fileID: 11400000, guid: 8465071ed3e1b0f4ca99bed7a3611528, type: 2}
+    - {fileID: 11400000, guid: 9f7c2762c0453f34a89685518fab7147, type: 2}
+    - {fileID: 11400000, guid: 3d77cf66dd774174d8a6301ef1bc8573, type: 2}
+    - {fileID: 11400000, guid: 6e6a1a13220f71b47ab495e6ec52321a, type: 2}
+    CurrentTurnIndex: 0
+  _isBoos: 1
+--- !u!114 &1297233726206072159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297233726206072155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52052769f39e44245a59a19c2393dd5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1297233726206072144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297233726206072155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab78b8a245e6064781b792de4d75e49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SequencesActions:
+  - {fileID: 11400000, guid: a18c096ad01d277408b81294b84c09ff, type: 2}
+  - {fileID: 11400000, guid: 1e03cb80e6f292e44ad85f4482cb8f0d, type: 2}
+  - {fileID: 11400000, guid: 0b23d0389e86ee64bb96f22894246727, type: 2}
+  - {fileID: 11400000, guid: 2209754effe270a4989fb2401a4b2fb7, type: 2}
+--- !u!114 &5978253260868073239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297233726206072155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6919e8b41a6644cb291a393f8ee9a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

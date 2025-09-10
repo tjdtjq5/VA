@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:2677b296d9be7ed60f95ff77c6c70cf53369e86ea3db38772c1c366224af73d6
-size 375
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities
+{
+    public static class Objects
+    {
+        public static int GetHashCode(object obj)
+        {
+            return null == obj ? 0 : obj.GetHashCode();
+        }
+    }
+}
+#pragma warning restore
+#endif

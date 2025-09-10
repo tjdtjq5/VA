@@ -1,3 +1,26 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:86dbf4e32358b0aef8d02d45adc79758d06716736b4c37976fa9e09fa748a438
-size 552
+using System;
+using System.Collections.Generic;
+
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Best.HTTP.Examples.Helpers
+{
+    class TextListItem : MonoBehaviour
+    {
+#pragma warning disable 0649
+        [SerializeField]
+        private Text _text;
+#pragma warning restore
+
+        public void SetText(string text)
+        {
+            this._text.text = text;
+        }
+
+        public void AddLeftPadding(int padding)
+        {
+            this.GetComponent<LayoutGroup>().padding.left += padding;
+        }
+    }
+}

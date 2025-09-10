@@ -1,3 +1,13 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:bf9a21c1bcdaf1b9160313d8e5393bdc92dce14213a0fa09a552553289979ece
-size 295
+using System;
+using System.Collections.Generic;
+
+namespace Best.HTTP.Shared.Databases.Indexing.Comparers
+{
+    public sealed class UInt32Comparer : IComparer<UInt32>
+    {
+        public int Compare(UInt32 x, UInt32 y)
+        {
+            return x.CompareTo(y);
+        }
+    }
+}

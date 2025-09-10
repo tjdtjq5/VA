@@ -1,0 +1,389 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8034961463116590377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ee3d72a8408744f919466e75506dcc, type: 3}
+  m_Name: Research
+  m_EditorClassIdentifier: 
+  graph: {fileID: 3802254440498166394}
+  position: {x: -120, y: -200}
+  ports:
+    keys:
+    - previousNodes
+    - thisNode
+    values:
+    - _fieldName: previousNodes
+      _node: {fileID: -8034961463116590377}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ResearchNode, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: thisNode
+      _node: {fileID: -8034961463116590377}
+      _typeQualifiedName: ResearchNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: previousNodes 0
+        node: {fileID: 5056078153764794010}
+        reroutePoints: []
+      - fieldName: previousNodes 0
+        node: {fileID: -6188326737577178171}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  type: 4
+  floor: 0
+  index: 1
+  research: {fileID: 11400000, guid: d0f76a24c68b6e0499bb543fdf21fef8, type: 2}
+  previousNodes: []
+  thisNode: {fileID: -8034961463116590377}
+--- !u!114 &-6188326737577178171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ee3d72a8408744f919466e75506dcc, type: 3}
+  m_Name: Research
+  m_EditorClassIdentifier: 
+  graph: {fileID: 3802254440498166394}
+  position: {x: -344, y: 120}
+  ports:
+    keys:
+    - previousNodes
+    - thisNode
+    - previousNodes 0
+    values:
+    - _fieldName: previousNodes
+      _node: {fileID: -6188326737577178171}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ResearchNode, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: thisNode
+      _node: {fileID: -6188326737577178171}
+      _typeQualifiedName: ResearchNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: previousNodes 0
+        node: {fileID: -993667514422955781}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: previousNodes 0
+      _node: {fileID: -6188326737577178171}
+      _typeQualifiedName: ResearchNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: thisNode
+        node: {fileID: -8034961463116590377}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 1
+  type: 4
+  floor: 1
+  index: 0
+  research: {fileID: 11400000, guid: d0f76a24c68b6e0499bb543fdf21fef8, type: 2}
+  previousNodes:
+  - {fileID: -8034961463116590377}
+  thisNode: {fileID: -6188326737577178171}
+--- !u!114 &-3459120587863037792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ee3d72a8408744f919466e75506dcc, type: 3}
+  m_Name: Research
+  m_EditorClassIdentifier: 
+  graph: {fileID: 3802254440498166394}
+  position: {x: 312, y: 424}
+  ports:
+    keys:
+    - previousNodes
+    - thisNode
+    - previousNodes 0
+    values:
+    - _fieldName: previousNodes
+      _node: {fileID: -3459120587863037792}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ResearchNode, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: thisNode
+      _node: {fileID: -3459120587863037792}
+      _typeQualifiedName: ResearchNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: previousNodes 0
+      _node: {fileID: -3459120587863037792}
+      _typeQualifiedName: ResearchNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: thisNode
+        node: {fileID: 5056078153764794010}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 1
+  type: 4
+  floor: 2
+  index: 2
+  research: {fileID: 11400000, guid: d0f76a24c68b6e0499bb543fdf21fef8, type: 2}
+  previousNodes:
+  - {fileID: 5056078153764794010}
+  thisNode: {fileID: -3459120587863037792}
+--- !u!114 &-993667514422955781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ee3d72a8408744f919466e75506dcc, type: 3}
+  m_Name: Research
+  m_EditorClassIdentifier: 
+  graph: {fileID: 3802254440498166394}
+  position: {x: -568, y: 424}
+  ports:
+    keys:
+    - previousNodes
+    - thisNode
+    - previousNodes 0
+    values:
+    - _fieldName: previousNodes
+      _node: {fileID: -993667514422955781}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ResearchNode, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: thisNode
+      _node: {fileID: -993667514422955781}
+      _typeQualifiedName: ResearchNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: previousNodes 0
+      _node: {fileID: -993667514422955781}
+      _typeQualifiedName: ResearchNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: thisNode
+        node: {fileID: -6188326737577178171}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 1
+  type: 4
+  floor: 2
+  index: 0
+  research: {fileID: 11400000, guid: d0f76a24c68b6e0499bb543fdf21fef8, type: 2}
+  previousNodes:
+  - {fileID: -6188326737577178171}
+  thisNode: {fileID: -993667514422955781}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d188fef004ec81548ba28da5c3d12bbe, type: 3}
+  m_Name: MasterBook
+  m_EditorClassIdentifier: 
+  codeName: Red
+  id: -1
+  icon: {fileID: 0}
+  displayName: 
+  description: 
+  graph: {fileID: 3802254440498166394}
+--- !u!114 &3802254440498166394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6cc576430ae724439684bce6b04cf96, type: 3}
+  m_Name: ResearchTree_Red Graph
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -993667514422955781}
+  - {fileID: -6188326737577178171}
+  - {fileID: -8034961463116590377}
+  - {fileID: 5073611162386479022}
+  - {fileID: 5056078153764794010}
+  - {fileID: -3459120587863037792}
+  type: 4
+--- !u!114 &5056078153764794010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ee3d72a8408744f919466e75506dcc, type: 3}
+  m_Name: Research
+  m_EditorClassIdentifier: 
+  graph: {fileID: 3802254440498166394}
+  position: {x: 120, y: 120}
+  ports:
+    keys:
+    - previousNodes
+    - thisNode
+    - previousNodes 0
+    values:
+    - _fieldName: previousNodes
+      _node: {fileID: 5056078153764794010}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ResearchNode, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: thisNode
+      _node: {fileID: 5056078153764794010}
+      _typeQualifiedName: ResearchNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: previousNodes 0
+        node: {fileID: 5073611162386479022}
+        reroutePoints: []
+      - fieldName: previousNodes 0
+        node: {fileID: -3459120587863037792}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: previousNodes 0
+      _node: {fileID: 5056078153764794010}
+      _typeQualifiedName: ResearchNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: thisNode
+        node: {fileID: -8034961463116590377}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 1
+  type: 4
+  floor: 1
+  index: 1
+  research: {fileID: 11400000, guid: d0f76a24c68b6e0499bb543fdf21fef8, type: 2}
+  previousNodes:
+  - {fileID: -8034961463116590377}
+  thisNode: {fileID: 5056078153764794010}
+--- !u!114 &5073611162386479022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ee3d72a8408744f919466e75506dcc, type: 3}
+  m_Name: Research
+  m_EditorClassIdentifier: 
+  graph: {fileID: 3802254440498166394}
+  position: {x: -104, y: 424}
+  ports:
+    keys:
+    - previousNodes
+    - thisNode
+    - previousNodes 0
+    values:
+    - _fieldName: previousNodes
+      _node: {fileID: 5073611162386479022}
+      _typeQualifiedName: System.Collections.Generic.List`1[[ResearchNode, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: thisNode
+      _node: {fileID: 5073611162386479022}
+      _typeQualifiedName: ResearchNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: previousNodes 0
+      _node: {fileID: 5073611162386479022}
+      _typeQualifiedName: ResearchNode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: thisNode
+        node: {fileID: 5056078153764794010}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 1
+  type: 4
+  floor: 2
+  index: 1
+  research: {fileID: 11400000, guid: d0f76a24c68b6e0499bb543fdf21fef8, type: 2}
+  previousNodes:
+  - {fileID: 5056078153764794010}
+  thisNode: {fileID: 5073611162386479022}

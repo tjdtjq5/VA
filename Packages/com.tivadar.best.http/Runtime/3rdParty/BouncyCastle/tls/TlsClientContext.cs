@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:2e48a444ad0bf8dd320e3409d53af519e87814f41135add4e7db79bbd7fa8b68
-size 366
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls
+{
+    /// <summary>Marker interface to distinguish a TLS client context.</summary>
+    public interface TlsClientContext
+        : TlsContext
+    {
+    }
+}
+#pragma warning restore
+#endif

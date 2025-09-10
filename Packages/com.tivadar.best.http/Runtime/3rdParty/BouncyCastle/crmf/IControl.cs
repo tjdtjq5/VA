@@ -1,3 +1,26 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:da9d3a2eb0cf75f551d7a0d97259ab9011a35b6f09c93736e25cff9c231127c3
-size 712
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crmf
+{
+    /// <summary>
+    /// Generic interface for a CertificateRequestMessage control value.
+    /// </summary>
+    public interface IControl
+    {
+        /// <summary>
+        /// Return the type of this control.
+        /// </summary>
+        DerObjectIdentifier Type { get; }
+
+        /// <summary>
+        /// Return the value contained in this control object.
+        /// </summary>
+        Asn1Encodable Value { get; }
+    }
+}
+#pragma warning restore
+#endif

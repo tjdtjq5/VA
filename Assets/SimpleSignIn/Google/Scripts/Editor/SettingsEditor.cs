@@ -1,3 +1,32 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7e45ac7da72898acc16f26b12ed847158d61d03adbceb2140b10c445d8ba3f44
-size 929
+using UnityEditor;
+using UnityEngine;
+
+namespace Assets.SimpleSignIn.Google.Scripts.Editor
+{
+    [CustomEditor(typeof(GoogleAuthSettings))]
+    public class SettingsEditor : UnityEditor.Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            var settings = (GoogleAuthSettings)target;
+            var warning = settings.Validate();
+
+            if (warning != null)
+            {
+                EditorGUILayout.HelpBox(warning, MessageType.Warning);
+            }
+
+            DrawDefaultInspector();
+
+            if (GUILayout.Button("Google Cloud / Credentials"))
+            {
+                Application.OpenURL("https://console.cloud.google.com/apis/credentials");
+            }
+
+            if (GUILayout.Button("Wiki"))
+            {
+                Application.OpenURL("https://github.com/hippogamesunity/SimpleSignIn/wiki/Google");
+            }
+        }
+    }
+}

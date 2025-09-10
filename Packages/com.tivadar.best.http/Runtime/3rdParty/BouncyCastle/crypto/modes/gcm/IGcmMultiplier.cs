@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e89923f5aa615ea9e9c867aad0b7a413597618d3169e937844335b9cc61b8931
-size 317
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Modes.Gcm
+{
+	public interface IGcmMultiplier
+	{
+		void Init(byte[] H);
+		void MultiplyH(byte[] x);
+	}
+}
+#pragma warning restore
+#endif

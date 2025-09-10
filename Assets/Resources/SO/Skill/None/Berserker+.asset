@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: Berserker+
+  m_EditorClassIdentifier: 
+  codeName: Berserker+
+  id: 7
+  icon: {fileID: 21300000, guid: 60eda49174197014e8e6c8d0ee2f03c1, type: 3}
+  displayName: "\uBC84\uC11C\uCEE4+"
+  description: "\uC77C\uBC18 \uACF5\uACA9 \uD53C\uD574\uB7C9 <color=#FB7919>+$[b0.b.Percent]%</color>
+    \uC5F0\uC18D \uACF5\uACA9 \uD53C\uD574\uB7C9 <color=#FB7919>+$[b1.b.Percent]%</color>
+    \uC99D\uAC00<sprite name=\"Up\">\uD569\uB2C8\uB2E4\\n\uB300\uC2E0 \uC77C\uBC18
+    \uACF5\uACA9\uC2DC HP\uAC00  <color=#F43E33>-$[b2.b.HpDecreaseValue]%</color>
+    \uAC10\uC18C<sprite name=\"Down\"> \uD569\uB2C8\uB2E4"
+  isView: 1
+  isPlus: 1
+  skillGrade: 4
+  wordTips:
+  - {fileID: 11400000, guid: f218308625d628b47a002e09dbdd0dad, type: 2}
+  skillDeckTypes: 0500000006000000
+  behaviours:
+  - rid: 2696790964209188889
+  - rid: 2696790964209188890
+  - rid: 2696790964209188891
+  isEndRemove: 0
+  isAllClearApply: 0
+  removeSkills:
+  - {fileID: 11400000, guid: c01ff4407c19d74438d97026063d8113, type: 2}
+  conditionSkills:
+  - {fileID: 11400000, guid: c01ff4407c19d74438d97026063d8113, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 2696790964209188889
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: d4915cced7f63534c92844b47abfc5c1, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0
+    - rid: 2696790964209188890
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: 9259adfedb6577d46b81edc2b6739956, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0
+    - rid: 2696790964209188891
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 6
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: def2679af3ba6784984ee72a2eef4b41, type: 2}
+        targetType: 0
+        isNotBuffRemove: 0

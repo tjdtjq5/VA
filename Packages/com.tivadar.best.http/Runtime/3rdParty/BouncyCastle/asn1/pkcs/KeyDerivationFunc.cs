@@ -1,3 +1,25 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:fba5bc0f022938e18d6cdaac1a658c966e5ea977f2e15209a22e926e6e1f731d
-size 582
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1;
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.X509;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Asn1.Pkcs
+{
+	public class KeyDerivationFunc
+		: AlgorithmIdentifier
+	{
+		internal KeyDerivationFunc(Asn1Sequence seq)
+			: base(seq)
+		{
+		}
+
+		public KeyDerivationFunc(
+			DerObjectIdentifier	id,
+			Asn1Encodable		parameters)
+			: base(id, parameters)
+		{
+		}
+	}
+}
+#pragma warning restore
+#endif

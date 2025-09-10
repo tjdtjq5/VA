@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bd8e36f87b8a64db217a8eb6ebbda0, type: 3}
+  m_Name: IncreasedFocusDefense
+  m_EditorClassIdentifier: 
+  codeName: IncreasedFocusDefense
+  id: 109
+  icon: {fileID: 21300000, guid: 60d7760ef9383cd4e8cafa6089ef2985, type: 3}
+  displayName: "\uC9D1\uC911 \uBC29\uC5B4\uB825 \uC99D\uAC00"
+  description: "\uBC29\uC5B4\uB825<sprite name=\"Def\"> <color=#FB7919>+$[b0.b.Percent]%</color>"
+  isView: 0
+  isPlus: 0
+  skillGrade: 4
+  wordTips: []
+  skillDeckTypes: 
+  behaviours:
+  - rid: 2696791019203854338
+  isEndRemove: 1
+  isAllClearApply: 0
+  removeSkills: []
+  conditionSkills: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 2696791019203854338
+      type: {class: SkillBuff, ns: , asm: Assembly-CSharp}
+      data:
+        timing: 1
+        timingPuzzleType: 0
+        timingTurnCycle: 0
+        timingDamageType: 0
+        hpChangeValue: 0
+        isHpChangeIncrease: 0
+        timingPuzzleComboMin: 0
+        attackTurnCount: 0
+        percent: 100
+        hpPercentUnder: 100
+        applyCount: 1
+        _time: 0
+        buff: {fileID: 11400000, guid: c2dd4bd63c3125d4898229c80388ca2b, type: 2}
+        targetType: 0
+        isNotBuffRemove: 1

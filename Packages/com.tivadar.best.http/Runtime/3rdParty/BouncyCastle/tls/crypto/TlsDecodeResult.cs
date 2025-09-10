@@ -1,3 +1,35 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7f6065a0ba473050bf332adc05d3949423c70c6be4e214013bdab81e321b4f47
-size 1015
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto
+{
+    public sealed class TlsDecodeResult
+    {
+        public readonly byte[] buf;
+        public readonly int off, len;
+        public readonly short contentType;
+
+        public readonly bool fromBufferPool;
+
+        public TlsDecodeResult(byte[] buf, int off, int len, short contentType)
+        {
+            this.buf = buf;
+            this.off = off;
+            this.len = len;
+            this.contentType = contentType;
+            this.fromBufferPool = false;
+        }
+
+        public TlsDecodeResult(byte[] buf, int off, int len, short contentType, bool fromPool)
+        {
+            this.buf = buf;
+            this.off = off;
+            this.len = len;
+            this.contentType = contentType;
+            this.fromBufferPool = fromPool;
+        }
+    }
+}
+#pragma warning restore
+#endif

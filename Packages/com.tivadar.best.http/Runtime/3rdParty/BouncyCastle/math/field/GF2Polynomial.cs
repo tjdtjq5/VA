@@ -1,3 +1,50 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:65649efb79263fee801bc813f13452eec19fdbcee80dc5a7b888790990233470
-size 1259
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Utilities;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Math.Field
+{
+    internal class GF2Polynomial
+        : IPolynomial
+    {
+        protected readonly int[] exponents;
+
+        internal GF2Polynomial(int[] exponents)
+        {
+            this.exponents = Arrays.Clone(exponents);
+        }
+
+        public virtual int Degree
+        {
+            get { return exponents[exponents.Length - 1]; }
+        }
+
+        public virtual int[] GetExponentsPresent()
+        {
+            return Arrays.Clone(exponents);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (this == obj)
+            {
+                return true;
+            }
+            GF2Polynomial other = obj as GF2Polynomial;
+            if (null == other)
+            {
+                return false;
+            }
+            return Arrays.AreEqual(exponents, other.exponents);
+        }
+
+        public override int GetHashCode()
+        {
+            return Arrays.GetHashCode(exponents);
+        }
+    }
+}
+#pragma warning restore
+#endif

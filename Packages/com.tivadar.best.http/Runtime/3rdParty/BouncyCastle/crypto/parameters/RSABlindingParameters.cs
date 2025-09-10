@@ -1,3 +1,38 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e2507af0e2229708992398793d0996774b6f3205800216d9c885d1ca76ed5c4a
-size 901
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+
+using Best.HTTP.SecureProtocol.Org.BouncyCastle.Math;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters
+{
+	public class RsaBlindingParameters
+		: ICipherParameters
+	{
+		private readonly RsaKeyParameters	publicKey;
+		private readonly BigInteger			blindingFactor;
+
+		public RsaBlindingParameters(
+			RsaKeyParameters	publicKey,
+			BigInteger			blindingFactor)
+		{
+			if (publicKey.IsPrivate)
+				throw new ArgumentException("RSA parameters should be for a public key");
+
+			this.publicKey = publicKey;
+			this.blindingFactor = blindingFactor;
+		}
+
+		public RsaKeyParameters PublicKey
+		{
+			get { return publicKey; }
+		}
+
+		public BigInteger BlindingFactor
+		{
+			get { return blindingFactor; }
+		}
+	}
+}
+#pragma warning restore
+#endif

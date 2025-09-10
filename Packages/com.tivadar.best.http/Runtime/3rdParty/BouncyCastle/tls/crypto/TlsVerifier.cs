@@ -1,3 +1,24 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9f1471a72268003561c2ff468364b4c095ca9cf2860a1e25fa85251dfa6ae518
-size 1115
+#if !BESTHTTP_DISABLE_ALTERNATE_SSL && (!UNITY_WEBGL || UNITY_EDITOR)
+#pragma warning disable
+using System;
+using System.IO;
+
+namespace Best.HTTP.SecureProtocol.Org.BouncyCastle.Tls.Crypto
+{
+    /// <summary>Base interface for a TLS verifier that works with signatures and either raw message digests, or entire
+    /// messages.</summary>
+    public interface TlsVerifier
+    {
+        /// <exception cref="IOException"/>
+        TlsStreamVerifier GetStreamVerifier(DigitallySigned digitallySigned);
+
+        /// <summary>Return true if the passed in signature and hash represent a real signature.</summary>
+        /// <param name="digitallySigned">the signature object containing the signature to be verified.</param>
+        /// <param name="hash">the hash calculated for the signature.</param>
+        /// <returns>true if signature verifies, false otherwise.</returns>
+        /// <exception cref="IOException">in case of an exception verifying signature.</exception>
+        bool VerifyRawSignature(DigitallySigned digitallySigned, byte[] hash);
+    }
+}
+#pragma warning restore
+#endif
