@@ -109,8 +109,6 @@ public class UIResearchShort : UIPopup
     }
     private void OnResearchShort()
     {
-        return;
-        
         if (_researchNode == null || _playerData == null)
             return;
 

@@ -22,7 +22,7 @@ public class GrowRandMark : UIFrame
 
     private readonly string _sectorPrefabPath = "Prefab/UI/Card/Robby/Grow/Sector";
     private readonly string _rewardSpeechPrefabPath = "Prefab/UI/Card/Robby/Grow/GrowRewardSpeech";
-    private readonly string _growViewPrefabPath = "Robby/UIGrowView";
+    private readonly string _growViewPrefabPath = "Robby/Grow/UIGrowView";
     private readonly float _sliderMin = 0.063f;
     private readonly float _sliderMax = 0.905f;
 

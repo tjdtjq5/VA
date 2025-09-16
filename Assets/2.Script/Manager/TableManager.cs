@@ -10,9 +10,6 @@ public class TableManager
     }
     public void DbGets(Action callback = null)
     {
-        callback?.Invoke();
-        return;
-        
         // checksum을 확인하고 업데이트 해야함
         // 업데이트 할 때 캐시 삭제
         // 캐시 삭제 후 다시 로드

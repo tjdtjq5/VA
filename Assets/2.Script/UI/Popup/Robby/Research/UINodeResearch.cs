@@ -105,8 +105,6 @@ public class UINodeResearch : UIPopup
 
     private void OnResearch()
     {
-        return;
-        
         if(_isResearching)
             return;
 

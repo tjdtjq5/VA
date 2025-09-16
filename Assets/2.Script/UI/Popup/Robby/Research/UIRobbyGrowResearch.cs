@@ -142,8 +142,6 @@ public class UIRobbyGrowResearch : UIRobby
     }
     private void OnComplete()
     {
-        return;
-        
         if (_researchNode == null || _playerData == null)
             return;
 

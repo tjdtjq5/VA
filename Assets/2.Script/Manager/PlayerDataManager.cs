@@ -23,10 +23,6 @@ public class PlayerDataManager
 
     public void DbGets(List<Type> types, Action callback = null)
     {
-        if (callback != null)
-            callback.Invoke();
-        return;
-        
         List<string> typeNames = new List<string>();
         foreach (var type in types)
         {

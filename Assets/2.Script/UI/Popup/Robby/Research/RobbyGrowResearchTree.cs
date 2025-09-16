@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using AssetKits.ParticleImage;
 using Shared.DTOs.Player;
 using Shared.Enums;
 using UnityEngine;
@@ -16,15 +15,19 @@ public class RobbyGrowResearchTree : UIRobby
 
         base.Initialize();
     }
+    [SerializeField] private Transform _content;
     [SerializeField] private Transform _slotParent;
+    [SerializeField] private Transform _lineParent;
     private List<ResearchTreeSlot> _researchSlots = new();
+    private List<ResearchLine> _researchLines = new();
 
     private readonly float _paddingY = 250f;
     private readonly float _spacingX = 250f;
     private readonly float _spacingY = 250f;
 
     private readonly string _slotPrefabPath = "Prefab/UI/Card/Robby/Research/ResearchTreeSlot";
-
+    private readonly string _researchLinePrefabPath = "Prefab/UI/Card/Robby/Research/ResearchLine";
+    
     public void UISet(UIRobbyGrowResearch growResearch, PlayerGrowResearch type)
     {
         InitSet();
@@ -34,6 +37,7 @@ public class RobbyGrowResearchTree : UIRobby
         {
             List<PlayerResearchDto> playerResearches = Managers.PlayerData.GetPlayerData<List<PlayerResearchDto>>();
             SetResearchTree(growResearch, type, playerResearches);
+            SetResearchLine();
         });
     }
 
@@ -41,6 +45,9 @@ public class RobbyGrowResearchTree : UIRobby
     {
         for (int i = 0; i < _researchSlots.Count; i++)
             _researchSlots[i].gameObject.SetActive(false);
+
+        for (int i = 0; i < _researchLines.Count; i++)
+            _researchLines[i].gameObject.SetActive(false);
     }
 
     private void SetResearchTree(UIRobbyGrowResearch growResearch, PlayerGrowResearch type, List<PlayerResearchDto> playerResearches)
@@ -60,8 +67,8 @@ public class RobbyGrowResearchTree : UIRobby
         int maxFloor = nodes.Max(n => n.Floor);
         float totalHeight = (maxFloor * _spacingY) + (_paddingY * 2);
 
-        RectTransform slotParentRect = _slotParent.GetComponent<RectTransform>();
-        slotParentRect.sizeDelta = new Vector2(slotParentRect.sizeDelta.x, totalHeight);
+        RectTransform content = _content.GetComponent<RectTransform>();
+        content.sizeDelta = new Vector2(content.sizeDelta.x, totalHeight);
 
         var floorGroups = nodes.GroupBy(n => n.Floor)
             .ToDictionary(g => g.Key, g => g.OrderBy(n => n.Index).ToArray());
@@ -103,7 +110,73 @@ public class RobbyGrowResearchTree : UIRobby
         for (int i = slotIndex; i < _researchSlots.Count; i++)
             _researchSlots[i].gameObject.SetActive(false);
     }
+    private void SetResearchLine()
+    {
+        for (int i = 0; i < _researchLines.Count; i++)
+            _researchLines[i].gameObject.SetActive(false);
 
+        int lineIndex = 0;
+
+        for (int i = 0; i < _researchSlots.Count; i++)
+        {
+            ResearchTreeSlot slot = _researchSlots[i];
+            ResearchNode node = slot.GetNode;
+            List<ResearchNode> previousNodes = node.PreviousNodes;
+
+            if (previousNodes.Count > 0)
+            {
+                ResearchNode previousNode = previousNodes[0];
+                ResearchTreeSlot previousSlot = _researchSlots.Find(x => x.GetNode == previousNode);
+
+                ResearchLine line = null;
+                if (lineIndex < _researchLines.Count)
+                {
+                    line = _researchLines[lineIndex];
+                }
+                else 
+                {
+                    line = Managers.Resources.Instantiate<ResearchLine>(_researchLinePrefabPath, _lineParent);
+                    _researchLines.Add(line);
+                }
+
+                line.UISetLine(previousSlot.transform, slot.transform);
+
+                line.transform.position = previousSlot.transform.position;
+
+                line.gameObject.SetActive(true);
+
+                lineIndex++;
+            }
+
+            for (int j = 0; j < previousNodes.Count; j++)
+            {
+                ResearchNode previousNode = previousNodes[j];
+                ResearchTreeSlot previousSlot = _researchSlots.Find(x => x.GetNode == previousNode);
+
+                if (previousSlot != null)
+                {
+                    ResearchLine line = null;
+                    if (lineIndex < _researchLines.Count)
+                    {
+                        line = _researchLines[lineIndex];
+                    }
+                    else
+                    {
+                        line = Managers.Resources.Instantiate<ResearchLine>(_researchLinePrefabPath, _lineParent);
+                        _researchLines.Add(line);
+                    }
+                    line.UISet(slot.transform, previousSlot.transform);
+
+                    float y = (previousSlot.transform.position.y - slot.transform.position.y) * 0.5f + slot.transform.position.y;
+
+                    line.transform.position = new Vector3(slot.transform.position.x, y, 0);
+
+                    line.gameObject.SetActive(true);
+                    lineIndex++;
+                }
+            }
+        }
+    }
     private void SetColor(PlayerGrowResearch type)
     {
         Get<ResearchBGColor>(ResearchBGColorE.BG).UISet(type);

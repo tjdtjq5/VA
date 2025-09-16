@@ -318,8 +318,6 @@ public class UIRobbyGrowGrow : UIRobby
 
     private void RequestUpgradeToServer(PlayerGrowType type, int upgradeCount)
     {
-        return;
-
         PlayerGrowUpgradeRequest req = new PlayerGrowUpgradeRequest()
         {
             Type = type,

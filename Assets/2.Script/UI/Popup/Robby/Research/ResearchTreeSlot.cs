@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class ResearchTreeSlot : UIButton
 {
+    public ResearchNode GetNode => _researchNode;
+
     private UIRobbyGrowResearch _growResearch;
     private ResearchNode _researchNode;
     private PlayerResearchDto _playerData;
