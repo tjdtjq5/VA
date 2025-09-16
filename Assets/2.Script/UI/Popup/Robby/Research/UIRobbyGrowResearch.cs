@@ -101,7 +101,6 @@ public class UIRobbyGrowResearch : UIRobby
     private void SetTimeFlow(ResearchNode researchNode, PlayerResearchDto playerData)
     {
         TimeSpan remainTime = playerData.RemainTime(Managers.Time.Current);
-        UnityHelper.Log_H($"remainTime : {remainTime}");
         Get<TimeFlow>(TimeFlowE.SafeArea_UpgradeSlot_Time).UISet(remainTime);
     }
     private void SetButton(ResearchNode researchNode, PlayerResearchDto playerData)
