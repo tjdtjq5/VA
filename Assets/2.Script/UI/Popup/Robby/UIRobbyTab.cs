@@ -13,7 +13,7 @@ public class UIRobbyTab : UIFrame
     private UIButtonE _currentTab;
 
     private readonly string _growPopupName = "Robby/Grow/RobbyGrow";
-    private readonly string _shopPopupName = "Robby/RobbyShop";
+    private readonly string _shopPopupName = "Robby/Shop/RobbyShop";
     private readonly string _equipPopupName = "Robby/Equip/RobbyEquip";
     private readonly string _mainPopupName = "Robby/RobbyMain";
     private readonly string _dungeonPopupName = "Robby/RobbyDungeon";
