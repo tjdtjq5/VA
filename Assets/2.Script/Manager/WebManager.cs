@@ -7,7 +7,6 @@ using Shared.Define;
 using Shared.CSharp;
 
 
-
 #if !UNITY_WEBGL || UNITY_EDITOR
 using Best.TLSSecurity;
 #endif
@@ -25,7 +24,7 @@ public class WebManager
 
     public void Initialize()
     {
-#if !UNITY_WEBGL || UNITY_EDITOR
+#if !UNITY_EDITOR
         TLSSecurity.Setup();
 #endif
     }
