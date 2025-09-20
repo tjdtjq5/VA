@@ -509,6 +509,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2862120672785982209}
   - component: {fileID: 5600462434307218693}
+  - component: {fileID: 4952427591446428186}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -536,7 +537,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1453}
+  m_SizeDelta: {x: 0, y: 3821.8}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &5600462434307218693
 MonoBehaviour:
@@ -564,6 +565,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &4952427591446428186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2360746920278557799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c1576224727334ba74834f5e098664, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spacingX: 0
+  spacingY: 0
 --- !u!1 &2420093841237471038
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,7 +663,6 @@ GameObject:
   - component: {fileID: 6771420677846585497}
   - component: {fileID: 246709782349127722}
   - component: {fileID: 8192953007073227501}
-  - component: {fileID: 8103207491343681427}
   m_Layer: 5
   m_Name: ScrollView
   m_TagString: Untagged
@@ -746,19 +760,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8103207491343681427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2455573347515303313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b3e4b9a9bf35814bbafb11b45035f83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPlayAni: 0
 --- !u!1 &2504203331873300393
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,6 +909,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7079593068128946197}
   - component: {fileID: 1116429404033509797}
+  - component: {fileID: 6090403891193971179}
   m_Layer: 5
   m_Name: Gacha
   m_TagString: Untagged
@@ -931,10 +933,10 @@ RectTransform:
   - {fileID: 1771183414563344138}
   m_Father: {fileID: 2862120672785982209}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1080, y: 1453}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 541.5, y: -724}
+  m_SizeDelta: {x: 1080, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1116429404033509797
 MonoBehaviour:
@@ -962,6 +964,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &6090403891193971179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3696338954379544626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
 --- !u!1 &3704245589513948443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1233,8 +1249,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8167249379451665724}
   m_HandleRect: {fileID: 7620580318686301172}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.40635303
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1961,10 +1977,10 @@ RectTransform:
   - {fileID: 8109473713481897529}
   m_Father: {fileID: 8803985478416853149}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -277.5}
-  m_SizeDelta: {x: 0, y: -555}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -1037.5}
+  m_SizeDelta: {x: 1080, y: 965}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4782062663930409945
 CanvasRenderer:
@@ -1988,7 +2004,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2017,7 +2033,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 5098370610357891533}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 2
   m_Elasticity: 0.1
@@ -2304,6 +2320,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4539363270105127441}
   - component: {fileID: 7094940658307167495}
+  - component: {fileID: 5442154480544207648}
   m_Layer: 5
   m_Name: FreeGacha
   m_TagString: Untagged
@@ -2327,10 +2344,10 @@ RectTransform:
   - {fileID: 2478545968876999831}
   m_Father: {fileID: 2862120672785982209}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1080, y: 825}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 541.5, y: -1885.8}
+  m_SizeDelta: {x: 1080, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7094940658307167495
 MonoBehaviour:
@@ -2358,6 +2375,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &5442154480544207648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7466420343702558953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
 --- !u!1 &7480959878905282006
 GameObject:
   m_ObjectHideFlags: 0

@@ -48,7 +48,7 @@ public class UIRobbyTab : UIFrame
 
         _currentTab = button;
 
-        if (button == UIButtonE.Tabs_Shop || button == UIButtonE.Tabs_Dungeon)
+        if (button == UIButtonE.Tabs_Dungeon)
         {
             return;
         }

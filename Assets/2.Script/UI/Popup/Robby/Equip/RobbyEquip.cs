@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RobbyEquip : UIRobby
 {
+    [SerializeField] private UIGoodsController _goodsController;
     private readonly string _parentName = "Robby/Equip/RobbyEquip";
     private readonly string _equipPopupName = "Robby/Equip/RobbyEquipEquip";
     private readonly string _petPopupName = "Robby/Equip/RobbyEquipEquip";
@@ -19,6 +20,9 @@ public class RobbyEquip : UIRobby
     public override void OpenUISet(CanvasOrderType orderType)
     {
         base.OpenUISet(orderType);
+
+        Managers.Observer.UIGoodsController = _goodsController;
+        _goodsController.Set();
 
         Get<BackTab>(BackTabE.SafeArea_BackLineTab).SwitchOnHandler -= OnTabSwitchOn;
         Get<BackTab>(BackTabE.SafeArea_BackLineTab).SwitchOnHandler += OnTabSwitchOn;

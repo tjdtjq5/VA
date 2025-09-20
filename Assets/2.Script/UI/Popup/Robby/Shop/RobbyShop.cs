@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class RobbyShop : UIRobby
 {
+    [SerializeField] private UIGoodsController _goodsController;
+
     private readonly string _parentName = "Robby/Shop/RobbyShop";
+    private readonly string _gachaPopupName = "Robby/Shop/RobbyShopGacha";
+    private readonly string _packagePopupName = "Robby/Shop/RobbyShopPackage";
+    private readonly string _resetPopupName = "Robby/Shop/RobbyShopReset";
+    private readonly string _milagePopupName = "Robby/Shop/RobbyShopMilage";
 
     protected override void Initialize()
     {
@@ -17,6 +23,9 @@ public class RobbyShop : UIRobby
     {
         base.OpenUISet(orderType);
 
+        Managers.Observer.UIGoodsController = _goodsController;
+        _goodsController.Set();
+
         Get<BackTab>(BackTabE.SafeArea_BackLineTab).SwitchOnHandler -= OnTabSwitchOn;
         Get<BackTab>(BackTabE.SafeArea_BackLineTab).SwitchOnHandler += OnTabSwitchOn;
 
@@ -28,19 +37,16 @@ public class RobbyShop : UIRobby
         switch (index)
         {
             case 0:
-                // Managers.Observer.RobbyManager.ShopUI(_equipPopupName, _parentName);
+                Managers.Observer.RobbyManager.ShopUI(_gachaPopupName, _parentName);
                 break;
             case 1:
-                return;
-                // Managers.Observer.RobbyManager.ShopUI(_petPopupName, _parentName);
+                Managers.Observer.RobbyManager.ShopUI(_packagePopupName, _parentName);
                 break;
             case 2:
-                return;
-                // Managers.Observer.RobbyManager.ShopUI(_toyPopupName, _parentName);
+                Managers.Observer.RobbyManager.ShopUI(_resetPopupName, _parentName);
                 break;
             case 3:
-                return;
-                // Managers.Observer.RobbyManager.ShopUI(_toyPopupName, _parentName);
+                Managers.Observer.RobbyManager.ShopUI(_milagePopupName, _parentName);
                 break;
         }
     }
