@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Shared.DTOs.ETC;
 using UnityEngine;
 
 public class UIReward : UIPopup
@@ -33,6 +34,17 @@ public class UIReward : UIPopup
             cardDatas);
 
         GetScrollView(UIScrollViewE.ScrollView).PlayAniAll();
+    }
+
+    public void UISet(List<ItemCountData> rewardDatas)
+    {
+        List<RewardCardData> rewardCardDatas = new List<RewardCardData>();
+        for (int i = 0; i < rewardDatas.Count; i++)
+        {
+            rewardCardDatas.Add(new RewardCardData() { Item = rewardDatas[i].ItemCode, Count = rewardDatas[i].Count });
+        }
+
+        UISet(rewardCardDatas);
     }
     
 	public enum UIImageE

@@ -8,25 +8,26 @@ using UnityEngine.UI;
 
 public class RobbyShopGacha : UIRobby
 {
-	[SerializeField] private Scrollbar _scrollbar;
-    private readonly string _diamondPrefabPath = "Robby/Shop/ShopProductCard1";
-
     protected override void Initialize()
     {
 		Bind<ResearchBGColor>(typeof(ResearchBGColorE));
 		Bind<UIImage>(typeof(UIImageE));
 		Bind<UITextPro>(typeof(UITextProE));
-		Bind<ShopEquipGacha>(typeof(ShopEquipGachaE));
+		Bind<ShopEquipPicupGacha>(typeof(ShopEquipPicupGachaE));
+		Bind<ShopEquipSGacha>(typeof(ShopEquipSGachaE));
 		Bind<ShopFreeGacha>(typeof(ShopFreeGachaE));
 		Bind<ShopProductBox>(typeof(ShopProductBoxE));
-
-		_scrollbar.onValueChanged.AddListener(OnScrollValueChanged);
 
         base.Initialize();
     }
 
+	[SerializeField] private Scrollbar _scrollbar;
+    private readonly string _diamondPrefabPath = "Robby/Shop/ShopProductCard1";
+
     public override void OpenUISet(CanvasOrderType orderType)
     {
+		_scrollbar.onValueChanged.AddListener(OnScrollValueChanged);
+		// 
         base.OpenUISet(orderType);
 
 		List<TableProductDto> productDatas = Managers.Table.GetTableData<List<TableProductDto>>().Where(p => p.ShopProductType == ShopProductType.Diamond).ToList();
@@ -71,26 +72,29 @@ public class RobbyShopGacha : UIRobby
 		}
 	}
 
-    public enum ResearchBGColorE
+	public enum ResearchBGColorE
     {
 		SafeArea_RobbyBG,
     }
 	public enum UIImageE
     {
+		SafeArea_ScrollView,
+		SafeArea_ScrollView_Viewport,
 		SafeArea_ScrollView_Viewport_Content_Gacha_SubTitle,
-		SafeArea_ScrollView_Viewport_Content_Gacha_Gacha_PickUPGacha_RemainTime,
 		SafeArea_ScrollView_Viewport_Content_FreeGacha_SubTitle,
     }
 	public enum UITextProE
     {
 		SafeArea_ScrollView_Viewport_Content_Gacha_SubTitle_Text,
-		SafeArea_ScrollView_Viewport_Content_Gacha_Gacha_PickUPGacha_RemainTime_Text,
 		SafeArea_ScrollView_Viewport_Content_FreeGacha_SubTitle_Text,
     }
-	public enum ShopEquipGachaE
+	public enum ShopEquipPicupGachaE
     {
-		SafeArea_ScrollView_Viewport_Content_Gacha_Gacha_PickUPGacha_EquipGacha,
-		SafeArea_ScrollView_Viewport_Content_Gacha_Gacha_NomalGacha_EquipGacha,
+		SafeArea_ScrollView_Viewport_Content_Gacha_Gacha_PickUPGacha,
+    }
+	public enum ShopEquipSGachaE
+    {
+		SafeArea_ScrollView_Viewport_Content_Gacha_Gacha_SGacha,
     }
 	public enum ShopFreeGachaE
     {

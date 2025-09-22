@@ -6,15 +6,14 @@ public class TimeFlow : UIFrame
     public Action OnTimeEnd;
 
     public TimeSpan TimeSpan => _timeSpan;
-    private TimeSpan _timeSpan;
+    protected TimeSpan _timeSpan;
 
-    private float _flowSec = 1f;
-    private float _flowTimer = 0f;
-    private bool _isFlow = false;
+    protected float _flowSec = 1f;
+    protected float _flowTimer = 0f;
+    protected bool _isFlow = false;
 
     protected override void Initialize()
     {
-		Bind<UIImage>(typeof(UIImageE));
 		Bind<UITextPro>(typeof(UITextProE));
 
         base.Initialize();
@@ -31,15 +30,13 @@ public class TimeFlow : UIFrame
         _isFlow = isFlow;
     }
 
-    private void TimeSet()
+    protected virtual void TimeSet()
     {
         int hour = _timeSpan.Hours;
         int minute = _timeSpan.Minutes;
         int second = _timeSpan.Seconds;
 
         GetTextPro(UITextProE.Text).text = $"{hour:D2}:{minute:D2}:{second:D2}";
-
-        _flowTimer = 0f;
     }
 
     private void FixedUpdate()
@@ -67,10 +64,6 @@ public class TimeFlow : UIFrame
                 _isFlow = false;
             }
         }
-    }
-	public enum UIImageE
-    {
-		Icon,
     }
 	public enum UITextProE
     {

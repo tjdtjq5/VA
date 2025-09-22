@@ -1,11 +1,20 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
+using Shared.Define;
+using Shared.DTOs.Player;
 using Shared.DTOs.Table;
 using Shared.Enums;
 using UnityEngine;
 
 public class ShopProductCard : UICard
 {
+    [SerializeField] private ContentSizeRectTransform _csrt;
+    [SerializeField] private Sprite _adSprite;
+
+    private readonly string _rewardPopupPath = "Robby/UIReward";
+
+    private TableProductDto _product;
+
     protected override void Initialize()
     {
 		Bind<UITextPro>(typeof(UITextProE));
@@ -16,8 +25,6 @@ public class ShopProductCard : UICard
 
         base.Initialize();
     }
-    [SerializeField] private ContentSizeRectTransform _csrt;
-    [SerializeField] private Sprite _adSprite;
 
     public override void Setting(ICardData data)
     {
@@ -25,6 +32,8 @@ public class ShopProductCard : UICard
 
         if (shopProductCardData == null)
             return;
+
+        _product = shopProductCardData.Product;
 
         UISet(shopProductCardData.Product);
     }
@@ -67,7 +76,25 @@ public class ShopProductCard : UICard
 
     private void OnClickButton()
     {
+        PlayerShopPurchaseRequest request = new PlayerShopPurchaseRequest()
+        {
+            Id = _product.Id,
+            Platform = Platform.Google,
+            AdToken = "",
+            ReceiptToken = "",
+            Signature = "",
+        };
 
+        Managers.Web.SendPostRequest<PlayerShopPurchaseResponse>("player/shop/purchase", request, (response) =>
+        {
+            if (response.Results.Count > 0)
+            {
+                UIReward rewardPopup = Managers.UI.ShopPopupUI<UIReward>(_rewardPopupPath, CanvasOrderType.Top);
+                rewardPopup.UISet(response.Results);
+            }
+
+            Managers.PlayerData.DbUpdate(response.Datas);
+        });
     }
 	
 	public enum UITextProE
