@@ -24,6 +24,7 @@ public class UIScrollView : UIFrame
             }
         }
     }
+    public ScrollRect ScrollRect => _scrollRect;
     public int DataCount => DataList.Count;
     public int CardCount => CardList.Count;
     public UICard GetCard(int index) => CardList[index];
@@ -347,10 +348,7 @@ public class UIScrollView : UIFrame
 
         if (isPlayAni)
         {
-            if (_playAniCoroutine != null)
-                StopCoroutine(_playAniCoroutine);
-            _playAniCoroutine = PlayAniCoroutine();
-            StartCoroutine(_playAniCoroutine);
+            PlayAniCr();
         }
     }
     protected void SetAllIdx(List<ICardData> dataList, int columnCount = 1)
@@ -526,6 +524,13 @@ public class UIScrollView : UIFrame
         }
     }
 
+    public void PlayAniCr()
+    {
+        if (_playAniCoroutine != null)
+            StopCoroutine(_playAniCoroutine);
+        _playAniCoroutine = PlayAniCoroutine();
+        StartCoroutine(_playAniCoroutine);
+    }
     private IEnumerator PlayAniCoroutine()
     {
         for (int i = 0; i < CardList.Count; i++)
@@ -538,6 +543,13 @@ public class UIScrollView : UIFrame
             CardList[i].Fade(1);
             CardList[i].Play();
             yield return new WaitForSeconds(0.02f);
+        }
+    }
+    public void PlayAniAll()
+    {
+        for (int i = 0; i < CardList.Count; i++)
+        {
+            CardList[i].Play();
         }
     }
 

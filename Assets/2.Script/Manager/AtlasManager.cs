@@ -13,6 +13,7 @@ public class AtlasManager
     private SpriteAtlas FontDamage { get; set; }  
     private SpriteAtlas ResearchBook { get; set; } 
     private SpriteAtlas EquipType { get; set; }  
+    private SpriteAtlas Product { get; set; }  
     public void Initialize()
     {
         Button = Managers.Resources.Load<SpriteAtlas>("Atlas/Button");
@@ -24,6 +25,7 @@ public class AtlasManager
         FontDamage = Managers.Resources.Load<SpriteAtlas>("Atlas/FontDamage");
         ResearchBook = Managers.Resources.Load<SpriteAtlas>("Atlas/ResearchBook");
         EquipType = Managers.Resources.Load<SpriteAtlas>("Atlas/EquipType");
+        Product = Managers.Resources.Load<SpriteAtlas>("Atlas/Product");
     }
 
     public Sprite GetButton(string code) => Button.GetSprite(code);
@@ -35,4 +37,5 @@ public class AtlasManager
     public Sprite GetAlphabetNumber(string text) => FontDamage.GetSprite(text);
     public Sprite GetResearchBook(string code, bool isBig) => ResearchBook.GetSprite(isBig ? $"{code}" : $"{code}_S");
     public Sprite GetEquipType(EquipType equipType) => EquipType.GetSprite(equipType.ToString());
+    public Sprite GetProduct(int id) => Product.GetSprite($"Product_{id}");
 }

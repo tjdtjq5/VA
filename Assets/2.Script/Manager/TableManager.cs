@@ -16,7 +16,6 @@ public class TableManager
 
         TableGetsRequest request = new TableGetsRequest();
         request.TableUpdateAt = GetLastTableUpdatedAt();
-        
 
         Managers.Web.SendPostRequest<TableGetsResponse>("table/gets", request, (_result) =>
         {
@@ -52,15 +51,15 @@ public class TableManager
         for (int i = 0; i < saveDatas.Count; i++)
         {
             TableGetsData<object> saveData = saveDatas[i];
-            TableGetsData<object> loadData = loadDatas.Find(data => data.TableName == saveData.TableName);
+            int findIndex = loadDatas.FindIndex(data => data.TableName == saveData.TableName);
 
-            if (loadData == null)
+            if (findIndex == -1)
             {
                 loadDatas.Add(saveData);
             }
             else
             {
-                loadData = saveData;
+                loadDatas[findIndex] = saveData;
             }
         }
 
