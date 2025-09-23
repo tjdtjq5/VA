@@ -15,7 +15,6 @@ public class RobbyShopGacha : UIRobby
 		Bind<UITextPro>(typeof(UITextProE));
 		Bind<ShopEquipPicupGacha>(typeof(ShopEquipPicupGachaE));
 		Bind<ShopEquipSGacha>(typeof(ShopEquipSGachaE));
-		Bind<ShopFreeGacha>(typeof(ShopFreeGachaE));
 		Bind<ShopProductBox>(typeof(ShopProductBoxE));
 
         base.Initialize();
@@ -33,6 +32,9 @@ public class RobbyShopGacha : UIRobby
 		List<TableProductDto> productDatas = Managers.Table.GetTableData<List<TableProductDto>>().Where(p => p.ShopProductType == ShopProductType.Diamond).ToList();
 		DiamondSet(productDatas);
 
+		PicupGachaSet();
+		SGachaSet();
+
 		StartCoroutine(OpenUISetLaterCoroutine());
     }
 
@@ -40,6 +42,15 @@ public class RobbyShopGacha : UIRobby
 	{
 		yield return null;
 		_scrollbar.value = 1;
+	}
+
+	private void PicupGachaSet()
+	{
+		Get<ShopEquipPicupGacha>(ShopEquipPicupGachaE.SafeArea_ScrollView_Viewport_Content_Gacha_Gacha_PickUPGacha).Set();
+	}
+	private void SGachaSet()
+	{
+		Get<ShopEquipSGacha>(ShopEquipSGachaE.SafeArea_ScrollView_Viewport_Content_Gacha_Gacha_SGacha).Set();
 	}
 
 	private void DiamondSet(List<TableProductDto> products)
@@ -95,11 +106,6 @@ public class RobbyShopGacha : UIRobby
 	public enum ShopEquipSGachaE
     {
 		SafeArea_ScrollView_Viewport_Content_Gacha_Gacha_SGacha,
-    }
-	public enum ShopFreeGachaE
-    {
-		SafeArea_ScrollView_Viewport_Content_FreeGacha_Gacha_Nomal,
-		SafeArea_ScrollView_Viewport_Content_FreeGacha_Gacha_Special,
     }
 	public enum ShopProductBoxE
     {
