@@ -11,11 +11,19 @@ using UnityEngine;
 public class AdminTool : MonoBehaviour
 {
     [Button]
+    public void RemoveRadisPlayerData()
+    {
+        Managers.Web.SendGetRequest<bool>("remove/redis", (_result) =>
+        {
+            UnityHelper.Log_H(_result);
+        });
+    }
+
+    [Button]
     public void GetLatestPlayerData()
     {
         // 현재 어셈블리에서 PlayerDto를 상속받은 모든 타입 찾기
         var derivedTypes = GetPlayerDtoTypes();
-
         
         Managers.Web.SendPostRequest<PlayerGetsLatestResponse>("player/gets/latest", new PlayerGetsLatestRequest()
         {

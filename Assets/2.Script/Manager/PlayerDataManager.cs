@@ -93,16 +93,16 @@ public class PlayerDataManager
     }
     public void DbUpdate(PlayerGetsData<object> data)
     {
-        if (OnDbUpdate.TryGetValue(data.Name, out var callback))
-        {
-            callback?.Invoke(data);
-        }
-
         var existingData = _datas.FindIndex(x => x.Name == data.Name);
         if (existingData >= 0)
             _datas[existingData] = data;
         else
             _datas.Add(data);
+
+        if (OnDbUpdate.TryGetValue(data.Name, out var callback))
+        {
+            callback?.Invoke(data);
+        }
     }
     private List<PlayerGetsData<object>> GetPlayerDatas(string json)
     {
@@ -224,8 +224,20 @@ public class PlayerDataManager
 
         foreach (var counter in playerCounterDatas)
         {
-            if (counter.CounterType == CounterType && counter.PeriodType == periodType)
-                return counter.Count;
+            if (counter.CounterType == CounterType)
+            {
+                switch (periodType)
+                {
+                    case PeriodType.Daily:
+                        return counter.DailyCount;
+                    case PeriodType.Weekly:
+                        return counter.WeeklyCount;
+                    case PeriodType.Monthly:
+                        return counter.MonthlyCount;
+                    default:
+                        return counter.PermanentCount;
+                }
+            }
         }
 
         return 0;

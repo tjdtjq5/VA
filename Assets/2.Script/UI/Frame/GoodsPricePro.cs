@@ -1,12 +1,14 @@
-﻿using Shared.BBNumber;
+using System.Collections;
+using System.Collections.Generic;
+using Shared.BBNumber;
 using UnityEngine;
 
-public class GoodsPrice : UIFrame
+public class GoodsPricePro : UIFrame
 {
     protected override void Initialize()
     {
 		Bind<UIImage>(typeof(UIImageE));
-		Bind<UIText>(typeof(UITextE));
+		Bind<UITextPro>(typeof(UITextProE));
 
         base.Initialize();
     }
@@ -25,18 +27,18 @@ public class GoodsPrice : UIFrame
 
     public void SetCount(BBNumber count, bool isAlphabet)
     {
-	    GetText(UITextE.Count).text = isAlphabet ? count.Alphabet() : count.ToInt().ToString(); 
+	    GetTextPro(UITextProE.Count).text = isAlphabet ? count.Alphabet() : count.ToInt().ToString(); 
     }
     public void SetText(string text)
     {
-      GetText(UITextE.Count).text = text;
+      GetTextPro(UITextProE.Count).text = text;
     }
     
 	public enum UIImageE
     {
 		Image,
     }
-	public enum UITextE
+	public enum UITextProE
     {
 		Count,
     }

@@ -66,6 +66,9 @@ public class UIBase : MonoBehaviour
                 case nameof(UIScrollView):
                     objs[i] = gameObject.GetComponent<UIScrollView>();
                     continue;
+                case nameof(UIBaseScrollView):
+                    objs[i] = gameObject.GetComponent<UIBaseScrollView>();
+                    continue;
                 case nameof(UIButton):
                     objs[i] = gameObject.GetComponent<UIButton>();
                     continue;
@@ -142,6 +145,10 @@ public class UIBase : MonoBehaviour
     protected UIScrollView GetScrollView(Enum _enumValue)
     {
         return Get<UIScrollView>(_enumValue);
+    }
+    protected UIBaseScrollView GetBaseScrollView(Enum _enumValue)
+    {
+        return Get<UIBaseScrollView>(_enumValue);
     }
     protected UIButton GetButton(Enum _enumValue)
     {

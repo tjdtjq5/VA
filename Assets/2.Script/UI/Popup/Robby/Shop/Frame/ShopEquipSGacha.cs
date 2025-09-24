@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Shared.BBNumber;
 using Shared.CSharp;
 using Shared.DTOs.Player;
 using Shared.Enums;
@@ -13,6 +14,7 @@ public class ShopEquipSGacha : UIFrame
 
     private readonly string _ex1Script = "<color=#FFE545FF>{0}</color>회 내 반드시 <color=#AE2CC0FF>영웅</color> 장비 획득";
     private readonly string _ex2Script = "<color=#FFE545FF>{0}</color>회 내 반드시 <color=#AE2CC0FF>S급 영웅</color> 장비 획득";
+    private readonly string _equipGachaResultPopupPath = "Robby/UIGachaResult";
 
     protected override void Initialize()
     {
@@ -21,13 +23,18 @@ public class ShopEquipSGacha : UIFrame
         Bind<UIButton>(typeof(UIButtonE));
 
         Managers.PlayerData.AddEventListen(typeof(PlayerCounterDto), SetCounter);
+        Managers.PlayerData.AddEventListen(typeof(PlayerItemDto), SetGoodsPrice);
+
+        GetButton(UIButtonE.EquipGacha_InfoButton).AddClickEvent((ped) => OnClickInfoButton());
+        GetButton(UIButtonE.EquipGacha_OneGachaButton).AddClickEvent((ped) => OnClickOneGachaButton());
+        GetButton(UIButtonE.EquipGacha_TenGachaButton).AddClickEvent((ped) => OnClickTenGachaButton());
 
         base.Initialize();
     }
 
     public void Set()
     {
-        SetGoodsPrice();
+        SetGoodsPrice(null);
 
         Managers.PlayerData.DbGets(typeof(PlayerCounterDto), () =>
         {
@@ -35,13 +42,30 @@ public class ShopEquipSGacha : UIFrame
         });
     }
 
-    private void SetGoodsPrice()
+    private void SetGoodsPrice(PlayerGetsData<object> data)
     {
-        _goodsPrice_ten.UISet(GachaFomula.SGachaNeedGoodsCode);
-        _goodsPrice_one.UISet(GachaFomula.SGachaNeedGoodsCode);
+        int uniqueKeyCount = Managers.PlayerData.GetPlayerItemCount(GachaFomula.UniqueKeyGachaNeedGoodsCode).ToInt();
+        if (uniqueKeyCount > 0)
+        {
+            _goodsPrice_one.UISet(GachaFomula.UniqueKeyGachaNeedGoodsCode);
+            _goodsPrice_one.SetText($"{uniqueKeyCount}/{1}");
+        }
+        else
+        {
+            _goodsPrice_one.UISet(GachaFomula.SGachaNeedGoodsCode);
+            _goodsPrice_one.SetCount(GachaFomula.SGachaGachaNeedGoodsCount, false);
+        }
 
-        _goodsPrice_ten.SetCount(GachaFomula.SGachaGachaNeedGoodsCount * 10, false);
-        _goodsPrice_one.SetCount(GachaFomula.SGachaGachaNeedGoodsCount, false);
+        if (uniqueKeyCount > 10)
+        {
+            _goodsPrice_ten.UISet(GachaFomula.UniqueKeyGachaNeedGoodsCode);
+            _goodsPrice_ten.SetText($"{uniqueKeyCount}/{10}");
+        }
+        else
+        {
+            _goodsPrice_ten.UISet(GachaFomula.SGachaNeedGoodsCode);
+            _goodsPrice_ten.SetCount(GachaFomula.SGachaGachaNeedGoodsCount * 10, false);
+        }
     }
     private void SetCounter(PlayerGetsData<object> data)
     {
@@ -53,6 +77,39 @@ public class ShopEquipSGacha : UIFrame
         
         GetTextPro(UITextProE.EquipGacha_EX1_Text).text = $"{CSharpHelper.Format_H(_ex1Script, rareCount)}";
         GetTextPro(UITextProE.EquipGacha_EX2_Text).text = $"{CSharpHelper.Format_H(_ex2Script, uniqueCount)}";
+    }
+    private void OnClickInfoButton()
+    {
+    }
+    private void OnClickOneGachaButton()
+    {
+        PlayerEquipGachaRequest request = new PlayerEquipGachaRequest()
+        {
+            Count = 1,
+        };
+
+        Managers.Web.SendPostRequest<PlayerEquipGachaResponse>("player/gacha/s", request, (response) =>
+        {
+            Managers.PlayerData.DbUpdate(response.Datas);
+
+            UIEquipGachaResult equipGachaResultPopup = Managers.UI.ShopPopupUI<UIEquipGachaResult>(_equipGachaResultPopupPath, CanvasOrderType.Top);
+            equipGachaResultPopup.UISet(GachaGroup.EquipGachaS, response.Results);
+        });
+    }
+    private void OnClickTenGachaButton()
+    {
+        PlayerEquipGachaRequest request = new PlayerEquipGachaRequest()
+        {
+            Count = 10,
+        };
+
+        Managers.Web.SendPostRequest<PlayerEquipGachaResponse>("player/gacha/s", request, (response) =>
+        {
+            Managers.PlayerData.DbUpdate(response.Datas);
+
+            UIEquipGachaResult equipGachaResultPopup = Managers.UI.ShopPopupUI<UIEquipGachaResult>(_equipGachaResultPopupPath, CanvasOrderType.Top);
+            equipGachaResultPopup.UISet(GachaGroup.EquipGachaS, response.Results);
+        });
     }
 
     public enum UIImageE
