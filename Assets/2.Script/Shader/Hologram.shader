@@ -9,8 +9,11 @@ Shader "Makeway/Hologram"
     }
     SubShader
     {
-        Tags { "RenderType"="Transparent" }
+        Tags { "RenderType"="Transparent" "Queue"="Transparent" }
         Blend SrcAlpha OneMinusSrcAlpha
+        Cull Off
+        ZWrite Off
+
         Pass
         {
             CGPROGRAM
@@ -44,9 +47,19 @@ Shader "Makeway/Hologram"
             fixed4 frag (v2f i) : SV_Target
             {
                 float wave = sin(i.uv.y * 50 + _Time.y * 5) * _WaveStrength;
-                float3 colorShift = float3(0.5 + 0.5 * sin(_Time.y + wave), 0.5 + 0.5 * sin(_Time.y * 1.5 + wave), 1);
+                float3 colorShift = float3(
+                    0.5 + 0.5 * sin(_Time.y + wave), 
+                    0.5 + 0.5 * sin(_Time.y * 1.5 + wave), 
+                    1
+                );
+
                 fixed4 texColor = tex2D(_MainTex, i.uv);
-                return fixed4(texColor.rgb * colorShift, texColor.a); // ✅ Alpha 유지
+
+                clip(texColor.a - 0.01);
+
+                texColor.rgb = texColor.rgb * colorShift * texColor.a;
+
+                return texColor;
             }
             ENDCG
         }
