@@ -14,11 +14,14 @@ public class EquipPercentBox : PercentBox
         {
             cardDatas.Add(new EquipPercentCardData() { GachaDto = gachaDtos[i] });
         }
+        
         GetScrollView(UIScrollViewE.ScrollView).UISet(
             UIScrollViewLayoutStartAxis.Vertical, 
             _cardPrefabPath, 
             cardDatas, 
             0,
-            5);
+            5,
+            UIScrollViewLayoutStartCorner.Middle,
+            10, 10, 0, 10);
     }
 }

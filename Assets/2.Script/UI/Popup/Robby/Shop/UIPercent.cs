@@ -8,6 +8,7 @@ using UnityEngine;
 public class UIPercent : UIPopup
 {
     [SerializeField] protected Transform _boxRoot;
+    [SerializeField] protected ContentSizeRectTransform _contentSizeRectTransform;
 
     protected override void Initialize()
     {
@@ -37,6 +38,8 @@ public class UIPercent : UIPopup
 
             _boxRoot.GetChild(i).GetComponent<PercentBox>().UISet(dtos);
         }
+
+        _contentSizeRectTransform.SetFitVertical();
     }
     
 	public enum UITextProE

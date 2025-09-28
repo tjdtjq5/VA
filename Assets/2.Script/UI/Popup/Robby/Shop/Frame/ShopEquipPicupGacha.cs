@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Shared.BBNumber;
 using Shared.CSharp;
 using Shared.DTOs.Player;
+using Shared.DTOs.Table;
 using Shared.Enums;
 using Shared.Fomula;
 using UnityEngine;
@@ -16,6 +18,7 @@ public class ShopEquipPicupGacha : UIFrame
     private readonly string _ex1Script = "<color=#FFE545FF>{0}</color>회 내 반드시 <color=#AE2CC0FF>영웅</color> 장비 획득";
     private readonly string _ex2Script = "<color=#FFE545FF>{0}</color>회 내 반드시 <color=#AE2CC0FF>픽업</color> 장비 획득";
     private readonly string _equipGachaResultPopupPath = "Robby/UIGachaResult";
+    private readonly string _percentPopupPath = "Robby/Shop/UIEquipPercent";
 
     protected override void Initialize()
     {
@@ -94,6 +97,15 @@ public class ShopEquipPicupGacha : UIFrame
 
     private void OnClickInfoButton()
     {
+        TableGachaGetsRequest request = new TableGachaGetsRequest();
+        GachaGroup gachaGroup = GachaFomula.GetPicupGachaGroup(Managers.Time.Current);
+        request.GachaGroup = gachaGroup;
+        Managers.Web.SendPostRequest<TableGachaGetsResponse>("table/gets/gacha", request, (response) =>
+        {
+            UIEquipPercent percentPopup = Managers.UI.ShopPopupUI<UIEquipPercent>(_percentPopupPath, CanvasOrderType.Top);
+            percentPopup.UISet(response.Datas);
+        });
+        
     }
     private void OnClickOneGachaButton()
     {
