@@ -11,8 +11,9 @@ public class UIReward : UIPopup
     {
 		Bind<UIImage>(typeof(UIImageE));
 		Bind<UIText>(typeof(UITextE));
-		Bind<UIScrollView>(typeof(UIScrollViewE));
+		Bind<UIBaseScrollView>(typeof(UIBaseScrollViewE));
 		Bind<UIButton>(typeof(UIButtonE));
+
 
         GetButton(UIButtonE.CloseButton).AddClickEvent((ped) => ClosePopupUI());
 
@@ -28,12 +29,12 @@ public class UIReward : UIPopup
             cardDatas.Add(rewardCardDatas[i]);
         }
 
-        GetScrollView(UIScrollViewE.ScrollView).UISet(
+        GetBaseScrollView(UIBaseScrollViewE.ScrollView).UISet(
             UIScrollViewLayoutStartAxis.Vertical, 
             _rewardCardPrefabPath, 
             cardDatas);
 
-        GetScrollView(UIScrollViewE.ScrollView).PlayAniAll();
+        GetBaseScrollView(UIBaseScrollViewE.ScrollView).PlayAniAll();
     }
 
     public void UISet(List<ItemCountData> rewardDatas)
@@ -56,7 +57,7 @@ public class UIReward : UIPopup
     {
 		Title_Text,
     }
-	public enum UIScrollViewE
+	public enum UIBaseScrollViewE
     {
 		ScrollView,
     }

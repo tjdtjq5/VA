@@ -15,8 +15,10 @@ public class RobbyShopGacha : UIRobby
 		Bind<UITextPro>(typeof(UITextProE));
 		Bind<ShopEquipPicupGacha>(typeof(ShopEquipPicupGachaE));
 		Bind<ShopEquipSGacha>(typeof(ShopEquipSGachaE));
-		Bind<ShopFreeGacha>(typeof(ShopFreeGachaE));
+		Bind<ShopEquipFreeNGacha>(typeof(ShopEquipFreeNGachaE));
+		Bind<ShopEquipFreeSGacha>(typeof(ShopEquipFreeSGachaE));
 		Bind<ShopProductBox>(typeof(ShopProductBoxE));
+
 
         base.Initialize();
     }
@@ -33,6 +35,11 @@ public class RobbyShopGacha : UIRobby
 		List<TableProductDto> productDatas = Managers.Table.GetTableData<List<TableProductDto>>().Where(p => p.ShopProductType == ShopProductType.Diamond).ToList();
 		DiamondSet(productDatas);
 
+		PicupGachaSet();
+		SGachaSet();
+		FreeNGachaSet();
+		FreeSGachaSet();
+
 		StartCoroutine(OpenUISetLaterCoroutine());
     }
 
@@ -40,6 +47,23 @@ public class RobbyShopGacha : UIRobby
 	{
 		yield return null;
 		_scrollbar.value = 1;
+	}
+
+	private void PicupGachaSet()
+	{
+		Get<ShopEquipPicupGacha>(ShopEquipPicupGachaE.SafeArea_ScrollView_Viewport_Content_Gacha_Gacha_PickUPGacha).Set();
+	}
+	private void SGachaSet()
+	{
+		Get<ShopEquipSGacha>(ShopEquipSGachaE.SafeArea_ScrollView_Viewport_Content_Gacha_Gacha_SGacha).Set();
+	}
+	private void FreeNGachaSet()
+	{
+		Get<ShopEquipFreeNGacha>(ShopEquipFreeNGachaE.SafeArea_ScrollView_Viewport_Content_FreeGacha_Gacha_FreeN).Set();
+	}
+	private void FreeSGachaSet()
+	{
+		Get<ShopEquipFreeSGacha>(ShopEquipFreeSGachaE.SafeArea_ScrollView_Viewport_Content_FreeGacha_Gacha_FreeS).Set();
 	}
 
 	private void DiamondSet(List<TableProductDto> products)
@@ -96,10 +120,13 @@ public class RobbyShopGacha : UIRobby
     {
 		SafeArea_ScrollView_Viewport_Content_Gacha_Gacha_SGacha,
     }
-	public enum ShopFreeGachaE
+	public enum ShopEquipFreeNGachaE
     {
-		SafeArea_ScrollView_Viewport_Content_FreeGacha_Gacha_Nomal,
-		SafeArea_ScrollView_Viewport_Content_FreeGacha_Gacha_Special,
+		SafeArea_ScrollView_Viewport_Content_FreeGacha_Gacha_FreeN,
+    }
+	public enum ShopEquipFreeSGachaE
+    {
+		SafeArea_ScrollView_Viewport_Content_FreeGacha_Gacha_FreeS,
     }
 	public enum ShopProductBoxE
     {

@@ -27,10 +27,13 @@ public class GoodsPrice : UIFrame
     {
 	    GetText(UITextE.Count).text = isAlphabet ? count.Alphabet() : count.ToInt().ToString(); 
     }
+    public void SetText(string text)
+    {
+      GetText(UITextE.Count).text = text;
+    }
     
 	public enum UIImageE
     {
-		OutLine,
 		Image,
     }
 	public enum UITextE

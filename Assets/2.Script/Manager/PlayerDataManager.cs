@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Shared.BBNumber;
 using Shared.CSharp;
 using Shared.DTOs.Player;
+using Shared.Enums;
 
 public class PlayerDataManager
 {
@@ -52,7 +53,6 @@ public class PlayerDataManager
                 callback.Invoke();
         });
     }
-
     public void RedisGets(List<Type> types, Action callback = null)
     {
         List<string> typeNames = new List<string>();
@@ -93,16 +93,16 @@ public class PlayerDataManager
     }
     public void DbUpdate(PlayerGetsData<object> data)
     {
-        if (OnDbUpdate.TryGetValue(data.Name, out var callback))
-        {
-            callback?.Invoke(data);
-        }
-
         var existingData = _datas.FindIndex(x => x.Name == data.Name);
         if (existingData >= 0)
             _datas[existingData] = data;
         else
             _datas.Add(data);
+
+        if (OnDbUpdate.TryGetValue(data.Name, out var callback))
+        {
+            callback?.Invoke(data);
+        }
     }
     private List<PlayerGetsData<object>> GetPlayerDatas(string json)
     {
@@ -120,12 +120,28 @@ public class PlayerDataManager
 
         return CSharpHelper.DeserializeObject<T>(json);
     }
-
     public T GetPlayerData<T>(PlayerGetsData<object> data)
     {
         string json = CSharpHelper.SerializeObject(data.Datas);
         return CSharpHelper.DeserializeObject<T>(json);
     }
+
+    #region Action
+    public void AddEventListen(Type type, Action<PlayerGetsData<object>> action)
+    {
+        if (!OnDbUpdate.ContainsKey(type.Name))
+            OnDbUpdate.Add(type.Name, null);
+
+        OnDbUpdate[type.Name] += action;
+    }
+    public void RemoveEventListen(Type type, Action<PlayerGetsData<object>> action)
+    {
+        if (!OnDbUpdate.ContainsKey(type.Name))
+            return;
+
+        OnDbUpdate[type.Name] -= action;
+    }
+    #endregion
 
     #region Getter
     public BBNumber GetPlayerItemCount(string itemCode)
@@ -168,7 +184,6 @@ public class PlayerDataManager
         };
         DbUpdate(datas);
     }
-
     public bool UsePlayerItem(string itemCode, BBNumber count)
     {
         List<PlayerItemDto> playerItemDatas = GetPlayerData<List<PlayerItemDto>>();
@@ -198,6 +213,34 @@ public class PlayerDataManager
         DbUpdate(datas);
 
         return true;
+    }
+
+    public long GetPlayerCounterCount(string CounterType, PeriodType periodType)
+    {
+        List<PlayerCounterDto> playerCounterDatas = GetPlayerData<List<PlayerCounterDto>>();
+
+        if (playerCounterDatas == null)
+            return 0;
+
+        foreach (var counter in playerCounterDatas)
+        {
+            if (counter.CounterType == CounterType)
+            {
+                switch (periodType)
+                {
+                    case PeriodType.Daily:
+                        return counter.DailyCount;
+                    case PeriodType.Weekly:
+                        return counter.WeeklyCount;
+                    case PeriodType.Monthly:
+                        return counter.MonthlyCount;
+                    default:
+                        return counter.PermanentCount;
+                }
+            }
+        }
+
+        return 0;
     }
     #endregion
 }

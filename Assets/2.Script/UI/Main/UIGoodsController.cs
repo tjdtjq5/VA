@@ -30,7 +30,7 @@ public class UIGoodsController : UIFrame
         for (int i = 0; i < content.childCount; i++)
             _goods.Add(content.GetChild(i).GetComponent<UIGoods>());
 
-        Managers.PlayerData.OnDbUpdate.TryAdd_H(typeof(PlayerItemDto).Name, OnChangeItem, true);
+        Managers.PlayerData.AddEventListen(typeof(PlayerItemDto), OnChangeItem);
     }
 
     protected override void UISet()

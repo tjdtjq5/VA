@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class EquipCard : UICard
 {
-    private readonly Dictionary<Grade, string> _gradeColor = new Dictionary<Grade, string>
+    protected readonly Dictionary<Grade, string> _gradeColor = new Dictionary<Grade, string>
     {
         { Grade.D, "#9D9D9DFF" },
         { Grade.C, "#66CF29FF" },
@@ -54,7 +54,7 @@ public class EquipCard : UICard
         SpecialSet(equip);
     }
 
-    private void GradeSet(EquipGrade equipGrade)
+    protected virtual void GradeSet(EquipGrade equipGrade)
     {
         Grade grade = EquipFomula.GetGrade(equipGrade);
 
@@ -99,11 +99,11 @@ public class EquipCard : UICard
                 break;
         }
     }
-    private void LevelSet(int level)
+    protected virtual void LevelSet(int level)
     {
         GetTextPro(UITextProE.Level).text = level <= 0 ? "" : $"LV.{level}";
     }
-    private void IconSet(Equip equip)
+    protected void IconSet(Equip equip)
     {
         if (equip == null)
         {
@@ -113,7 +113,7 @@ public class EquipCard : UICard
         GetImage(UIImageE.Icon).sprite = equip.Icon;
         GetImage(UIImageE.Icon).SetNativeSize();
     }
-    private void SpecialSet(Equip equip)
+    protected void SpecialSet(Equip equip)
     {
         if (equip != null && equip.IsSpecial)
         {
@@ -124,7 +124,7 @@ public class EquipCard : UICard
             GetImage(UIImageE.Special).Fade(0);
         }
     }
-    private void TypeSet(Equip equip)
+    protected void TypeSet(Equip equip)
     {
         if (equip == null)
         {
